@@ -9,9 +9,8 @@ import purejadeite.jadegreen.definition.cell.CellDefinition;
 import purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 import purejadeite.jadegreen.definition.range.RangeDefinition;
-import purejadeite.jadegreen.reader.Status;
 
-import static purejadeite.jadegreen.reader.Status.*;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +21,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Sheet読み込み定義
+ * 
  * @author mitsuhiroseino
  *
  */
@@ -30,6 +30,10 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	private String name;
 
 	private List<Content> contents = new ArrayList<>();
+
+	private int prevRow = -1;
+
+	private int prevCol = -1;
 
 	public SheetContentImpl(Content parent, SheetDefinitionImpl definition, String name) {
 		super(parent, definition);
@@ -52,17 +56,72 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	 * {@inheritDoc}
 	 */
 	public Status addValue(int row, int col, Object value) {
-		Status status = NO;
 		if (isClosed()) {
+			return END;
+		}
+		Status status = addValueImpl(row, col, value);
+		if (status == END) {
+			close();
+		}
+		prevRow = row;
+		prevCol = col;
+		return status;
+	}
+
+	private Status addValueImpl(int row, int col, Object value) {
+		Status status = addDummyValues(row, col);
+		if (status == END) {
 			return status;
 		}
 		for (Content content : contents) {
-			Status cellStatus = content.addValue(row, col, value);
-			if (0 < cellStatus.compareTo(status)) {
-				status = cellStatus;
+			Status addStatus = content.addValue(row, col, value);
+			if (0 < addStatus.compareTo(status)) {
+				status = addStatus;
 			}
 		}
 		return status;
+	}
+
+	private Status addDummyValues(int row, int col) {
+		Status status = END;
+		int assumedRow = prevRow + 1;
+		int assumedCol = prevCol + 1;
+		if (row != 1 && (row != assumedRow)) {
+			// 行が抜けている場合
+			// ダミー行の追加処理
+			for (int r = assumedRow; r < row; r++) {
+				Status addStatus = addDummyRow(r);
+				if (0 < addStatus.compareTo(status)) {
+					status = addStatus;
+				}
+			}
+		}
+		if (col != 1 && (col != assumedCol)) {
+			// 列が抜けている場合
+			// ダミー列の追加処理
+			for (int c = assumedCol; c < col; c++) {
+				Status addStatus = addDummyCol(row, c);
+				if (0 < addStatus.compareTo(status)) {
+					status = addStatus;
+				}
+			}
+		}
+		return status;
+	}
+
+	private Status addDummyRow(int r) {
+		Status status = END;
+		for (int c = 1; c < definition.getMaxCol() + 1; c++) {
+			Status addStatus = addDummyCol(r, c);
+			if (0 < addStatus.compareTo(status)) {
+				status = addStatus;
+			}
+		}
+		return status;
+	}
+
+	private Status addDummyCol(int r, int c) {
+		return addValueImpl(r, c, null);
 	}
 
 	/**

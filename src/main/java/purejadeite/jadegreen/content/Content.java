@@ -1,7 +1,6 @@
 package purejadeite.jadegreen.content;
 
 import purejadeite.jadegreen.definition.Definition;
-import purejadeite.jadegreen.reader.Status;
 
 import java.util.List;
 

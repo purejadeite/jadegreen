@@ -2,7 +2,7 @@ package purejadeite.jadegreen.definition.converter.cell;
 
 import java.util.Map;
 
-import purejadeite.jadegreen.reader.ExcelUtil;
+import purejadeite.jadegreen.reader.CellUtils;
 
 /**
  * 文字列を Boolean へ変換するクラス
@@ -25,7 +25,7 @@ public class ToBoolean extends AbstractCellConverter {
 	 */
 	@Override
 	public Object convertImpl(Object value) {
-		return ExcelUtil.getBooleanValue((String) value);
+		return CellUtils.getBooleanValue((String) value);
 	}
 
 	/**

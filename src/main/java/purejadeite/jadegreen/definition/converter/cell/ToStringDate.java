@@ -2,7 +2,7 @@ package purejadeite.jadegreen.definition.converter.cell;
 
 import java.util.Map;
 
-import purejadeite.jadegreen.reader.ExcelUtil;
+import purejadeite.jadegreen.reader.CellUtils;
 
 /**
  * 日付を表す文字列を、別の日付形式の文字列へ変換するクラス
@@ -31,7 +31,7 @@ public class ToStringDate extends AbstractCellConverter {
 	 */
 	@Override
 	public Object convertImpl(Object value) {
-		return ExcelUtil.getStringDateValue((String) value, dateFormat);
+		return CellUtils.getStringDateValue((String) value, dateFormat);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package purejadeite.jadegreen.reader;
+package purejadeite.jadegreen.content;
 
 /**
  * エクセルファイル読み込みステータス
@@ -7,19 +7,15 @@ package purejadeite.jadegreen.reader;
  */
 public enum Status {
 	/**
+	 * 読み込み終了
+	 */
+	END,
+	/**
 	 * 読み込みなし
 	 */
 	NO,
 	/**
 	 * 読み込み成功
 	 */
-	SUCCESS,
-	/**
-	 * 読み込み終了
-	 */
-	END,
-	/**
-	 * 読み込み失敗
-	 */
-	FAILURE;
+	SUCCESS;
 }

@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DefinitionBuilder {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(DefinitionBuilder.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefinitionBuilder.class);
 
 	/**
 	 * ファイル(パス指定)から読み込み

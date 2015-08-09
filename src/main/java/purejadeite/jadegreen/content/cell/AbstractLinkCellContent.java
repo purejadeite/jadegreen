@@ -4,11 +4,11 @@ import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.SheetContentImpl;
 import purejadeite.jadegreen.content.SpecificValue;
+import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.LinkCellDefinition;
-import purejadeite.jadegreen.reader.Status;
 
-import static purejadeite.jadegreen.reader.Status.*;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public abstract class AbstractLinkCellContent<D extends LinkCellDefinition> exte
 
 	public Status addValue(int row, int col, Object value) {
 		// 値を取得しない
-		return NO;
+		return END;
 	}
 
 	@Override

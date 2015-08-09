@@ -2,7 +2,7 @@ package purejadeite.jadegreen.definition.converter.cell;
 
 import java.util.Map;
 
-import purejadeite.jadegreen.reader.ExcelUtil;
+import purejadeite.jadegreen.reader.CellUtils;
 
 /**
  * 文字列を BigDecimal へ変換するクラス
@@ -25,7 +25,7 @@ public class ToBigDecimal extends AbstractCellConverter {
 	 */
 	@Override
 	public Object convertImpl(Object value) {
-		return ExcelUtil.getBigDecimalValue((String) value);
+		return CellUtils.getBigDecimalValue((String) value);
 	}
 
 	/**

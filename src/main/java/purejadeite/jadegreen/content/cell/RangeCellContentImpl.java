@@ -2,11 +2,11 @@ package purejadeite.jadegreen.content.cell;
 
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
+import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.RangeCellDefinition;
-import purejadeite.jadegreen.reader.Status;
 
-import static purejadeite.jadegreen.reader.Status.*;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,12 +4,12 @@ import purejadeite.jadegreen.content.BookContentImpl;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.SheetContentImpl;
 import purejadeite.jadegreen.content.SpecificValue;
+import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.content.range.RangeContentImpl;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
-import purejadeite.jadegreen.reader.Status;
 
-import static purejadeite.jadegreen.reader.Status.*;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 
 	public Status addValue(int row, int col, Object value) {
 		// 値を取得しない
-		return NO;
+		return END;
 	}
 
 	@Override

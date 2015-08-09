@@ -3,6 +3,7 @@ package purejadeite.jadegreen.content.range;
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.SpecificValue;
+import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.content.cell.LinkRangeCellContentImpl;
 import purejadeite.jadegreen.content.cell.RangeCellContent;
 import purejadeite.jadegreen.content.cell.RangeCellContentImpl;
@@ -10,9 +11,8 @@ import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
 import purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 import purejadeite.jadegreen.definition.range.RangeDefinition;
-import purejadeite.jadegreen.reader.Status;
 
-import static purejadeite.jadegreen.reader.Status.*;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * @author mitsuhiroseino
  */
 public class RangeContentImpl extends AbstractContent<RangeDefinition> implements RangeContent {
-	private static Logger LOGGER = LoggerFactory.getLogger(RangeContentImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RangeContentImpl.class);
 	protected List<RangeCellContent> cells = new ArrayList<>();
 
 	/**
@@ -63,23 +63,29 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 			return END;
 		}
 		if (!definition.isIncluded(row, col)) {
+			// 対象範囲ではない場合
 			// TODO 値の取得が左上から右下に向かうので、列方向の繰り返しの場合の終わりはどう判断するか
 			if (begin) {
-				// 取得が始まっているならば終わり
+				// 取得が始まっているのに対象範囲外ということは
+				// 取得範囲を超えたと判断し終わり
 				close();
 				return END;
+			} else {
+				// まだ始まってない
+				return NO;
 			}
-			return NO;
 		}
 		// 取得対象範囲
 		begin = true;
 		Status status = NO;
-		for (RangeCellContent cell : cells) {
+  		for (RangeCellContent cell : cells) {
 			Status cellStatus = cell.addValue(row, col, value);
-			if (0 < cellStatus.compareTo(status)) {
-				// このrangeにおける値の取得状況
-				// 下記の順に優先される
-				// NO < SUCCESS < END < FAILURE
+			// このrangeにおける値の取得状況
+			// 何れかのCellが終わりに達したら、このRangeは処理を終わるので下記の順に優先される
+			// NO < SUCCESS < END
+			if (cellStatus == END) {
+				status = END;
+			} else if (0 < cellStatus.compareTo(status)) {
 				status = cellStatus;
 			}
 			if (cellStatus == END) {

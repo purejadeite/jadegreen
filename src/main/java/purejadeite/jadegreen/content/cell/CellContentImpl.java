@@ -2,11 +2,11 @@ package purejadeite.jadegreen.content.cell;
 
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
+import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.CellDefinition;
-import purejadeite.jadegreen.reader.Status;
 
-import static purejadeite.jadegreen.reader.Status.*;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,10 @@ public class CellContentImpl extends AbstractContent<CellDefinition> implements 
 	}
 
 	public Status addValue(int row, int col, Object value) {
-		if (!closed && definition.isIncluded(row, col)) {
+		if (closed) {
+			return END;
+		}
+		if (definition.isIncluded(row, col)) {
 			this.values = value;
 			close();
 			return SUCCESS;
