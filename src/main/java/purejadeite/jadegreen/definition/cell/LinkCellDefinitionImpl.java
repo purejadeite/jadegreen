@@ -11,6 +11,8 @@ import purejadeite.jadegreen.definition.Definition;
  */
 public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 
+	private static final long serialVersionUID = 5847566126062846404L;
+
 	/**
 	 * コンストラクタ
 	 * @param book ブック読み込み定義

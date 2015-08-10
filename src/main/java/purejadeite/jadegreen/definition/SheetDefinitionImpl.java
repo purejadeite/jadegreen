@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class SheetDefinitionImpl extends AbstractDefinition {
 
+	private static final long serialVersionUID = 4838744331997690756L;
+
 	/**
 	 * 対象シート条件・シート名
 	 */

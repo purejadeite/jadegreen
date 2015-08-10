@@ -1,5 +1,16 @@
 package purejadeite.jadegreen.content.range;
 
+import static purejadeite.jadegreen.content.Status.END;
+import static purejadeite.jadegreen.content.Status.NO;
+import static purejadeite.jadegreen.content.Status.SUCCESS;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.SpecificValue;
@@ -12,23 +23,14 @@ import purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
 import purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 import purejadeite.jadegreen.definition.range.RangeDefinition;
 
-import static purejadeite.jadegreen.content.Status.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
 public class RangeContentImpl extends AbstractContent<RangeDefinition> implements RangeContent {
-	private static final Logger LOGGER = LoggerFactory.getLogger(RangeContentImpl.class);
+
+	private static final long serialVersionUID = 8859089448405461049L;
+	
 	protected List<RangeCellContent> cells = new ArrayList<>();
 
 	/**

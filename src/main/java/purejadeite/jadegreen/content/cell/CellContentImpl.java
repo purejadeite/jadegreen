@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class CellContentImpl extends AbstractContent<CellDefinition> implements CellContent {
 
+	private static final long serialVersionUID = -2503759991149163949L;
+
 	private Object values;
 
 	public CellContentImpl(Content parent, CellDefinition definition) {

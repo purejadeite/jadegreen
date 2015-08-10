@@ -14,6 +14,8 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public abstract class AbstractContent<D extends Definition> implements Content, ToJson, Serializable {
 
+	private static final long serialVersionUID = 6746413349706897776L;
+
 	protected Content parent;
 
 	protected D definition;

@@ -25,6 +25,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeCellDefinitionImpl> implements RangeCellContent {
 
+	private static final long serialVersionUID = -8853958089204013418L;
+
 	public LinkRangeCellContentImpl(Content parent, LinkRangeCellDefinitionImpl definition) {
 		super(parent, definition);
 	}

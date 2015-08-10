@@ -15,6 +15,8 @@ import com.google.common.base.CaseFormat;
 */
 public class UpperCamel extends AbstractCaseFormatConverter {
 
+	private static final long serialVersionUID = 4377003507328772214L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

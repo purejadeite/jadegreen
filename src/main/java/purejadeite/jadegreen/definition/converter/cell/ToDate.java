@@ -11,6 +11,8 @@ import purejadeite.jadegreen.reader.CellUtils;
  */
 public class ToDate extends AbstractCellConverter {
 
+	private static final long serialVersionUID = -3484244823413179144L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

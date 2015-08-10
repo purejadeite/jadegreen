@@ -13,6 +13,8 @@ import purejadeite.jadegreen.definition.Definition;
  */
 public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition implements RangeCellDefinition {
 
+	private static final long serialVersionUID = -8138183711389296834L;
+
 	/**
 	 * 開始行
 	 */

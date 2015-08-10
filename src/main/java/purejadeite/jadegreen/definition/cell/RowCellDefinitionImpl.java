@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class RowCellDefinitionImpl extends AbstractRangeCellDefinition {
 
+	private static final long serialVersionUID = 8171650318154820322L;
+
 	/**
 	 * コンストラクタ
 	 * @param parent テーブル読み込み定義

@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class BookDefinitionImpl extends AbstractDefinition {
 
+	private static final long serialVersionUID = -4415737729836820796L;
+
 	/**
 	 * シート定義
 	 */

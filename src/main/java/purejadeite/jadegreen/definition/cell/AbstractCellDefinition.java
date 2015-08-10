@@ -16,8 +16,10 @@ import java.util.Map;
  */
 public abstract class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
 
+	private static final long serialVersionUID = -791732811052430788L;
+
 	/**
-	 * コンバーターなどでラップしたCell読み込み定義
+	 * コンバーター
 	 */
 	protected CellConverter converter;
 

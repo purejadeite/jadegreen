@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public abstract class AbstractRangeDefinition extends AbstractDefinition implements RangeDefinition {
 
+	private static final long serialVersionUID = -3017051211378561813L;
+
 	/**
 	 * 開始位置
 	 */

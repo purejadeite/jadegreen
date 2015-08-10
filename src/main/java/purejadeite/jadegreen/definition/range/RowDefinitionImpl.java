@@ -11,6 +11,8 @@ import purejadeite.jadegreen.definition.Definition;
  */
 public class RowDefinitionImpl extends AbstractRangeDefinition {
 
+	private static final long serialVersionUID = 4865075695844230700L;
+
 	/**
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報

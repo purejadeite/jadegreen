@@ -13,6 +13,8 @@ import java.util.Map.Entry;
  */
 public class Group extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = 1131941852790003606L;
+
 	/**
 	 * グループ化キーとなる項目の定義ID
 	 */
@@ -63,7 +65,7 @@ public class Group extends AbstractRangeConverter {
 
 		// 欲しい形式に変換
 		List<Map<String, Object>> groupedValues = new ArrayList<>();
-		for (Entry entry : groupedMap.entrySet()) {
+		for (Entry<Object, List<Map<String, Object>>> entry : groupedMap.entrySet()) {
 			Map<String, Object> newLine = new HashMap<>();
 			newLine.put(keyId, entry.getKey());
 			newLine.put(toId, entry.getValue());

@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Split extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -2284173457594884669L;
+
 	/**
 	 * 区切り文字
 	 */

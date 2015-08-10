@@ -9,6 +9,8 @@ import java.util.Map;
  */
 public class ToString extends AbstractCellConverter {
 
+	private static final long serialVersionUID = 6103503982552559993L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

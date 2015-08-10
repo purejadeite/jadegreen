@@ -17,6 +17,8 @@ import java.util.List;
  */
 public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> implements RangeCellContent {
 
+	private static final long serialVersionUID = -7576485612800933090L;
+
 	/**
 	 * 値
 	 */

@@ -9,6 +9,8 @@ import org.apache.commons.lang3.math.NumberUtils;
  */
 public abstract class AbstractNumberCellConverter extends AbstractCellConverter {
 
+	private static final long serialVersionUID = 8428819225468846834L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

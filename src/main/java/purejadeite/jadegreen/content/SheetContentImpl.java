@@ -27,6 +27,8 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
+	private static final long serialVersionUID = 2123782999010149210L;
+
 	private String name;
 
 	private List<Content> contents = new ArrayList<>();

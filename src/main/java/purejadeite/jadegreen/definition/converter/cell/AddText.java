@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AddText extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -7583261972286694964L;
+
 	/**
 	 * 接頭語
 	 */

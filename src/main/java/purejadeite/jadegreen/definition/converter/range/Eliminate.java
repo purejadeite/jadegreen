@@ -11,6 +11,8 @@ import java.util.Map;
  */
 public class Eliminate extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = -9052868413585611637L;
+
 	/**
 	 * 削除キー
 	 */

@@ -45,6 +45,11 @@ public class DefinitionBuilder {
 		File jsonFile = new File(jsonFilePath);
 		return build(jsonFile);
 	}
+	
+	public static BookDefinitionImpl build(File definitionsDirPath, String jsonFileName) throws IOException {
+		String json = FileUtils.readFileToString(new File(definitionsDirPath, jsonFileName));
+		return buildFromJson(json);
+	}
 
 	/**
 	 * JSONファイルから読み込み

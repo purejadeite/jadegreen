@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class Sort extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = 3961197317294641632L;
+
 	/**
 	 * ソートキー
 	 */
@@ -49,6 +51,7 @@ public class Sort extends AbstractRangeConverter {
 	@Override
 	protected Object convertImpl(List<Map<String, Object>> values) {
 		Collections.sort(values, new Comparator<Map<String, Object>>() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				Map<String, Object> m1 = o1;
@@ -67,8 +70,19 @@ public class Sort extends AbstractRangeConverter {
 				if (m2 == null) {
 					return 1;
 				}
-				Comparable<Object> s1 = (Comparable<Object>) m1.get(keyId);
-				Comparable<Object> s2 = (Comparable<Object>) m2.get(keyId);
+
+				Object t1 = m1.get(keyId);
+				Comparable<Object> s1 = null;
+				if (t1 instanceof Comparable) {
+					s1 = (Comparable<Object>) t1;
+				}
+				
+				Object t2 = m2.get(keyId);
+				Comparable<Object> s2 = null;
+				if (t2 instanceof Comparable) {
+					s2 = (Comparable<Object>) t2;
+				}
+				
 				if (s1 == s2) {
 					return 0;
 				}

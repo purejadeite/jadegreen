@@ -1,5 +1,6 @@
 package purejadeite.jadegreen.definition.converter.cell;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,9 @@ import purejadeite.core.AbstractToJson;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractCellConverter extends AbstractToJson implements CellConverter {
+public abstract class AbstractCellConverter extends AbstractToJson implements CellConverter, Serializable {
+
+	private static final long serialVersionUID = -554429680948708719L;
 
 	protected CellConverter converter;
 

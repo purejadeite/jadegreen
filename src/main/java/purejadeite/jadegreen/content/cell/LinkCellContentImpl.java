@@ -22,6 +22,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinitionImpl> {
 
+	private static final long serialVersionUID = -6716986220851296963L;
+
 	public LinkCellContentImpl(Content parentContent, LinkCellDefinitionImpl definition) {
 		super(parentContent, definition);
 	}

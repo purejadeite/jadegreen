@@ -17,6 +17,8 @@ import purejadeite.core.ToJson;
 */
 public abstract class AbstractDefinition implements Definition, ToJson, Serializable {
 
+	private static final long serialVersionUID = -148074445587079740L;
+
 	/**
 	 * 定義ID
 	 */

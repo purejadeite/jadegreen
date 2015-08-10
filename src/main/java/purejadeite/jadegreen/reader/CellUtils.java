@@ -8,8 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.util.CellReference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Cellの値を取得する
@@ -17,8 +15,6 @@ import org.slf4j.LoggerFactory;
  * @author mitsuhiroseino
  */
 public class CellUtils {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(CellUtils.class);
 
 	/**
 	 * Trueとして扱う値

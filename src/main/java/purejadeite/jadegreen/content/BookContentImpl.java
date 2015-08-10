@@ -13,6 +13,8 @@ import java.util.List;
  */
 public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 
+	private static final long serialVersionUID = 4454390296662989505L;
+
 	private String name;
 
 	private List<SheetContentImpl> sheets = new ArrayList<>();

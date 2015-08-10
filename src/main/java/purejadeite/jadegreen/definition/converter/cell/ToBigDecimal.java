@@ -11,6 +11,8 @@ import purejadeite.jadegreen.reader.CellUtils;
  */
 public class ToBigDecimal extends AbstractCellConverter {
 
+	private static final long serialVersionUID = 4341224550647996037L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

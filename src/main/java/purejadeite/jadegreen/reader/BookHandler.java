@@ -20,8 +20,6 @@ public class BookHandler extends DefaultHandler {
 
     private static final String NAME_RID = "r:id";
 
-    private String sheetName = null;
-
     private String matchSheetName = null;
 
     private MatchType type;
@@ -33,7 +31,6 @@ public class BookHandler extends DefaultHandler {
      * @param sheetName 取得対象のシート名
      */
     public BookHandler(String sheetName) {
-        this.sheetName = sheetName;
         String str = sheetName;
         MatchType type = MatchType.PERFECT;
 

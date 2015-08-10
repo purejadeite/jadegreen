@@ -6,8 +6,11 @@ public class JsonUtils {
 
 	/**
 	 * JSON形式のnameとvalueの表現を取得します
-	 * @param name プロパティ名
-	 * @param value 値
+	 * 
+	 * @param name
+	 *            プロパティ名
+	 * @param value
+	 *            値
 	 * @return "name": "value"形式の文字列
 	 */
 	public static String getJsonStyle(String name, Object value) {
@@ -40,8 +43,8 @@ public class JsonUtils {
 			json += value;
 		} else if (value instanceof String) {
 			String v = (String) value;
-			json += "\"" + v.replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t").replace("\"", "\\\"")
-					+ "\"";
+			json += "\"" + v.replace("\r", "\\r").replace("\n", "\\n")
+					.replace("\t", "\\t").replace("\"", "\\\"") + "\"";
 		} else {
 			json += "\"" + value + "\"";
 		}

@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition implements LinkCellDefinition {
 
+	private static final long serialVersionUID = -2532293550782673419L;
+
 	/**
 	 * 取得対象のRangeの定義ID
 	 */

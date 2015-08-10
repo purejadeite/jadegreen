@@ -13,6 +13,8 @@ import purejadeite.jadegreen.definition.Definition;
  */
 public abstract class AbstractLinkCellDefinition extends AbstractDefinition implements LinkCellDefinition {
 
+	private static final long serialVersionUID = -7883930267830991162L;
+
 	protected String mySheetKeyId;
 
 	/**
