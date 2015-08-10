@@ -1,0 +1,19 @@
+{
+	"comment": "単一シート1件読み込み",
+	"id": "main",
+    "name": "bean",
+    "cells": [
+        {"id": "logicalClassName", "row": 1, "column": 3},
+        {"id": "className", "row": 2, "column": 3},
+        {"id": "package", "row": 3, "column": 3},
+        {"id": "imports", "row": 4, "column": 3, "converters": [{"class": "split", "splitter": "\n"}]},
+        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "endValue": "", "converters": [{"class": "sort", "keyId": "fieldName"}],
+            "columns": [
+                {"id": "logicalFieldName", "column": 2},
+                {"id": "fieldName", "column": 3},
+                {"id": "type", "column": 4},
+                {"id": "initial", "column": 5}
+            ]
+        }
+    ]
+}
