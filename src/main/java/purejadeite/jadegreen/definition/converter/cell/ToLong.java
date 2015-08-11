@@ -9,7 +9,7 @@ import purejadeite.jadegreen.reader.CellUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToLong extends AbstractCellConverter {
+public class ToLong extends AbstractStringCellConverter {
 
 	private static final long serialVersionUID = -5403625877786973962L;
 
@@ -26,8 +26,8 @@ public class ToLong extends AbstractCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
-		return CellUtils.getFloatValue((String) value);
+	public Object convertImpl(String value) {
+		return CellUtils.getFloatValue(value);
 	}
 
 	/**

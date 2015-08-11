@@ -1,11 +1,5 @@
 package purejadeite.jadegreen.reader;
 
-import purejadeite.jadegreen.content.BookContentImpl;
-import purejadeite.jadegreen.content.SheetContentImpl;
-import purejadeite.jadegreen.definition.BookDefinitionImpl;
-import purejadeite.jadegreen.definition.DefinitionBuilder;
-import purejadeite.jadegreen.definition.SheetDefinitionImpl;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +19,13 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import purejadeite.jadegreen.content.BookContentImpl;
+import purejadeite.jadegreen.content.Content;
+import purejadeite.jadegreen.content.SheetContentImpl;
+import purejadeite.jadegreen.definition.BookDefinitionImpl;
+import purejadeite.jadegreen.definition.DefinitionBuilder;
+import purejadeite.jadegreen.definition.SheetDefinitionImpl;
 
 /**
  * <pre>
@@ -99,16 +100,18 @@ public class XssfValueMapper {
 			Map<String, String> sheetNames = bookHandler.getSheetNames();
 			if (sheetNames.isEmpty()) {
 				// 対象シートなし
+				LOGGER.debug("対象なし:" + sheet.getName());
 				continue;
 			}
 
 			// シートのパーサ
 			XMLReader sheetParser = null;
-			SheetContentImpl sheetContent = null;
+			Content sheetContent = null;
 			SheetHandler sheetHandler =null;
 
 			InputStream sheetIs = null;
 			for (Entry<String, String> entry : sheetNames.entrySet()) {
+				LOGGER.debug("対象Sheet:" + entry.getValue());
 				// シートのパーサを取得
 				sheetContent = new SheetContentImpl(bookContent, sheet, entry.getValue());
 				sheetHandler = new SheetHandler(sst, sheetContent);
@@ -121,7 +124,7 @@ public class XssfValueMapper {
 					// シートをパース
 					sheetParser.parse(sheetSource);
 					// パース下結果をbookContentへ追加
-					bookContent.addSheet(sheetContent);
+					bookContent.addContent(sheetContent);
 				} catch (InvalidFormatException | SAXException | IOException e) {
 					throw new RuntimeException(e);
 				} finally {

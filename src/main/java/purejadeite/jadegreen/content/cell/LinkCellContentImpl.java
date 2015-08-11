@@ -1,18 +1,20 @@
 package purejadeite.jadegreen.content.cell;
 
-import purejadeite.jadegreen.content.BookContentImpl;
-import purejadeite.jadegreen.content.Content;
-import purejadeite.jadegreen.content.SpecificValue;
-import purejadeite.jadegreen.content.Status;
-import purejadeite.jadegreen.definition.Definition;
-import purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
-
 import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import purejadeite.jadegreen.content.BookContentImpl;
+import purejadeite.jadegreen.content.Content;
+import purejadeite.jadegreen.content.SpecificValue;
+import purejadeite.jadegreen.content.Status;
+import purejadeite.jadegreen.definition.Definition;
+import purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 
 /**
  * <pre>
@@ -23,6 +25,8 @@ import org.apache.commons.lang3.StringUtils;
 public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinitionImpl> {
 
 	private static final long serialVersionUID = -6716986220851296963L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LinkCellContentImpl.class);
 
 	public LinkCellContentImpl(Content parentContent, LinkCellDefinitionImpl definition) {
 		super(parentContent, definition);

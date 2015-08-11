@@ -33,6 +33,9 @@ public class Split extends AbstractStringCellConverter {
 	 * {@inheritDoc}
 	 */
 	protected Object convertImpl(String value) {
+		if (StringUtils.isEmpty(value)) {
+			return value;
+		}
 		String[] values = StringUtils.split(value, splitter);
 		return (Object) Arrays.asList(values);
 	}

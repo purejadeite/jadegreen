@@ -1,15 +1,18 @@
 package purejadeite.jadegreen.content.cell;
 
+import static purejadeite.jadegreen.content.Status.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.CellDefinition;
-
-import static purejadeite.jadegreen.content.Status.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <pre>
@@ -20,6 +23,8 @@ import java.util.List;
 public class CellContentImpl extends AbstractContent<CellDefinition> implements CellContent {
 
 	private static final long serialVersionUID = -2503759991149163949L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CellContentImpl.class);
 
 	private Object values;
 
@@ -34,6 +39,7 @@ public class CellContentImpl extends AbstractContent<CellDefinition> implements 
 		if (definition.isIncluded(row, col)) {
 			this.values = value;
 			close();
+			LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 			return SUCCESS;
 		}
 		return NO;

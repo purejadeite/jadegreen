@@ -1,5 +1,14 @@
 package purejadeite.jadegreen.content;
 
+import static purejadeite.jadegreen.content.Status.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import purejadeite.jadegreen.content.cell.CellContentImpl;
 import purejadeite.jadegreen.content.cell.LinkCellContentImpl;
 import purejadeite.jadegreen.content.range.RangeContentImpl;
@@ -10,18 +19,9 @@ import purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 import purejadeite.jadegreen.definition.range.RangeDefinition;
 
-import static purejadeite.jadegreen.content.Status.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 /**
  * Sheet読み込み定義
- * 
+ *
  * @author mitsuhiroseino
  *
  */
@@ -33,9 +33,9 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private List<Content> contents = new ArrayList<>();
 
-	private int prevRow = -1;
+	private int prevRow = 0;
 
-	private int prevCol = -1;
+	private int prevCol = 0;
 
 	public SheetContentImpl(Content parent, SheetDefinitionImpl definition, String name) {
 		super(parent, definition);
@@ -86,29 +86,48 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private Status addDummyValues(int row, int col) {
 		Status status = END;
-		int assumedRow = prevRow + 1;
-		int assumedCol = prevCol + 1;
-		if (row != 1 && (row != assumedRow)) {
-			// 行が抜けている場合
+		boolean added = false;
+		int maxCol = this.definition.getMaxCol();
+
+		// ①前回処理していた行が最後の列まで処理されていない場合
+		if (prevRow < row && prevCol < maxCol) {
+			// 前回処理していた行にダミー列の追加処理
+			for (int c = prevCol + 1; c < maxCol + 1; c++) {
+				Status addStatus = addDummyCol(prevRow, c);
+				if (0 < addStatus.compareTo(status)) {
+					status = addStatus;
+				}
+			}
+			added = true;
+		}
+		// ②前回処理していた行と今回処理する行が連続していない場合
+		if (prevRow + 1 < row) {
 			// ダミー行の追加処理
-			for (int r = assumedRow; r < row; r++) {
+			for (int r = prevRow + 1; r < row; r++) {
 				Status addStatus = addDummyRow(r);
 				if (0 < addStatus.compareTo(status)) {
 					status = addStatus;
 				}
 			}
+			added = true;
 		}
-		if (col != 1 && (col != assumedCol)) {
-			// 列が抜けている場合
+		// ③現在処理している行で列が連続していない場合
+		if (prevRow == row && prevCol + 1 < col) {
 			// ダミー列の追加処理
-			for (int c = assumedCol; c < col; c++) {
+			for (int c = prevCol + 1; c < col; c++) {
 				Status addStatus = addDummyCol(row, c);
 				if (0 < addStatus.compareTo(status)) {
 					status = addStatus;
 				}
 			}
+			added = true;
 		}
-		return status;
+		// ダミー行の追加があった場合のみstatusを返す
+		if (added) {
+			return status;
+		} else {
+			return NO;
+		}
 	}
 
 	private Status addDummyRow(int r) {

@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import purejadeite.jadegreen.content.SheetContentImpl;
+import purejadeite.jadegreen.content.Content;
 
 /**
  * セルを走査するハンドラ
@@ -30,7 +30,7 @@ public class SheetHandler extends DefaultHandler {
 
 	private final SharedStringsTable sharedStrings;
 
-	private SheetContentImpl sheetContent = null;
+	private Content sheetContent = null;
 
 	private StringBuilder lastContent;
 
@@ -40,7 +40,7 @@ public class SheetHandler extends DefaultHandler {
 
 	private int currentCol = 0;
 
-	public SheetHandler(SharedStringsTable sharedStrings, SheetContentImpl sheetContent) {
+	public SheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
 		this.sharedStrings = sharedStrings;
 		this.sheetContent = sheetContent;
 	}
@@ -80,7 +80,7 @@ public class SheetHandler extends DefaultHandler {
 				nextIsString = false;
 			}
 		}
-		
+
 		// 行開始の場合
 		if (TAG_ROW.equals(name)) {
 			// 今回の行の前処理

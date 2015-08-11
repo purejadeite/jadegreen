@@ -1,15 +1,18 @@
 package purejadeite.jadegreen.content.cell;
 
+import static purejadeite.jadegreen.content.Status.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.RangeCellDefinition;
-
-import static purejadeite.jadegreen.content.Status.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Rangeの構成要素となるCell読み込み定義
@@ -18,6 +21,8 @@ import java.util.List;
 public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> implements RangeCellContent {
 
 	private static final long serialVersionUID = -7576485612800933090L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(RangeCellContentImpl.class);
 
 	/**
 	 * 値
@@ -64,6 +69,7 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 			} else {
 				// 値を取得
 				this.values.add(value);
+				LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 				return SUCCESS;
 			}
 		}

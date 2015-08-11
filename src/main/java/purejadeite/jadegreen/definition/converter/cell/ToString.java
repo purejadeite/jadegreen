@@ -7,7 +7,7 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class ToString extends AbstractCellConverter {
+public class ToString extends AbstractStringCellConverter {
 
 	private static final long serialVersionUID = 6103503982552559993L;
 
@@ -24,8 +24,8 @@ public class ToString extends AbstractCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
-		return value == null ? null : value.toString();
+	public Object convertImpl(String value) {
+		return value == null ? null : value;
 	}
 
 	/**

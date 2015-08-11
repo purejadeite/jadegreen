@@ -9,7 +9,7 @@ import purejadeite.jadegreen.reader.CellUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToStringDate extends AbstractCellConverter {
+public class ToStringDate extends AbstractStringCellConverter {
 
 	private static final long serialVersionUID = -1776705030591016850L;
 
@@ -32,8 +32,8 @@ public class ToStringDate extends AbstractCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
-		return CellUtils.getStringDateValue((String) value, dateFormat);
+	public Object convertImpl(String value) {
+		return CellUtils.getStringDateValue(value, dateFormat);
 	}
 
 	/**

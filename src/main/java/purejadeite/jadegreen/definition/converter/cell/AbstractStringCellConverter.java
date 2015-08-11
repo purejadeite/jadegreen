@@ -1,5 +1,8 @@
 package purejadeite.jadegreen.definition.converter.cell;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * 文字列を変換する抽象クラスです
@@ -9,6 +12,12 @@ package purejadeite.jadegreen.definition.converter.cell;
 public abstract class AbstractStringCellConverter extends AbstractCellConverter {
 
 	private static final long serialVersionUID = 6947506412389834748L;
+
+	protected static Logger LOGGER;
+
+	{
+		LOGGER = LoggerFactory.getLogger(this.getClass());
+	}
 
 	/**
 	 * コンストラクタ

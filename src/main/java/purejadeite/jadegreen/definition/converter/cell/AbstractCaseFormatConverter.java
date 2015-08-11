@@ -36,6 +36,9 @@ public abstract class AbstractCaseFormatConverter extends AbstractStringCellConv
 	 * @return 変換された値
 	 */
 	protected Object format(String value, CaseFormat to) {
+		if (StringUtils.isEmpty(value)) {
+			return value;
+		}
 		CaseFormat underscore = null;
 		if (to == CaseFormat.LOWER_UNDERSCORE) {
 			underscore = CaseFormat.UPPER_UNDERSCORE;

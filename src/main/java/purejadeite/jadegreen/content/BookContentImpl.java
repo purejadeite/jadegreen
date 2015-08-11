@@ -1,10 +1,10 @@
 package purejadeite.jadegreen.content;
 
-import purejadeite.jadegreen.definition.BookDefinitionImpl;
-import purejadeite.jadegreen.definition.Definition;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import purejadeite.jadegreen.definition.BookDefinitionImpl;
+import purejadeite.jadegreen.definition.Definition;
 
 /**
  * Sheet読み込み定義
@@ -17,7 +17,7 @@ public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 
 	private String name;
 
-	private List<SheetContentImpl> sheets = new ArrayList<>();
+	private List<Content> sheets = new ArrayList<>();
 
 	public BookContentImpl(BookDefinitionImpl definition, String name) {
 		super(null, definition);
@@ -27,7 +27,7 @@ public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void addSheet(SheetContentImpl sheet) {
+	public void addContent(Content sheet) {
 		sheets.add(sheet);
 	}
 

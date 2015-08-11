@@ -1,8 +1,6 @@
 package purejadeite.jadegreen.content.range;
 
-import static purejadeite.jadegreen.content.Status.END;
-import static purejadeite.jadegreen.content.Status.NO;
-import static purejadeite.jadegreen.content.Status.SUCCESS;
+import static purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import purejadeite.jadegreen.content.AbstractContent;
 import purejadeite.jadegreen.content.Content;
@@ -30,7 +30,9 @@ import purejadeite.jadegreen.definition.range.RangeDefinition;
 public class RangeContentImpl extends AbstractContent<RangeDefinition> implements RangeContent {
 
 	private static final long serialVersionUID = 8859089448405461049L;
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(RangeContentImpl.class);
+
 	protected List<RangeCellContent> cells = new ArrayList<>();
 
 	/**
@@ -96,6 +98,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 			} else if (cellStatus == SUCCESS) {
 				// 値を取得した
 				size = cell.size();
+				LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 			}
 		}
 		if (status == END) {

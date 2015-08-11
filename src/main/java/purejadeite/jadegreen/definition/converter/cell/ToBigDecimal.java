@@ -9,7 +9,7 @@ import purejadeite.jadegreen.reader.CellUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToBigDecimal extends AbstractCellConverter {
+public class ToBigDecimal extends AbstractStringCellConverter {
 
 	private static final long serialVersionUID = 4341224550647996037L;
 
@@ -26,8 +26,8 @@ public class ToBigDecimal extends AbstractCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
-		return CellUtils.getBigDecimalValue((String) value);
+	public Object convertImpl(String value) {
+		return CellUtils.getBigDecimalValue(value);
 	}
 
 	/**

@@ -1,5 +1,15 @@
 package purejadeite.jadegreen.content.cell;
 
+import static purejadeite.jadegreen.content.Status.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import purejadeite.jadegreen.content.BookContentImpl;
 import purejadeite.jadegreen.content.Content;
 import purejadeite.jadegreen.content.SheetContentImpl;
@@ -8,14 +18,6 @@ import purejadeite.jadegreen.content.Status;
 import purejadeite.jadegreen.content.range.RangeContentImpl;
 import purejadeite.jadegreen.definition.Definition;
 import purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
-
-import static purejadeite.jadegreen.content.Status.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * <pre>
@@ -26,6 +28,8 @@ import org.apache.commons.lang3.StringUtils;
 public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeCellDefinitionImpl> implements RangeCellContent {
 
 	private static final long serialVersionUID = -8853958089204013418L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LinkRangeCellContentImpl.class);
 
 	public LinkRangeCellContentImpl(Content parent, LinkRangeCellDefinitionImpl definition) {
 		super(parent, definition);

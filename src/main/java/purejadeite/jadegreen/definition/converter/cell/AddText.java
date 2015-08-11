@@ -39,13 +39,17 @@ public class AddText extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object convertImpl(String value) {
+		String val = "";
+		if (!StringUtils.isEmpty(value)) {
+			val = value;
+		}
 		if (!StringUtils.isEmpty(prefix)) {
-			value = prefix + value;
+			val = prefix + val;
 		}
 		if (!StringUtils.isEmpty(suffix)) {
-			value = value + suffix;
+			val = val + suffix;
 		}
-		return value;
+		return val;
 	}
 
 	/**
