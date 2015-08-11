@@ -1,0 +1,165 @@
+package com.purejadeite.jadegreen.definition.cell;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.purejadeite.jadegreen.definition.Definition;
+
+/**
+ * Rangeの構成要素となるCell読み込み定義
+ * @author mitsuhiroseino
+ */
+public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition implements RangeCellDefinition {
+
+	private static final long serialVersionUID = -8138183711389296834L;
+
+	/**
+	 * 開始行
+	 */
+	protected int beginRow = 0;
+
+	/**
+	 * 終了行
+	 */
+	protected int endRow = 0;
+
+	/**
+	 * 開始列
+	 */
+	protected int beginCol = 0;
+
+	/**
+	 * 終了列
+	 */
+	protected int endCol = 0;
+
+	/**
+	 * 開始キー項目
+	 * ※現在未使用
+	 */
+	protected boolean beginKeyId = false;
+
+	/**
+	 * 開始キー値
+	 * ※現在未使用
+	 */
+	protected String beginValue = null;
+
+	/**
+	 * 終了キー項目
+	 */
+	protected boolean endKeyId = false;
+
+	/**
+	 * 終了キー値
+	 */
+	protected String endValue = null;
+
+	/**
+	 * コンストラクタ
+	 * @param parent 範囲定義
+	 * @param id 定義ID
+	 * @param beginRow 開始行
+	 * @param endRow 終了行
+	 * @param beginCol 開始列
+	 * @param endCol 終了列
+	 * @param endKeyId 終了キー項目
+	 * @param endValue 終了キー値
+	 * @param converters コンバーター
+	 */
+	protected AbstractRangeCellDefinition(Definition parent, String id, boolean stuff, int beginRow, int endRow,
+			int beginCol, int endCol,
+			boolean endKeyId, String endValue, List<Map<String, String>> converters) {
+		super(parent, id, stuff, converters);
+		this.beginRow = beginRow;
+		this.endRow = endRow <= 0 ? Integer.MAX_VALUE : endRow;
+		this.beginCol = beginCol;
+		this.endCol = endCol <= 0 ? Integer.MAX_VALUE : endCol;
+		this.endKeyId = endKeyId;
+		if (StringUtils.isEmpty(endValue)) {
+			this.endValue = "";
+		} else {
+			this.endValue = endValue;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getMinRow() {
+		return beginRow;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getMaxRow() {
+		return endRow;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getMinCol() {
+		return beginCol;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int getMaxCol() {
+		return endCol;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isEndValue(Object value) {
+		if (endKeyId && endValue.equals(value)) {
+			// 自身にクローズ条件の値が設定されている場合
+			return true;
+		}
+		// クローズの状態を返す
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isIncluded(int row, int col) {
+		if (beginRow <= row && row <= endRow && beginCol <= col && col <= endCol) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toJson() {
+		return super.toJson() + "," + getJson("beginRow", beginRow) + "," + getJson("endRow", endRow) + ","
+				+ getJson("beginCol", beginCol) + "," + getJson("endCol", endCol) + "," + getJson("beginKey", beginKeyId)
+				+ "," + getJson("beginValue", beginValue) + "," + getJson("endKeyId", endKeyId) + ","
+				+ getJson("endValue", endValue);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + ", beginRow=" + beginRow + ", endRow=" + endRow + ", beginCol=" + beginCol
+				+ ", endCol=" + endCol + ", beginKey=" + beginKeyId + ", beginValue=" + beginValue + ", endKeyId=" + endKeyId
+				+ ", endValue=" + endValue;
+	}
+
+}
