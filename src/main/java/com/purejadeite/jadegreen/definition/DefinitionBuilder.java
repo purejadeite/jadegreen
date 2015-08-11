@@ -110,6 +110,7 @@ public class DefinitionBuilder {
 			SheetDefinitionImpl sheet = new SheetDefinitionImpl(book, id, name, stuff);
 
 			// cellのビルド
+			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> cellDefs = (List<Map<String, Object>>) sheetDef.get(CELLS);
 			for (Map<String, Object> cellDef : cellDefs) {
 				sheet.addChild(createCell(cellDef, sheet));
@@ -147,9 +148,13 @@ public class DefinitionBuilder {
 		int endCol = MapUtils.getIntValue(cellDef, END_COLUMN);
 		String endKey = MapUtils.getString(cellDef, END_KEY);
 		String endValue = MapUtils.getString(cellDef, END_VALUE);
-		Map<String, String> link = (Map<String, String>) cellDef.get(LINK);
+		@SuppressWarnings("unchecked")
+		Map<String, String> link = MapUtils.getMap(cellDef, LINK);
+		@SuppressWarnings("unchecked")
 		List<Map<String, String>> converters = (List<Map<String, String>>) cellDef.get(CONVERTERS);
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> rows = (List<Map<String, Object>>) cellDef.get(ROWS);
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> columns = (List<Map<String, Object>>) cellDef.get(COLUMNS);
 
 		if (link != null) {

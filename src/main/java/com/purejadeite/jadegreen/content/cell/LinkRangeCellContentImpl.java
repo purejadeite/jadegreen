@@ -51,23 +51,12 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 		// Contentのルートを取得
 		Content book = this.getUpperContent(BookContentImpl.class);
 
-//		// 全Contentから欲しい値のContentを取得
-//		List<Content> valueContents = bookContent.searchContents(cell.getValueDefinition());
-//		if (valueContents.isEmpty()) {
-//			// 欲しい値が無いならば定義が不正なので例外
-//			throw new RuntimeException();
-//		} else if (valueContents.size() == 1 && StringUtils.isEmpty(cell.getSheetKeyId())
-//				&& StringUtils.isEmpty(cell.getKeyId())) {
-//			// 欲しい値が1つでキーが指定されていない場合はそれの値を返す
-//			// 1ファイルに各シートが1つずつしかない場合を想定
-//			return valueContents.get(0).getValues(ignore);
-//		}
-
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content> sheetKeyContents = getSheetKeyContents(book);
-
+		
 		// 自分の属するシートのキーを取得
 		Content mySheetKeyContent = getMySheetKeyContent(book);
+		LOGGER.debug("自分のシート:" + mySheetKeyContent.getFullId());
 
 		// 値の取得元シートを取得
 		Content sheetContent = getTargetSheet(mySheetKeyContent, sheetKeyContents);
@@ -92,7 +81,9 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 		String valueId = ids[ids.length - 1];
 
 		// 相手のキーと自分のキーが一致したら相手の値を取得
+		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> rangeValues = (List<Map<String, Object>>) rangeContent.getValues();
+		@SuppressWarnings("unchecked")
 		List<Object> myKeys = (List<Object>) myKeyContent.getValues();
 		List<Object> myValues = new ArrayList<>();
 		for (Object myKey : myKeys) {

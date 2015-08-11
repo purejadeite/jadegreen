@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
+import static com.purejadeite.jadegreen.content.Status.END;
+import static com.purejadeite.jadegreen.content.Status.NO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.content.cell.CellContentImpl;
 import com.purejadeite.jadegreen.content.cell.LinkCellContentImpl;
@@ -28,6 +31,8 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private static final long serialVersionUID = 2123782999010149210L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(SheetContentImpl.class);
 
 	private String name;
 
@@ -72,6 +77,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private Status addValueImpl(int row, int col, Object value) {
 		Status status = addDummyValues(row, col);
+		LOGGER.debug("row=" + row + ",col=" + col + ",value=" + value);
 		if (status == END) {
 			return status;
 		}

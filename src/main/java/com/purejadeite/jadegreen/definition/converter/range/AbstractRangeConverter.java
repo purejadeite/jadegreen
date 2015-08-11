@@ -26,6 +26,7 @@ public abstract class AbstractRangeConverter extends AbstractToJson implements R
 	public AbstractRangeConverter() {
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object convert(Object values) {
 		return convertImpl((List<Map<String, Object>>) values);

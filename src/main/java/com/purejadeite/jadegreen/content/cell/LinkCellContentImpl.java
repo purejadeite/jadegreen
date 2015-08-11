@@ -56,6 +56,7 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 		} else if (valueContents.size() == 1 && StringUtils.isEmpty(definition.getSheetKeyId())) {
 			// 欲しい値が1つでキーが指定されていない場合はそれの値を返す
 			// 1ファイルに各シートが1つずつしかない場合を想定
+			LOGGER.debug("リンク先が1つだけ:" + definition.getValueDefinition().getFullId());
 			return valueContents.get(0).getValues(ignore);
 		}
 

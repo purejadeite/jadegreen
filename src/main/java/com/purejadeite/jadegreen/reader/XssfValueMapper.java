@@ -64,6 +64,7 @@ public class XssfValueMapper {
 		return read(excelFile, book);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Map<String, Object>> read(File excelFile, BookDefinitionImpl book) {
 
 		OPCPackage pkg = null;
