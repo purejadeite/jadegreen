@@ -1,7 +1,6 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.END;
-import static com.purejadeite.jadegreen.content.Status.NO;
+import static com.purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +56,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 				contents.add(new RangeContentImpl(this, (RangeDefinition) childDefinition));
 			}
 		}
+		prevCol = definition.getMaxCol();
 	}
 
 	/**

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.reader.XssfValueMapper;
 
 /**
  * Unit test for simple App.
@@ -21,7 +20,7 @@ public class XssfValueMapperTest
 {
 	private static Logger LOGGER = LoggerFactory.getLogger(XssfValueMapperTest.class);
 
-	private static final String DATA_DIR_PATH = "./examples";
+	private static final String DATA_DIR_PATH = "src/test/data";
 
 	private static final File DEFINITIONS_DIR = new File(DATA_DIR_PATH, "definitions");
 
@@ -30,7 +29,7 @@ public class XssfValueMapperTest
 	private static final File OUTPUTS_DIR = new File(DATA_DIR_PATH, "outputs");
 
 	private static final String[] EXCEL_EXTENSIONS = {".xlsx", ".xlsm"};
-	
+
 	@Test
 	public void single()
 	{
