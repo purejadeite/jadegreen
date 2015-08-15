@@ -1,0 +1,47 @@
+[
+	{
+		"comment": "リンクあり1件読み込み",
+		"id": "main",
+	    "name": "bean",
+	    "cells": [
+	        {"id": "logicalClassName", "row": 1, "column": 3},
+	        {"id": "className", "row": 2, "column": 3},
+	        {"id": "package", "row": 3, "column": 3},
+	        {"id": "imports", "row": 4, "column": 3, "converters": [{"class": "split", "splitter": "\n"}]},
+	        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "endValue": "", "converters": [{"class": "sort", "keyId": "fieldName"}],
+	            "columns": [
+	                {"id": "logicalFieldName", "column": 2},
+	                {"id": "fieldName", "column": 3},
+	                {"id": "method", "column": 3, "converters": [{"class": "uppercamel"}]},
+	                {"id": "static", "column": 3, "converters": [{"class": "upperunderscore"}]},
+	                {"id": "type", "column": 4},
+	                {"id": "initial", "column": 5},
+	                {"id": "validation", "link": {"mySheetKeyId": "main.className", "myKeyId": "main.fields.fieldName", "sheetKeyId": "linked.className", "keyId": "linked.fields.fieldName", "valueId": "linked.fields.validators"}}
+	            ]
+	        },
+	        {"id": "logicalClassNameValid", "link": {"mySheetKeyId": "main.className", "sheetKeyId": "linked.className", "valueId": "linked.logicalClassName"}}
+	    ]
+	},
+	{
+		"stuff": true,
+		"comment": "リンク先シート",
+		"temp": true,
+		"id": "linked",
+	    "name": "validation",
+	    "cells": [
+	        {"id": "logicalClassName", "row": 1, "column": 3},
+	        {"id": "className", "row": 2, "column": 3},
+	        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "endValue": "", "converters": [{"class": "group", "keyId": "fieldName", "toId": "validators"}],
+	            "columns": [
+	                {"id": "logicalFieldName", "column": 2},
+	                {"id": "fieldName", "column": 3},
+	                {"id": "validationType", "column": 4, "converters": [{"class": "mapping", "map": {"notnull": "NotNull"}, "lazy": true}]},
+	                {"id": "arg0", "column": 5, "converters": [{"class": "tonull"}]},
+	                {"id": "arg1", "column": 6, "converters": [{"class": "tonull"}]},
+	                {"id": "arg2", "column": 7, "converters": [{"class": "tonull"}]},
+	                {"id": "arg3", "column": 8, "converters": [{"class": "tonull"}]}
+	            ]
+	        }
+	    ]
+	}
+]

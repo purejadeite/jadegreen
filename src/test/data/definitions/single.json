@@ -1,7 +1,7 @@
 {
 	"comment": "単一シート1件読み込み",
 	"id": "main",
-    "name": "Sample",
+    "name": "bean",
     "cells": [
         {"id": "logicalClassName", "row": 1, "column": 3},
         {"id": "className", "row": 2, "column": 3},

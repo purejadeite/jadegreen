@@ -36,6 +36,12 @@ public class XssfValueMapperTest
 		exec("single");
 	}
 
+	@Test
+	public void link()
+	{
+		exec("link");
+	}
+
 	private void exec(String name) {
 		try {
 			// 定義の読み込み

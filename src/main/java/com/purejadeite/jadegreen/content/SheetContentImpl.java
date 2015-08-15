@@ -66,27 +66,31 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 		if (isClosed()) {
 			return END;
 		}
-		Status status = addValueImpl(row, col, value);
+		// セルが連続していない場合の処理
+		Status status = addDummyValues(row, col);
+		if (status == END) {
+			close();
+			return status;
+		}
+		// 今回のセルの処理
+		status = addValueImpl(row, col, value);
 		if (status == END) {
 			close();
 		}
-		prevRow = row;
-		prevCol = col;
 		return status;
 	}
 
 	private Status addValueImpl(int row, int col, Object value) {
-		Status status = addDummyValues(row, col);
+		Status status = END;
 		LOGGER.debug("row=" + row + ",col=" + col + ",value=" + value);
-		if (status == END) {
-			return status;
-		}
 		for (Content content : contents) {
 			Status addStatus = content.addValue(row, col, value);
 			if (0 < addStatus.compareTo(status)) {
 				status = addStatus;
 			}
 		}
+		prevRow = row;
+		prevCol = col;
 		return status;
 	}
 
