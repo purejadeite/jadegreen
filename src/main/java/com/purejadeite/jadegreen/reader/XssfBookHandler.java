@@ -12,7 +12,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * ブック用ハンドラ
  * @author mitsuhiroseino
  */
-public class BookHandler extends DefaultHandler {
+public class XssfBookHandler extends DefaultHandler {
 
     private static final String TAG_SHEET = "sheet";
 
@@ -30,7 +30,7 @@ public class BookHandler extends DefaultHandler {
      * コンストラクタ
      * @param sheetName 取得対象のシート名
      */
-    public BookHandler(String sheetName) {
+    public XssfBookHandler(String sheetName) {
         String str = sheetName;
         MatchType type = MatchType.PERFECT;
 

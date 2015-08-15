@@ -86,7 +86,7 @@ public class XssfValueMapper {
 		XMLReader bookParser = new SAXParser();
 		for (SheetDefinitionImpl sheet : book.getSheets()) {
 			// ハンドラで対象シートのrIdを収集する
-			BookHandler bookHandler = new BookHandler(sheet.getName());
+			XssfBookHandler bookHandler = new XssfBookHandler(sheet.getName());
 			bookParser.setContentHandler(bookHandler);
 
 			InputSource bookSource = null;
@@ -108,14 +108,14 @@ public class XssfValueMapper {
 			// シートのパーサ
 			XMLReader sheetParser = null;
 			Content sheetContent = null;
-			SheetHandler sheetHandler =null;
+			XssfSheetHandler sheetHandler =null;
 
 			InputStream sheetIs = null;
 			for (Entry<String, String> entry : sheetNames.entrySet()) {
 				LOGGER.debug("対象Sheet:" + entry.getValue());
 				// シートのパーサを取得
 				sheetContent = new SheetContentImpl(bookContent, sheet, entry.getValue());
-				sheetHandler = new SheetHandler(sst, sheetContent);
+				sheetHandler = new XssfSheetHandler(sst, sheetContent);
 				sheetParser = new SAXParser();
 				sheetParser.setContentHandler(sheetHandler);
 				try {

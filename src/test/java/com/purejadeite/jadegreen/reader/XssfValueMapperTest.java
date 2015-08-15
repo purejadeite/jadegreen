@@ -42,6 +42,12 @@ public class XssfValueMapperTest
 		exec("link");
 	}
 
+	@Test
+	public void multi()
+	{
+		exec("multi");
+	}
+
 	private void exec(String name) {
 		try {
 			// 定義の読み込み

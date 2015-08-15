@@ -1,0 +1,1 @@
+[{"package":"sdpj.scone.generated","logicalClassNameValid":"サンプル(バリデーション)","className":"Sample","logicalClassName":"サンプル","imports":["java.io.Serializable","java.util.List","java.util.ArrayList","sdpj.scone.generated.LineBean"],"fields":[]}]

@@ -12,13 +12,15 @@ import com.purejadeite.jadegreen.content.Content;
  * セルを走査するハンドラ
  * @author mitsuhiroseino
  */
-public class SheetHandler extends DefaultHandler {
+public class XssfSheetHandler extends DefaultHandler {
 
 	private static final String TAG_ROW = "row";
 
 	private static final String TAG_COL = "c";
 
 	private static final String TAG_VAL = "v";
+
+	private static final String TAG_SHEETDATA = "sheetData";
 
 	private static final String NAME_RNO = "r";
 
@@ -40,7 +42,7 @@ public class SheetHandler extends DefaultHandler {
 
 	private int currentCol = 0;
 
-	public SheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
+	public XssfSheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
 		this.sharedStrings = sharedStrings;
 		this.sheetContent = sheetContent;
 	}
@@ -120,6 +122,12 @@ public class SheetHandler extends DefaultHandler {
 		if (TAG_VAL.equals(name)) {
 			// シートへ値を追加
 			sheetContent.addValue(currentRow, currentCol, lastContent.toString());
+		}
+
+		// シートデータの場合
+		if (TAG_SHEETDATA.equals(name)) {
+			// コンテンツを閉じる
+			sheetContent.close();
 		}
 
 		return;

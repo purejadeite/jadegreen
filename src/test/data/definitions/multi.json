@@ -1,6 +1,6 @@
 [
 	{
-		"comment": "リンクあり1件読み込み",
+		"comment": "2種類各1件①",
 		"id": "main",
 	    "name": "bean",
 	    "cells": [
@@ -15,16 +15,13 @@
 	                {"id": "method", "column": 3, "converters": [{"class": "uppercamel"}]},
 	                {"id": "static", "column": 3, "converters": [{"class": "upperunderscore"}]},
 	                {"id": "type", "column": 4},
-	                {"id": "initial", "column": 5},
-	                {"id": "validation", "link": {"mySheetKeyId": "main.className", "myKeyId": "main.fields.fieldName", "sheetKeyId": "sub.className", "keyId": "sub.fields.fieldName", "valueId": "sub.fields.validators"}}
+	                {"id": "initial", "column": 5}
 	            ]
-	        },
-	        {"id": "logicalClassNameValid", "link": {"mySheetKeyId": "main.className", "sheetKeyId": "sub.className", "valueId": "sub.logicalClassName"}}
+	        }
 	    ]
 	},
 	{
-		"stuff": true,
-		"comment": "リンク先シート",
+		"comment": "2種類各1件②",
 		"id": "sub",
 	    "name": "validation",
 	    "cells": [

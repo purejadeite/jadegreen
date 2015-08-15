@@ -41,6 +41,8 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private int prevCol = 0;
 
+	private int maxCol = 0;
+
 	public SheetContentImpl(Content parent, SheetDefinitionImpl definition, String name) {
 		super(parent, definition);
 		this.name = name;
@@ -56,7 +58,8 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 				contents.add(new RangeContentImpl(this, (RangeDefinition) childDefinition));
 			}
 		}
-		prevCol = definition.getMaxCol();
+		maxCol = definition.getMaxCol();
+		prevCol = maxCol;
 	}
 
 	/**
@@ -97,7 +100,6 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	private Status addDummyValues(int row, int col) {
 		Status status = END;
 		boolean added = false;
-		int maxCol = this.definition.getMaxCol();
 
 		// ①前回処理していた行が最後の列まで処理されていない場合
 		if (prevRow < row && prevCol < maxCol) {
@@ -170,6 +172,14 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 		}
 		close();
 		return true;
+	}
+
+	public void close() {
+		if (prevCol != maxCol) {
+			// 最終列まで処理していない場合はダミーセルを追加
+			addDummyValues(prevRow + 1, 1);
+		}
+		super.close();
 	}
 
 	/**
