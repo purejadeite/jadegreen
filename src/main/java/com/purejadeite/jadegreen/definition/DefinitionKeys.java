@@ -28,9 +28,9 @@ public class DefinitionKeys {
 	public static final String CONDITIONS = "conditions";
 
 	/**
-	 * データの読み込みのみ行うか
+	 * データの出力を行わないか
 	 */
-	public static final String STUFF = "stuff";
+	public static final String NO_OUTPUT = "noOutput";
 
 	/**
 	 * Sheet配下の全Cellの定義

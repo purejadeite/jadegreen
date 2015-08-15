@@ -23,10 +23,10 @@
 	    ]
 	},
 	{
-		"stuff": true,
 		"comment": "リンク先シート",
 		"id": "sub",
 	    "name": "validation",
+		"noOutput": true,
 	    "cells": [
 	        {"id": "logicalClassName", "row": 1, "column": 3},
 	        {"id": "className", "row": 2, "column": 3},

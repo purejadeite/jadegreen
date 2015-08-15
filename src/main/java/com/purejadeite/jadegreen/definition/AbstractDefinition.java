@@ -31,15 +31,15 @@ public abstract class AbstractDefinition implements Definition, ToJson, Serializ
 
 	/**
 	 * <pre>
-	 * データの読み込みのみ行うか
-	 * true: 読み込みのみ
-	 * false: 読み込みおよび出力
+	 * データの出力を行うか
+	 * true: 行わない
+	 * false: 行う
 	 * </pre>
 	 */
-	protected boolean stuff = false;
+	protected boolean noOutput = false;
 
-	public boolean isStuff() {
-		return stuff;
+	public boolean isNoOutput() {
+		return noOutput;
 	}
 
 	/**
@@ -62,13 +62,13 @@ public abstract class AbstractDefinition implements Definition, ToJson, Serializ
 	 * コンストラクタ
 	 * @param parent 親定義
 	 * @param id 定義ID
-	 * @param stuff データの読み込みのみ行うか
+	 * @param noOutput データの読み込みのみ行うか
 	 */
-	protected AbstractDefinition(Definition parent, String id, boolean stuff) {
+	protected AbstractDefinition(Definition parent, String id, boolean noOutput) {
 		super();
 		this.parent = parent;
 		this.id = id;
-		this.stuff = stuff;
+		this.noOutput = noOutput;
 	}
 
 	/**
@@ -150,7 +150,7 @@ public abstract class AbstractDefinition implements Definition, ToJson, Serializ
 	 */
 	@Override
 	public String toJson() {
-		return getJson("id", id) + "," + getJson("stuff", stuff) + "," + getJson("parent", parent.getFullId());
+		return getJson("id", id) + "," + getJson("stuff", noOutput) + "," + getJson("parent", parent.getFullId());
 
 	}
 
@@ -159,7 +159,7 @@ public abstract class AbstractDefinition implements Definition, ToJson, Serializ
 	 */
 	@Override
 	public String toString() {
-		return "id=" + id + ", stuff=" + stuff + ", parent=" + parent.getFullId();
+		return "id=" + id + ", stuff=" + noOutput + ", parent=" + parent.getFullId();
 	}
 
 }

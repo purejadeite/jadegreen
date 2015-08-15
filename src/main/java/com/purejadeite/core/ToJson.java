@@ -1,6 +1,9 @@
 package com.purejadeite.core;
 
-
+/**
+ * JSON形式の値出力を行うクラスのインターフェイス
+ * @author mitsuhiroseino
+ */
 public interface ToJson {
 
 	/**

@@ -22,7 +22,11 @@ public interface Definition {
 	 */
 	public String getFullId();
 
-	public boolean isStuff();
+	/**
+	 * 値の出力を行うかを示します
+	 * @return
+	 */
+	public boolean isNoOutput();
 
 	/**
 	 * 親定義を取得します

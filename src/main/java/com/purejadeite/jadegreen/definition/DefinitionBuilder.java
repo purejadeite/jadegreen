@@ -106,7 +106,7 @@ public class DefinitionBuilder {
 			// sheetのビルド
 			String id = MapUtils.getString(sheetDef, ID);
 			String name = MapUtils.getString(sheetDef, NAME);
-			boolean stuff = MapUtils.getBooleanValue(sheetDef, STUFF);
+			boolean stuff = MapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
 			SheetDefinitionImpl sheet = new SheetDefinitionImpl(book, id, name, stuff);
 
 			// cellのビルド
@@ -139,7 +139,7 @@ public class DefinitionBuilder {
 	 */
 	private static Definition createCell(Map<String, Object> cellDef, SheetDefinitionImpl sheet, RangeDefinition range) {
 		String id = MapUtils.getString(cellDef, ID);
-		boolean stuff = MapUtils.getBooleanValue(cellDef, STUFF);
+		boolean stuff = MapUtils.getBooleanValue(cellDef, NO_OUTPUT);
 		int row = MapUtils.getIntValue(cellDef, ROW);
 		int beginRow = MapUtils.getIntValue(cellDef, BEGIN_ROW);
 		int endRow = MapUtils.getIntValue(cellDef, END_ROW);

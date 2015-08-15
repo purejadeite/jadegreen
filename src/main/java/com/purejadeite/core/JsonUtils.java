@@ -2,6 +2,11 @@ package com.purejadeite.core;
 
 import java.util.List;
 
+/**
+ * JSON
+ * @author mitsuhiroseino
+ *
+ */
 public class JsonUtils {
 
 	/**

@@ -190,7 +190,7 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 */
 	@Override
 	public String toJson() {
-		return "{" + getJson("id", id) + "," + getJson("stuff", stuff) + "," + getJson("begin", begin) + ","
+		return "{" + getJson("id", id) + "," + getJson("stuff", noOutput) + "," + getJson("begin", begin) + ","
 				+ getJson("end", end) + "," + getJson("beginKey", beginKeyId) + "," + getJson("beginValue", beginValue)
 				+ "," + getJson("endKeyId", endKeyId) + "," + getJson("endValue", endValue) + ","
 				+ getJson("size", size) + "," + getJson("parent", parent.getFullId()) + "," + getJson("cells", cells)
@@ -202,7 +202,7 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 */
 	@Override
 	public String toString() {
-		return "id=" + id + ", stuff=" + stuff + ", begin=" + begin + ", end=" + end + ", beginKey=" + beginKeyId
+		return "id=" + id + ", stuff=" + noOutput + ", begin=" + begin + ", end=" + end + ", beginKey=" + beginKeyId
 				+ ", beginValue=" + beginValue + ", endKeyId=" + endKeyId + ", endValue=" + endValue + ", size=" + size
 				+ ", parent=" + parent.getFullId() + ", cells=" + cells;
 	}

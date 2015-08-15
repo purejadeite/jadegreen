@@ -60,6 +60,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 		}
 		maxCol = definition.getMaxCol();
 		prevCol = maxCol;
+		LOGGER.debug("create: " + name);
 	}
 
 	/**
@@ -180,6 +181,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 			addDummyValues(prevRow + 1, 1);
 		}
 		super.close();
+		LOGGER.debug("close: " + name);
 	}
 
 	/**

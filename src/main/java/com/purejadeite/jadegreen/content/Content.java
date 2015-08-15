@@ -34,6 +34,9 @@ public interface Content {
 	 */
 	public boolean isClosed();
 
+	/**
+	 * 値の取得を終了します
+	 */
 	public void close();
 
 	/**
@@ -47,29 +50,29 @@ public interface Content {
 
 	/**
 	 * 編集していない値を取得します
-	 * @param ignore 取得対象外とする子要素
+	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
 	public Object getRawValues(Definition... ignore);
 
 	/**
-	 * 最終的な値を取得します
-	 * @param ignore 取得対象外とする子要素
+	 * 編集した値を取得します
+	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
 	public Object getValues(Definition... ignore);
 
 	/**
 	 * 指定の定義を持ったContentを取得します
-	 * @param key
-	 * @return
+	 * @param key 取得する子要素の定義
+	 * @return 対象のContent
 	 */
 	public List<Content> searchContents(Definition key);
 
 	/**
 	 * 自身より上位にある指定のクラスのContentを取得します
 	 * @param contentClazz Contentのクラス
-	 * @return Content
+	 * @return 対象のContent
 	 */
 	public Content getUpperContent(Class<? extends Content> contentClazz);
 

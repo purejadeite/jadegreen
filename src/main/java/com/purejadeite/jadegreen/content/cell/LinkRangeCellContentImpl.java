@@ -37,7 +37,7 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 
 	public Status addValue(int row, int col, Object value) {
 		// 値を取得しない
-		return END;
+		return NO;
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content> sheetKeyContents = getSheetKeyContents(book);
-		
+
 		// 自分の属するシートのキーを取得
 		Content mySheetKeyContent = getMySheetKeyContent(book);
 		LOGGER.debug("自分のシート:" + mySheetKeyContent.getFullId());

@@ -9,21 +9,32 @@ import com.purejadeite.core.ToJson;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
- * Rangeの構成要素となるCell読み込み定義
+ * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
 public abstract class AbstractContent<D extends Definition> implements Content, ToJson, Serializable {
 
 	private static final long serialVersionUID = 6746413349706897776L;
 
+	/**
+	 * 親要要素
+	 */
 	protected Content parent;
 
+	/**
+	 * 値を取得する定義
+	 */
 	protected D definition;
 
+	/**
+	 * 値の取得完了を表わすフラグ
+	 */
 	protected boolean closed;
 
 	/**
-	 * コンストラクタ
+	 * コンストラクター
+	 * @param parent 親要素
+	 * @param definition 値を取得する定義
 	 */
 	public AbstractContent(Content parent, D definition) {
 		this.parent = parent;
@@ -31,6 +42,9 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 		this.closed = false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Object getRawValues(Definition... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
@@ -40,6 +54,11 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 		}
 	}
 
+	/**
+	 * 編集していない値を取得する実装です
+	 * @param ignore 取得対象外とする子要素の定義
+	 * @return 値
+	 */
 	abstract public Object getRawValuesImpl(Definition... ignore);
 
 	/**
@@ -47,7 +66,7 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 	 */
 	@Override
 	public Object getValues(Definition... ignore) {
-		if (this.getDefinition().isStuff()) {
+		if (this.getDefinition().isNoOutput()) {
 			return SpecificValue.STUFF;
 		} else {
 			if (ArrayUtils.contains(ignore, this.getDefinition())) {
@@ -58,6 +77,11 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 		}
 	}
 
+	/**
+	 * 編集した値を取得する実装です
+	 * @param ignore
+	 * @return
+	 */
 	abstract public Object getValuesImpl(Definition... ignore);
 
 	public Content getUpperContent(Class<? extends Content> contentClazz) {

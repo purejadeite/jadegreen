@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.purejadeite.core.AbstractToJson;
+import com.purejadeite.core.JsonUtils;
+import com.purejadeite.core.ToJson;
 
 
 /**
@@ -12,7 +13,7 @@ import com.purejadeite.core.AbstractToJson;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractCellConverter extends AbstractToJson implements CellConverter, Serializable {
+public abstract class AbstractCellConverter implements CellConverter, ToJson, Serializable {
 
 	private static final long serialVersionUID = -554429680948708719L;
 
@@ -52,6 +53,16 @@ public abstract class AbstractCellConverter extends AbstractToJson implements Ce
 		} else {
 			this.converter = converter;
 		}
+	}
+
+	/**
+	 * JSON形式のnameとvalueの表現を取得します
+	 * @param name プロパティ名
+	 * @param value 値
+	 * @return "name": "value"形式の文字列
+	 */
+	protected String getJson(String name, Object value) {
+		return JsonUtils.getJsonStyle(name, value);
 	}
 
 	/**
