@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.converter.range;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,13 +77,13 @@ public class Sort extends AbstractRangeConverter {
 				if (t1 instanceof Comparable) {
 					s1 = (Comparable<Object>) t1;
 				}
-				
+
 				Object t2 = m2.get(keyId);
 				Comparable<Object> s2 = null;
 				if (t2 instanceof Comparable) {
 					s2 = (Comparable<Object>) t2;
 				}
-				
+
 				if (s1 == s2) {
 					return 0;
 				}
@@ -102,8 +103,14 @@ public class Sort extends AbstractRangeConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("keyId", keyId) + "," + getJson("desc", desc) + "}";
+	public List<Map<String, Object>> toList() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("name", this.getClass().getSimpleName());
+		map.put("keyId", keyId);
+		map.put("desc", desc);
+		List<Map<String, Object>> list = super.toList();
+		list.add(map);
+		return list;
 	}
 
 	/**

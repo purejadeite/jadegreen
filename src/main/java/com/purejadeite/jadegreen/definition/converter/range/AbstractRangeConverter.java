@@ -1,20 +1,24 @@
 package com.purejadeite.jadegreen.definition.converter.range;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.core.JsonUtils;
-import com.purejadeite.core.ToJson;
+import org.apache.commons.lang3.ArrayUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * Rangeの値を変換する抽象クラス
  *
  * @author mitsuhiroseino
  */
-public abstract class AbstractRangeConverter implements RangeConverter, ToJson, Serializable {
+public abstract class AbstractRangeConverter implements RangeConverter, Serializable {
 
 	private static final long serialVersionUID = 4438043042165420559L;
+
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	protected RangeConverter converter;
 
@@ -52,22 +56,26 @@ public abstract class AbstractRangeConverter implements RangeConverter, ToJson, 
 	}
 
 	/**
-	 * JSON形式のnameとvalueの表現を取得します
-	 * @param name プロパティ名
-	 * @param value 値
-	 * @return "name": "value"形式の文字列
-	 */
-	protected String getJson(String name, Object value) {
-		return JsonUtils.getJsonStyle(name, value);
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String toJson() {
-		return getJson("converter", converter);
+		try {
+			List<Map<String, Object>> list = toList();
+			Object[] array = list.toArray();
+			ArrayUtils.reverse(array);
+			return OBJECT_MAPPER.writeValueAsString(array);
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
+	public List<Map<String, Object>> toList() {
+		List<Map<String, Object>> list = new ArrayList<>();
+		if (converter != null) {
+			list.addAll(converter.toList());
+		}
+		return list;
 	}
 
 	/**

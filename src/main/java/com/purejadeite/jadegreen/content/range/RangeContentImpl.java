@@ -227,9 +227,15 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("closed", closed) + "," + getJson("size", size) + ","
-				+ getJson("cells", cells) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("size", size);
+		List<Map<String, Object>> cellMaps = new ArrayList<>();
+		for(Content cell: cells) {
+			cellMaps.add(cell.toMap());
+		}
+		map.put("cells", cellMaps);
+		return map;
 	}
 
 	/**
@@ -237,7 +243,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	 */
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", closed=" + closed + ", size=" + size
+		return this.getClass().getSimpleName() + " [" + super.toString() + ", size=" + size
 				+ ", cells=" + cells + "]";
 	}
 }

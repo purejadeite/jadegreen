@@ -4,6 +4,7 @@ import static com.purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,8 +79,10 @@ public class CellContentImpl extends AbstractContent<CellDefinition> implements 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("values", values) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("values", values);
+		return map;
 	}
 
 	/**

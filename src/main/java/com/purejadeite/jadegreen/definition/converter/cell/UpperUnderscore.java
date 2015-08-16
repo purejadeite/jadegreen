@@ -34,13 +34,13 @@ public class UpperUnderscore extends AbstractCaseFormatConverter {
 		return format(value, CaseFormat.UPPER_UNDERSCORE);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "}";
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	public String toJson() {
+//		return "{" + super.toJson() + "}";
+//	}
 
 	/**
 	 * {@inheritDoc}

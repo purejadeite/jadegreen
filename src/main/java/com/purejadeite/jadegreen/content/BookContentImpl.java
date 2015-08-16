@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.content;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.Definition;
@@ -101,8 +102,14 @@ public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "" + getJson(null, sheets);
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		List<Map<String, Object>> sheetMaps = new ArrayList<>();
+		for(Content sheet: sheets) {
+			sheetMaps.add(sheet.toMap());
+		}
+		map.put("sheets", sheetMaps);
+		return map;
 	}
 
 	/**

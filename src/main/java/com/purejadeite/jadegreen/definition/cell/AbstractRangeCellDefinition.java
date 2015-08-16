@@ -145,11 +145,17 @@ public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return super.toJson() + "," + getJson("beginRow", beginRow) + "," + getJson("endRow", endRow) + ","
-				+ getJson("beginCol", beginCol) + "," + getJson("endCol", endCol) + "," + getJson("beginKey", beginKeyId)
-				+ "," + getJson("beginValue", beginValue) + "," + getJson("endKeyId", endKeyId) + ","
-				+ getJson("endValue", endValue);
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("beginRow", beginRow);
+		map.put("endRow", endRow);
+		map.put("beginCol", beginCol);
+		map.put("endCol", endCol);
+		map.put("beginKeyId", beginKeyId);
+		map.put("beginValue", beginValue);
+		map.put("endKeyId", endKeyId);
+		map.put("endValue", endValue);
+		return map;
 	}
 
 	/**

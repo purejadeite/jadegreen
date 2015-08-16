@@ -135,14 +135,6 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "}";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}

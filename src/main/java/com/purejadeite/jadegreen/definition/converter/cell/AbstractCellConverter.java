@@ -1,11 +1,13 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import com.purejadeite.core.JsonUtils;
-import com.purejadeite.core.ToJson;
+import org.apache.commons.lang3.ArrayUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 
 /**
@@ -13,9 +15,11 @@ import com.purejadeite.core.ToJson;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractCellConverter implements CellConverter, ToJson, Serializable {
+public abstract class AbstractCellConverter implements CellConverter, Serializable {
 
 	private static final long serialVersionUID = -554429680948708719L;
+
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	protected CellConverter converter;
 
@@ -56,22 +60,26 @@ public abstract class AbstractCellConverter implements CellConverter, ToJson, Se
 	}
 
 	/**
-	 * JSON形式のnameとvalueの表現を取得します
-	 * @param name プロパティ名
-	 * @param value 値
-	 * @return "name": "value"形式の文字列
-	 */
-	protected String getJson(String name, Object value) {
-		return JsonUtils.getJsonStyle(name, value);
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String toJson() {
-		return getJson("converter", converter);
+		try {
+			List<Map<String, Object>> list = toList();
+			Object[] array = list.toArray();
+			ArrayUtils.reverse(array);
+			return OBJECT_MAPPER.writeValueAsString(array);
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
+	public List<Map<String, Object>> toList() {
+		List<Map<String, Object>> list = new ArrayList<>();
+		if (converter != null) {
+			list.addAll(converter.toList());
+		}
+		return list;
 	}
 
 	/**

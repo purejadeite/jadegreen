@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.definition.converter.range;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,9 +65,14 @@ public class Eliminate extends AbstractRangeConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("keyId", keyId) + "," + getJson("conditionValue", conditionValue)
-				+ "}";
+	public List<Map<String, Object>> toList() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("name", this.getClass().getSimpleName());
+		map.put("keyId", keyId);
+		map.put("conditionValue", conditionValue);
+		List<Map<String, Object>> list = super.toList();
+		list.add(map);
+		return list;
 	}
 
 	/**

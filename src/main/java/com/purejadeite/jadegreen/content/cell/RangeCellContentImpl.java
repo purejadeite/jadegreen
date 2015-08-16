@@ -4,6 +4,7 @@ import static com.purejadeite.jadegreen.content.Status.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,8 +120,11 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("closed", closed) + "," + getJson("values", values) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("closed", closed);
+		map.put("values", values);
+		return map;
 	}
 
 	/**

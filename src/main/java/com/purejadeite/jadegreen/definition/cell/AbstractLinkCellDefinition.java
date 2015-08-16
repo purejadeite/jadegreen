@@ -77,9 +77,13 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return super.toJson() + "," + getJson("mySheetKeyId", mySheetKeyId) + ","
-				+ getJson("sheetKeyId", sheetKeyId) + "," + getJson("valueId", valueId);
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("mySheetKeyId", mySheetKeyId);
+		map.put("sheetKeyId", sheetKeyId);
+		map.put("valueId", valueId);
+		map.put("book", book.getFullId());
+		return map;
 	}
 
 	/**

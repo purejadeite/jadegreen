@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.definition.converter.range;
 
-
+import java.util.List;
+import java.util.Map;
 
 /**
  * Cellの値を変換する抽象クラス
@@ -18,5 +19,12 @@ public interface RangeConverter {
 
 	public void chain(RangeConverter converter);
 
+	/**
+	 * インスタンスの内容をJSON形式で取得します
+	 * @return JSON
+	 */
+	public String toJson();
+
+	public List<Map<String,Object>> toList();
 
 }

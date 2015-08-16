@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.content;
 
 import java.util.List;
+import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
 
@@ -75,5 +76,13 @@ public interface Content {
 	 * @return 対象のContent
 	 */
 	public Content getUpperContent(Class<? extends Content> contentClazz);
+
+	/**
+	 * インスタンスの内容をJSON形式で取得します
+	 * @return JSON
+	 */
+	public String toJson();
+
+	public Map<String, Object> toMap();
 
 }

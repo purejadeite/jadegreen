@@ -189,12 +189,22 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + getJson("id", id) + "," + getJson("stuff", noOutput) + "," + getJson("begin", begin) + ","
-				+ getJson("end", end) + "," + getJson("beginKey", beginKeyId) + "," + getJson("beginValue", beginValue)
-				+ "," + getJson("endKeyId", endKeyId) + "," + getJson("endValue", endValue) + ","
-				+ getJson("size", size) + "," + getJson("parent", parent.getFullId()) + "," + getJson("cells", cells)
-				+ "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("begin", begin);
+		map.put("end", end);
+		map.put("beginKeyId", beginKeyId);
+		map.put("beginValue", beginValue);
+		map.put("endKeyId", endKeyId);
+		map.put("endValue", endValue);
+		map.put("size", size);
+		List<Map<String, Object>> cellMaps = new ArrayList<>();
+		for(Definition cell: cells) {
+			cellMaps.add(cell.toMap());
+		}
+		map.put("cells", cellMaps);
+		map.put("converter", converter.toList());
+		return map;
 	}
 
 	/**
@@ -202,7 +212,7 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 */
 	@Override
 	public String toString() {
-		return "id=" + id + ", stuff=" + noOutput + ", begin=" + begin + ", end=" + end + ", beginKey=" + beginKeyId
+		return "id=" + id + ", noOutput=" + noOutput + ", begin=" + begin + ", end=" + end + ", beginKey=" + beginKeyId
 				+ ", beginValue=" + beginValue + ", endKeyId=" + endKeyId + ", endValue=" + endValue + ", size=" + size
 				+ ", parent=" + parent.getFullId() + ", cells=" + cells;
 	}

@@ -1,20 +1,24 @@
 package com.purejadeite.jadegreen.content;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import com.purejadeite.core.JsonUtils;
-import com.purejadeite.core.ToJson;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-public abstract class AbstractContent<D extends Definition> implements Content, ToJson, Serializable {
+public abstract class AbstractContent<D extends Definition> implements Content, Serializable {
 
 	private static final long serialVersionUID = 6746413349706897776L;
+
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	/**
 	 * 親要要素
@@ -126,23 +130,26 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 	}
 
 	/**
-	 * JSON形式のnameとvalueの表現を取得します
-	 * @param name プロパティ名
-	 * @param value 値
-	 * @return "name": "value"形式の文字列
-	 */
-	protected String getJson(String name, Object value) {
-		return JsonUtils.getJsonStyle(name, value);
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String toJson() {
-		return getJson("definition", definition.getFullId()) + "," + getJson("parent", parent.getFullId()) + ","
-				+ getJson("closed", closed);
+		try {
+			return OBJECT_MAPPER.writeValueAsString(toMap());
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("definition", definition.getFullId());
+		if (parent != null) {
+			map.put("parent", parent.getFullId());
+		} else {
+			map.put("parent", null);
+		}
+		return map;
 	}
 
 	/**
@@ -150,7 +157,7 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 	 */
 	@Override
 	public String toString() {
-		return "definition=" + definition.getFullId() + ", parent=" + parent.getFullId() + ", closed=" + closed;
+		return "definition=" + definition.getFullId() + ", parent=" + parent.getFullId();
 	}
 
 }

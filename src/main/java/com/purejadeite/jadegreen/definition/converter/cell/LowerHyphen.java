@@ -34,13 +34,13 @@ public class LowerHyphen extends AbstractCaseFormatConverter {
 		return format(value, CaseFormat.LOWER_HYPHEN);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "}";
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	public String toJson() {
+//		return "{" + super.toJson() + "}";
+//	}
 
 	/**
 	 * {@inheritDoc}

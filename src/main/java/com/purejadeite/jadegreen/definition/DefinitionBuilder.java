@@ -5,7 +5,6 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class DefinitionBuilder {
 		File jsonFile = new File(jsonFilePath);
 		return build(jsonFile);
 	}
-	
+
 	public static BookDefinitionImpl build(File definitionsDirPath, String jsonFileName) throws IOException {
 		String json = FileUtils.readFileToString(new File(definitionsDirPath, jsonFileName));
 		return buildFromJson(json);
@@ -76,7 +75,7 @@ public class DefinitionBuilder {
 		if (StringUtils.startsWith(trimedJson, "{") && StringUtils.endsWith(trimedJson, "}")) {
 			json = "[" + json + "]";
 		}
-		definition = mapper.readValue(json, new TypeReference<List<HashMap<String, Object>>>() {
+		definition = mapper.readValue(json, new TypeReference<List<Map<String, Object>>>() {
 		});
 		return build(definition);
 	}

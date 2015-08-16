@@ -1,13 +1,14 @@
 package com.purejadeite.jadegreen.definition;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import com.purejadeite.core.JsonUtils;
-import com.purejadeite.core.ToJson;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
 *
@@ -15,9 +16,11 @@ import com.purejadeite.core.ToJson;
 * @author mitsuhiroseino
 *
 */
-public abstract class AbstractDefinition implements Definition, ToJson, Serializable {
+public abstract class AbstractDefinition implements Definition, Serializable {
 
 	private static final long serialVersionUID = -148074445587079740L;
+
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	/**
 	 * 定義ID
@@ -136,22 +139,27 @@ public abstract class AbstractDefinition implements Definition, ToJson, Serializ
 	}
 
 	/**
-	 * JSON形式のnameとvalueの表現を取得します
-	 * @param name プロパティ名
-	 * @param value 値
-	 * @return "name": "value"形式の文字列
-	 */
-	protected String getJson(String name, Object value) {
-		return JsonUtils.getJsonStyle(name, value);
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String toJson() {
-		return getJson("id", id) + "," + getJson("stuff", noOutput) + "," + getJson("parent", parent.getFullId());
+		try {
+			return OBJECT_MAPPER.writeValueAsString(toMap());
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("id", id);
+		map.put("noOutput", noOutput);
+		if (parent != null) {
+			map.put("parent", parent.getFullId());
+		} else {
+			map.put("parent", null);
+		}
+		return map;
 	}
 
 	/**

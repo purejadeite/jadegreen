@@ -162,10 +162,14 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("mySheetKeyId", mySheetKeyId) + "," + getJson("myKey", myKeyId)
-				+ "," + getJson("sheetKeyId", sheetKeyId) + "," + getJson("key", keyId) + ","
-				+ getJson("value", valueId) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("mySheetKeyId", mySheetKeyId);
+		map.put("myKeyId", myKeyId);
+		map.put("sheetKeyId", sheetKeyId);
+		map.put("keyId", keyId);
+		map.put("valueId", valueId);
+		return map;
 	}
 
 	/**

@@ -1,5 +1,9 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.CaseFormat;
@@ -61,6 +65,14 @@ public abstract class AbstractCaseFormatConverter extends AbstractStringCellConv
 			// キャメルケースだと思う
 			return camel.to(to, value);
 		}
+	}
+
+	public List<Map<String, Object>> toList() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("name", this.getClass().getSimpleName());
+		List<Map<String, Object>> list = super.toList();
+		list.add(map);
+		return list;
 	}
 
 }

@@ -230,8 +230,15 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("name", name) + "," + getJson("contents", contents) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("name", name);
+		List<Map<String, Object>> contentMaps = new ArrayList<>();
+		for(Content content: contents) {
+			contentMaps.add(content.toMap());
+		}
+		map.put("contents", contentMaps);
+		return map;
 	}
 
 	/**

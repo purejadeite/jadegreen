@@ -99,8 +99,11 @@ public class CellDefinitionImpl extends AbstractCellDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("row", row) + "," + getJson("col", col) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("row", row);
+		map.put("col", col);
+		return map;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
@@ -169,10 +170,19 @@ public class SheetDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("name", name) + ","
-				+ getJson("minRow", minRow) + "," + getJson("maxRow", maxRow) + "," + getJson("minCol", minCol) + ","
-				+ getJson("maxCol", maxCol) + "," + getJson("cells", cells) + "}";
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("name", name);
+		map.put("minRow", minRow);
+		map.put("maxRow", maxRow);
+		map.put("minCol", minCol);
+		map.put("maxCol", maxCol);
+		List<Map<String, Object>> cellMaps = new ArrayList<>();
+		for(Definition cell: cells) {
+			cellMaps.add(cell.toMap());
+		}
+		map.put("cells", cellMaps);
+		return map;
 	}
 
 	/**

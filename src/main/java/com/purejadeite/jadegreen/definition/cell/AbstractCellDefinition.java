@@ -71,8 +71,14 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return super.toJson() + "," + getJson("converter", converter);
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		if (converter != null) {
+			map.put("converter", converter.toList());
+		} else {
+			map.put("converter", null);
+		}
+		return map;
 	}
 
 	/**

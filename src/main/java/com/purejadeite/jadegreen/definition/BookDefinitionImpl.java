@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Bookの読み込み定義です
@@ -68,8 +69,14 @@ public class BookDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "" + getJson(null, sheets);
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		List<Map<String, Object>> sheetMaps = new ArrayList<>();
+		for(Definition sheet: sheets) {
+			sheetMaps.add(sheet.toMap());
+		}
+		map.put("sheets", sheetMaps);
+		return map;
 	}
 
 	/**

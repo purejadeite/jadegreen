@@ -107,14 +107,6 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "}";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}

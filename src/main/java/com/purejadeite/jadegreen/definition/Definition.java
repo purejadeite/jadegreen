@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.definition;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -61,9 +62,11 @@ public interface Definition {
 	public Definition get(String... ids);
 
 	/**
-	 * 大まかな定義をJSON形式で取得します
+	 * インスタンスの内容をJSON形式で取得します
 	 * @return JSON
 	 */
 	public String toJson();
+
+	public Map<String, Object> toMap();
 
 }

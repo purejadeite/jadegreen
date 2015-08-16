@@ -1,7 +1,10 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -30,8 +33,8 @@ public class AddText extends AbstractStringCellConverter {
 	 */
 	public AddText(Map<String, Object> config) {
 		super();
-		this.prefix = (String) config.get("prefix");
-		this.suffix = (String) config.get("suffix");
+		this.prefix = MapUtils.getString(config, "prefix");
+		this.suffix = MapUtils.getString(config, "suffix");
 	}
 
 	/**
@@ -52,12 +55,14 @@ public class AddText extends AbstractStringCellConverter {
 		return val;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "," + getJson("prefix", prefix) + "," + getJson("suffix", suffix) + "}";
+	public List<Map<String, Object>> toList() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("name", this.getClass().getSimpleName());
+		map.put("prefix", prefix);
+		map.put("suffix", suffix);
+		List<Map<String, Object>> list = super.toList();
+		list.add(map);
+		return list;
 	}
 
 	/**
