@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.reader.CellUtils;
+import com.purejadeite.jadegreen.CellUtils;
 
 /**
  * 日付を表す文字列を、別の日付形式の文字列へ変換するクラス

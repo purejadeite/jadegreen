@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.reader;
+package com.purejadeite.jadegreen;
 
 import java.io.File;
 import java.util.List;
@@ -10,15 +10,16 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.SxssfValueMapper;
 import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
 
 /**
  * Unit test for simple App.
  */
-public class XssfValueMapperTest
+public class SxssfValueMapperTest
 {
-	private static Logger LOGGER = LoggerFactory.getLogger(XssfValueMapperTest.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(SxssfValueMapperTest.class);
 
 	private static final String DATA_DIR_PATH = "src/test/data";
 
@@ -65,7 +66,7 @@ public class XssfValueMapperTest
 				}
 			}
 			// マッパーの実行
-	    	List<Map<String, Object>> mappedData = XssfValueMapper.read(excelFile, bookDefinition);
+	    	List<Map<String, Object>> mappedData = SxssfValueMapper.read(excelFile, bookDefinition);
 	    	// 結果の確認
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writeValueAsString(mappedData);

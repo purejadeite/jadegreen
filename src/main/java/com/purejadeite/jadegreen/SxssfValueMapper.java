@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.reader;
+package com.purejadeite.jadegreen;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +33,9 @@ import com.purejadeite.jadegreen.definition.SheetDefinitionImpl;
  * </pre>
  * @author mitsuhiroseino
  */
-public class XssfValueMapper {
+public class SxssfValueMapper {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(XssfValueMapper.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfValueMapper.class);
 
 	public static Map<String, Object> readPrimeSheet(String excelFilePath, String definitionFilePath)
 			throws IOException {
@@ -86,7 +86,7 @@ public class XssfValueMapper {
 		XMLReader bookParser = new SAXParser();
 		for (SheetDefinitionImpl sheet : book.getSheets()) {
 			// ハンドラで対象シートのrIdを収集する
-			XssfBookHandler bookHandler = new XssfBookHandler(sheet.getName());
+			SxssfBookHandler bookHandler = new SxssfBookHandler(sheet.getName());
 			bookParser.setContentHandler(bookHandler);
 
 			InputSource bookSource = null;
@@ -108,14 +108,14 @@ public class XssfValueMapper {
 			// シートのパーサ
 			XMLReader sheetParser = null;
 			Content sheetContent = null;
-			XssfSheetHandler sheetHandler =null;
+			SxssfSheetHandler sheetHandler =null;
 
 			InputStream sheetIs = null;
 			for (Entry<String, String> entry : sheetNames.entrySet()) {
 				LOGGER.debug("対象Sheet:" + entry.getValue());
 				// シートのパーサを取得
 				sheetContent = new SheetContentImpl(bookContent, sheet, entry.getValue());
-				sheetHandler = new XssfSheetHandler(sst, sheetContent);
+				sheetHandler = new SxssfSheetHandler(sst, sheetContent);
 				sheetParser = new SAXParser();
 				sheetParser.setContentHandler(sheetHandler);
 				try {

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.reader;
+package com.purejadeite.jadegreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * ブック用ハンドラ
  * @author mitsuhiroseino
  */
-public class XssfBookHandler extends DefaultHandler {
+public class SxssfBookHandler extends DefaultHandler {
 
     private static final String TAG_SHEET = "sheet";
 
@@ -30,24 +30,24 @@ public class XssfBookHandler extends DefaultHandler {
      * コンストラクタ
      * @param sheetName 取得対象のシート名
      */
-    public XssfBookHandler(String sheetName) {
+    public SxssfBookHandler(String sheetName) {
         String str = sheetName;
-        MatchType type = MatchType.PERFECT;
+        MatchType type = MatchType.EQUALS;
 
         if (StringUtils.endsWith(str, "*")) {
         	str = StringUtils.substring(str, 0, str.length() - 1);
         	// 前方一致
-        	type = MatchType.FORWARD;
+        	type = MatchType.BEGIN_WITH;
         }
 
         if (StringUtils.startsWith(str, "*")) {
         	str = StringUtils.substring(str, 1);
-        	if (type == MatchType.PERFECT) {
+        	if (type == MatchType.EQUALS) {
         		// 後方一致
-            	type = MatchType.BACK;
+            	type = MatchType.END_WITH;
         	} else {
         		// 部分一致
-            	type = MatchType.PART;
+            	type = MatchType.LIKE;
         	}
         }
         this.type = type;
@@ -85,11 +85,11 @@ public class XssfBookHandler extends DefaultHandler {
      * @return
      */
     private boolean isTarget(String name) {
-    	if (type == MatchType.FORWARD) {
+    	if (type == MatchType.BEGIN_WITH) {
     		return StringUtils.startsWith(name, this.matchSheetName);
-    	} else if (type == MatchType.BACK) {
+    	} else if (type == MatchType.END_WITH) {
     		return StringUtils.endsWith(name, this.matchSheetName);
-    	} else if (type == MatchType.PART) {
+    	} else if (type == MatchType.LIKE) {
     		return StringUtils.contains(name, this.matchSheetName);
     	}
 		return StringUtils.equals(name, this.matchSheetName);

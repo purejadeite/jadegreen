@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.reader;
+package com.purejadeite.jadegreen;
 
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
@@ -12,37 +12,84 @@ import com.purejadeite.jadegreen.content.Content;
  * セルを走査するハンドラ
  * @author mitsuhiroseino
  */
-public class XssfSheetHandler extends DefaultHandler {
+public class SxssfSheetHandler extends DefaultHandler {
 
+	/**
+	 * 行のタグ
+	 */
 	private static final String TAG_ROW = "row";
 
+	/**
+	 *
+	 */
 	private static final String TAG_COL = "c";
 
+	/**
+	 *
+	 */
 	private static final String TAG_VAL = "v";
 
+	/**
+	 *
+	 */
 	private static final String TAG_SHEETDATA = "sheetData";
 
+	/**
+	 *
+	 */
 	private static final String NAME_RNO = "r";
 
+	/**
+	 *
+	 */
 	private static final String NAME_RANGE = "r";
 
+	/**
+	 *
+	 */
 	private static final String NAME_TYPE = "t";
 
+	/**
+	 *
+	 */
 	private static final String TYPE_STRING = "s";
 
+	/**
+	 *
+	 */
 	private final SharedStringsTable sharedStrings;
 
+	/**
+	 *
+	 */
 	private Content sheetContent = null;
 
+	/**
+	 *
+	 */
 	private StringBuilder lastContent;
 
+	/**
+	 *
+	 */
 	private boolean nextIsString;
 
+	/**
+	 *
+	 */
 	private int currentRow = 0;
 
+	/**
+	 *
+	 */
 	private int currentCol = 0;
 
-	public XssfSheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
+	/**
+	 * コンストラクター
+	 * @param sharedStrings ブックで共有されている文字列テーブル
+	 * @param sheetContent シートの値
+	 */
+	public SxssfSheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
 		this.sharedStrings = sharedStrings;
 		this.sheetContent = sheetContent;
 	}
@@ -68,7 +115,7 @@ public class XssfSheetHandler extends DefaultHandler {
 			// 今回の列の前処理
 			// rangeを取得
 			String range = attributes.getValue(NAME_RANGE);
-			String colStr = CellUtils.getFirstColString(range);
+			String colStr = CellUtils.getColString(range);
 			// 今回の列番号を取得
 			currentCol = CellUtils.toColIndex(colStr);
 
@@ -134,10 +181,7 @@ public class XssfSheetHandler extends DefaultHandler {
 	}
 
 	/**
-	 * <pre>
 	 * 要素の値を保持するためのメソッド
-	 * </pre>
-	 *
 	 * {@inheritDoc}
 	 */
 	@Override

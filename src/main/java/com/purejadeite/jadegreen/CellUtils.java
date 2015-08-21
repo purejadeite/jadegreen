@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.reader;
+package com.purejadeite.jadegreen;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,7 +11,7 @@ import org.apache.poi.ss.util.CellReference;
 
 /**
  * Cellの値を取得する
- * 
+ *
  * @author mitsuhiroseino
  */
 public class CellUtils {
@@ -35,13 +35,8 @@ public class CellUtils {
 		if (StringUtils.isEmpty(value)) {
 			return null;
 		}
-		Double dblVal = null;
-		try {
-			dblVal = getDoubleValue(value);
-		} catch (Exception e) {
-			throw new IllegalStateException("日付に変換できません。value=" + value, e);
-		}
-		// 1900年始まりのみ対応
+		Double dblVal = getDoubleValue(value);
+		// 今のところ1900年始まりのみ対応
 		boolean use1904windowing = false;
 		TimeZone timeZone = null;
 		return DateUtil.getJavaDate(dblVal.doubleValue(), use1904windowing, timeZone);
@@ -109,14 +104,14 @@ public class CellUtils {
 		}
 	}
 
-	public static String getFirstColString(String range) {
-		char[] cs = range.toCharArray();
+	public static String getColString(String range) {
+		char[] rangeChars = range.toCharArray();
 		String col = "";
-		for (char c : cs) {
-			if (('0' <= c && c <= '9') || c == ':') {
+		for (char rangeChar : rangeChars) {
+			if (('0' <= rangeChar && rangeChar <= '9') || rangeChar == ':') {
 				return col;
 			} else {
-				col += c;
+				col += rangeChar;
 			}
 		}
 		return col;
