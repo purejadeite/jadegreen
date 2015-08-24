@@ -32,17 +32,30 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 		super(parentContent, definition);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * リンクしている単一セルは値の追加が完了しているとして扱います。
+	 */
+	@Override
 	public Status addValue(int row, int col, Object value) {
 		// 値を取得しない
 		return END;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * リンクしている単一セルは取得した値がないため無視をする対象とします。
+	 */
 	@Override
 	public Object getRawValuesImpl(Definition... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.IGNORE;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
+	 */
 	@Override
 	public Object getValuesImpl(Definition... ignore) {
 		// Contentのルートを取得
@@ -51,8 +64,9 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 		// 全Contentから欲しい値のContentを取得
 		List<Content> valueContents = book.searchContents(definition.getValueDefinition());
 		if (valueContents.isEmpty()) {
-			// 欲しい値が無いならば定義が不正なので例外
-			throw new RuntimeException();
+			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
+			LOGGER.warn("リンク先の値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
+			return null;
 		} else if (valueContents.size() == 1 && StringUtils.isEmpty(definition.getSheetKeyId())) {
 			// 欲しい値が1つでキーが指定されていない場合はそれの値を返す
 			// 1ファイルに各シートが1つずつしかない場合を想定
@@ -74,19 +88,9 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 		if (valueContent != null) {
 			return valueContent.getValues(ignore);
 		} else {
-			// 値が見つからないならば定義不正で例外
-			throw new RuntimeException();
+			// 値が見つからないならばシートの状態がおかしい
+			throw new IllegalStateException("リンク先の値を取得できませんでした。");
 		}
-	}
-
-	@Override
-	public String getId() {
-		return definition.getId();
-	}
-
-	@Override
-	public Definition getDefinition() {
-		return definition;
 	}
 
 	@Override

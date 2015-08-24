@@ -57,16 +57,6 @@ public class CellContentImpl extends AbstractContent<CellDefinition> implements 
 	}
 
 	@Override
-	public String getId() {
-		return definition.getId();
-	}
-
-	@Override
-	public Definition getDefinition() {
-		return definition;
-	}
-
-	@Override
 	public List<Content> searchContents(Definition key) {
 		List<Content> contents = new ArrayList<>();
 		if (definition == key) {

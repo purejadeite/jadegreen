@@ -25,12 +25,15 @@ public class CellConverterFactory {
 		CONVERTERS.put(ToShort.class.getSimpleName().toLowerCase(), ToShort.class);
 		CONVERTERS.put(ToString.class.getSimpleName().toLowerCase(), ToString.class);
 		CONVERTERS.put(ToStringDate.class.getSimpleName().toLowerCase(), ToStringDate.class);
+		CONVERTERS.put(Lower.class.getSimpleName().toLowerCase(), Lower.class);
+		CONVERTERS.put(Upper.class.getSimpleName().toLowerCase(), Upper.class);
 		CONVERTERS.put(LowerCamel.class.getSimpleName().toLowerCase(), LowerCamel.class);
 		CONVERTERS.put(LowerHyphen.class.getSimpleName().toLowerCase(), LowerHyphen.class);
 		CONVERTERS.put(LowerUnderscore.class.getSimpleName().toLowerCase(), LowerUnderscore.class);
 		CONVERTERS.put(UpperCamel.class.getSimpleName().toLowerCase(), UpperCamel.class);
 		CONVERTERS.put(UpperUnderscore.class.getSimpleName().toLowerCase(), UpperUnderscore.class);
 		CONVERTERS.put(Mapping.class.getSimpleName().toLowerCase(), Mapping.class);
+		CONVERTERS.put(Replace.class.getSimpleName().toLowerCase(), Replace.class);
 	}
 
 	public static CellConverter build(List<Map<String, String>> configs) {

@@ -69,16 +69,16 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報
 	 * @param id 定義ID
-	 * @param stuff データの読み込みのみ行うか
+	 * @param noOutput データの読み込みのみ行うか
 	 * @param begin 開始位置
 	 * @param end 終了位置
 	 * @param endKey 開始キー項目
 	 * @param endValue 終了キー値
 	 * @param converters コンバーター
 	 */
-	protected AbstractRangeDefinition(Definition parent, String id, boolean stuff, int begin,
+	protected AbstractRangeDefinition(Definition parent, String id, boolean noOutput, int begin,
 			int end, String endKeyId, String endValue, List<Map<String, String>> converters) {
-		super(parent, id, stuff);
+		super(parent, id, noOutput);
 		this.begin = begin;
 		this.end = end <= 0 ? Integer.MAX_VALUE : end;
 		this.endKeyId = endKeyId;

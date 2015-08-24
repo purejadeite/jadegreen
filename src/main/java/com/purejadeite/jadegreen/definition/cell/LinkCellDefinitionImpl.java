@@ -21,8 +21,8 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 	 * @param converters コンバーター
 	 * @param config リンク設定
 	 */
-	private LinkCellDefinitionImpl(BookDefinitionImpl book, Definition sheet, String id, boolean stuff, Map<String, String> config) {
-		super(book, sheet, id, stuff, config);
+	private LinkCellDefinitionImpl(BookDefinitionImpl book, Definition sheet, String id, boolean noOutput, Map<String, String> config) {
+		super(book, sheet, id, noOutput, config);
 	}
 
 	/**
@@ -34,9 +34,9 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 	 * @param config リンク設定
 	 * @return ラップされたCellリンク定義
 	 */
-	public static Definition getInstance(BookDefinitionImpl book, Definition parent, String id, boolean stuff,
+	public static Definition getInstance(BookDefinitionImpl book, Definition parent, String id, boolean noOutput,
 			Map<String, String> config) {
-		return new LinkCellDefinitionImpl(book, parent, id, stuff, config);
+		return new LinkCellDefinitionImpl(book, parent, id, noOutput, config);
 	}
 
 	/**

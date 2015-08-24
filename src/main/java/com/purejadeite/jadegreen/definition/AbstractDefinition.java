@@ -18,8 +18,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 */
 public abstract class AbstractDefinition implements Definition, Serializable {
 
-	private static final long serialVersionUID = -148074445587079740L;
-
+	/**
+	 * JSON出力用のオブジェクトマッパー
+	 */
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	/**
@@ -40,10 +41,6 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	 * </pre>
 	 */
 	protected boolean noOutput = false;
-
-	public boolean isNoOutput() {
-		return noOutput;
-	}
 
 	/**
 	 * デフォルトコンストラクタ
@@ -72,6 +69,13 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 		this.parent = parent;
 		this.id = id;
 		this.noOutput = noOutput;
+	}
+
+	/**
+	 * Mapへの出力を行わないか
+	 */
+	public boolean isNoOutput() {
+		return noOutput;
 	}
 
 	/**
@@ -150,6 +154,10 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("id", id);

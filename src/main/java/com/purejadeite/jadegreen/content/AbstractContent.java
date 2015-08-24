@@ -46,6 +46,21 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 		this.closed = false;
 	}
 
+	@Override
+	public String getId() {
+		return definition.getId();
+	}
+
+	@Override
+	public String getFullId() {
+		return definition.getFullId();
+	}
+
+	@Override
+	public Definition getDefinition() {
+		return definition;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -112,21 +127,6 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 	@Override
 	public void close() {
 		closed = true;
-	}
-
-	@Override
-	public String getId() {
-		return definition.getId();
-	}
-
-	@Override
-	public String getFullId() {
-		return definition.getFullId();
-	}
-
-	@Override
-	public Definition getDefinition() {
-		return definition;
 	}
 
 	/**

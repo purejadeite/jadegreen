@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 値を定義された変換マップの値に置き換えるクラス
+ * 文字列を定義されたマップに応じた値に置き換えるクラス
  * @author mitsuhiroseino
  *
  */

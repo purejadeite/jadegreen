@@ -52,10 +52,10 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	 * @param converters
 	 * @param config
 	 */
-	public LinkRangeCellDefinitionImpl(Definition book, RangeDefinition range, String id, boolean stuff,
+	public LinkRangeCellDefinitionImpl(Definition book, RangeDefinition range, String id, boolean noOutput,
 			List<Map<String, String>> converters,
 			Map<String, String> config) {
-		super(range, id, stuff, 0, 0, 0, 0, false, null, converters);
+		super(range, id, noOutput, 0, 0, 0, 0, false, null, converters);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");
 		this.myKeyId = config.get("myKeyId");
@@ -64,10 +64,10 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 		this.valueId = config.get("valueId");
 	}
 
-	public static CellDefinition getInstance(Definition book, RangeDefinition range, String id, boolean stuff,
+	public static CellDefinition getInstance(Definition book, RangeDefinition range, String id, boolean noOutput,
 			List<Map<String, String>> converters,
 			Map<String, String> config) {
-		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, stuff, converters, config);
+		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, noOutput, converters, config);
 		return cell;
 	}
 

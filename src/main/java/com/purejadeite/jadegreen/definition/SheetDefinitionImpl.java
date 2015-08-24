@@ -51,10 +51,10 @@ public class SheetDefinitionImpl extends AbstractDefinition {
 	 * @param parent Book読み込み定義
 	 * @param id 定義ID
 	 * @param name シート名
-	 * @param stuff 出力要否
+	 * @param noOutput 出力要否
 	 */
-	public SheetDefinitionImpl(Definition parent, String id, String name, boolean stuff) {
-		super(parent, id, stuff);
+	public SheetDefinitionImpl(Definition parent, String id, String name, boolean noOutput) {
+		super(parent, id, noOutput);
 		this.name = name;
 	}
 

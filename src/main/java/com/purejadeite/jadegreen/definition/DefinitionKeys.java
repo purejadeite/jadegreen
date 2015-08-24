@@ -103,21 +103,6 @@ public class DefinitionKeys {
 	public static final String LINK = "link";
 
 	/**
-	 * セルのリンク先
-	 */
-	public static final String DEST = "dest";
-
-	/**
-	 * セルのリンク先のキー
-	 */
-	public static final String KEY = "key";
-
-	/**
-	 * セルにリンクする値
-	 */
-	public static final String VALUE = "value";
-
-	/**
 	 * コンバーター
 	 */
 	public static final String CONVERTERS = "converters";

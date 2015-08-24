@@ -27,6 +27,11 @@ public class AddText extends AbstractStringCellConverter {
 	private String suffix;
 
 	/**
+	 * NULLの場合は処理対象外
+	 */
+	private boolean ignoreEmpty;
+
+	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
@@ -35,6 +40,7 @@ public class AddText extends AbstractStringCellConverter {
 		super();
 		this.prefix = MapUtils.getString(config, "prefix");
 		this.suffix = MapUtils.getString(config, "suffix");
+		this.ignoreEmpty = MapUtils.getBooleanValue(config, "ignoreEmpty");
 	}
 
 	/**
@@ -45,6 +51,10 @@ public class AddText extends AbstractStringCellConverter {
 		String val = "";
 		if (!StringUtils.isEmpty(value)) {
 			val = value;
+		} else {
+			if (ignoreEmpty) {
+				return value;
+			}
 		}
 		if (!StringUtils.isEmpty(prefix)) {
 			val = prefix + val;

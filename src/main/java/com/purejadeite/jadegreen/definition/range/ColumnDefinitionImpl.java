@@ -17,24 +17,24 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition {
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報
 	 * @param id 定義ID
-	 * @param stuff データの読み込みのみ行うか
+	 * @param noOutput データの読み込みのみ行うか
 	 * @param beginCol 開始列
 	 * @param endCol 終了列
 	 * @param endKey 開始キー項目
 	 * @param endValue 終了キー値
 	 * @param converters コンバーター
 	 */
-	public ColumnDefinitionImpl(Definition parent, String id, boolean stuff, int beginCol, int endCol, String endKey,
+	public ColumnDefinitionImpl(Definition parent, String id, boolean noOutput, int beginCol, int endCol, String endKey,
 			String endValue,
 			List<Map<String, String>> converters) {
-		super(parent, id, stuff, beginCol, endCol, endKey, endValue, converters);
+		super(parent, id, noOutput, beginCol, endCol, endKey, endValue, converters);
 	}
 
 	/**
 	 * インスタンスを取得します
 	 * @param parent 親の読み込み情報
 	 * @param id 定義ID
-	 * @param stuff データの読み込みのみ行うか
+	 * @param noOutput データの読み込みのみ行うか
 	 * @param beginCol 開始列
 	 * @param endCol 終了列
 	 * @param endKey 開始キー項目
@@ -42,10 +42,10 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition {
 	 * @param converters コンバーター
 	 * @return コンバーターでラップした読み込み定義
 	 */
-	public static RangeDefinition getInstance(Definition parent, String id, boolean stuff, int beginCol, int endCol,
+	public static RangeDefinition getInstance(Definition parent, String id, boolean noOutput, int beginCol, int endCol,
 			String endKey, String endValue,
 			List<Map<String, String>> converters) {
-		ColumnDefinitionImpl range = new ColumnDefinitionImpl(parent, id, stuff, beginCol, endCol, endKey, endValue,
+		ColumnDefinitionImpl range = new ColumnDefinitionImpl(parent, id, noOutput, beginCol, endCol, endKey, endValue,
 				converters);
 		return range;
 	}

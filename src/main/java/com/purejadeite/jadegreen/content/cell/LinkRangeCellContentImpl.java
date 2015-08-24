@@ -35,11 +35,21 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 		super(parent, definition);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * リンクしているテーブルのセルは、同テーブルの他のセルや上限数によって完了状態になるので、
+	 * 値の追加が完了していないとして扱います。
+	 */
+	@Override
 	public Status addValue(int row, int col, Object value) {
 		// 値を取得しない
 		return NO;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * リンクしているテーブルのセルは取得した値がないため無視をする対象とします。
+	 */
 	@Override
 	public Object getRawValuesImpl(Definition... ignore) {
 		// 値は無視してもらう
@@ -96,16 +106,6 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 			}
 		}
 		return myValues;
-	}
-
-	@Override
-	public String getId() {
-		return definition.getId();
-	}
-
-	@Override
-	public Definition getDefinition() {
-		return definition;
 	}
 
 	@Override

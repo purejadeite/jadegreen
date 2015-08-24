@@ -17,23 +17,23 @@ public class RowDefinitionImpl extends AbstractRangeDefinition {
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報
 	 * @param id 定義ID
-	 * @param stuff データの読み込みのみ行うか
+	 * @param noOutput データの読み込みのみ行うか
 	 * @param beginRow 開始行
 	 * @param endRow 終了行
 	 * @param endKey 開始キー項目
 	 * @param endValue 終了キー値
 	 * @param converters コンバーター
 	 */
-	public RowDefinitionImpl(Definition parent, String id, boolean stuff, int beginRow, int endRow, String endKey,
+	public RowDefinitionImpl(Definition parent, String id, boolean noOutput, int beginRow, int endRow, String endKey,
 			String endValue, List<Map<String, String>> converters) {
-		super(parent, id, stuff, beginRow, endRow, endKey, endValue, converters);
+		super(parent, id, noOutput, beginRow, endRow, endKey, endValue, converters);
 	}
 
 	/**
 	 * インスタンスを取得します
 	 * @param parent 親の読み込み情報
 	 * @param id 定義ID
-	 * @param stuff データの読み込みのみ行うか
+	 * @param noOutput データの読み込みのみ行うか
 	 * @param beginRow 開始行
 	 * @param endRow 終了行
 	 * @param endKey 開始キー項目
@@ -41,9 +41,9 @@ public class RowDefinitionImpl extends AbstractRangeDefinition {
 	 * @param converters コンバーター
 	 * @return コンバーターでラップした読み込み定義
 	 */
-	public static RangeDefinition getInstance(Definition parent, String id, boolean stuff, int beginRow, int endRow,
+	public static RangeDefinition getInstance(Definition parent, String id, boolean noOutput, int beginRow, int endRow,
 			String endKey, String endValue, List<Map<String, String>> converters) {
-		RowDefinitionImpl range = new RowDefinitionImpl(parent, id, stuff, beginRow, endRow, endKey, endValue,
+		RowDefinitionImpl range = new RowDefinitionImpl(parent, id, noOutput, beginRow, endRow, endKey, endValue,
 				converters);
 		return range;
 	}

@@ -202,16 +202,6 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	}
 
 	@Override
-	public String getId() {
-		return definition.getId();
-	}
-
-	@Override
-	public Definition getDefinition() {
-		return definition;
-	}
-
-	@Override
 	public List<Content> searchContents(Definition key) {
 		List<Content> contents = new ArrayList<>();
 		if (definition == key) {

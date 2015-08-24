@@ -13,7 +13,7 @@ import com.google.common.base.CaseFormat;
 * @author mitsuhiroseino
 *
 */
-public class LowerUnderscore extends AbstractCaseFormatConverter {
+public class LowerUnderscore extends AbstractCaseFormatCellConverter {
 
 	private static final long serialVersionUID = -2652402252727497847L;
 

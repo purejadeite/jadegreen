@@ -37,7 +37,7 @@ public class SxssfBookHandler extends DefaultHandler {
         if (StringUtils.endsWith(str, "*")) {
         	str = StringUtils.substring(str, 0, str.length() - 1);
         	// 前方一致
-        	type = MatchType.BEGIN_WITH;
+        	type = MatchType.START_WITH;
         }
 
         if (StringUtils.startsWith(str, "*")) {
@@ -85,7 +85,7 @@ public class SxssfBookHandler extends DefaultHandler {
      * @return
      */
     private boolean isTarget(String name) {
-    	if (type == MatchType.BEGIN_WITH) {
+    	if (type == MatchType.START_WITH) {
     		return StringUtils.startsWith(name, this.matchSheetName);
     	} else if (type == MatchType.END_WITH) {
     		return StringUtils.endsWith(name, this.matchSheetName);

@@ -1,25 +1,18 @@
-package com.purejadeite.jadegreen.content.cell;
+package com.purejadeite.jadegreen.content;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.purejadeite.jadegreen.content.AbstractContent;
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.content.SheetContentImpl;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.cell.LinkCellDefinition;
+import com.purejadeite.jadegreen.definition.LinkDefinition;
 
 /**
- * <pre>
- * 値の取得元セルの情報を保持する抽象クラス
- * </pre>
+ * 値のリンクを行う抽象クラス
  * @author mitsuhiroseino
  */
-public abstract class AbstractLinkCellContent<D extends LinkCellDefinition> extends AbstractContent<D> implements LinkCellContent {
+public abstract class AbstractLinkContent<D extends LinkDefinition> extends AbstractContent<D> implements LinkContent {
 
-	private static final long serialVersionUID = -1945575252486887273L;
-
-	public AbstractLinkCellContent(Content parent, D definition) {
+	public AbstractLinkContent(Content parent, D definition) {
 		super(parent, definition);
 	}
 

@@ -13,7 +13,7 @@ import com.google.common.base.CaseFormat;
 * @author mitsuhiroseino
 *
 */
-public class LowerHyphen extends AbstractCaseFormatConverter {
+public class LowerHyphen extends AbstractCaseFormatCellConverter {
 
 	private static final long serialVersionUID = 7141848730680448427L;
 

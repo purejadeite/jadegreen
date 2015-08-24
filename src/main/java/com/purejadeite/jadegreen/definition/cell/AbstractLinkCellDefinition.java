@@ -40,8 +40,8 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * @param converters コンバーター
 	 * @param config リンク設定
 	 */
-	protected AbstractLinkCellDefinition(BookDefinitionImpl book, Definition parent, String id, boolean stuff, Map<String, String> config) {
-		super(parent, id, stuff);
+	protected AbstractLinkCellDefinition(BookDefinitionImpl book, Definition parent, String id, boolean noOutput, Map<String, String> config) {
+		super(parent, id, noOutput);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");
 		this.sheetKeyId = config.get("sheetKeyId");

@@ -21,7 +21,7 @@ import com.google.common.base.CaseFormat;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractCaseFormatConverter extends AbstractStringCellConverter {
+public abstract class AbstractCaseFormatCellConverter extends AbstractStringCellConverter {
 
 	private static final long serialVersionUID = -8513734342418090089L;
 
@@ -29,7 +29,7 @@ public abstract class AbstractCaseFormatConverter extends AbstractStringCellConv
 	 * コンストラクタ
 	 * @param cell Cell読み込み定義
 	 */
-	public AbstractCaseFormatConverter() {
+	public AbstractCaseFormatCellConverter() {
 		super();
 	}
 

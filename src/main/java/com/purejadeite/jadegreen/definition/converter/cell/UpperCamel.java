@@ -13,7 +13,7 @@ import com.google.common.base.CaseFormat;
 * @author mitsuhiroseino
 *
 */
-public class UpperCamel extends AbstractCaseFormatConverter {
+public class UpperCamel extends AbstractCaseFormatCellConverter {
 
 	private static final long serialVersionUID = 4377003507328772214L;
 

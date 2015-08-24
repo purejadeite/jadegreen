@@ -16,8 +16,6 @@ import com.purejadeite.jadegreen.definition.converter.cell.CellConverterFactory;
  */
 public abstract class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
 
-	private static final long serialVersionUID = -791732811052430788L;
-
 	/**
 	 * コンバーター
 	 */
@@ -29,8 +27,8 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 * @param id 定義ID
 	 * @param converters コンバーター
 	 */
-	protected AbstractCellDefinition(Definition parent, String id, boolean stuff, List<Map<String, String>> converters) {
-		super(parent, id, stuff);
+	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput, List<Map<String, String>> converters) {
+		super(parent, id, noOutput);
 		this.converter = CellConverterFactory.build(converters);
 	}
 
