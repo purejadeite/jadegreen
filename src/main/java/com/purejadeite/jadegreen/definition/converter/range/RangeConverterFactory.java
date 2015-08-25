@@ -26,6 +26,7 @@ public class RangeConverterFactory {
 		putConverter(Group.class);
 		putConverter(Sort.class);
 		putConverter(Unique.class);
+		putConverter(Eliminate.class);
 	}
 
 	private static void putConverter(Class<? extends RangeConverter> clazz) {
