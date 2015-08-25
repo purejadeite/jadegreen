@@ -67,7 +67,7 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 	@Override
 	public Object getRawValues(Definition... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
-			return SpecificValue.IGNORE;
+			return SpecificValue.INVALID;
 		} else {
 			return getRawValuesImpl(ignore);
 		}
@@ -86,10 +86,10 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 	@Override
 	public Object getValues(Definition... ignore) {
 		if (this.getDefinition().isNoOutput()) {
-			return SpecificValue.STUFF;
+			return SpecificValue.NO_OUTPUT;
 		} else {
 			if (ArrayUtils.contains(ignore, this.getDefinition())) {
-				return SpecificValue.IGNORE;
+				return SpecificValue.INVALID;
 			} else {
 				return getValuesImpl(ignore);
 			}

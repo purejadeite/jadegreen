@@ -20,6 +20,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.ColumnDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
@@ -105,8 +106,8 @@ public class DefinitionBuilder {
 			// sheetのビルド
 			String id = MapUtils.getString(sheetDef, ID);
 			String name = MapUtils.getString(sheetDef, NAME);
-			boolean stuff = MapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
-			SheetDefinitionImpl sheet = new SheetDefinitionImpl(book, id, name, stuff);
+			boolean noOutput = MapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
+			SheetDefinitionImpl sheet = new SheetDefinitionImpl(book, id, name, noOutput);
 
 			// cellのビルド
 			@SuppressWarnings("unchecked")
@@ -147,6 +148,7 @@ public class DefinitionBuilder {
 		int endCol = MapUtils.getIntValue(cellDef, END_COLUMN);
 		String endKey = MapUtils.getString(cellDef, END_KEY);
 		String endValue = MapUtils.getString(cellDef, END_VALUE);
+		String splitter = MapUtils.getString(cellDef, SPLITTER);
 		@SuppressWarnings("unchecked")
 		Map<String, String> link = MapUtils.getMap(cellDef, LINK);
 		@SuppressWarnings("unchecked")
@@ -195,7 +197,11 @@ public class DefinitionBuilder {
 		} else {
 			// 単独フィールドの場合
 			LOGGER.debug("単独:" + id);
-			return CellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, converters);
+			if (splitter == null) {
+				return CellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, converters);
+			} else {
+				return ListCellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, splitter, converters);
+			}
 		}
 		return null;
 	}

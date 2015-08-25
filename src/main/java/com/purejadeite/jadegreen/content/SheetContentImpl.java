@@ -33,7 +33,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SheetContentImpl.class);
 
-	private String name;
+	private String sheetName;
 
 	private List<Content> contents = new ArrayList<>();
 
@@ -43,9 +43,9 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private int maxCol = 0;
 
-	public SheetContentImpl(Content parent, SheetDefinitionImpl definition, String name) {
+	public SheetContentImpl(Content parent, SheetDefinitionImpl definition, String sheetName) {
 		super(parent, definition);
-		this.name = name;
+		this.sheetName = sheetName;
 		for (Definition childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof LinkCellDefinitionImpl) {
 				// 単独セルのリンクの場合
@@ -60,7 +60,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 		}
 		maxCol = definition.getMaxCol();
 		prevCol = maxCol;
-		LOGGER.debug("create: " + name);
+		LOGGER.debug("create: " + sheetName);
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 			addDummyValues(prevRow + 1, 1);
 		}
 		super.close();
-		LOGGER.debug("close: " + name);
+		LOGGER.debug("close: " + sheetName);
 	}
 
 	/**
@@ -203,10 +203,11 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	@Override
 	public Object getValuesImpl(Definition... ignore) {
 		Map<String, Object> values = new HashMap<>();
+		values.put("sheetName", sheetName);
 		for (Content content : contents) {
 			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
 				Object vals = content.getValues(ignore);
-				if (vals != SpecificValue.STUFF) {
+				if (vals != SpecificValue.NO_OUTPUT) {
 					values.put(content.getId(), vals);
 				}
 			}
@@ -232,7 +233,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("name", name);
+		map.put("sheetName", sheetName);
 		List<Map<String, Object>> contentMaps = new ArrayList<>();
 		for(Content content: contents) {
 			contentMaps.add(content.toMap());
@@ -246,7 +247,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 	 */
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", name=" + name + ", contents=" + contents
+		return this.getClass().getSimpleName() + " [" + super.toString() + ", sheetName=" + sheetName + ", contents=" + contents
 				+ "]";
 	}
 

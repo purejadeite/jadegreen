@@ -112,4 +112,9 @@ public class DefinitionKeys {
 	 */
 	public static final String CLASS = "class";
 
+	/**
+	 * 分割文字
+	 */
+	public static final String SPLITTER = "splitter";
+
 }

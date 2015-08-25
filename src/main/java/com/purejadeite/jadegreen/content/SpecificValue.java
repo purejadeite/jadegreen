@@ -5,12 +5,12 @@ public enum SpecificValue {
 	/**
 	 * 出力対象外の値
 	 */
-	STUFF,
+	NO_OUTPUT,
 
 	/**
-	 * 無視する値
+	 * 無効な値
 	 */
-	IGNORE,
+	INVALID,
 
 	/**
 	 * リンク

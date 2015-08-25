@@ -2,17 +2,11 @@ package com.purejadeite.jadegreen.content.cell;
 
 import static com.purejadeite.jadegreen.content.Status.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.content.AbstractContent;
 import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.Status;
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
@@ -21,13 +15,13 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * </pre>
  * @author mitsuhiroseino
  */
-public class CellContentImpl extends AbstractContent<CellDefinition> implements CellContent {
+public class CellContentImpl extends AbstractCellContent<CellDefinition> {
 
 	private static final long serialVersionUID = -2503759991149163949L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CellContentImpl.class);
 
-	private Object values;
+	protected Object values;
 
 	public CellContentImpl(Content parent, CellDefinition definition) {
 		super(parent, definition);
@@ -44,42 +38,5 @@ public class CellContentImpl extends AbstractContent<CellDefinition> implements 
 			return SUCCESS;
 		}
 		return NO;
-	}
-
-	@Override
-	public Object getRawValuesImpl(Definition... ignore) {
-		return values;
-	}
-
-	@Override
-	public Object getValuesImpl(Definition... ignore) {
-		return definition.convert(values);
-	}
-
-	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		return contents;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<String, Object> toMap() {
-		Map<String, Object> map = super.toMap();
-		map.put("values", values);
-		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", values=" + values + "]";
 	}
 }

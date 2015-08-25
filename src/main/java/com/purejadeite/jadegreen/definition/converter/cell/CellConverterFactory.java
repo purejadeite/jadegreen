@@ -10,31 +10,36 @@ import com.purejadeite.jadegreen.definition.DefinitionKeys;
 
 public class CellConverterFactory {
 
-	public static Map<String, Class<?>> CONVERTERS;
+	public static Map<String, Class<? extends CellConverter>> CONVERTERS;
 
 	static {
 		CONVERTERS = new HashMap<>();
-		CONVERTERS.put(Split.class.getSimpleName().toLowerCase(), Split.class);
-		CONVERTERS.put(ToBigDecimal.class.getSimpleName().toLowerCase(), ToBigDecimal.class);
-		CONVERTERS.put(ToBoolean.class.getSimpleName().toLowerCase(), ToBoolean.class);
-		CONVERTERS.put(ToDate.class.getSimpleName().toLowerCase(), ToDate.class);
-		CONVERTERS.put(ToDouble.class.getSimpleName().toLowerCase(), ToDouble.class);
-		CONVERTERS.put(ToFloat.class.getSimpleName().toLowerCase(), ToFloat.class);
-		CONVERTERS.put(ToInteger.class.getSimpleName().toLowerCase(), ToInteger.class);
-		CONVERTERS.put(ToLong.class.getSimpleName().toLowerCase(), ToLong.class);
-		CONVERTERS.put(ToShort.class.getSimpleName().toLowerCase(), ToShort.class);
-		CONVERTERS.put(ToString.class.getSimpleName().toLowerCase(), ToString.class);
-		CONVERTERS.put(ToStringDate.class.getSimpleName().toLowerCase(), ToStringDate.class);
-		CONVERTERS.put(Lower.class.getSimpleName().toLowerCase(), Lower.class);
-		CONVERTERS.put(Upper.class.getSimpleName().toLowerCase(), Upper.class);
-		CONVERTERS.put(LowerCamel.class.getSimpleName().toLowerCase(), LowerCamel.class);
-		CONVERTERS.put(LowerHyphen.class.getSimpleName().toLowerCase(), LowerHyphen.class);
-		CONVERTERS.put(LowerUnderscore.class.getSimpleName().toLowerCase(), LowerUnderscore.class);
-		CONVERTERS.put(UpperCamel.class.getSimpleName().toLowerCase(), UpperCamel.class);
-		CONVERTERS.put(UpperUnderscore.class.getSimpleName().toLowerCase(), UpperUnderscore.class);
-		CONVERTERS.put(Mapping.class.getSimpleName().toLowerCase(), Mapping.class);
-		CONVERTERS.put(Replace.class.getSimpleName().toLowerCase(), Replace.class);
+		putConverter(Split.class);
+		putConverter(ToBigDecimal.class);
+		putConverter(ToBoolean.class);
+		putConverter(ToDate.class);
+		putConverter(ToDouble.class);
+		putConverter(ToFloat.class);
+		putConverter(ToInteger.class);
+		putConverter(ToLong.class);
+		putConverter(ToShort.class);
+		putConverter(ToString.class);
+		putConverter(ToStringDate.class);
+		putConverter(Lower.class);
+		putConverter(Upper.class);
+		putConverter(LowerCamel.class);
+		putConverter(LowerHyphen.class);
+		putConverter(LowerUnderscore.class);
+		putConverter(UpperCamel.class);
+		putConverter(UpperUnderscore.class);
+		putConverter(Mapping.class);
+		putConverter(Replace.class);
 	}
+
+	private static void putConverter(Class<? extends CellConverter> clazz) {
+		CONVERTERS.put(clazz.getSimpleName().toLowerCase(), clazz);
+	}
+
 
 	public static CellConverter build(List<Map<String, String>> configs) {
 		if (configs == null || configs.size() == 0) {
@@ -55,12 +60,12 @@ public class CellConverterFactory {
 	public static CellConverter getConverter(Map<String, String> config) {
 		String name = config.get(DefinitionKeys.CLASS);
 		// クラスを取得
-		Class<?> clazz = CONVERTERS.get(name.toLowerCase());
+		Class<? extends CellConverter> clazz = CONVERTERS.get(name.toLowerCase());
 		if (clazz == null) {
 			return null;
 		}
 		// コンストラクタを取得
-		Constructor<?> constructor;
+		Constructor<? extends CellConverter> constructor;
 		try {
 			constructor = clazz.getConstructor(Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
@@ -70,7 +75,7 @@ public class CellConverterFactory {
 		// インスタンスを取得
 		CellConverter converter = null;
 		try {
-			converter = (CellConverter) constructor.newInstance(config);
+			converter = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			return null;
 		}

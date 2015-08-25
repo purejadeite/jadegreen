@@ -34,14 +34,6 @@ public class LowerCamel extends AbstractCaseFormatCellConverter {
 		return format(value, CaseFormat.LOWER_CAMEL);
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String toJson() {
-//		return "{" + super.toJson() + "}";
-//	}
-
 	/**
 	 * {@inheritDoc}
 	 */

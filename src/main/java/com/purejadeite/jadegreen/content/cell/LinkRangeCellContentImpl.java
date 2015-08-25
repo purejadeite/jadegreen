@@ -53,7 +53,7 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 	@Override
 	public Object getRawValuesImpl(Definition... ignore) {
 		// 値は無視してもらう
-		return SpecificValue.IGNORE;
+		return SpecificValue.INVALID;
 	}
 
 	@Override

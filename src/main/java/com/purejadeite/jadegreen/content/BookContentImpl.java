@@ -43,7 +43,7 @@ public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 		List<Object> values = new ArrayList<>();
 		for (Content sheet : sheets) {
 			Object vals = sheet.getRawValues(ignore);
-			if (vals != SpecificValue.IGNORE) {
+			if (vals != SpecificValue.INVALID) {
 				values.add(vals);
 			}
 		}
@@ -75,7 +75,7 @@ public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 		List<Object> values = new ArrayList<>();
 		for (Content sheet : sheets) {
 			Object vals = sheet.getValues(ignore);
-			if (vals != SpecificValue.STUFF && vals != SpecificValue.IGNORE) {
+			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.INVALID) {
 				values.add(vals);
 			}
 		}

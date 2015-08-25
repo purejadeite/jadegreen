@@ -3,15 +3,16 @@ package com.purejadeite.jadegreen.definition.converter.cell;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
-
 /**
  * Cellの値を変換する抽象クラス
+ *
  * @author mitsuhiroseino
  *
  */
@@ -25,17 +26,19 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 
 	/**
 	 * コンストラクタ
-	 * @param cell 値の取得元Cell読み込み定義
+	 *
+	 * @param cell
+	 *            値の取得元Cell読み込み定義
 	 */
 	public AbstractCellConverter() {
 	}
 
 	public Object convert(Object value) {
-		if (value instanceof List) {
+		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
-			List<Object> values = (List<Object>)value;
-			List<Object> vals = new ArrayList<>();
-			for (Object v: values) {
+			Collection<Object> values = (Collection<Object>) value;
+			Collection<Object> vals = new ArrayList<>();
+			for (Object v : values) {
 				vals.add(this.convert(v));
 			}
 			return vals;

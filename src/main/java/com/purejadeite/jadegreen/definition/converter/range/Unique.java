@@ -1,26 +1,25 @@
-package com.purejadeite.jadegreen.definition.converter.cell;
+package com.purejadeite.jadegreen.definition.converter.range;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.CellUtils;
-
 /**
- * 文字列を BigDecimal へ変換するクラス
+ * 削除コンバーター
  * @author mitsuhiroseino
  *
  */
-public class ToBigDecimal extends AbstractStringCellConverter {
+public class Unique extends AbstractRangeConverter {
 
-	private static final long serialVersionUID = 4341224550647996037L;
 
 	/**
 	 * コンストラクタ
-	 * @param cell 値の取得元Cell読み込み定義
+	 * @param range 変換元の値を持つ定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToBigDecimal(Map<String, Object> config) {
+	public Unique(Map<String, Object> config) {
 		super();
 	}
 
@@ -28,10 +27,14 @@ public class ToBigDecimal extends AbstractStringCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(String value) {
-		return CellUtils.getBigDecimalValue(value);
+	protected Object convertImpl(List<Map<String, Object>> values) {
+		return new ArrayList<>(new LinkedHashSet<>(values));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<Map<String, Object>> toList() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("name", this.getClass().getSimpleName());

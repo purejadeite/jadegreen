@@ -55,14 +55,6 @@ public class Mapping extends AbstractCellConverter {
 		return mappedValue;
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String toJson() {
-//		return "{" + super.toJson() + "," + getJson("map", map) + "}";
-//	}
-
 	public List<Map<String, Object>> toList() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("name", this.getClass().getSimpleName());

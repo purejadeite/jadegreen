@@ -15,7 +15,7 @@ import com.google.common.base.CaseFormat;
  *・LOWER_CAMEL:		'abcDef'
  *・UPPER_CAMEL:		'AbcDef'
  *・LOWER_UNDERSCORE:	'abc_def'
- *・UPPER_UNDERSCORE:	'ABC_DEF'
+// *・UPPER_UNDERSCORE:	'ABC_DEF'
  *・LOWER_HYPHEN:		'abc-def'
  * </pre>
  * @author mitsuhiroseino

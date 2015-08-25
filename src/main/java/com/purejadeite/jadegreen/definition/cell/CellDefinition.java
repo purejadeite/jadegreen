@@ -42,6 +42,4 @@ public interface CellDefinition extends Definition {
 	 * @return ラップされたCell読み込み定義
 	 */
 	public CellConverter getConverter();
-
-	public Object convert(Object value);
 }

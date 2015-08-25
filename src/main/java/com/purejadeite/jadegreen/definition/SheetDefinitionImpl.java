@@ -194,4 +194,8 @@ public class SheetDefinitionImpl extends AbstractDefinition {
 				+ ", maxRow=" + maxRow + ", minCol=" + minCol + ", maxCol=" + maxCol + ", cells=" + cells + "]";
 	}
 
+	public Object convert(Object value) {
+		return value;
+	}
+
 }

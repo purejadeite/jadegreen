@@ -95,4 +95,8 @@ public class BookDefinitionImpl extends AbstractDefinition {
 		return this.sheets;
 	}
 
+	public Object convert(Object value) {
+		return value;
+	}
+
 }

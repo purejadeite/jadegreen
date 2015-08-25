@@ -1,0 +1,66 @@
+package com.purejadeite.jadegreen.content.cell;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.purejadeite.jadegreen.content.AbstractContent;
+import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.definition.Definition;
+
+/**
+ * <pre>
+ * 値の取得元セルの情報を保持する抽象クラス
+ * </pre>
+ * @author mitsuhiroseino
+ */
+public abstract class AbstractCellContent<D extends Definition> extends AbstractContent<D> implements CellContent {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCellContent.class);
+
+	protected Object values;
+
+	public AbstractCellContent(Content parent, D definition) {
+		super(parent, definition);
+	}
+
+	@Override
+	public Object getRawValuesImpl(Definition... ignore) {
+		return values;
+	}
+
+	@Override
+	public Object getValuesImpl(Definition... ignore) {
+		return definition.convert(values);
+	}
+
+	@Override
+	public List<Content> searchContents(Definition key) {
+		List<Content> contents = new ArrayList<>();
+		if (definition == key) {
+			contents.add(this);
+		}
+		return contents;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("values", values);
+		return map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + " [" + super.toString() + ", values=" + values + "]";
+	}
+}

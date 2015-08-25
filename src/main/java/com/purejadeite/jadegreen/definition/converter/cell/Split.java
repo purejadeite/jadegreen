@@ -42,14 +42,6 @@ public class Split extends AbstractStringCellConverter {
 		return (Object) Arrays.asList(values);
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String toJson() {
-//		return "{" + super.toJson() + "," + getJson("splitter", splitter) + "}";
-//	}
-
 	public List<Map<String, Object>> toList() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("name", this.getClass().getSimpleName());

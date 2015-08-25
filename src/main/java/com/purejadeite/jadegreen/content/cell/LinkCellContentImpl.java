@@ -49,7 +49,7 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 	@Override
 	public Object getRawValuesImpl(Definition... ignore) {
 		// 値は無視してもらう
-		return SpecificValue.IGNORE;
+		return SpecificValue.INVALID;
 	}
 
 	/**

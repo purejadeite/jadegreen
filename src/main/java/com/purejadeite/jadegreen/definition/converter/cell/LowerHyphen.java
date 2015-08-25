@@ -34,14 +34,6 @@ public class LowerHyphen extends AbstractCaseFormatCellConverter {
 		return format(value, CaseFormat.LOWER_HYPHEN);
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String toJson() {
-//		return "{" + super.toJson() + "}";
-//	}
-
 	/**
 	 * {@inheritDoc}
 	 */

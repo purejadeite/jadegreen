@@ -34,14 +34,6 @@ public class LowerUnderscore extends AbstractCaseFormatCellConverter {
 		return format(value, CaseFormat.LOWER_UNDERSCORE);
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String toJson() {
-//		return "{" + super.toJson() + "}";
-//	}
-
 	/**
 	 * {@inheritDoc}
 	 */

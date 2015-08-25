@@ -73,6 +73,4 @@ public interface RangeDefinition extends Definition {
 	 * @param children 子要素
 	 */
 	public void addChildren(List<Definition> children);
-
-	public Object convert(Object value);
 }

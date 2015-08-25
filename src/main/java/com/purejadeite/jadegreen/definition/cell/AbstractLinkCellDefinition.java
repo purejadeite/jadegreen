@@ -110,4 +110,8 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 		throw new UnsupportedOperationException();
 	}
 
+	public Object convert(Object value) {
+		return value;
+	}
+
 }

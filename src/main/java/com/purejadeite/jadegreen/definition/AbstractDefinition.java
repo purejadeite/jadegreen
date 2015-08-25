@@ -175,7 +175,7 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "id=" + id + ", stuff=" + noOutput + ", parent=" + parent.getFullId();
+		return "id=" + id + ", noOutput=" + noOutput + ", parent=" + parent.getFullId();
 	}
 
 }

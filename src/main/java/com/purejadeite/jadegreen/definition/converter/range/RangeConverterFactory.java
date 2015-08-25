@@ -18,13 +18,18 @@ public class RangeConverterFactory {
 	/**
 	 * コンバーター
 	 */
-	public static Map<String, Class<?>> CONVERTERS;
+	public static Map<String, Class<? extends RangeConverter>> CONVERTERS;
 
 	static {
 		// コンバーターの初期化処理
 		CONVERTERS = new HashMap<>();
-		CONVERTERS.put(Group.class.getSimpleName().toLowerCase(), Group.class);
-		CONVERTERS.put(Sort.class.getSimpleName().toLowerCase(), Sort.class);
+		putConverter(Group.class);
+		putConverter(Sort.class);
+		putConverter(Unique.class);
+	}
+
+	private static void putConverter(Class<? extends RangeConverter> clazz) {
+		CONVERTERS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
 	/**
@@ -58,12 +63,12 @@ public class RangeConverterFactory {
 	private static RangeConverter getConverter(Map<String, String> config) {
 		String name = config.get(DefinitionKeys.CLASS);
 		// クラスを取得
-		Class<?> clazz = CONVERTERS.get(name.toLowerCase());
+		Class<? extends RangeConverter> clazz = CONVERTERS.get(name.toLowerCase());
 		if (clazz == null) {
 			return null;
 		}
 		// コンストラクタを取得
-		Constructor<?> constructor;
+		Constructor<? extends RangeConverter> constructor;
 		try {
 			constructor = clazz.getConstructor(Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
@@ -73,7 +78,7 @@ public class RangeConverterFactory {
 		// インスタンスを取得
 		RangeConverter converter = null;
 		try {
-			converter = (RangeConverter) constructor.newInstance(config);
+			converter = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			return null;
 		}
