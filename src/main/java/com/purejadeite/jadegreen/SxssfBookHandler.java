@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.xerces.impl.xpath.regex.RegularExpression;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -20,7 +21,9 @@ public class SxssfBookHandler extends DefaultHandler {
 
     private static final String NAME_RID = "r:id";
 
-    private String matchSheetName = null;
+    private String matchSheetName;
+
+    private RegularExpression reqex;
 
     private MatchType type;
 
@@ -50,7 +53,13 @@ public class SxssfBookHandler extends DefaultHandler {
             	type = MatchType.LIKE;
         	}
         }
-        this.type = type;
+
+        if (StringUtils.startsWith(str, "/") && StringUtils.endsWith(str, "/")) {
+        	str = StringUtils.substring(str, 1, str.length() - 1);
+        	reqex = new RegularExpression(str);
+        	// 正規表現
+        	type = MatchType.REGEX;
+        }
         this.matchSheetName = str;
     }
 
@@ -91,6 +100,8 @@ public class SxssfBookHandler extends DefaultHandler {
     		return StringUtils.endsWith(name, this.matchSheetName);
     	} else if (type == MatchType.LIKE) {
     		return StringUtils.contains(name, this.matchSheetName);
+    	} else if (type == MatchType.REGEX) {
+    		return this.reqex.matches(name);
     	}
 		return StringUtils.equals(name, this.matchSheetName);
 

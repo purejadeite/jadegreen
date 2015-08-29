@@ -17,11 +17,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  */
 public class CellContentImpl extends AbstractCellContent<CellDefinition> {
 
-	private static final long serialVersionUID = -2503759991149163949L;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(CellContentImpl.class);
-
-	protected Object values;
 
 	public CellContentImpl(Content parent, CellDefinition definition) {
 		super(parent, definition);

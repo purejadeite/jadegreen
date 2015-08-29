@@ -79,35 +79,27 @@ public class SheetDefinitionImpl extends AbstractDefinition {
 				int i;
 				// 最少行番号
 				i = cell.getMinRow();
-				if (i < minRow && i != 0) {
-					minRow = i;
-				}
-				if (maxRow < i && i != Integer.MAX_VALUE) {
-					maxRow = i;
+				if (i != CellDefinition.NO_ADDRESS) {
+					minRow = Math.min(i, minRow);
+					maxRow = Math.max(i, maxRow);
 				}
 				// 最大行番号
 				i = cell.getMaxRow();
-				if (i < minRow && i != 0) {
-					minRow = i;
-				}
-				if (maxRow < i && i != Integer.MAX_VALUE) {
-					maxRow = i;
+				if (i != CellDefinition.NO_ADDRESS) {
+					minRow = Math.min(i, minRow);
+					maxRow = Math.max(i, maxRow);
 				}
 				// 最少列番号
 				i = cell.getMinCol();
-				if (i < minCol && i != 0) {
-					minCol = i;
-				}
-				if (maxCol < i && i != Integer.MAX_VALUE) {
-					maxCol = i;
+				if (i != CellDefinition.NO_ADDRESS) {
+					minCol = Math.min(i, minCol);
+					maxCol = Math.max(i, maxCol);
 				}
 				// 最大列番号
 				i = cell.getMaxCol();
-				if (i < minCol && i != 0) {
-					minCol = i;
-				}
-				if (maxCol < i && i != Integer.MAX_VALUE) {
-					maxCol = i;
+				if (i != CellDefinition.NO_ADDRESS) {
+					minCol = Math.min(i, minCol);
+					maxCol = Math.max(i, maxCol);
 				}
 			} else if (child instanceof RangeDefinition) {
 				// Rangeの場合は子要素のCellをばらして追加

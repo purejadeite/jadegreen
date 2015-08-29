@@ -8,35 +8,35 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 
-public class CellConverterFactory {
+public class CellConverterManager {
 
-	public static Map<String, Class<? extends CellConverter>> CONVERTERS;
+	private static Map<String, Class<? extends CellConverter>> CONVERTERS;
 
 	static {
 		CONVERTERS = new HashMap<>();
-		putConverter(Split.class);
-		putConverter(ToBigDecimal.class);
-		putConverter(ToBoolean.class);
-		putConverter(ToDate.class);
-		putConverter(ToDouble.class);
-		putConverter(ToFloat.class);
-		putConverter(ToInteger.class);
-		putConverter(ToLong.class);
-		putConverter(ToShort.class);
-		putConverter(ToString.class);
-		putConverter(ToStringDate.class);
-		putConverter(Lower.class);
-		putConverter(Upper.class);
-		putConverter(LowerCamel.class);
-		putConverter(LowerHyphen.class);
-		putConverter(LowerUnderscore.class);
-		putConverter(UpperCamel.class);
-		putConverter(UpperUnderscore.class);
-		putConverter(Mapping.class);
-		putConverter(Replace.class);
+		regiter(Split.class);
+		regiter(ToBigDecimal.class);
+		regiter(ToBoolean.class);
+		regiter(ToDate.class);
+		regiter(ToDouble.class);
+		regiter(ToFloat.class);
+		regiter(ToInteger.class);
+		regiter(ToLong.class);
+		regiter(ToShort.class);
+		regiter(ToString.class);
+		regiter(ToStringDate.class);
+		regiter(Lower.class);
+		regiter(Upper.class);
+		regiter(LowerCamel.class);
+		regiter(LowerHyphen.class);
+		regiter(LowerUnderscore.class);
+		regiter(UpperCamel.class);
+		regiter(UpperUnderscore.class);
+		regiter(Mapping.class);
+		regiter(Replace.class);
 	}
 
-	private static void putConverter(Class<? extends CellConverter> clazz) {
+	public static void regiter(Class<? extends CellConverter> clazz) {
 		CONVERTERS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 

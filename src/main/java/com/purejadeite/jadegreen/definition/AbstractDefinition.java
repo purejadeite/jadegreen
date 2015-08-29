@@ -62,7 +62,7 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	 * コンストラクタ
 	 * @param parent 親定義
 	 * @param id 定義ID
-	 * @param noOutput データの読み込みのみ行うか
+	 * @param noOutput 値の出力有無
 	 */
 	protected AbstractDefinition(Definition parent, String id, boolean noOutput) {
 		super();

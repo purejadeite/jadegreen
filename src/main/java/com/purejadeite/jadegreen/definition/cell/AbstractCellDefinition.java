@@ -6,7 +6,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.converter.cell.CellConverter;
-import com.purejadeite.jadegreen.definition.converter.cell.CellConverterFactory;
+import com.purejadeite.jadegreen.definition.converter.cell.CellConverterManager;
 
 /**
  * <pre>
@@ -29,7 +29,7 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 */
 	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput, List<Map<String, String>> converters) {
 		super(parent, id, noOutput);
-		this.converter = CellConverterFactory.build(converters);
+		this.converter = CellConverterManager.build(converters);
 	}
 
 	/**

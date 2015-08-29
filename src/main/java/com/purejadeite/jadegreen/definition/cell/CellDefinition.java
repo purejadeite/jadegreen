@@ -9,6 +9,8 @@ import com.purejadeite.jadegreen.definition.converter.cell.CellConverter;
  */
 public interface CellDefinition extends Definition {
 
+	public static final int NO_ADDRESS = 0;
+
 	/**
 	 * 最少行番号を取得します
 	 */

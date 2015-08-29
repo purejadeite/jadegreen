@@ -3,7 +3,6 @@ package com.purejadeite.jadegreen.definition.range;
 import java.util.List;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.converter.range.RangeConverter;
 
 /**
@@ -11,12 +10,6 @@ import com.purejadeite.jadegreen.definition.converter.range.RangeConverter;
  * @author mitsuhiroseino
  */
 public interface RangeDefinition extends Definition {
-
-	/**
-	 * テーブルの項目を追加します
-	 * @param cell Cell読み込み情報
-	 */
-	public void add(CellDefinition cell);
 
 	/**
 	 * 終了条件になる項目の定義IDを取得します

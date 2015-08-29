@@ -8,7 +8,7 @@ import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.converter.range.RangeConverter;
-import com.purejadeite.jadegreen.definition.converter.range.RangeConverterFactory;
+import com.purejadeite.jadegreen.definition.converter.range.RangeConverterManager;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
@@ -83,7 +83,7 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 		this.end = end <= 0 ? Integer.MAX_VALUE : end;
 		this.endKeyId = endKeyId;
 		this.endValue = endValue;
-		this.converter = RangeConverterFactory.build(converters);
+		this.converter = RangeConverterManager.build(converters);
 	}
 
 	/**
@@ -103,13 +103,13 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void add(CellDefinition cell) {
-		cells.add(cell);
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	public void add(CellDefinition cell) {
+//		cells.add(cell);
+//	}
 
 	/**
 	 * {@inheritDoc}

@@ -16,8 +16,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public abstract class AbstractContent<D extends Definition> implements Content, Serializable {
 
-	private static final long serialVersionUID = 6746413349706897776L;
-
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	/**

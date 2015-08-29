@@ -13,23 +13,23 @@ import com.purejadeite.jadegreen.definition.DefinitionKeys;
  * @author mitsuhiroseino
  *
  */
-public class RangeConverterFactory {
+public class RangeConverterManager {
 
 	/**
 	 * コンバーター
 	 */
-	public static Map<String, Class<? extends RangeConverter>> CONVERTERS;
+	private static Map<String, Class<? extends RangeConverter>> CONVERTERS;
 
 	static {
 		// コンバーターの初期化処理
 		CONVERTERS = new HashMap<>();
-		putConverter(Group.class);
-		putConverter(Sort.class);
-		putConverter(Unique.class);
-		putConverter(Eliminate.class);
+		register(Group.class);
+		register(Sort.class);
+		register(Unique.class);
+		register(Eliminate.class);
 	}
 
-	private static void putConverter(Class<? extends RangeConverter> clazz) {
+	public static void register(Class<? extends RangeConverter> clazz) {
 		CONVERTERS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
