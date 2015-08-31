@@ -152,7 +152,7 @@ public class DefinitionBuilder {
 		@SuppressWarnings("unchecked")
 		Map<String, String> link = MapUtils.getMap(cellDef, LINK);
 		@SuppressWarnings("unchecked")
-		List<Map<String, String>> converters = (List<Map<String, String>>) cellDef.get(CONVERTERS);
+		List<Map<String, String>> options = (List<Map<String, String>>) cellDef.get(OPTIONS);
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> rows = (List<Map<String, Object>>) cellDef.get(ROWS);
 		@SuppressWarnings("unchecked")
@@ -163,7 +163,7 @@ public class DefinitionBuilder {
 			if (range != null) {
 				// 親のあるフィールドの場合
 				LOGGER.debug("親のあるリンク:" + id);
-				return LinkRangeCellDefinitionImpl.getInstance(sheet.getParent(), range, id, noOutput, converters, link);
+				return LinkRangeCellDefinitionImpl.getInstance(sheet.getParent(), range, id, noOutput, options, link);
 			} else {
 				// 単独フィールドの場合
 				LOGGER.debug("単独のリンク:" + id);
@@ -174,33 +174,33 @@ public class DefinitionBuilder {
 			if (range instanceof RowDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
 				LOGGER.debug("行方向の繰り返しの子:" + id);
-				return RowCellDefinitionImpl.getInstance(range, id, noOutput, col, converters);
+				return RowCellDefinitionImpl.getInstance(range, id, noOutput, col, options);
 			} else if (range instanceof ColumnDefinitionImpl) {
 				// 列方向の繰り返し内のフィールドの場合
 				LOGGER.debug("列方向の繰り返しの子:" + id);
-				return ColumnCellDefinitionImpl.getInstance(range, id, noOutput, row, converters);
+				return ColumnCellDefinitionImpl.getInstance(range, id, noOutput, row, options);
 			}
 		} else if (columns != null) {
 			// 行方向の繰り返しの場合
 			LOGGER.debug("行方向の繰り返し:" + id);
 			RangeDefinition r =
-					RowDefinitionImpl.getInstance(sheet, id, noOutput, beginRow, endRow, endKey, endValue, converters);
+					RowDefinitionImpl.getInstance(sheet, id, noOutput, beginRow, endRow, endKey, endValue, options);
 			r.addChildren(createCells(columns, sheet, r));
 			return r;
 		} else if (rows != null) {
 			// 列方向の繰り返しの場合
 			LOGGER.debug("列方向の繰り返し:" + id);
 			RangeDefinition c =
-					ColumnDefinitionImpl.getInstance(sheet, id, noOutput, beginCol, endCol, endKey, endValue, converters);
+					ColumnDefinitionImpl.getInstance(sheet, id, noOutput, beginCol, endCol, endKey, endValue, options);
 			c.addChildren(createCells(columns, sheet, c));
 			return c;
 		} else {
 			// 単独フィールドの場合
 			LOGGER.debug("単独:" + id);
 			if (splitter == null) {
-				return CellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, converters);
+				return CellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, options);
 			} else {
-				return ListCellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, splitter, converters);
+				return ListCellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, splitter, options);
 			}
 		}
 		return null;

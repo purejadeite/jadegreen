@@ -103,9 +103,9 @@ public class DefinitionKeys {
 	public static final String LINK = "link";
 
 	/**
-	 * コンバーター
+	 * オプション
 	 */
-	public static final String CONVERTERS = "converters";
+	public static final String OPTIONS = "options";
 
 	/**
 	 * コンバータークラス

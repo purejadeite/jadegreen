@@ -27,12 +27,12 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	 *            取得対象行
 	 * @param col
 	 *            取得対象列
-	 * @param converters
+	 * @param options
 	 *            コンバーター
 	 */
 	private ListCellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int col, String splitter,
-			List<Map<String, String>> converters) {
-		super(parent, id, noOutput, row, col, converters);
+			List<Map<String, String>> options) {
+		super(parent, id, noOutput, row, col, options);
 		this.splitter = splitter;
 	}
 
@@ -47,19 +47,19 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	 *            取得対象行
 	 * @param col
 	 *            取得対象列
-	 * @param converters
+	 * @param options
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
 	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, int row, int col,
-			String splitter, List<Map<String, String>> converters) {
-		CellDefinition cell = new ListCellDefinitionImpl(parent, id, noOutput, row, col, splitter, converters);
+			String splitter, List<Map<String, String>> options) {
+		CellDefinition cell = new ListCellDefinitionImpl(parent, id, noOutput, row, col, splitter, options);
 		return cell;
 	}
 
 	@Override
-	public Object convert(Object value) {
-		Object val = super.convert(value);
+	public Object aplly(Object value) {
+		Object val = super.aplly(value);
 		if (val == null) {
 			return val;
 		} else {

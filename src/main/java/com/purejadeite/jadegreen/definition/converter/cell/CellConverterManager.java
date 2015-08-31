@@ -3,7 +3,6 @@ package com.purejadeite.jadegreen.definition.converter.cell;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
@@ -40,24 +39,7 @@ public class CellConverterManager {
 		CONVERTERS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-
-	public static CellConverter build(List<Map<String, String>> configs) {
-		if (configs == null || configs.size() == 0) {
-			return null;
-		}
-		CellConverter converter = null;
-		for (Map<String, String> config : configs) {
-			CellConverter nextConverter = getConverter(config);
-			if (converter == null) {
-				converter = nextConverter;
-			} else {
-				converter.chain(nextConverter);
-			}
-		}
-		return converter;
-	}
-
-	public static CellConverter getConverter(Map<String, String> config) {
+	public static CellConverter build(Map<String, String> config) {
 		String name = config.get(DefinitionKeys.CLASS);
 		// クラスを取得
 		Class<? extends CellConverter> clazz = CONVERTERS.get(name.toLowerCase());

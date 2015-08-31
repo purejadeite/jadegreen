@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,13 +53,10 @@ public class Mapping extends AbstractCellConverter {
 		return mappedValue;
 	}
 
-	public List<Map<String, Object>> toList() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("name", this.getClass().getSimpleName());
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
-		List<Map<String, Object>> list = super.toList();
-		list.add(map);
-		return list;
+		return map;
 	}
 
 	/**

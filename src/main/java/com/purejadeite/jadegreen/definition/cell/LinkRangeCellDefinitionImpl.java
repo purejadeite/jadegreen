@@ -49,13 +49,13 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	 * @param book
 	 * @param range
 	 * @param id
-	 * @param converters
+	 * @param options
 	 * @param config
 	 */
 	public LinkRangeCellDefinitionImpl(Definition book, RangeDefinition range, String id, boolean noOutput,
-			List<Map<String, String>> converters,
+			List<Map<String, String>> options,
 			Map<String, String> config) {
-		super(range, id, noOutput, 0, 0, 0, 0, false, null, converters);
+		super(range, id, noOutput, 0, 0, 0, 0, false, null, options);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");
 		this.myKeyId = config.get("myKeyId");
@@ -65,9 +65,9 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	}
 
 	public static CellDefinition getInstance(Definition book, RangeDefinition range, String id, boolean noOutput,
-			List<Map<String, String>> converters,
+			List<Map<String, String>> options,
 			Map<String, String> config) {
-		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, noOutput, converters, config);
+		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, config);
 		return cell;
 	}
 

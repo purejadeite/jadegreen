@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.CellUtils;
@@ -30,14 +28,6 @@ public class ToBigDecimal extends AbstractStringCellConverter {
 	@Override
 	public Object convertImpl(String value) {
 		return CellUtils.getBigDecimalValue(value);
-	}
-
-	public List<Map<String, Object>> toList() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("name", this.getClass().getSimpleName());
-		List<Map<String, Object>> list = super.toList();
-		list.add(map);
-		return list;
 	}
 
 	/**

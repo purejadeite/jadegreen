@@ -50,7 +50,7 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 	 */
 	@Override
 	public Object getValuesImpl(Definition... ignore) {
-		return definition.convert(values);
+		return definition.aplly(values);
 	}
 
 	/**
@@ -92,6 +92,9 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 	@Override
 	public void close(int size) {
 		close();
+		while(values.size() < size) {
+			values.add(null);
+		}
 		while(size < values.size()){
 			values.remove(values.size() - 1);
 		}

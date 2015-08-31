@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -34,11 +35,11 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 	 *            取得対象行
 	 * @param col
 	 *            取得対象列
-	 * @param converters
+	 * @param options
 	 *            コンバーター
 	 */
-	private FileCellDefinitionImpl(Definition parent, String id, boolean noOutput, String filePath) {
-		super(parent, id, noOutput, null);
+	private FileCellDefinitionImpl(Definition parent, String id, boolean noOutput, String filePath, List<Map<String, String>> options) {
+		super(parent, id, noOutput, options);
 		this.filePath = filePath;
 	}
 
@@ -55,12 +56,12 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 	 *            取得対象行
 	 * @param col
 	 *            取得対象列
-	 * @param converters
+	 * @param options
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, String filePath) {
-		CellDefinition cell = new FileCellDefinitionImpl(parent, id, noOutput, filePath);
+	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, String filePath,List<Map<String, String>> options) {
+		CellDefinition cell = new FileCellDefinitionImpl(parent, id, noOutput, filePath, options);
 		return cell;
 	}
 
@@ -111,12 +112,18 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 	}
 
 	@Override
-	public Object convert(Object value) {
+	public Object aplly(Object value) {
+		String fileText = null;
 		try {
-			return FileUtils.readFileToString(new File(filePath));
+			fileText = FileUtils.readFileToString(new File(filePath));
 		} catch (IOException e) {
-			LOGGER.error("ファイルがありません:" + filePath);
+			LOGGER.error("ファイルを開くことができません:" + filePath);
 			return null;
+		}
+		if (options == null) {
+			return fileText;
+		} else {
+			return options.apply(fileText);
 		}
 	}
 

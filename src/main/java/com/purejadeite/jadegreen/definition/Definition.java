@@ -69,6 +69,6 @@ public interface Definition {
 
 	public Map<String, Object> toMap();
 
-	public Object convert(Object value);
+	public Object aplly(Object value);
 
 }

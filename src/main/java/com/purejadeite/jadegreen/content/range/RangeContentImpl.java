@@ -153,7 +153,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 				return cell.getValues(ignore);
 			}
 		}, ignore);
-		return definition.convert(values);
+		return definition.aplly(values);
 	}
 
 	/**

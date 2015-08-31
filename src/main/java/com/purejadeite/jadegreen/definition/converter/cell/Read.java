@@ -2,10 +2,9 @@ package com.purejadeite.jadegreen.definition.converter.cell;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +24,9 @@ public class Read extends AbstractCellConverter {
 	private Map<String, String> map;
 
 	/**
-	 * <pre>
-	 * 対象が無い場合の動作
-	 * true: 元の値を返す
-	 * false: nullを返す
-	 * </pre>
+	 * デフォルトの読み込みファイル
 	 */
-	private Boolean lazy;
+	private String dflt;
 
 	/**
 	 * コンストラクタ
@@ -42,7 +37,7 @@ public class Read extends AbstractCellConverter {
 	public Read(Map<String, Object> config) {
 		super();
 		this.map = (Map<String, String>) config.get("map");
-		this.lazy = (Boolean) config.get("lazy");
+		this.dflt = MapUtils.getString(config, "default");
 	}
 
 	/**
@@ -50,31 +45,25 @@ public class Read extends AbstractCellConverter {
 	 */
 	@Override
 	public Object convertImpl(Object value) {
-		Object mappedValue = null;
-		if (map.containsKey(value)) {
-			mappedValue = map.get(value);
+		String filePath = map.get(value);
+		if (filePath == null) {
+			filePath = dflt;
+		}
+		if (filePath != null) {
 			try {
-				return FileUtils.readFileToString(new File((String) mappedValue));
+				return FileUtils.readFileToString(new File(filePath));
 			} catch (IOException e) {
-				LOGGER.error("ファイルがありません:" + mappedValue);
-				return null;
-			}
-
-		} else {
-			if (Boolean.TRUE.equals(this.lazy)) {
-				mappedValue = value;
+				LOGGER.error("ファイルがありません:" + filePath);
 			}
 		}
-		return mappedValue;
+		return null;
 	}
 
-	public List<Map<String, Object>> toList() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("name", this.getClass().getSimpleName());
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
-		List<Map<String, Object>> list = super.toList();
-		list.add(map);
-		return list;
+		map.put("dflt", this.dflt);
+		return map;
 	}
 
 	/**
@@ -82,6 +71,6 @@ public class Read extends AbstractCellConverter {
 	 */
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", map=" + map + "]";
+		return this.getClass().getSimpleName() + " [" + super.toString() + ", map=" + map + ", dflt=" + dflt + "]";
 	}
 }

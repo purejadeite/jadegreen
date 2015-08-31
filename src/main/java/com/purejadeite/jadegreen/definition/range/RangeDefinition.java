@@ -3,7 +3,7 @@ package com.purejadeite.jadegreen.definition.range;
 import java.util.List;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.converter.range.RangeConverter;
+import com.purejadeite.jadegreen.definition.Options;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
@@ -59,7 +59,7 @@ public interface RangeDefinition extends Definition {
 	 * コンバーターでラップされたRange読み込み定義を取得します
 	 * @return
 	 */
-	public RangeConverter getConverter();
+	public Options getOptions();
 
 	/**
 	 * 子要素を追加します

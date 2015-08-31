@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
@@ -22,8 +21,6 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-	protected CellConverter converter;
-
 	/**
 	 * コンストラクタ
 	 *
@@ -33,34 +30,21 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 	public AbstractCellConverter() {
 	}
 
-	public Object convert(Object value) {
+	public Object apply(Object value) {
 		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
 			Collection<Object> vals = new ArrayList<>();
 			for (Object v : values) {
-				vals.add(this.convert(v));
+				vals.add(this.apply(v));
 			}
 			return vals;
 		} else {
-			Object val = convertImpl(value);
-			if (converter == null) {
-				return val;
-			} else {
-				return converter.convert(val);
-			}
+			return convertImpl(value);
 		}
 	}
 
 	abstract protected Object convertImpl(Object value);
-
-	public void chain(CellConverter converter) {
-		if (this.converter != null) {
-			this.converter.chain(converter);
-		} else {
-			this.converter = converter;
-		}
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -68,21 +52,16 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 	@Override
 	public String toJson() {
 		try {
-			List<Map<String, Object>> list = toList();
-			Object[] array = list.toArray();
-			ArrayUtils.reverse(array);
-			return OBJECT_MAPPER.writeValueAsString(array);
+			return OBJECT_MAPPER.writeValueAsString(toMap());
 		} catch (IOException e) {
 			return null;
 		}
 	}
 
-	public List<Map<String, Object>> toList() {
-		List<Map<String, Object>> list = new ArrayList<>();
-		if (converter != null) {
-			list.addAll(converter.toList());
-		}
-		return list;
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("name", this.getClass().getSimpleName());
+		return map;
 	}
 
 	/**
@@ -90,7 +69,7 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 	 */
 	@Override
 	public String toString() {
-		return "converter=" + converter;
+		return null;
 	}
 
 }

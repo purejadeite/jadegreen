@@ -26,7 +26,7 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 	 *            取得対象行
 	 * @param col
 	 *            取得対象列
-	 * @param converters
+	 * @param options
 	 *            コンバーター
 	 */
 	private ValueCellDefinitionImpl(Definition parent, String id, boolean noOutput, String value) {
@@ -47,7 +47,7 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 	 *            取得対象行
 	 * @param col
 	 *            取得対象列
-	 * @param converters
+	 * @param options
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
@@ -103,7 +103,7 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 	}
 
 	@Override
-	public Object convert(Object value) {
+	public Object aplly(Object value) {
 		return this.value;
 	}
 

@@ -16,7 +16,7 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 	 * @param book ブック読み込み定義
 	 * @param sheet シート読み込み定義
 	 * @param id 定義ID
-	 * @param converters コンバーター
+	 * @param options オプション
 	 * @param config リンク設定
 	 */
 	private LinkCellDefinitionImpl(BookDefinitionImpl book, Definition sheet, String id, boolean noOutput, Map<String, String> config) {
@@ -28,7 +28,7 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 	 * @param book ブック読み込み定義
 	 * @param parent シート読み込み定義
 	 * @param id 定義ID
-	 * @param converters コンバーター
+	 * @param options オプション
 	 * @param config リンク設定
 	 * @return ラップされたCellリンク定義
 	 */

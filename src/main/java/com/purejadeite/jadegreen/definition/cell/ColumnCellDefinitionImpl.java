@@ -23,11 +23,11 @@ public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
 	 * @param endCol 取得終了列
 	 * @param endKey 終了キー項目フラグ
 	 * @param endValue 終了キー値
-	 * @param converters コンバーター
+	 * @param options オプション
 	 */
 	private ColumnCellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int beginCol, int endCol,
-			boolean endKey, String endValue, List<Map<String, String>> converters) {
-		super(parent, id, noOutput, row, row, beginCol, endCol, endKey, endValue, converters);
+			boolean endKey, String endValue, List<Map<String, String>> options) {
+		super(parent, id, noOutput, row, row, beginCol, endCol, endKey, endValue, options);
 	}
 
 	/**
@@ -35,10 +35,10 @@ public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
 	 * @param range テーブル読み込み定義
 	 * @param id 定義ID
 	 * @param row 取得対象行
-	 * @param converters コンバーター
+	 * @param options オプション
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static CellDefinition getInstance(RangeDefinition range, String id, boolean noOutput, int row, List<Map<String, String>> converters) {
+	public static CellDefinition getInstance(RangeDefinition range, String id, boolean noOutput, int row, List<Map<String, String>> options) {
 		boolean endKey = false;
 		String endValue = null;
 		if (id.equals(range.getEndKeyId())) {
@@ -48,7 +48,7 @@ public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
 		}
 		AbstractRangeCellDefinition cell = new ColumnCellDefinitionImpl(range, id, noOutput, row, range.getBegin(), range.getEnd(),
 				endKey, endValue,
-				converters);
+				options);
 		return cell;
 	}
 

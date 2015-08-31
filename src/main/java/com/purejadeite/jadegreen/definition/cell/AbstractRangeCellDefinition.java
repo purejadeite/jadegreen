@@ -67,12 +67,12 @@ public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition
 	 * @param endCol 終了列
 	 * @param endKeyId 終了キー項目
 	 * @param endValue 終了キー値
-	 * @param converters コンバーター
+	 * @param options オプション
 	 */
 	protected AbstractRangeCellDefinition(Definition parent, String id, boolean noOutput, int beginRow, int endRow,
 			int beginCol, int endCol,
-			boolean endKeyId, String endValue, List<Map<String, String>> converters) {
-		super(parent, id, noOutput, converters);
+			boolean endKeyId, String endValue, List<Map<String, String>> options) {
+		super(parent, id, noOutput, options);
 		this.beginRow = beginRow;
 		this.endRow = endRow <= 0 ? Integer.MAX_VALUE : endRow;
 		this.beginCol = beginCol;

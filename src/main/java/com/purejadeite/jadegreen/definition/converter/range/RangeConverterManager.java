@@ -3,7 +3,6 @@ package com.purejadeite.jadegreen.definition.converter.range;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
@@ -34,34 +33,12 @@ public class RangeConverterManager {
 	}
 
 	/**
-	 * Range読み込み定義をコンバーターでラップします
-	 * @param range Range読み込み定義
-	 * @param configs コンバーターのコンフィグ
-	 * @return
-	 */
-	public static RangeConverter build(List<Map<String, String>> configs) {
-		if (configs == null || configs.size() == 0) {
-			return null;
-		}
-		RangeConverter converter = null;
-		for (Map<String, String> config : configs) {
-			RangeConverter nextConverter = getConverter(config);
-			if (converter == null) {
-				converter = nextConverter;
-			} else {
-				converter.chain(nextConverter);
-			}
-		}
-		return converter;
-	}
-
-	/**
 	 * コンバーターのインスタンスを生成します
 	 * @param range Range読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 * @return コンバーター
 	 */
-	private static RangeConverter getConverter(Map<String, String> config) {
+	public static RangeConverter build(Map<String, String> config) {
 		String name = config.get(DefinitionKeys.CLASS);
 		// クラスを取得
 		Class<? extends RangeConverter> clazz = CONVERTERS.get(name.toLowerCase());

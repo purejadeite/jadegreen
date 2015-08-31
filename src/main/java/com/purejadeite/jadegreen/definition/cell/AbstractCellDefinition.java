@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.converter.cell.CellConverter;
-import com.purejadeite.jadegreen.definition.converter.cell.CellConverterManager;
+import com.purejadeite.jadegreen.definition.OptionsBuilder;
+import com.purejadeite.jadegreen.definition.Options;
 
 /**
  * <pre>
@@ -17,19 +17,19 @@ import com.purejadeite.jadegreen.definition.converter.cell.CellConverterManager;
 public abstract class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
 
 	/**
-	 * コンバーター
+	 * オプション
 	 */
-	protected CellConverter converter;
+	protected Options options;
 
 	/**
 	 * コンストラクタ
 	 * @param parent 親定義
 	 * @param id 定義ID
-	 * @param converters コンバーター
+	 * @param options オプション
 	 */
-	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput, List<Map<String, String>> converters) {
+	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput, List<Map<String, String>> options) {
 		super(parent, id, noOutput);
-		this.converter = CellConverterManager.build(converters);
+		this.options = OptionsBuilder.build(options);
 	}
 
 	/**
@@ -52,16 +52,16 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CellConverter getConverter() {
-		return converter;
+	public Options getOptions() {
+		return options;
 	}
 
 	@Override
-	public Object convert(Object value) {
-		if (converter == null) {
+	public Object aplly(Object value) {
+		if (options == null) {
 			return value;
 		} else {
-			return converter.convert(value);
+			return options.apply(value);
 		}
 	}
 
@@ -71,10 +71,10 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		if (converter != null) {
-			map.put("converter", converter.toList());
+		if (options != null) {
+			map.put("options", options);
 		} else {
-			map.put("converter", null);
+			map.put("options", null);
 		}
 		return map;
 	}
@@ -84,7 +84,7 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + ", converter=" + converter;
+		return super.toString() + ", options=" + options;
 	}
 
 }

@@ -1,8 +1,6 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,13 +40,10 @@ public class Split extends AbstractStringCellConverter {
 		return (Object) Arrays.asList(values);
 	}
 
-	public List<Map<String, Object>> toList() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("name", this.getClass().getSimpleName());
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
 		map.put("splitter", this.splitter);
-		List<Map<String, Object>> list = super.toList();
-		list.add(map);
-		return list;
+		return map;
 	}
 
 	/**

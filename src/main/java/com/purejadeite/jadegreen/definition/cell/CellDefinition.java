@@ -1,7 +1,7 @@
 package com.purejadeite.jadegreen.definition.cell;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.converter.cell.CellConverter;
+import com.purejadeite.jadegreen.definition.Options;
 
 /**
  * Cell読み込み定義のインターフェイス
@@ -43,5 +43,5 @@ public interface CellDefinition extends Definition {
 	 * コンバーターなどでラップされたCell読み込み定義を取得します
 	 * @return ラップされたCell読み込み定義
 	 */
-	public CellConverter getConverter();
+	public Options getOptions();
 }

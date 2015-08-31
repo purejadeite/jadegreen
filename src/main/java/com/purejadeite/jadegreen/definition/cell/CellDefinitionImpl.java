@@ -29,10 +29,10 @@ public class CellDefinitionImpl extends AbstractCellDefinition {
 	 * @param id 定義ID
 	 * @param row 取得対象行
 	 * @param col 取得対象列
-	 * @param converters コンバーター
+	 * @param options オプション
 	 */
-	protected CellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int col, List<Map<String, String>> converters) {
-		super(parent, id, noOutput, converters);
+	protected CellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int col, List<Map<String, String>> options) {
+		super(parent, id, noOutput, options);
 		this.row = row;
 		this.col = col;
 	}
@@ -43,12 +43,12 @@ public class CellDefinitionImpl extends AbstractCellDefinition {
 	 * @param id 定義ID
 	 * @param row 取得対象行
 	 * @param col 取得対象列
-	 * @param converters コンバーター
+	 * @param options オプション
 	 * @return ラップされたCell読み込み定義
 	 */
 	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, int row, int col,
-			List<Map<String, String>> converters) {
-		CellDefinition cell = new CellDefinitionImpl(parent, id, noOutput, row, col, converters);
+			List<Map<String, String>> options) {
+		CellDefinition cell = new CellDefinitionImpl(parent, id, noOutput, row, col, options);
 		return cell;
 	}
 

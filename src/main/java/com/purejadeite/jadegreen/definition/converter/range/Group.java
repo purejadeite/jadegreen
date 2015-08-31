@@ -2,7 +2,6 @@ package com.purejadeite.jadegreen.definition.converter.range;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -80,14 +79,11 @@ public class Group extends AbstractRangeConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Map<String, Object>> toList() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("name", this.getClass().getSimpleName());
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
 		map.put("keyId", keyId);
 		map.put("toId", toId);
-		List<Map<String, Object>> list = super.toList();
-		list.add(map);
-		return list;
+		return map;
 	}
 
 	/**

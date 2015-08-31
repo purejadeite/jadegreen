@@ -37,7 +37,7 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * @param book ブック読み込み定義
 	 * @param parent シート読み込み定義
 	 * @param id 定義ID
-	 * @param converters コンバーター
+	 * @param options オプション
 	 * @param config リンク設定
 	 */
 	protected AbstractLinkCellDefinition(BookDefinitionImpl book, Definition parent, String id, boolean noOutput, Map<String, String> config) {
@@ -110,7 +110,7 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 		throw new UnsupportedOperationException();
 	}
 
-	public Object convert(Object value) {
+	public Object aplly(Object value) {
 		return value;
 	}
 
