@@ -44,7 +44,7 @@ public class Read extends AbstractCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
+	public Object applyImpl(Object value) {
 		String filePath = map.get(value);
 		if (filePath == null) {
 			filePath = dflt;
@@ -64,13 +64,5 @@ public class Read extends AbstractCellConverter {
 		map.put("map", this.map);
 		map.put("dflt", this.dflt);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", map=" + map + ", dflt=" + dflt + "]";
 	}
 }

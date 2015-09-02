@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
+
 /**
  * ソート用テーブルコンバーター
  * @author mitsuhiroseino
@@ -30,26 +32,16 @@ public class Sort extends AbstractRangeConverter {
 	 * @param config コンバーターのコンフィグ
 	 */
 	public Sort(Map<String, Object> config) {
-		this((String) config.get("keyId"), Boolean.parseBoolean((String) config.get("desc")));
-	}
-
-	/**
-	 * コンストラクタ
-	 * @param range 変換元の値を持つ定義
-	 * @param keyId ソートキー
-	 * @param desc 昇順/降順
-	 */
-	public Sort(String keyId, boolean desc) {
 		super();
-		this.keyId = keyId;
-		this.desc = desc;
+		this.keyId = MapUtils.getString(config, "keyId");
+		this.desc = MapUtils.getBooleanValue(config, "desc");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object convertImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values) {
 		Collections.sort(values, new Comparator<Map<String, Object>>() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -107,14 +99,6 @@ public class Sort extends AbstractRangeConverter {
 		map.put("keyId", keyId);
 		map.put("desc", desc);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", keyId=" + keyId + ", desc=" + desc + "]";
 	}
 
 }

@@ -36,8 +36,7 @@ public abstract class AbstractNumberCellConverter extends AbstractStringCellConv
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public Object convertImpl(String value) {
+	protected Object applyToString(String value) {
 		if (value == null) {
 			if (nullToZero) {
 				return getZero();

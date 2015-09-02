@@ -31,7 +31,7 @@ public abstract class AbstractRangeConverter implements RangeConverter, Serializ
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object apply(Object values) {
-		return convertImpl((List<Map<String, Object>>) values);
+		return applyImpl((List<Map<String, Object>>) values);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public abstract class AbstractRangeConverter implements RangeConverter, Serializ
 	 *            変換前のテーブル
 	 * @return 変換後のテーブル
 	 */
-	abstract protected Object convertImpl(List<Map<String, Object>> values);
+	abstract protected Object applyImpl(List<Map<String, Object>> values);
 
 	/**
 	 * {@inheritDoc}
@@ -66,6 +66,6 @@ public abstract class AbstractRangeConverter implements RangeConverter, Serializ
 	 */
 	@Override
 	public String toString() {
-		return null;
+		return toMap().toString();
 	}
 }

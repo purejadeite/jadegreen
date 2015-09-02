@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.converter.cell.CellConverterManager;
 import com.purejadeite.jadegreen.definition.converter.range.RangeConverterManager;
-import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
 
 public class OptionsBuilder {
 
@@ -23,11 +22,6 @@ public class OptionsBuilder {
 				continue;
 			}
 			option = RangeConverterManager.build(config);
-			if (option != null) {
-				options.add(option);
-				continue;
-			}
-			option = ValueGeneratorManager.build(config);
 			if (option != null) {
 				options.add(option);
 				continue;

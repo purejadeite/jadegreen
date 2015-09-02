@@ -2,6 +2,8 @@ package com.purejadeite.jadegreen.definition.generator;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -11,7 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractValueGenerator implements ValueGenerator, Serializable {
+public abstract class AbstractRelatedValueGenerator implements ValueGenerator, Serializable {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -21,7 +23,14 @@ public abstract class AbstractValueGenerator implements ValueGenerator, Serializ
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractValueGenerator() {
+	public AbstractRelatedValueGenerator() {
+	}
+
+	@Override
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = new LinkedHashMap<>();
+		map.put("name", this.getClass().getSimpleName());
+		return map;
 	}
 
 	/**
@@ -41,7 +50,7 @@ public abstract class AbstractValueGenerator implements ValueGenerator, Serializ
 	 */
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
+		return toMap().toString();
 	}
 
 }

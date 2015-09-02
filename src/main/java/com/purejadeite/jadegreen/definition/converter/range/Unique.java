@@ -26,16 +26,8 @@ public class Unique extends AbstractRangeConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object convertImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values) {
 		return new ArrayList<>(new LinkedHashSet<>(values));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}
 
 }

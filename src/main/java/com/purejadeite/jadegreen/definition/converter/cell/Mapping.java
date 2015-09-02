@@ -41,7 +41,7 @@ public class Mapping extends AbstractCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
+	public Object applyImpl(Object value) {
 		Object mappedValue = null;
 		if (map.containsKey(value)) {
 			mappedValue = map.get(value);
@@ -57,13 +57,5 @@ public class Mapping extends AbstractCellConverter {
 		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", map=" + map + "]";
 	}
 }

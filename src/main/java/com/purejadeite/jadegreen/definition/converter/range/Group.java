@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.MapUtils;
+
 /**
  * グループ化用テーブルコンバーター
  * @author mitsuhiroseino
@@ -31,26 +33,16 @@ public class Group extends AbstractRangeConverter {
 	 * @param config コンバーターのコンフィグ
 	 */
 	public Group(Map<String, Object> config) {
-		this((String) config.get("keyId"), (String) config.get("toId"));
-	}
-
-	/**
-	 *
-	 * @param range 変換元の値を持つ定義
-	 * @param keyId グループ化キーとなる項目の定義ID
-	 * @param toId グループ化した値を保存する項目の定義ID
-	 */
-	public Group(String keyId, String toId) {
 		super();
-		this.keyId = keyId;
-		this.toId = toId;
+		this.keyId = MapUtils.getString(config, keyId);
+		this.toId = MapUtils.getString(config, toId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object convertImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values) {
 		// グループ化された配列を保持するMapに変換
 		Map<Object, List<Map<String, Object>>> groupedMap = new HashMap<>();
 		for (Map<String, Object> line : values) {
@@ -84,13 +76,5 @@ public class Group extends AbstractRangeConverter {
 		map.put("keyId", keyId);
 		map.put("toId", toId);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", keyId=" + keyId + ", toId=" + toId + "]";
 	}
 }

@@ -32,7 +32,7 @@ public class Split extends AbstractStringCellConverter {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected Object convertImpl(String value) {
+	protected Object applyToString(String value) {
 		if (StringUtils.isEmpty(value)) {
 			return value;
 		}
@@ -44,13 +44,5 @@ public class Split extends AbstractStringCellConverter {
 		Map<String, Object> map = super.toMap();
 		map.put("splitter", this.splitter);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", splitter=" + splitter + "]";
 	}
 }

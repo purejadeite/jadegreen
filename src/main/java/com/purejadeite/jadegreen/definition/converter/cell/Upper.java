@@ -28,15 +28,7 @@ public class Upper extends AbstractStringCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(String value) {
+	public Object applyToString(String value) {
 		return StringUtils.upperCase(value);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}
 }

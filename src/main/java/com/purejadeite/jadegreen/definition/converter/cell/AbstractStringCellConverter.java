@@ -31,11 +31,11 @@ public abstract class AbstractStringCellConverter extends AbstractCellConverter 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(Object value) {
+	public Object applyImpl(Object value) {
 		if (value == null) {
-			return convertImpl((String) null);
+			return applyToString((String) null);
 		} else {
-			return convertImpl(value.toString());
+			return applyToString(value.toString());
 		}
 	}
 
@@ -44,6 +44,6 @@ public abstract class AbstractStringCellConverter extends AbstractCellConverter 
 	 * @param value 文字列の値
 	 * @return 変換された値
 	 */
-	abstract protected Object convertImpl(String value);
+	abstract protected Object applyToString(String value);
 
 }

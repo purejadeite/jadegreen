@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.OptionsBuilder;
 import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.OptionsBuilder;
 
 /**
  * <pre>
@@ -71,11 +71,7 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		if (options != null) {
-			map.put("options", options);
-		} else {
-			map.put("options", null);
-		}
+		map.put("options", options);
 		return map;
 	}
 

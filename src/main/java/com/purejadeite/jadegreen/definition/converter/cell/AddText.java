@@ -45,7 +45,7 @@ public class AddText extends AbstractStringCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(String value) {
+	public Object applyToString(String value) {
 		String val = "";
 		if (!StringUtils.isEmpty(value)) {
 			val = value;
@@ -68,15 +68,6 @@ public class AddText extends AbstractStringCellConverter {
 		map.put("prefix", prefix);
 		map.put("suffix", suffix);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", prefix=" + prefix + ", suffix=" + suffix
-				+ "]";
 	}
 
 }

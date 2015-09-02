@@ -1,17 +1,20 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.generator.ValueGenerator;
+import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
 
 /**
  * 固定値の定義です
  *
  * @author mitsuhiroseino
  */
-public class ValueCellDefinitionImpl extends AbstractCellDefinition {
+public class ValueDefinitionImpl extends AbstractCellDefinition {
 
-	private String value;
+	private ValueGenerator generator;
 
 	/**
 	 * コンストラクタ
@@ -29,9 +32,9 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 	 * @param options
 	 *            コンバーター
 	 */
-	private ValueCellDefinitionImpl(Definition parent, String id, boolean noOutput, String value) {
-		super(parent, id, noOutput, null);
-		this.value = value;
+	private ValueDefinitionImpl(Definition parent, String id, boolean noOutput, Map<String, String> generator, List<Map<String, String>> options) {
+		super(parent, id, noOutput, options);
+		this.generator = ValueGeneratorManager.build(generator);
 	}
 
 	/**
@@ -51,9 +54,14 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, String value) {
-		CellDefinition cell = new ValueCellDefinitionImpl(parent, id, noOutput, value);
+	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, Map<String, String> generator, List<Map<String, String>> options) {
+		CellDefinition cell = new ValueDefinitionImpl(parent, id, noOutput, generator, options);
 		return cell;
+	}
+
+	@Override
+	public Object aplly(Object value) {
+		return super.aplly(generator.generate(value));
 	}
 
 	/**
@@ -62,24 +70,6 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 	@Override
 	public boolean isIncluded(int row, int col) {
 		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<String, Object> toMap() {
-		Map<String, Object> map = super.toMap();
-		map.put("value", value);
-		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", value=" + value + "]";
 	}
 
 	@Override
@@ -102,9 +92,22 @@ public class ValueCellDefinitionImpl extends AbstractCellDefinition {
 		return NO_ADDRESS;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Object aplly(Object value) {
-		return this.value;
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("generator", generator);
+		return map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + " [" + super.toString() + ", generator=" + generator + "]";
 	}
 
 }

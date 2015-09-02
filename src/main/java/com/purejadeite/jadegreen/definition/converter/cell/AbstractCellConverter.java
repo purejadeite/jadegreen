@@ -40,11 +40,11 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 			}
 			return vals;
 		} else {
-			return convertImpl(value);
+			return applyImpl(value);
 		}
 	}
 
-	abstract protected Object convertImpl(Object value);
+	abstract protected Object applyImpl(Object value);
 
 	/**
 	 * {@inheritDoc}
@@ -69,7 +69,7 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 	 */
 	@Override
 	public String toString() {
-		return null;
+		return toMap().toString();
 	}
 
 }

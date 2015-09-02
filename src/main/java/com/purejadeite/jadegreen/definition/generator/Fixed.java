@@ -1,8 +1,8 @@
 package com.purejadeite.jadegreen.definition.generator;
 
 import java.util.Map;
-import java.util.UUID;
 
+import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +11,11 @@ import org.slf4j.LoggerFactory;
  * @author mitsuhiroseino
  *
  */
-public class Uuid extends AbstractUnrelatedValueGenerator {
+public class Fixed extends AbstractUnrelatedValueGenerator {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Uuid.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Fixed.class);
+
+	private String value;
 
 	/**
 	 * コンストラクタ
@@ -21,8 +23,9 @@ public class Uuid extends AbstractUnrelatedValueGenerator {
 	 * @param config コンバーターのコンフィグ
 	 */
 	@SuppressWarnings("unchecked")
-	public Uuid(Map<String, Object> config) {
+	public Fixed(Map<String, Object> config) {
 		super();
+		value = MapUtils.getString(config, "value");
 	}
 
 	/**
@@ -30,6 +33,14 @@ public class Uuid extends AbstractUnrelatedValueGenerator {
 	 */
 	@Override
 	public Object applyImpl(Object value) {
-		return UUID.randomUUID();
+		return value;
 	}
+
+	@Override
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("value", value);
+		return map;
+	}
+
 }

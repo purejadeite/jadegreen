@@ -30,7 +30,7 @@ public class Replace extends AbstractStringCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object convertImpl(String value) {
+	public Object applyToString(String value) {
 		String val = value;
 		for(Map.Entry<String, String> entry : map.entrySet()) {
 			val = StringUtils.replace(val, entry.getKey(), entry.getValue());
@@ -42,13 +42,5 @@ public class Replace extends AbstractStringCellConverter {
 		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", map=" + map + "]";
 	}
 }

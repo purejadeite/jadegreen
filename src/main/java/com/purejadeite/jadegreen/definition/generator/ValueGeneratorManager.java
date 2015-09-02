@@ -13,8 +13,10 @@ public class ValueGeneratorManager {
 
 	static {
 		GENERATORS = new HashMap<>();
-		regiter(Index.class);
+		regiter(Fixed.class);
 		regiter(Uuid.class);
+		regiter(Now.class);
+		regiter(Index.class);
 	}
 
 	public static void regiter(Class<? extends ValueGenerator> clazz) {

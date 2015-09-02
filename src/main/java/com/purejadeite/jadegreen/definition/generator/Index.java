@@ -2,7 +2,6 @@ package com.purejadeite.jadegreen.definition.generator;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
@@ -14,11 +13,11 @@ import org.slf4j.LoggerFactory;
  * @author mitsuhiroseino
  *
  */
-public class Index extends AbstractValueGenerator {
+public class Index extends AbstractRelatedValueGenerator {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Index.class);
 
-	private int start = 0;
+	private int startAt = 0;
 
 	/**
 	 * コンストラクタ
@@ -28,39 +27,31 @@ public class Index extends AbstractValueGenerator {
 	@SuppressWarnings("unchecked")
 	public Index(Map<String, Object> config) {
 		super();
-		start = MapUtils.getIntValue(config, "start");
+		startAt = MapUtils.getIntValue(config, "startAt");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object apply(Object value) {
+	public Object generate(Object value) {
 		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
 			Collection<Object> vals = new ArrayList<>();
-			for (int i = start; i < values.size() + start; i++) {
+			for (int i = startAt; i < values.size() + startAt; i++) {
 				vals.add(Integer.valueOf(i));
 			}
 			return vals;
 		} else {
-			return Integer.valueOf(start);
+			return Integer.valueOf(startAt);
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}
 
 	@Override
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("name", this.getClass().getSimpleName());
+		Map<String, Object> map = super.toMap();
+		map.put("startAt", startAt);
 		return map;
 	}
 }
