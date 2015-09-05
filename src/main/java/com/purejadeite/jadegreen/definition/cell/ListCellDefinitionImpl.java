@@ -78,12 +78,4 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 		return map;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", row=" + row + ", col=" + col + "]";
-	}
-
 }

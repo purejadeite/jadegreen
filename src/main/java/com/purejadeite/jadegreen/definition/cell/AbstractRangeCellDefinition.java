@@ -3,8 +3,6 @@ package com.purejadeite.jadegreen.definition.cell;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -12,8 +10,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  * @author mitsuhiroseino
  */
 public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition implements RangeCellDefinition {
-
-	private static final long serialVersionUID = -8138183711389296834L;
 
 	/**
 	 * 開始行
@@ -78,11 +74,7 @@ public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition
 		this.beginCol = beginCol;
 		this.endCol = endCol <= 0 ? Integer.MAX_VALUE : endCol;
 		this.endKeyId = endKeyId;
-		if (StringUtils.isEmpty(endValue)) {
-			this.endValue = "";
-		} else {
-			this.endValue = endValue;
-		}
+		this.endValue = endValue;
 	}
 
 	/**
@@ -156,16 +148,6 @@ public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition
 		map.put("endKeyId", endKeyId);
 		map.put("endValue", endValue);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return super.toString() + ", beginRow=" + beginRow + ", endRow=" + endRow + ", beginCol=" + beginCol
-				+ ", endCol=" + endCol + ", beginKey=" + beginKeyId + ", beginValue=" + beginValue + ", endKeyId=" + endKeyId
-				+ ", endValue=" + endValue;
 	}
 
 }

@@ -14,8 +14,6 @@ import org.apache.commons.collections.MapUtils;
  */
 public class Sort extends AbstractRangeConverter {
 
-	private static final long serialVersionUID = 3961197317294641632L;
-
 	/**
 	 * ソートキー
 	 */

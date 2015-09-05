@@ -14,8 +14,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 
-	private static final long serialVersionUID = 4454390296662989505L;
-
 	private String name;
 
 	private List<Content> sheets = new ArrayList<>();
@@ -110,15 +108,6 @@ public class BookContentImpl extends AbstractContent<BookDefinitionImpl> {
 		}
 		map.put("sheets", sheetMaps);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", name=" + name + ", " + ", sheets="
-				+ sheets + "]";
 	}
 
 }

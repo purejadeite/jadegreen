@@ -15,8 +15,6 @@ import com.google.common.base.CaseFormat;
 */
 public class LowerUnderscore extends AbstractCaseFormatCellConverter {
 
-	private static final long serialVersionUID = -2652402252727497847L;
-
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

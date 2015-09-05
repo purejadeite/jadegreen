@@ -2,6 +2,8 @@ package com.purejadeite.jadegreen.definition.converter.cell;
 
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
+
 import com.purejadeite.jadegreen.CellUtils;
 
 /**
@@ -10,8 +12,6 @@ import com.purejadeite.jadegreen.CellUtils;
  *
  */
 public class ToStringDate extends AbstractStringCellConverter {
-
-	private static final long serialVersionUID = -1776705030591016850L;
 
 	/**
 	 * 日付フォーマット
@@ -25,7 +25,7 @@ public class ToStringDate extends AbstractStringCellConverter {
 	 */
 	public ToStringDate(Map<String, Object> config) {
 		super();
-		this.dateFormat = (String) config.get("dateFormat");
+		this.dateFormat = MapUtils.getString(config, "dateFormat");
 	}
 
 	/**

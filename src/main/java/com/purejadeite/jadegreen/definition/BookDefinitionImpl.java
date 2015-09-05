@@ -11,8 +11,6 @@ import java.util.Map;
  */
 public class BookDefinitionImpl extends AbstractDefinition {
 
-	private static final long serialVersionUID = -4415737729836820796L;
-
 	/**
 	 * シート定義
 	 */
@@ -77,14 +75,6 @@ public class BookDefinitionImpl extends AbstractDefinition {
 		}
 		map.put("sheets", sheetMaps);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", sheets=" + sheets + "]";
 	}
 
 	/**

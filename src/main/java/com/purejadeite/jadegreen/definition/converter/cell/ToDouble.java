@@ -11,8 +11,6 @@ import com.purejadeite.jadegreen.CellUtils;
  */
 public class ToDouble extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = 6095833065569388637L;
-
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

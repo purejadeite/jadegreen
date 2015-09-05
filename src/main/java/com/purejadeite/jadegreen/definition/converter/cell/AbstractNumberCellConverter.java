@@ -11,8 +11,6 @@ import org.apache.commons.collections.MapUtils;
  */
 public abstract class AbstractNumberCellConverter extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = 8428819225468846834L;
-
 	private boolean nullToZero = true;
 
 	private boolean emptyToZero = true;
@@ -57,5 +55,12 @@ public abstract class AbstractNumberCellConverter extends AbstractStringCellConv
 	abstract protected Object toNumber(String value);
 
 	abstract protected Object getZero();
+
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("nullToZero", nullToZero);
+		map.put("emptyToZero", emptyToZero);
+		return map;
+	}
 
 }

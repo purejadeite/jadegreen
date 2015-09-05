@@ -102,12 +102,4 @@ public class ValueDefinitionImpl extends AbstractCellDefinition {
 		return map;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", generator=" + generator + "]";
-	}
-
 }

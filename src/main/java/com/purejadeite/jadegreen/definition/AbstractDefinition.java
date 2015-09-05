@@ -1,14 +1,13 @@
 package com.purejadeite.jadegreen.definition;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.purejadeite.jadegreen.AbstractToJson;
 
 /**
 *
@@ -16,12 +15,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 * @author mitsuhiroseino
 *
 */
-public abstract class AbstractDefinition implements Definition, Serializable {
-
-	/**
-	 * JSON出力用のオブジェクトマッパー
-	 */
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+public abstract class AbstractDefinition extends AbstractToJson implements Definition, Serializable {
 
 	/**
 	 * 定義ID
@@ -47,15 +41,6 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	 */
 	protected AbstractDefinition() {
 		super();
-	}
-
-	/**
-	 * コンストラクタ
-	 * @param id 定義ID
-	 */
-	protected AbstractDefinition(String id) {
-		super();
-		this.id = id;
 	}
 
 	/**
@@ -93,7 +78,7 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	public String getFullId() {
 		String fullId = id;
 		if (this.parent != null && !StringUtils.isEmpty(this.parent.getFullId())) {
-			fullId = this.parent.getFullId() + "." + fullId;
+			fullId += this.parent.getFullId();
 		}
 		return fullId;
 	}
@@ -104,6 +89,22 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	@Override
 	public Definition getParent() {
 		return parent;
+	}
+
+	/**
+	 * サポートされていないオペレーションです
+	 */
+	@Override
+	public List<? extends Definition> getChildren() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * サポートされていないオペレーションです
+	 */
+	@Override
+	public void addChild(Definition child) {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -146,20 +147,8 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String toJson() {
-		try {
-			return OBJECT_MAPPER.writeValueAsString(toMap());
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new LinkedHashMap<>();
+		Map<String, Object> map = super.toMap();
 		map.put("id", id);
 		map.put("noOutput", noOutput);
 		if (parent != null) {
@@ -168,14 +157,6 @@ public abstract class AbstractDefinition implements Definition, Serializable {
 			map.put("parent", null);
 		}
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return "id=" + id + ", noOutput=" + noOutput + ", parent=" + parent.getFullId();
 	}
 
 }

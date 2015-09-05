@@ -12,8 +12,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class AddText extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = -7583261972286694964L;
-
 	/**
 	 * 接頭語
 	 */
@@ -67,6 +65,7 @@ public class AddText extends AbstractStringCellConverter {
 		Map<String, Object> map = super.toMap();
 		map.put("prefix", prefix);
 		map.put("suffix", suffix);
+		map.put("ignoreEmpty", ignoreEmpty);
 		return map;
 	}
 

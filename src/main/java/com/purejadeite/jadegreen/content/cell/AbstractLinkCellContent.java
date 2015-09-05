@@ -17,8 +17,6 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinition;
  */
 public abstract class AbstractLinkCellContent<D extends LinkCellDefinition> extends AbstractContent<D> implements LinkCellContent {
 
-	private static final long serialVersionUID = -1945575252486887273L;
-
 	public AbstractLinkCellContent(Content parent, D definition) {
 		super(parent, definition);
 	}

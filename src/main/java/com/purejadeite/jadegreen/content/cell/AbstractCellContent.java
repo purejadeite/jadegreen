@@ -55,12 +55,4 @@ public abstract class AbstractCellContent<D extends Definition> extends Abstract
 		map.put("values", values);
 		return map;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", values=" + values + "]";
-	}
 }

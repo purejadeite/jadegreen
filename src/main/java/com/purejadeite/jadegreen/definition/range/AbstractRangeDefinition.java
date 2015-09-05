@@ -16,8 +16,6 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  */
 public abstract class AbstractRangeDefinition extends AbstractDefinition implements RangeDefinition {
 
-	private static final long serialVersionUID = -3017051211378561813L;
-
 	/**
 	 * 開始位置
 	 */
@@ -32,11 +30,6 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * 配下のセル読み込み情報
 	 */
 	protected List<CellDefinition> cells = new ArrayList<>();
-
-	/**
-	 * コンバーター
-	 */
-	protected Options options = null;
 
 	/**
 	 * 開始キー項目
@@ -59,6 +52,11 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * 終了キー値
 	 */
 	protected String endValue = null;
+
+	/**
+	 * オプション
+	 */
+	protected Options options;
 
 	/**
 	 * レコード数
@@ -195,17 +193,11 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);
-		map.put("options", options);
+		if (options != null) {
+			map.put("options", options.toMap());
+		} else {
+			map.put("options", null);
+		}
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return "id=" + id + ", noOutput=" + noOutput + ", begin=" + begin + ", end=" + end + ", beginKey=" + beginKeyId
-				+ ", beginValue=" + beginValue + ", endKeyId=" + endKeyId + ", endValue=" + endValue + ", size=" + size
-				+ ", parent=" + parent.getFullId() + ", cells=" + cells;
 	}
 }

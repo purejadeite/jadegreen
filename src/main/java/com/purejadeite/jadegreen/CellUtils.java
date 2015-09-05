@@ -32,13 +32,22 @@ public class CellUtils {
 	}
 
 	public static Date getDateValue(String value) {
+		// 1900年始まり
+		boolean use1904windowing = false;
+		TimeZone timeZone = null;
+		return getDateValue(value, use1904windowing, timeZone);
+	}
+
+	public static Date getDateValue(String value, boolean use1904windowing) {
+		TimeZone timeZone = null;
+		return getDateValue(value, use1904windowing, timeZone);
+	}
+
+	public static Date getDateValue(String value, boolean use1904windowing, TimeZone timeZone) {
 		if (StringUtils.isEmpty(value)) {
 			return null;
 		}
 		Double dblVal = getDoubleValue(value);
-		// 今のところ1900年始まりのみ対応
-		boolean use1904windowing = false;
-		TimeZone timeZone = null;
 		return DateUtil.getJavaDate(dblVal.doubleValue(), use1904windowing, timeZone);
 	}
 

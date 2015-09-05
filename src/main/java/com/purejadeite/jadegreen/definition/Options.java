@@ -1,13 +1,14 @@
 package com.purejadeite.jadegreen.definition;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Options implements Option {
+public class Options extends AbstractOption {
 
 	private List<Option> options;
 
-	Options (List<Option> options) {
+	public Options (List<Option> options) {
 		this.options = options;
 	}
 
@@ -22,14 +23,13 @@ public class Options implements Option {
 
 	@Override
 	public Map<String, Object> toMap() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public String toJson() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		Map<String, Object> map = super.toMap();
+		List<Map<String, Object>> opts = new ArrayList<>();
+		for (Option option: options) {
+			opts.add(option.toMap());
+		}
+		map.put("options", opts);
+		return map;
 	}
 
 }

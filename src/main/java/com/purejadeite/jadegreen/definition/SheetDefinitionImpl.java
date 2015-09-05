@@ -14,8 +14,6 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class SheetDefinitionImpl extends AbstractDefinition {
 
-	private static final long serialVersionUID = 4838744331997690756L;
-
 	/**
 	 * 対象シート条件・シート名
 	 */
@@ -175,15 +173,6 @@ public class SheetDefinitionImpl extends AbstractDefinition {
 		}
 		map.put("cells", cellMaps);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", name=" + name + ", minRow=" + minRow
-				+ ", maxRow=" + maxRow + ", minCol=" + minCol + ", maxCol=" + maxCol + ", cells=" + cells + "]";
 	}
 
 	public Object aplly(Object value) {

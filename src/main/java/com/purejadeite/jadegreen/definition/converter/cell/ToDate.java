@@ -2,6 +2,8 @@ package com.purejadeite.jadegreen.definition.converter.cell;
 
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
+
 import com.purejadeite.jadegreen.CellUtils;
 
 /**
@@ -11,7 +13,7 @@ import com.purejadeite.jadegreen.CellUtils;
  */
 public class ToDate extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = -3484244823413179144L;
+	private boolean use1904windowing;
 
 	/**
 	 * コンストラクタ
@@ -20,6 +22,7 @@ public class ToDate extends AbstractStringCellConverter {
 	 */
 	public ToDate(Map<String, Object> config) {
 		super();
+		use1904windowing = MapUtils.getBooleanValue(config, "use1904windowing");
 	}
 
 	/**
@@ -27,7 +30,7 @@ public class ToDate extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object applyToString(String value) {
-		return CellUtils.getDateValue(value);
+		return CellUtils.getDateValue(value, use1904windowing);
 	}
 
 }

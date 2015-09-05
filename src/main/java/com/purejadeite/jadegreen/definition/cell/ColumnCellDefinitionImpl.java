@@ -12,8 +12,6 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
 
-	private static final long serialVersionUID = -6991064050234248248L;
-
 	/**
 	 * コンストラクタ
 	 * @param parent テーブル読み込み定義
@@ -51,22 +49,5 @@ public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
 				options);
 		return cell;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "}";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
-	}
-
 
 }

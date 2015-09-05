@@ -11,8 +11,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public class ColumnDefinitionImpl extends AbstractRangeDefinition {
 
-	private static final long serialVersionUID = -7108734031566256539L;
-
 	/**
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報
@@ -56,14 +54,6 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition {
 	@Override
 	public boolean isIncluded(int row, int col) {
 		return (begin <= col && col <= end);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}
 
 }

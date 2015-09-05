@@ -1,15 +1,15 @@
 package com.purejadeite.jadegreen.content;
 
 import java.util.List;
-import java.util.Map;
 
+import com.purejadeite.jadegreen.ToJson;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 値の読み込み処理を
  * @author mitsuhiroseino
  */
-public interface Content {
+public interface Content extends ToJson {
 
 	/**
 	 * 定義IDを取得します
@@ -76,13 +76,5 @@ public interface Content {
 	 * @return 対象のContent
 	 */
 	public Content getUpperContent(Class<? extends Content> contentClazz);
-
-	/**
-	 * インスタンスの内容をJSON形式で取得します
-	 * @return JSON
-	 */
-	public String toJson();
-
-	public Map<String, Object> toMap();
 
 }

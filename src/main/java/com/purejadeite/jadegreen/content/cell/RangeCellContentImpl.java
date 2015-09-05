@@ -21,8 +21,6 @@ import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
  */
 public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> implements RangeCellContent {
 
-	private static final long serialVersionUID = -7576485612800933090L;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(RangeCellContentImpl.class);
 
 	/**
@@ -66,6 +64,7 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 			if (definition.isEndValue(value)) {
 				// 今回の値でクローズし
 				close();
+				LOGGER.debug("break:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 				return END;
 			} else {
 				// 値を取得
@@ -115,17 +114,7 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("closed", closed);
 		map.put("values", values);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", closed=" + closed + ", values=" + values
-				+ "]";
 	}
 }

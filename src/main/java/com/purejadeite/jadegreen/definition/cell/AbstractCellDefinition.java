@@ -12,6 +12,7 @@ import com.purejadeite.jadegreen.definition.OptionsBuilder;
  * <pre>
  * 値の取得元セルの情報を保持する抽象クラス
  * </pre>
+ *
  * @author mitsuhiroseino
  */
 public abstract class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
@@ -23,29 +24,18 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 
 	/**
 	 * コンストラクタ
-	 * @param parent 親定義
-	 * @param id 定義ID
-	 * @param options オプション
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param id
+	 *            定義ID
+	 * @param options
+	 *            オプション
 	 */
-	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput, List<Map<String, String>> options) {
+	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput,
+			List<Map<String, String>> options) {
 		super(parent, id, noOutput);
 		this.options = OptionsBuilder.build(options);
-	}
-
-	/**
-	 * サポートされていないオペレーションです
-	 */
-	@Override
-	public List<Definition> getChildren() {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * サポートされていないオペレーションです
-	 */
-	@Override
-	public void addChild(Definition child) {
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -71,16 +61,12 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("options", options);
+		if (options != null) {
+			map.put("options", options.toMap());
+		} else {
+			map.put("options", null);
+		}
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return super.toString() + ", options=" + options;
 	}
 
 }

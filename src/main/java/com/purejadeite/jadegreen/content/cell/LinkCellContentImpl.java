@@ -24,8 +24,6 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
  */
 public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinitionImpl> {
 
-	private static final long serialVersionUID = -6716986220851296963L;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkCellContentImpl.class);
 
 	public LinkCellContentImpl(Content parentContent, LinkCellDefinitionImpl definition) {
@@ -105,13 +103,5 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 			contents.add(this);
 		}
 		return contents;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
 	}
 }

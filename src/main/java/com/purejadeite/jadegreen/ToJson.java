@@ -1,20 +1,14 @@
-package com.purejadeite.jadegreen.definition;
+package com.purejadeite.jadegreen;
 
 import java.util.Map;
 
 /**
  *
- * オプション処理インターフェイス
+ * JSON出力インターフェイス
  * @author mitsuhiroseino
  *
  */
-public interface Option {
-
-	/**
-	 * オプションを適用します
-	 * @return
-	 */
-	public Object apply(Object values);
+public interface ToJson {
 
 	/**
 	 * オプションの設定内容をMap形式で取得します

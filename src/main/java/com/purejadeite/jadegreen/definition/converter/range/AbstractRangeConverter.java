@@ -1,23 +1,17 @@
 package com.purejadeite.jadegreen.definition.converter.range;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.purejadeite.jadegreen.AbstractToJson;
 
 /**
  * Rangeの値を変換する抽象クラス
  *
  * @author mitsuhiroseino
  */
-public abstract class AbstractRangeConverter implements RangeConverter, Serializable {
-
-	private static final long serialVersionUID = 4438043042165420559L;
-
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+public abstract class AbstractRangeConverter extends AbstractToJson implements RangeConverter, Serializable {
 
 	/**
 	 * コンストラクタ
@@ -43,29 +37,9 @@ public abstract class AbstractRangeConverter implements RangeConverter, Serializ
 	 */
 	abstract protected Object applyImpl(List<Map<String, Object>> values);
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		try {
-			return OBJECT_MAPPER.writeValueAsString(toMap());
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new LinkedHashMap<>();
+		Map<String, Object> map = super.toMap();
 		map.put("name", this.getClass().getSimpleName());
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return toMap().toString();
 	}
 }

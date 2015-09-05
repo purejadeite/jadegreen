@@ -29,8 +29,6 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class RangeContentImpl extends AbstractContent<RangeDefinition> implements RangeContent {
 
-	private static final long serialVersionUID = 8859089448405461049L;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(RangeContentImpl.class);
 
 	protected List<RangeCellContent> cells = new ArrayList<>();
@@ -98,7 +96,6 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 			} else if (cellStatus == SUCCESS) {
 				// 値を取得した
 				size = cell.size();
-				LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 			}
 		}
 		if (status == END) {
@@ -219,21 +216,12 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("size", size);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
 		for(Content cell: cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);
+		map.put("begin", begin);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", size=" + size
-				+ ", cells=" + cells + "]";
 	}
 }

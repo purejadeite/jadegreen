@@ -9,8 +9,6 @@ import java.util.Map;
  */
 public class Mapping extends AbstractCellConverter {
 
-	private static final long serialVersionUID = 6013832481107499325L;
-
 	/**
 	 * 値変換マップ
 	 */
@@ -56,6 +54,7 @@ public class Mapping extends AbstractCellConverter {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
+		map.put("lazy", this.lazy);
 		return map;
 	}
 }

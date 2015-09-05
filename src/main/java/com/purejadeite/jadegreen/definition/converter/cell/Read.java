@@ -19,14 +19,14 @@ public class Read extends AbstractCellConverter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Read.class);
 
 	/**
+	 * デフォルトの読み込みファイル
+	 */
+	private String file;
+
+	/**
 	 * 読み込みファイルマップ
 	 */
 	private Map<String, String> map;
-
-	/**
-	 * デフォルトの読み込みファイル
-	 */
-	private String dflt;
 
 	/**
 	 * コンストラクタ
@@ -36,8 +36,8 @@ public class Read extends AbstractCellConverter {
 	@SuppressWarnings("unchecked")
 	public Read(Map<String, Object> config) {
 		super();
+		this.file = MapUtils.getString(config, "default");
 		this.map = (Map<String, String>) config.get("map");
-		this.dflt = MapUtils.getString(config, "default");
 	}
 
 	/**
@@ -45,15 +45,19 @@ public class Read extends AbstractCellConverter {
 	 */
 	@Override
 	public Object applyImpl(Object value) {
-		String filePath = map.get(value);
+		String filePath = null;
+		if (map != null) {
+			filePath = map.get(value);
+		}
 		if (filePath == null) {
-			filePath = dflt;
+			filePath = file;
 		}
 		if (filePath != null) {
 			try {
 				return FileUtils.readFileToString(new File(filePath));
 			} catch (IOException e) {
 				LOGGER.error("ファイルがありません:" + filePath);
+				throw new IllegalArgumentException(e);
 			}
 		}
 		return null;
@@ -61,8 +65,8 @@ public class Read extends AbstractCellConverter {
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
+		map.put("file", this.file);
 		map.put("map", this.map);
-		map.put("dflt", this.dflt);
 		return map;
 	}
 }

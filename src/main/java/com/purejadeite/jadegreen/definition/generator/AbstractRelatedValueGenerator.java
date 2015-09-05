@@ -1,11 +1,9 @@
 package com.purejadeite.jadegreen.definition.generator;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.purejadeite.jadegreen.AbstractToJson;
 
 /**
  * 値を生成する抽象クラス
@@ -13,9 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractRelatedValueGenerator implements ValueGenerator, Serializable {
-
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+public abstract class AbstractRelatedValueGenerator extends AbstractToJson implements ValueGenerator, Serializable {
 
 	/**
 	 * コンストラクタ
@@ -28,29 +24,9 @@ public abstract class AbstractRelatedValueGenerator implements ValueGenerator, S
 
 	@Override
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new LinkedHashMap<>();
+		Map<String, Object> map = super.toMap();
 		map.put("name", this.getClass().getSimpleName());
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		try {
-			return OBJECT_MAPPER.writeValueAsString(toMap());
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return toMap().toString();
 	}
 
 }

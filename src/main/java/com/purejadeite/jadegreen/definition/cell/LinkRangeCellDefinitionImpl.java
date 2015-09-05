@@ -12,8 +12,6 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition implements LinkCellDefinition {
 
-	private static final long serialVersionUID = -2532293550782673419L;
-
 	/**
 	 * 取得対象のRangeの定義ID
 	 */
@@ -170,15 +168,6 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 		map.put("keyId", keyId);
 		map.put("valueId", valueId);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", mySheetKeyId=" + mySheetKeyId
-				+ ", myKey=" + myKeyId + ", sheetKeyId=" + sheetKeyId + ", key=" + keyId + ", value=" + valueId + "]";
 	}
 
 }

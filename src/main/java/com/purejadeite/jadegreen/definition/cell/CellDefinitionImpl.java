@@ -11,8 +11,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public class CellDefinitionImpl extends AbstractCellDefinition {
 
-	private static final long serialVersionUID = -6574163940488908988L;
-
 	/**
 	 * 取得対象列
 	 */
@@ -104,14 +102,6 @@ public class CellDefinitionImpl extends AbstractCellDefinition {
 		map.put("row", row);
 		map.put("col", col);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", row=" + row + ", col=" + col + "]";
 	}
 
 }

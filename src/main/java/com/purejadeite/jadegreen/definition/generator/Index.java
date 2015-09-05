@@ -17,7 +17,9 @@ public class Index extends AbstractRelatedValueGenerator {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Index.class);
 
-	private int startAt = 0;
+	private int from = 0;
+
+	private int increment = 1;
 
 	/**
 	 * コンストラクタ
@@ -27,7 +29,11 @@ public class Index extends AbstractRelatedValueGenerator {
 	@SuppressWarnings("unchecked")
 	public Index(Map<String, Object> config) {
 		super();
-		startAt = MapUtils.getIntValue(config, "startAt");
+		from = MapUtils.getIntValue(config, "from");
+		Object increment = config.get("increment");
+		if (increment != null) {
+			this.increment = Integer.parseInt(increment.toString());
+		}
 	}
 
 	/**
@@ -39,19 +45,22 @@ public class Index extends AbstractRelatedValueGenerator {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
 			Collection<Object> vals = new ArrayList<>();
-			for (int i = startAt; i < values.size() + startAt; i++) {
-				vals.add(Integer.valueOf(i));
+			int index = from;
+			for (int i = 0; i < values.size(); i++) {
+				vals.add(Integer.valueOf(index));
+				index += increment;
 			}
 			return vals;
 		} else {
-			return Integer.valueOf(startAt);
+			return Integer.valueOf(from);
 		}
 	}
 
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("startAt", startAt);
+		map.put("from", from);
+		map.put("increment", increment);
 		return map;
 	}
 }

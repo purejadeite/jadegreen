@@ -19,8 +19,6 @@ import com.google.common.base.CaseFormat;
  */
 public abstract class AbstractCaseFormatCellConverter extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = -8513734342418090089L;
-
 	/**
 	 * コンストラクタ
 	 * @param cell Cell読み込み定義

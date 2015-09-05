@@ -11,8 +11,6 @@ import com.purejadeite.jadegreen.CellUtils;
  */
 public class ToInteger extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = 4335246886410014532L;
-
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

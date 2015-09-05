@@ -15,8 +15,6 @@ import org.apache.commons.collections.MapUtils;
  */
 public class Group extends AbstractRangeConverter {
 
-	private static final long serialVersionUID = 1131941852790003606L;
-
 	/**
 	 * グループ化キーとなる項目の定義ID
 	 */
@@ -34,8 +32,14 @@ public class Group extends AbstractRangeConverter {
 	 */
 	public Group(Map<String, Object> config) {
 		super();
-		this.keyId = MapUtils.getString(config, keyId);
-		this.toId = MapUtils.getString(config, toId);
+		this.keyId = MapUtils.getString(config, "keyId");
+		this.toId = MapUtils.getString(config, "toId");
+		if (keyId == null) {
+			throw new IllegalArgumentException("keyId must not be null.");
+		}
+		if (toId == null) {
+			throw new IllegalArgumentException("toId must not be null.");
+		}
 	}
 
 	/**

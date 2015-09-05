@@ -1,22 +1,18 @@
 package com.purejadeite.jadegreen.content;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 
+import com.purejadeite.jadegreen.AbstractToJson;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-public abstract class AbstractContent<D extends Definition> implements Content, Serializable {
-
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+public abstract class AbstractContent<D extends Definition> extends AbstractToJson implements Content, Serializable {
 
 	/**
 	 * 親要要素
@@ -127,35 +123,16 @@ public abstract class AbstractContent<D extends Definition> implements Content, 
 		closed = true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		try {
-			return OBJECT_MAPPER.writeValueAsString(toMap());
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new LinkedHashMap<>();
+		Map<String, Object> map = super.toMap();
 		map.put("definition", definition.getFullId());
 		if (parent != null) {
 			map.put("parent", parent.getFullId());
 		} else {
 			map.put("parent", null);
 		}
+		map.put("closed", closed);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return "definition=" + definition.getFullId() + ", parent=" + parent.getFullId();
 	}
 
 }

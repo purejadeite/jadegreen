@@ -13,8 +13,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public abstract class AbstractLinkCellDefinition extends AbstractDefinition implements LinkCellDefinition {
 
-	private static final long serialVersionUID = -7883930267830991162L;
-
 	protected String mySheetKeyId;
 
 	/**
@@ -84,14 +82,6 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 		map.put("valueId", valueId);
 		map.put("book", book.getFullId());
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return super.toString() + "mySheetKeyId=" + mySheetKeyId + ", sheetKeyId=" + sheetKeyId + ", valueId=" + valueId;
 	}
 
 	/**

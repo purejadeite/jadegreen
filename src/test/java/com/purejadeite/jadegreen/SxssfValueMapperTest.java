@@ -1,6 +1,8 @@
 package com.purejadeite.jadegreen;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +12,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.SxssfValueMapper;
 import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
+import com.purejadeite.jadegreen.definition.Option;
+import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.converter.cell.Split;
 
 /**
  * Unit test for simple App.
@@ -47,6 +51,14 @@ public class SxssfValueMapperTest
 	public void multi()
 	{
 		exec("multi");
+	}
+
+	@Test
+	public void options()
+	{
+		List<Option> opt = new ArrayList<>();
+		opt.add(new Split(new HashMap<String, Object>()));
+		Options opts = new Options(opt);
 	}
 
 	private void exec(String name) {

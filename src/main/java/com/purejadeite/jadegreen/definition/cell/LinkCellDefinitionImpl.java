@@ -37,20 +37,4 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 		return new LinkCellDefinitionImpl(book, parent, id, noOutput, config);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		return "{" + super.toJson() + "}";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + "]";
-	}
-
 }

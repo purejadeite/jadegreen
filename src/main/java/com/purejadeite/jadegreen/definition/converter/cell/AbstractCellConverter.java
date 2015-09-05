@@ -1,13 +1,11 @@
 package com.purejadeite.jadegreen.definition.converter.cell;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.purejadeite.jadegreen.AbstractToJson;
 
 /**
  * Cellの値を変換する抽象クラス
@@ -15,11 +13,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractCellConverter implements CellConverter, Serializable {
-
-	private static final long serialVersionUID = -554429680948708719L;
-
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+public abstract class AbstractCellConverter extends AbstractToJson implements CellConverter, Serializable {
 
 	/**
 	 * コンストラクタ
@@ -46,30 +40,10 @@ public abstract class AbstractCellConverter implements CellConverter, Serializab
 
 	abstract protected Object applyImpl(Object value);
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toJson() {
-		try {
-			return OBJECT_MAPPER.writeValueAsString(toMap());
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = new LinkedHashMap<>();
+		Map<String, Object> map = super.toMap();
 		map.put("name", this.getClass().getSimpleName());
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return toMap().toString();
 	}
 
 }

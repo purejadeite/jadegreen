@@ -29,8 +29,6 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
-	private static final long serialVersionUID = 2123782999010149210L;
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(SheetContentImpl.class);
 
 	private String sheetName;
@@ -86,7 +84,7 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 
 	private Status addValueImpl(int row, int col, Object value) {
 		Status status = END;
-		LOGGER.debug("row=" + row + ",col=" + col + ",value=" + value);
+		LOGGER.trace("cell(" + row + "," + col + ").value=" + value);
 		for (Content content : contents) {
 			Status addStatus = content.addValue(row, col, value);
 			if (0 < addStatus.compareTo(status)) {
@@ -124,7 +122,18 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 			}
 			added = true;
 		}
-		// ③現在処理している行で列が連続していない場合
+		// ③現在処理している行が先頭の列から始まっていない場合
+		if (prevRow + 1 == row && maxCol <= prevCol && col != 1) {
+			// ダミー列の追加処理
+			for (int c = 1; c < col; c++) {
+				Status addStatus = addDummyCol(row, c);
+				if (0 < addStatus.compareTo(status)) {
+					status = addStatus;
+				}
+			}
+			added = true;
+		}
+		// ④現在処理している行で列が連続していない場合
 		if (prevRow == row && prevCol + 1 < col) {
 			// ダミー列の追加処理
 			for (int c = prevCol + 1; c < col; c++) {
@@ -240,15 +249,6 @@ public class SheetContentImpl extends AbstractContent<SheetDefinitionImpl> {
 		}
 		map.put("contents", contentMaps);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", sheetName=" + sheetName + ", contents=" + contents
-				+ "]";
 	}
 
 }

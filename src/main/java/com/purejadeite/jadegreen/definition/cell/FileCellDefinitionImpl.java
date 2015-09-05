@@ -83,14 +83,6 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 		return map;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + super.toString() + ", filePath=" + filePath + "]";
-	}
-
 	@Override
 	public int getMinRow() {
 		return NO_ADDRESS;

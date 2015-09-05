@@ -11,8 +11,6 @@ import com.purejadeite.jadegreen.CellUtils;
  */
 public class ToBoolean extends AbstractStringCellConverter {
 
-	private static final long serialVersionUID = 2293861590083383337L;
-
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
