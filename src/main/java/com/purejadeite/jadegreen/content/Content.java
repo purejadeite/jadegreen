@@ -2,14 +2,14 @@ package com.purejadeite.jadegreen.content;
 
 import java.util.List;
 
-import com.purejadeite.jadegreen.ToJson;
+import com.purejadeite.jadegreen.ToMap;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 値の読み込み処理を
  * @author mitsuhiroseino
  */
-public interface Content extends ToJson {
+public interface Content extends ToMap {
 
 	/**
 	 * 定義IDを取得します

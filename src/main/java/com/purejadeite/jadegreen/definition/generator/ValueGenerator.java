@@ -1,26 +1,18 @@
 package com.purejadeite.jadegreen.definition.generator;
 
-import java.util.Map;
+import com.purejadeite.jadegreen.ToMap;
 
 /**
  * 値を生成するインターフェイス
  * @author mitsuhiroseino
  *
  */
-public interface ValueGenerator {
+public interface ValueGenerator extends ToMap {
 
 	/**
 	 * オプションを適用します
 	 * @return
 	 */
 	public Object generate(Object values);
-
-	public Map<String,Object> toMap();
-
-	/**
-	 * インスタンスの内容をJSON形式で取得します
-	 * @return JSON
-	 */
-	public String toJson();
 
 }

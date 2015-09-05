@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -19,7 +19,7 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 	 * @param options オプション
 	 * @param config リンク設定
 	 */
-	private LinkCellDefinitionImpl(BookDefinitionImpl book, Definition sheet, String id, boolean noOutput, Map<String, String> config) {
+	private LinkCellDefinitionImpl(WorkbookDefinitionImpl book, Definition sheet, String id, boolean noOutput, Map<String, String> config) {
 		super(book, sheet, id, noOutput, config);
 	}
 
@@ -32,7 +32,7 @@ public class LinkCellDefinitionImpl extends AbstractLinkCellDefinition {
 	 * @param config リンク設定
 	 * @return ラップされたCellリンク定義
 	 */
-	public static Definition getInstance(BookDefinitionImpl book, Definition parent, String id, boolean noOutput,
+	public static Definition getInstance(WorkbookDefinitionImpl book, Definition parent, String id, boolean noOutput,
 			Map<String, String> config) {
 		return new LinkCellDefinitionImpl(book, parent, id, noOutput, config);
 	}

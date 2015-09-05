@@ -1,7 +1,8 @@
 package com.purejadeite.jadegreen.definition;
 
 import java.util.List;
-import java.util.Map;
+
+import com.purejadeite.jadegreen.ToMap;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public interface Definition {
+public interface Definition extends ToMap {
 
 	/**
 	 * 定義IDを取得します
@@ -71,20 +72,6 @@ public interface Definition {
 	 * @return 対象の定義
 	 */
 	public Definition get(String... ids);
-
-	/**
-	 * インスタンスの内容をJSON形式で取得します
-	 *
-	 * @return JSON
-	 */
-	public String toJson();
-
-	/**
-	 * インスタンスの内容をMAP形式で取得します
-	 *
-	 * @return MAP
-	 */
-	public Map<String, Object> toMap();
 
 	/**
 	 * 値にオプションを適用します

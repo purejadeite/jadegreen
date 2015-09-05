@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.converter.cell.CellConverterManager;
-import com.purejadeite.jadegreen.definition.converter.range.RangeConverterManager;
+import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
+import com.purejadeite.jadegreen.definition.option.range.RangeOptionManager;
 
 public class OptionsBuilder {
 
@@ -16,12 +16,12 @@ public class OptionsBuilder {
 		List<Option> options = new ArrayList<>();
 		Option option = null;
 		for (Map<String, String> config : configs) {
-			option = CellConverterManager.build(config);
+			option = CellOptionManager.build(config);
 			if (option != null) {
 				options.add(option);
 				continue;
 			}
-			option = RangeConverterManager.build(config);
+			option = RangeOptionManager.build(config);
 			if (option != null) {
 				options.add(option);
 				continue;

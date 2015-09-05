@@ -5,14 +5,14 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.purejadeite.jadegreen.AbstractToJson;
+import com.purejadeite.jadegreen.AbstractToMap;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-public abstract class AbstractContent<D extends Definition> extends AbstractToJson implements Content, Serializable {
+public abstract class AbstractContent<D extends Definition> extends AbstractToMap implements Content, Serializable {
 
 	/**
 	 * 親要要素

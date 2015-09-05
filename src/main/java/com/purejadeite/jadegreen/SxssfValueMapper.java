@@ -20,12 +20,12 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.purejadeite.jadegreen.content.BookContentImpl;
+import com.purejadeite.jadegreen.content.WorkbookContentImpl;
 import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.content.SheetContentImpl;
-import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
+import com.purejadeite.jadegreen.content.WorksheetContentImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.definition.SheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
 
 /**
  * <pre>
@@ -46,7 +46,7 @@ public class SxssfValueMapper {
 	 */
 	public static Map<String, Object> readPrimeSheet(String excelFilePath, String definitionFilePath)
 			throws IOException {
-		BookDefinitionImpl book = DefinitionBuilder.build(definitionFilePath);
+		WorkbookDefinitionImpl book = DefinitionBuilder.build(definitionFilePath);
 		List<Map<String, Object>> valueSheets = read(excelFilePath, book);
 		for (Map<String, Object> valueSheet : valueSheets) {
 			if (!MapUtils.getBooleanValue(valueSheet, "noOutput")) {
@@ -64,7 +64,7 @@ public class SxssfValueMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static List<Map<String, Object>> read(File excelFile, File definitionFile) throws IOException {
-		BookDefinitionImpl book = DefinitionBuilder.build(definitionFile);
+		WorkbookDefinitionImpl book = DefinitionBuilder.build(definitionFile);
 		return read(excelFile, book);
 	}
 
@@ -76,7 +76,7 @@ public class SxssfValueMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static List<Map<String, Object>> read(String excelFilePath, String definitionFilePath) throws IOException {
-		BookDefinitionImpl book = DefinitionBuilder.build(definitionFilePath);
+		WorkbookDefinitionImpl book = DefinitionBuilder.build(definitionFilePath);
 		return read(excelFilePath, book);
 	}
 
@@ -87,7 +87,7 @@ public class SxssfValueMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(String excelFilePath, BookDefinitionImpl book) throws IOException {
+	public static List<Map<String, Object>> read(String excelFilePath, WorkbookDefinitionImpl book) throws IOException {
 		File excelFile = new File(excelFilePath);
 		return read(excelFile, book);
 	}
@@ -100,7 +100,7 @@ public class SxssfValueMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(File excelFile, BookDefinitionImpl book) throws IOException {
+	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinitionImpl book) throws IOException {
 
 		OPCPackage pkg = null;
 		XSSFReader reader = null;
@@ -116,10 +116,10 @@ public class SxssfValueMapper {
 		}
 
 		// 1ファイル分の情報を集めるインスタンス
-		BookContentImpl bookContent = new BookContentImpl(book, excelFile.getName());
+		WorkbookContentImpl bookContent = new WorkbookContentImpl(book, excelFile.getName());
 		// ブックのパーサーを取得
 		XMLReader bookParser = new SAXParser();
-		for (SheetDefinitionImpl sheet : book.getSheets()) {
+		for (WorksheetDefinitionImpl sheet : book.getSheets()) {
 			// ハンドラで対象シートのrIdを収集する
 			SxssfBookHandler bookHandler = new SxssfBookHandler(sheet.getName());
 			bookParser.setContentHandler(bookHandler);
@@ -149,7 +149,7 @@ public class SxssfValueMapper {
 			for (Entry<String, String> entry : sheetNames.entrySet()) {
 				LOGGER.debug("対象Sheet:" + entry.getValue());
 				// シートのパーサを取得
-				sheetContent = new SheetContentImpl(bookContent, sheet, entry.getValue());
+				sheetContent = new WorksheetContentImpl(bookContent, sheet, entry.getValue());
 				sheetHandler = new SxssfSheetHandler(sst, sheetContent);
 				sheetParser = new SAXParser();
 				sheetParser.setContentHandler(sheetHandler);
@@ -172,7 +172,7 @@ public class SxssfValueMapper {
 				}
 			}
 		}
-		LOGGER.debug("\r\n\r\n" + bookContent.toJson() + "\r\n\r\n");
+		LOGGER.debug("\r\n\r\n" + bookContent.toMap() + "\r\n\r\n");
 		return (List<Map<String, Object>>) bookContent.getValues();
 	}
 

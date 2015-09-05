@@ -26,7 +26,7 @@ public abstract class AbstractLinkContent<D extends LinkDefinition> extends Abst
 	}
 
 	public Content getMySheetKeyContent(Content book) {
-		Content sheet = this.getUpperContent(SheetContentImpl.class);
+		Content sheet = this.getUpperContent(WorksheetContentImpl.class);
 		List<Content> mySheetKeyContents = sheet.searchContents(definition.getMySheetKeyDefinition());
 		if (mySheetKeyContents.size() != 1) {
 			// キーが一意でないならば例外
@@ -39,7 +39,7 @@ public abstract class AbstractLinkContent<D extends LinkDefinition> extends Abst
 		Object mySheetKeyValues = mySheetKeyContent.getValues();
 		for (Content sheetKeyContent : sheetKeyContents) {
 			if (mySheetKeyValues.equals(sheetKeyContent.getValues())) {
-				return sheetKeyContent.getUpperContent(SheetContentImpl.class);
+				return sheetKeyContent.getUpperContent(WorksheetContentImpl.class);
 			}
 		}
 		return null;
@@ -48,7 +48,7 @@ public abstract class AbstractLinkContent<D extends LinkDefinition> extends Abst
 	public Content getValueContent(Content targetSheet, List<Content> valueContents) {
 		for (Content valueContent : valueContents) {
 			// そのキーと同じシートにある値を探す
-			if (targetSheet == valueContent.getUpperContent(SheetContentImpl.class)) {
+			if (targetSheet == valueContent.getUpperContent(WorksheetContentImpl.class)) {
 				return valueContent;
 			}
 		}

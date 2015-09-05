@@ -12,11 +12,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.option.cell.Split;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
 import com.purejadeite.jadegreen.definition.Option;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.converter.cell.Split;
 
 /**
  * Unit test for simple App.
@@ -64,11 +64,11 @@ public class SxssfValueMapperTest
 	private void exec(String name) {
 		try {
 			// 定義の読み込み
-	    	BookDefinitionImpl bookDefinition = DefinitionBuilder.build(DEFINITIONS_DIR, name + ".json");
+	    	WorkbookDefinitionImpl bookDefinition = DefinitionBuilder.build(DEFINITIONS_DIR, name + ".json");
 	    	// 定義の確認
 			LOGGER.debug("■ " + name);
 			LOGGER.debug("☆ 定義 ☆");
-			LOGGER.debug("\r\n\r\n" + bookDefinition.toJson() + "\r\n");
+			LOGGER.debug("\r\n\r\n" + bookDefinition.toMap() + "\r\n");
 			// excelファイルの取得
 			File excelFile = null;
 			for (String extension:EXCEL_EXTENSIONS) {

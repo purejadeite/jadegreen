@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.AbstractToJson;
+import com.purejadeite.jadegreen.AbstractToMap;
 
 /**
 *
@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.AbstractToJson;
 * @author mitsuhiroseino
 *
 */
-public abstract class AbstractDefinition extends AbstractToJson implements Definition, Serializable {
+public abstract class AbstractDefinition extends AbstractToMap implements Definition, Serializable {
 
 	/**
 	 * 定義ID

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
-import com.purejadeite.jadegreen.definition.BookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -28,7 +28,7 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 	/**
 	 * Book読み込み定義
 	 */
-	protected BookDefinitionImpl book;
+	protected WorkbookDefinitionImpl book;
 
 	/**
 	 * コンストラクタ
@@ -38,7 +38,7 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * @param options オプション
 	 * @param config リンク設定
 	 */
-	protected AbstractLinkCellDefinition(BookDefinitionImpl book, Definition parent, String id, boolean noOutput, Map<String, String> config) {
+	protected AbstractLinkCellDefinition(WorkbookDefinitionImpl book, Definition parent, String id, boolean noOutput, Map<String, String> config) {
 		super(parent, id, noOutput);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");

@@ -41,12 +41,12 @@ public class DefinitionBuilder {
 	 * @return Book読み込み定義
 	 * @throws IOException
 	 */
-	public static BookDefinitionImpl build(String jsonFilePath) throws IOException {
+	public static WorkbookDefinitionImpl build(String jsonFilePath) throws IOException {
 		File jsonFile = new File(jsonFilePath);
 		return build(jsonFile);
 	}
 
-	public static BookDefinitionImpl build(File definitionsDirPath, String jsonFileName) throws IOException {
+	public static WorkbookDefinitionImpl build(File definitionsDirPath, String jsonFileName) throws IOException {
 		String json = FileUtils.readFileToString(new File(definitionsDirPath, jsonFileName));
 		return buildFromJson(json);
 	}
@@ -57,7 +57,7 @@ public class DefinitionBuilder {
 	 * @return Book読み込み定義
 	 * @throws IOException
 	 */
-	public static BookDefinitionImpl build(File jsonFile) throws IOException {
+	public static WorkbookDefinitionImpl build(File jsonFile) throws IOException {
 		String json = FileUtils.readFileToString(jsonFile);
 		return buildFromJson(json);
 	}
@@ -68,7 +68,7 @@ public class DefinitionBuilder {
 	 * @return Book読み込み定義
 	 * @throws IOException
 	 */
-	public static BookDefinitionImpl buildFromJson(String json) throws IOException {
+	public static WorkbookDefinitionImpl buildFromJson(String json) throws IOException {
 		// Mapへのマッピング
 		ObjectMapper mapper = new ObjectMapper();
 		List<Map<String, Object>> definition = null;
@@ -86,7 +86,7 @@ public class DefinitionBuilder {
 	 * @param definition JSONから変換されたMAP形式の定義
 	 * @return Book読み込み定義
 	 */
-	public static BookDefinitionImpl build(Map<String, Object> definition) {
+	public static WorkbookDefinitionImpl build(Map<String, Object> definition) {
 		List<Map<String, Object>> def = new ArrayList<>();
 		def.add(definition);
 		return build(def);
@@ -97,17 +97,17 @@ public class DefinitionBuilder {
 	 * @param definition JSONから変換されたMAPのLIST形式の定義
 	 * @return Book読み込み定義
 	 */
-	public static BookDefinitionImpl build(List<Map<String, Object>> definition) {
+	public static WorkbookDefinitionImpl build(List<Map<String, Object>> definition) {
 
 		// bookのビルド
-		BookDefinitionImpl book = new BookDefinitionImpl();
+		WorkbookDefinitionImpl book = new WorkbookDefinitionImpl();
 		for (Map<String, Object> sheetDef : definition) {
 
 			// sheetのビルド
 			String id = MapUtils.getString(sheetDef, ID);
 			String name = MapUtils.getString(sheetDef, NAME);
 			boolean noOutput = MapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
-			SheetDefinitionImpl sheet = new SheetDefinitionImpl(book, id, name, noOutput);
+			WorksheetDefinitionImpl sheet = new WorksheetDefinitionImpl(book, id, name, noOutput);
 
 			// cellのビルド
 			@SuppressWarnings("unchecked")
@@ -126,7 +126,7 @@ public class DefinitionBuilder {
 	 * @param sheet シート読み込み定義
 	 * @return Cell読み込み定義
 	 */
-	private static Definition createCell(Map<String, Object> cellDef, SheetDefinitionImpl sheet) {
+	private static Definition createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet) {
 		return createCell(cellDef, sheet, null);
 	}
 
@@ -137,7 +137,7 @@ public class DefinitionBuilder {
 	 * @param range 複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static Definition createCell(Map<String, Object> cellDef, SheetDefinitionImpl sheet, RangeDefinition range) {
+	private static Definition createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet, RangeDefinition range) {
 		String id = MapUtils.getString(cellDef, ID);
 		boolean noOutput = MapUtils.getBooleanValue(cellDef, NO_OUTPUT);
 		int row = MapUtils.getIntValue(cellDef, ROW);
@@ -167,7 +167,7 @@ public class DefinitionBuilder {
 			} else {
 				// 単独フィールドの場合
 				LOGGER.debug("単独のリンク:" + id);
-				return LinkCellDefinitionImpl.getInstance((BookDefinitionImpl) sheet.getParent(), sheet, id, noOutput, link);
+				return LinkCellDefinitionImpl.getInstance((WorkbookDefinitionImpl) sheet.getParent(), sheet, id, noOutput, link);
 			}
 		} else if (range != null) {
 			// 親のあるフィールドの場合
@@ -213,7 +213,7 @@ public class DefinitionBuilder {
 	 * @param range
 	 * @return
 	 */
-	private static List<Definition> createCells(List<Map<String, Object>> cellDefs, SheetDefinitionImpl sheet, RangeDefinition range) {
+	private static List<Definition> createCells(List<Map<String, Object>> cellDefs, WorksheetDefinitionImpl sheet, RangeDefinition range) {
 		List<Definition> definitions = new ArrayList<>();
 		for (Map<String, Object> cellDef : cellDefs) {
 			definitions.add(createCell(cellDef, sheet, range));

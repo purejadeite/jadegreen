@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition;
 
 import java.io.Serializable;
 
-import com.purejadeite.jadegreen.AbstractToJson;
+import com.purejadeite.jadegreen.AbstractToMap;
 
 /**
  *
@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.AbstractToJson;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractOption extends AbstractToJson implements Option, Serializable {
+public abstract class AbstractOption extends AbstractToMap implements Option, Serializable {
 
 	/**
 	 * デフォルトコンストラクタ
