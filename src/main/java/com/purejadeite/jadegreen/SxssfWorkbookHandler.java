@@ -13,7 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * ブック用ハンドラ
  * @author mitsuhiroseino
  */
-public class SxssfBookHandler extends DefaultHandler {
+public class SxssfWorkbookHandler extends DefaultHandler {
 
     private static final String TAG_SHEET = "sheet";
 
@@ -33,7 +33,7 @@ public class SxssfBookHandler extends DefaultHandler {
      * コンストラクタ
      * @param sheetName 取得対象のシート名
      */
-    public SxssfBookHandler(String sheetName) {
+    public SxssfWorkbookHandler(String sheetName) {
         String str = sheetName;
         MatchType type = MatchType.EQUALS;
 

@@ -61,12 +61,12 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 			if (definition.isEndValue(value)) {
 				// 今回の値でクローズし
 				close();
-				LOGGER.debug("break:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
+				LOGGER.debug("break:id=" + this.getId() + ",cell(" + row + "," + col +").value=" + value);
 				return END;
 			} else {
 				// 値を取得
 				this.values.add(value);
-				LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
+				LOGGER.debug("success:id=" + this.getId() + ",cell(" + row + "," + col +").value=" + value);
 				return SUCCESS;
 			}
 		}

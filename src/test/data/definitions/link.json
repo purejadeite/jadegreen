@@ -8,7 +8,7 @@
 	        {"id": "className", "row": 2, "column": 3},
 	        {"id": "package", "row": 3, "column": 3},
 	        {"id": "imports", "row": 4, "column": 3, "options": [{"class": "split", "splitter": "\n"}]},
-	        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "endValue": "", "options": [{"class": "sort", "keyId": "fieldName"}],
+	        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"class": "sort", "keyId": "fieldName"}],
 	            "columns": [
 	                {"id": "logicalFieldName", "column": 2},
 	                {"id": "fieldName", "column": 3},
@@ -30,7 +30,7 @@
 	    "cells": [
 	        {"id": "logicalClassName", "row": 1, "column": 3},
 	        {"id": "className", "row": 2, "column": 3},
-	        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "endValue": "", "options": [{"class": "group", "keyId": "fieldName", "toId": "validators"}],
+	        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [{"class": "group", "keyId": "fieldName", "toId": "validators"}],
 	            "columns": [
 	                {"id": "logicalFieldName", "column": 2},
 	                {"id": "fieldName", "column": 3},

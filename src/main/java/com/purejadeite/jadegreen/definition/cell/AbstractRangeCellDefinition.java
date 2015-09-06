@@ -114,9 +114,15 @@ public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition
 	 */
 	@Override
 	public boolean isEndValue(Object value) {
-		if (endKeyId && endValue.equals(value)) {
+		if (endKeyId) {
 			// 自身にクローズ条件の値が設定されている場合
-			return true;
+			if (endValue == null) {
+				if (value == null) {
+					return true;
+				}
+			} else if (endValue.equals(value)) {
+				return true;
+			}
 		}
 		// クローズの状態を返す
 		return false;

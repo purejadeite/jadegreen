@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.content.Content;
  * セルを走査するハンドラ
  * @author mitsuhiroseino
  */
-public class SxssfSheetHandler extends DefaultHandler {
+public class SxssfWorksheetHandler extends DefaultHandler {
 
 	/**
 	 * 行のタグ
@@ -89,7 +89,7 @@ public class SxssfSheetHandler extends DefaultHandler {
 	 * @param sharedStrings ブックで共有されている文字列テーブル
 	 * @param sheetContent シートの値
 	 */
-	public SxssfSheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
+	public SxssfWorksheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
 		this.sharedStrings = sharedStrings;
 		this.sheetContent = sheetContent;
 	}

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.collections.MapUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -20,11 +19,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.purejadeite.jadegreen.content.WorkbookContentImpl;
 import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.WorkbookContentImpl;
 import com.purejadeite.jadegreen.content.WorksheetContentImpl;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
 
 /**
@@ -38,34 +37,15 @@ public class SxssfValueMapper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfValueMapper.class);
 
 	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを出力対象の中から1シートのみ返します。
+	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
 	 * @param excelFilePath Excelファイルのパス
 	 * @param definitionFilePath ワークブックの値取得定義ファイルのパス
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static Map<String, Object> readPrimeSheet(String excelFilePath, String definitionFilePath)
-			throws IOException {
-		WorkbookDefinitionImpl book = DefinitionBuilder.build(definitionFilePath);
-		List<Map<String, Object>> valueSheets = read(excelFilePath, book);
-		for (Map<String, Object> valueSheet : valueSheets) {
-			if (!MapUtils.getBooleanValue(valueSheet, "noOutput")) {
-				return valueSheet;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
-	 * @param excelFile Excelファイル
-	 * @param definitionFile ワークブックの値取得定義ファイル
-	 * @return Excelの値を設定したMap
-	 * @throws IOException ファイルの取得に失敗
-	 */
-	public static List<Map<String, Object>> read(File excelFile, File definitionFile) throws IOException {
-		WorkbookDefinitionImpl book = DefinitionBuilder.build(definitionFile);
-		return read(excelFile, book);
+	public static List<Map<String, Object>> read(String excelFilePath, Map<String, Object> definitionObj) throws IOException {
+		WorkbookDefinitionImpl definition = DefinitionBuilder.build(definitionObj);
+		return read(excelFilePath, definition);
 	}
 
 	/**
@@ -75,32 +55,32 @@ public class SxssfValueMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(String excelFilePath, String definitionFilePath) throws IOException {
-		WorkbookDefinitionImpl book = DefinitionBuilder.build(definitionFilePath);
-		return read(excelFilePath, book);
+	public static List<Map<String, Object>> read(String excelFilePath, List<Map<String, Object>> definitionObj) throws IOException {
+		WorkbookDefinitionImpl definition = DefinitionBuilder.build(definitionObj);
+		return read(excelFilePath, definition);
 	}
 
 	/**
 	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
 	 * @param excelFilePath Excelファイルのパス
-	 * @param book ワークブックの読み込み定義
+	 * @param definition ワークブックの読み込み定義
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(String excelFilePath, WorkbookDefinitionImpl book) throws IOException {
+	public static List<Map<String, Object>> read(String excelFilePath, WorkbookDefinitionImpl definition) throws IOException {
 		File excelFile = new File(excelFilePath);
-		return read(excelFile, book);
+		return read(excelFile, definition);
 	}
 
 	/**
 	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
 	 * @param excelFile Excelファイル
-	 * @param book ワークブックの読み込み定義
+	 * @param workbookDefinition ワークブックの読み込み定義
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinitionImpl book) throws IOException {
+	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinitionImpl workbookDefinition) throws IOException {
 
 		OPCPackage pkg = null;
 		XSSFReader reader = null;
@@ -116,64 +96,64 @@ public class SxssfValueMapper {
 		}
 
 		// 1ファイル分の情報を集めるインスタンス
-		WorkbookContentImpl bookContent = new WorkbookContentImpl(book, excelFile.getName());
+		WorkbookContentImpl workbookContent = new WorkbookContentImpl(workbookDefinition, excelFile.getName());
 		// ブックのパーサーを取得
-		XMLReader bookParser = new SAXParser();
-		for (WorksheetDefinitionImpl sheet : book.getSheets()) {
+		XMLReader workbookParser = new SAXParser();
+		for (WorksheetDefinitionImpl worksheet : workbookDefinition.getSheets()) {
 			// ハンドラで対象シートのrIdを収集する
-			SxssfBookHandler bookHandler = new SxssfBookHandler(sheet.getName());
-			bookParser.setContentHandler(bookHandler);
+			SxssfWorkbookHandler workbookHandler = new SxssfWorkbookHandler(worksheet.getName());
+			workbookParser.setContentHandler(workbookHandler);
 
-			InputSource bookSource = null;
+			InputSource workbookSource = null;
 			try {
-				bookSource = new InputSource(reader.getWorkbookData());
+				workbookSource = new InputSource(reader.getWorkbookData());
 				// パース
-				bookParser.parse(bookSource);
+				workbookParser.parse(workbookSource);
 			} catch (InvalidFormatException | SAXException | IOException e) {
 				throw new RuntimeException(e);
 			}
 			// ハンドラが収集したrIdを取得
-			Map<String, String> sheetNames = bookHandler.getSheetNames();
-			if (sheetNames.isEmpty()) {
+			Map<String, String> worksheetNames = workbookHandler.getSheetNames();
+			if (worksheetNames.isEmpty()) {
 				// 対象シートなし
-				LOGGER.debug("対象なし:" + sheet.getName());
+				LOGGER.debug("対象なし:" + worksheet.getName());
 				continue;
 			}
 
 			// シートのパーサ
-			XMLReader sheetParser = null;
-			Content sheetContent = null;
-			SxssfSheetHandler sheetHandler =null;
+			XMLReader worksheetParser = null;
+			Content worksheetContent = null;
+			SxssfWorksheetHandler worksheetHandler =null;
 
-			InputStream sheetIs = null;
-			for (Entry<String, String> entry : sheetNames.entrySet()) {
+			InputStream worksheetIs = null;
+			for (Entry<String, String> entry : worksheetNames.entrySet()) {
 				LOGGER.debug("対象Sheet:" + entry.getValue());
 				// シートのパーサを取得
-				sheetContent = new WorksheetContentImpl(bookContent, sheet, entry.getValue());
-				sheetHandler = new SxssfSheetHandler(sst, sheetContent);
-				sheetParser = new SAXParser();
-				sheetParser.setContentHandler(sheetHandler);
+				worksheetContent = new WorksheetContentImpl(workbookContent, worksheet, entry.getValue());
+				worksheetHandler = new SxssfWorksheetHandler(sst, worksheetContent);
+				worksheetParser = new SAXParser();
+				worksheetParser.setContentHandler(worksheetHandler);
 				try {
 					// rIdでシートのInputStreamを取得
-					sheetIs = reader.getSheet(entry.getKey());
-					InputSource sheetSource = new InputSource(sheetIs);
+					worksheetIs = reader.getSheet(entry.getKey());
+					InputSource sheetSource = new InputSource(worksheetIs);
 					// シートをパース
-					sheetParser.parse(sheetSource);
+					worksheetParser.parse(sheetSource);
 					// パース下結果をbookContentへ追加
-					bookContent.addContent(sheetContent);
+					workbookContent.addContent(worksheetContent);
 				} catch (InvalidFormatException | SAXException | IOException e) {
 					throw new RuntimeException(e);
 				} finally {
 					try {
-						sheetIs.close();
+						worksheetIs.close();
 					} catch (IOException e) {
 						// クローズできない場合は無視
 					}
 				}
 			}
 		}
-		LOGGER.debug("\r\n\r\n" + bookContent.toMap() + "\r\n\r\n");
-		return (List<Map<String, Object>>) bookContent.getValues();
+		LOGGER.debug("\r\n\r\n" + workbookContent.toMap() + "\r\n\r\n");
+		return (List<Map<String, Object>>) workbookContent.getValues();
 	}
 
 }
