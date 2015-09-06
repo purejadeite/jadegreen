@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
 
-import com.purejadeite.jadegreen.CellUtils;
+import com.purejadeite.jadegreen.SxssfUtils;
 
 /**
  * 日付を表す文字列を、別の日付形式の文字列へ変換するクラス
@@ -33,7 +33,7 @@ public class ToStringDate extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object applyToString(String value) {
-		return CellUtils.getStringDateValue(value, dateFormat);
+		return SxssfUtils.getStringDate(value, dateFormat);
 	}
 
 	/**

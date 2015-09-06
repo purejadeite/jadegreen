@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
@@ -21,8 +19,6 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * @author mitsuhiroseino
  */
 public class RangeContentImpl extends AbstractContent<RangeDefinition> implements RangeContent {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(RangeContentImpl.class);
 
 	protected List<RangeCellContent> cells = new ArrayList<>();
 

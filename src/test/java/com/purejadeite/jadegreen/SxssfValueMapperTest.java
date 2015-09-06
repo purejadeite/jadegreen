@@ -44,6 +44,11 @@ public class SxssfValueMapperTest {
 		exec("multi");
 	}
 
+	@Test
+	public void cell() {
+		LOGGER.debug("" + SxssfUtils.toColIndex("Z12"));
+	}
+
 	private void exec(String name) {
 		try {
 			// 定義の読み込み

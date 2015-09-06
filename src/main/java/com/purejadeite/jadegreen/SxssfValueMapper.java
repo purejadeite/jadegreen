@@ -37,9 +37,9 @@ public class SxssfValueMapper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfValueMapper.class);
 
 	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
+	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
 	 * @param excelFilePath Excelファイルのパス
-	 * @param definitionFilePath ワークブックの値取得定義ファイルのパス
+	 * @param definitionObj ワークブックの値取得定義
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
@@ -49,9 +49,9 @@ public class SxssfValueMapper {
 	}
 
 	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
+	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
 	 * @param excelFilePath Excelファイルのパス
-	 * @param definitionFilePath ワークブックの値取得定義ファイルのパス
+	 * @param definitionObj ワークブックの値取得定義
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
@@ -61,7 +61,7 @@ public class SxssfValueMapper {
 	}
 
 	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
+	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
 	 * @param excelFilePath Excelファイルのパス
 	 * @param definition ワークブックの読み込み定義
 	 * @return Excelの値を設定したMap
@@ -73,7 +73,7 @@ public class SxssfValueMapper {
 	}
 
 	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelの値を設定したMapを返します。
+	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
 	 * @param excelFile Excelファイル
 	 * @param workbookDefinition ワークブックの読み込み定義
 	 * @return Excelの値を設定したMap
@@ -99,7 +99,7 @@ public class SxssfValueMapper {
 		WorkbookContentImpl workbookContent = new WorkbookContentImpl(workbookDefinition, excelFile.getName());
 		// ブックのパーサーを取得
 		XMLReader workbookParser = new SAXParser();
-		for (WorksheetDefinitionImpl worksheet : workbookDefinition.getSheets()) {
+		for (WorksheetDefinitionImpl worksheet : workbookDefinition.getWorksheets()) {
 			// ハンドラで対象シートのrIdを収集する
 			SxssfWorkbookHandler workbookHandler = new SxssfWorkbookHandler(worksheet.getName());
 			workbookParser.setContentHandler(workbookHandler);

@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * ランダムなUUIDを生成するクラス
@@ -14,8 +12,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class Index extends AbstractRelatedValueGenerator {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(Index.class);
 
 	private int from = 0;
 
@@ -26,7 +22,6 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	@SuppressWarnings("unchecked")
 	public Index(Map<String, Object> config) {
 		super();
 		from = MapUtils.getIntValue(config, "from");

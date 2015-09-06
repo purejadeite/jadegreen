@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -16,8 +13,6 @@ import com.purejadeite.jadegreen.definition.Definition;
  * @author mitsuhiroseino
  */
 public abstract class AbstractCellContent<D extends Definition> extends AbstractContent<D> implements CellContent {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCellContent.class);
 
 	protected Object values;
 

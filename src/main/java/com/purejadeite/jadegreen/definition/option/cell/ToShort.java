@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.CellUtils;
+import com.purejadeite.jadegreen.SxssfUtils;
 
 /**
  * 文字列を Short へ変換するクラス
@@ -25,7 +25,7 @@ public class ToShort extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object applyToString(String value) {
-		return CellUtils.getShortValue(value);
+		return SxssfUtils.getShort(value);
 	}
 
 }

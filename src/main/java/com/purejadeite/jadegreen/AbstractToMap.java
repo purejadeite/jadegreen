@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
 *
-* Excelファイル読み込みの定義情報抽象クラス
+* Map出抽象クラス
 * @author mitsuhiroseino
 *
 */

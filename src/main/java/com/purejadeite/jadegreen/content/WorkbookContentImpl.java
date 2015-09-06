@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 
 /**
  * Workbook読み込み定義
@@ -108,6 +108,10 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 		}
 		map.put("sheets", sheetMaps);
 		return map;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

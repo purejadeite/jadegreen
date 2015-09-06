@@ -32,5 +32,4 @@ enum MatchType {
 	 */
 	REGEX
 
-
 }

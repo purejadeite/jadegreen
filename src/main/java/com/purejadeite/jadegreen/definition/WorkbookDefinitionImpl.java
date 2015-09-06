@@ -14,7 +14,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	/**
 	 * シート定義
 	 */
-	private List<WorksheetDefinitionImpl> sheets = new ArrayList<>();
+	private List<WorksheetDefinitionImpl> worksheets = new ArrayList<>();
 
 	/**
 	 * デフォルトコンストラクタ
@@ -27,8 +27,8 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	 * シートを取得します
 	 * @return
 	 */
-	public List<WorksheetDefinitionImpl> getSheets() {
-		return sheets;
+	public List<WorksheetDefinitionImpl> getWorksheets() {
+		return worksheets;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	 */
 	@Override
 	public void addChild(Definition child) {
-		this.sheets.add((WorksheetDefinitionImpl) child);
+		this.worksheets.add((WorksheetDefinitionImpl) child);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(Definition sheet: sheets) {
+		for(Definition sheet: worksheets) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);
@@ -82,7 +82,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	 */
 	@Override
 	public List<? extends Definition> getChildren() {
-		return this.sheets;
+		return this.worksheets;
 	}
 
 	public Object aplly(Object value) {

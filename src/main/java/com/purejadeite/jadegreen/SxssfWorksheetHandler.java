@@ -15,72 +15,72 @@ import com.purejadeite.jadegreen.content.Content;
 public class SxssfWorksheetHandler extends DefaultHandler {
 
 	/**
-	 * 行のタグ
+	 * 行を表わすタグ名
 	 */
 	private static final String TAG_ROW = "row";
 
 	/**
-	 *
+	 * 列を表わすタグ名
 	 */
 	private static final String TAG_COL = "c";
 
 	/**
-	 *
+	 * 値を表わすタグ名
 	 */
 	private static final String TAG_VAL = "v";
 
 	/**
-	 *
+	 * シートのデータを表わすタグ名
 	 */
 	private static final String TAG_SHEETDATA = "sheetData";
 
 	/**
-	 *
+	 * 行番号を表わす属性名
 	 */
 	private static final String NAME_RNO = "r";
 
 	/**
-	 *
+	 * アドレスを表わす属性名
 	 */
 	private static final String NAME_RANGE = "r";
 
 	/**
-	 *
+	 * セルの型を表わす属性名
 	 */
 	private static final String NAME_TYPE = "t";
 
 	/**
-	 *
+	 * セルの型が文字列であることを表わす値
 	 */
 	private static final String TYPE_STRING = "s";
 
 	/**
-	 *
+	 * 共有している文字列の情報
 	 */
 	private final SharedStringsTable sharedStrings;
 
 	/**
-	 *
+	 * シートのコンテンツ
 	 */
 	private Content sheetContent = null;
 
 	/**
-	 *
+	 * 前回のコンテンツ
 	 */
 	private StringBuilder lastContent;
 
 	/**
-	 *
+	 * 次に取得するデータが文字列であるか
 	 */
 	private boolean nextIsString;
 
 	/**
-	 *
+	 * 現在の行番号
 	 */
 	private int currentRow = 0;
 
 	/**
-	 *
+	 * 現在の列番号
 	 */
 	private int currentCol = 0;
 
@@ -115,9 +115,9 @@ public class SxssfWorksheetHandler extends DefaultHandler {
 			// 今回の列の前処理
 			// rangeを取得
 			String range = attributes.getValue(NAME_RANGE);
-			String colStr = CellUtils.getColString(range);
+			String colStr = SxssfUtils.getColString(range);
 			// 今回の列番号を取得
-			currentCol = CellUtils.toColIndex(colStr);
+			currentCol = SxssfUtils.toColIndex(colStr);
 
 			// 値の取得に向けた前処理
 			// セルの型取得

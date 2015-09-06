@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.CellUtils;
+import com.purejadeite.jadegreen.SxssfUtils;
 
 /**
  * 文字列を Double へ変換するクラス
@@ -25,7 +25,7 @@ public class ToDouble extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object applyToString(String value) {
-		return CellUtils.getDoubleValue(value);
+		return SxssfUtils.getDouble(value);
 	}
 
 }

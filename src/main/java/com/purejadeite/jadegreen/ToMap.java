@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  *
- * JSON出力インターフェイス
+ * Map出力インターフェイス
  * @author mitsuhiroseino
  *
  */

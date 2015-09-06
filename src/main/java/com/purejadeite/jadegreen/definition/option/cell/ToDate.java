@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
 
-import com.purejadeite.jadegreen.CellUtils;
+import com.purejadeite.jadegreen.SxssfUtils;
 
 /**
  * 文字列を Date へ変換するクラス
@@ -30,7 +30,7 @@ public class ToDate extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object applyToString(String value) {
-		return CellUtils.getDateValue(value, use1904windowing);
+		return SxssfUtils.getDate(value, use1904windowing);
 	}
 
 }

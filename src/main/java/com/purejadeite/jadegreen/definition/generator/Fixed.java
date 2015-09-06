@@ -3,8 +3,6 @@ package com.purejadeite.jadegreen.definition.generator;
 import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * ランダムなUUIDを生成するクラス
@@ -12,8 +10,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class Fixed extends AbstractUnrelatedValueGenerator {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(Fixed.class);
 
 	private String value;
 
