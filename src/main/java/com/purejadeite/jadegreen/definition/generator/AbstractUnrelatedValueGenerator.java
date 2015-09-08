@@ -24,13 +24,13 @@ public abstract class AbstractUnrelatedValueGenerator extends AbstractRelatedVal
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object generate(Object value) {
+	public Object apply(Object value) {
 		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
 			Collection<Object> vals = new ArrayList<>();
 			for (Object v : values) {
-				vals.add(this.generate(v));
+				vals.add(this.apply(v));
 			}
 			return vals;
 		} else {

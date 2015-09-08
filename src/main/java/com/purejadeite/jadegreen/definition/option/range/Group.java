@@ -16,6 +16,11 @@ import org.apache.commons.collections.MapUtils;
 public class Group extends AbstractRangeConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"keyId", "toId"};
+
+	/**
 	 * グループ化キーとなる項目の定義ID
 	 */
 	private String keyId;
@@ -32,14 +37,9 @@ public class Group extends AbstractRangeConverter {
 	 */
 	public Group(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.keyId = MapUtils.getString(config, "keyId");
 		this.toId = MapUtils.getString(config, "toId");
-		if (keyId == null) {
-			throw new IllegalArgumentException("keyId must not be null.");
-		}
-		if (toId == null) {
-			throw new IllegalArgumentException("toId must not be null.");
-		}
 	}
 
 	/**

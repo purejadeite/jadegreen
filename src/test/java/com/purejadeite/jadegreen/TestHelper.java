@@ -8,7 +8,9 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;class TestHelper {
+import org.codehaus.jackson.type.TypeReference;
+
+class TestHelper {
 
 	private static ObjectMapper MAPPER = new ObjectMapper();
 
@@ -54,7 +56,8 @@ import org.codehaus.jackson.type.TypeReference;class TestHelper {
 		return toJsonList(new File(definitionsDir, jsonFileName));
 	}
 
-	public static List<Map<String, Object>> toJsonList(String definitionsDirPath, String jsonFileName) throws IOException {
+	public static List<Map<String, Object>> toJsonList(String definitionsDirPath, String jsonFileName)
+			throws IOException {
 		return toJsonList(new File(definitionsDirPath, jsonFileName));
 	}
 

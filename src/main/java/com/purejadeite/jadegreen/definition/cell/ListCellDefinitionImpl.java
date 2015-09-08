@@ -58,8 +58,8 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	}
 
 	@Override
-	public Object aplly(Object value) {
-		Object val = super.aplly(value);
+	public Object apply(Object value) {
+		Object val = super.apply(value);
 		if (val == null) {
 			return val;
 		} else {

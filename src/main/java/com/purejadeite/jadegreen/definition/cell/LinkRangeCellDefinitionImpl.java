@@ -13,6 +13,11 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition implements LinkCellDefinition {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"mySheetKeyId", "myKeyId", "sheetKeyId", "keyId", "valueId"};
+
+	/**
 	 * 取得対象のRangeの定義ID
 	 */
 	private String mySheetKeyId;
@@ -54,6 +59,7 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 			List<Map<String, String>> options,
 			Map<String, String> config) {
 		super(range, id, noOutput, 0, 0, 0, 0, false, null, options);
+		this.validateConfig(config, CONFIG);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");
 		this.myKeyId = config.get("myKeyId");

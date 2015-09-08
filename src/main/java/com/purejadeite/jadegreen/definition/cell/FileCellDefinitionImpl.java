@@ -104,7 +104,7 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 	}
 
 	@Override
-	public Object aplly(Object value) {
+	public Object apply(Object value) {
 		String fileText = null;
 		try {
 			fileText = FileUtils.readFileToString(new File(filePath));

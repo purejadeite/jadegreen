@@ -15,6 +15,11 @@ import org.apache.commons.collections.MapUtils;
 public class Sort extends AbstractRangeConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"keyId"};
+
+	/**
 	 * ソートキー
 	 */
 	protected String keyId;
@@ -31,6 +36,7 @@ public class Sort extends AbstractRangeConverter {
 	 */
 	public Sort(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.keyId = MapUtils.getString(config, "keyId");
 		this.desc = MapUtils.getBooleanValue(config, "desc");
 	}

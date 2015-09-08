@@ -4,15 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
+
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
  * Sheet読み込み定義
+ *
  * @author mitsuhiroseino
  *
  */
 public class WorksheetDefinitionImpl extends AbstractDefinition {
+
+	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = { "name" };
 
 	/**
 	 * 対象シート条件・シート名
@@ -46,10 +54,29 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * コンストラクタ
-	 * @param parent Book読み込み定義
-	 * @param id 定義ID
-	 * @param name シート名
-	 * @param noOutput 出力要否
+	 *
+	 * @param parent
+	 *            Book読み込み定義
+	 * @param config
+	 *            コンフィグ
+	 */
+	public WorksheetDefinitionImpl(Definition parent, Map<String, Object> config) {
+		super(parent, config);
+		this.validateConfig(config, CONFIG);
+		this.name = MapUtils.getString(config, "name");
+	}
+
+	/**
+	 * コンストラクタ
+	 *
+	 * @param parent
+	 *            Book読み込み定義
+	 * @param id
+	 *            定義ID
+	 * @param name
+	 *            シート名
+	 * @param noOutput
+	 *            出力要否
 	 */
 	public WorksheetDefinitionImpl(Definition parent, String id, String name, boolean noOutput) {
 		super(parent, id, noOutput);
@@ -67,7 +94,9 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * Cell読み込み定義を追加します
-	 * @param child Cell読み込み定義
+	 *
+	 * @param child
+	 *            Cell読み込み定義
 	 */
 	private void addCell(Definition child) {
 		if (child != null) {
@@ -110,6 +139,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * 定義上の最少行番号を取得します
+	 *
 	 * @return 定義上の最少行番号
 	 */
 	public int getMinRow() {
@@ -118,6 +148,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * 定義上の最大行番号を取得します
+	 *
 	 * @return 定義上の最大行番号
 	 */
 	public int getMaxRow() {
@@ -126,6 +157,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * 定義上の最少列番号を取得します
+	 *
 	 * @return 定義上の最少列番号
 	 */
 	public int getMinCol() {
@@ -134,6 +166,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * 定義上の最大列番号を取得します
+	 *
 	 * @return 定義上の最大列番号
 	 */
 	public int getMaxCol() {
@@ -142,6 +175,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 
 	/**
 	 * シート名を取得します
+	 *
 	 * @return シート名
 	 */
 	public String getName() {
@@ -168,14 +202,14 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 		map.put("minCol", minCol);
 		map.put("maxCol", maxCol);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(Definition cell: cells) {
+		for (Definition cell : cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);
 		return map;
 	}
 
-	public Object aplly(Object value) {
+	public Object apply(Object value) {
 		return value;
 	}
 

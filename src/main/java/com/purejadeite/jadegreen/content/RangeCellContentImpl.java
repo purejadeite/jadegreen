@@ -45,7 +45,7 @@ public class RangeCellContentImpl extends AbstractContent<RangeCellDefinition> i
 	 */
 	@Override
 	public Object getValuesImpl(Definition... ignore) {
-		return definition.aplly(values);
+		return definition.apply(values);
 	}
 
 	/**

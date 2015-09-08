@@ -13,6 +13,6 @@ public interface ValueGenerator extends ToMap {
 	 * オプションを適用します
 	 * @return
 	 */
-	public Object generate(Object values);
+	public Object apply(Object values);
 
 }

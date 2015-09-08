@@ -32,6 +32,23 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 * @param options
 	 *            オプション
 	 */
+	protected AbstractCellDefinition(Definition parent, Map<String, Object> config) {
+		super(parent, config);
+		@SuppressWarnings("unchecked")
+		List<Map<String, String>> options = (List<Map<String, String>>) config.get("options");
+		this.options = OptionsBuilder.build(options);
+	}
+
+	/**
+	 * コンストラクタ
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param id
+	 *            定義ID
+	 * @param options
+	 *            オプション
+	 */
 	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput,
 			List<Map<String, String>> options) {
 		super(parent, id, noOutput);
@@ -47,7 +64,7 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	}
 
 	@Override
-	public Object aplly(Object value) {
+	public Object apply(Object value) {
 		if (options == null) {
 			return value;
 		} else {

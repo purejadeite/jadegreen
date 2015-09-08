@@ -12,6 +12,11 @@ import org.apache.commons.lang3.StringUtils;
 public class Replace extends AbstractStringCellConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"map"};
+
+	/**
 	 * 文字列置換マップ
 	 */
 	private Map<String, String> map;
@@ -23,6 +28,7 @@ public class Replace extends AbstractStringCellConverter {
 	@SuppressWarnings("unchecked")
 	public Replace(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.map = (Map<String, String>) config.get("map");
 	}
 

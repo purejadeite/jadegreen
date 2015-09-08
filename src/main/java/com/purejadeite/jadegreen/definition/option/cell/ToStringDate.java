@@ -14,6 +14,11 @@ import com.purejadeite.jadegreen.SxssfUtils;
 public class ToStringDate extends AbstractStringCellConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"dateFormat"};
+
+	/**
 	 * 日付フォーマット
 	 */
 	private String dateFormat;
@@ -25,6 +30,7 @@ public class ToStringDate extends AbstractStringCellConverter {
 	 */
 	public ToStringDate(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.dateFormat = MapUtils.getString(config, "dateFormat");
 	}
 

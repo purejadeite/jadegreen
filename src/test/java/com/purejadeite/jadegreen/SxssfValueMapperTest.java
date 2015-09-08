@@ -52,7 +52,7 @@ public class SxssfValueMapperTest {
 	private void exec(String name) {
 		try {
 			// 定義の読み込み
-			List<Map<String, Object>> jsonObj = TestHelper.toJsonList(DEFINITIONS_DIR, name + ".json");
+			Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
 			WorkbookDefinitionImpl bookDefinition = DefinitionBuilder.build(jsonObj);
 			// 定義の確認
 			LOGGER.debug("■ " + name);

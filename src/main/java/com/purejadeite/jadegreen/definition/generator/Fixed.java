@@ -5,12 +5,20 @@ import java.util.Map;
 import org.apache.commons.collections.MapUtils;
 
 /**
- * ランダムなUUIDを生成するクラス
+ * 固定値を提供するクラス
  * @author mitsuhiroseino
  *
  */
 public class Fixed extends AbstractUnrelatedValueGenerator {
 
+	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"value"};
+
+	/**
+	 * 固定値
+	 */
 	private String value;
 
 	/**
@@ -20,6 +28,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	 */
 	public Fixed(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		value = MapUtils.getString(config, "value");
 	}
 

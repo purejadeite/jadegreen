@@ -60,8 +60,8 @@ public class ValueDefinitionImpl extends AbstractCellDefinition {
 	}
 
 	@Override
-	public Object aplly(Object value) {
-		return super.aplly(generator.generate(value));
+	public Object apply(Object value) {
+		return super.apply(generator.apply(value));
 	}
 
 	/**

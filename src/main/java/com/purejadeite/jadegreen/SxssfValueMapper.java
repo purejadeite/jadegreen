@@ -51,18 +51,6 @@ public class SxssfValueMapper {
 	/**
 	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
 	 * @param excelFilePath Excelファイルのパス
-	 * @param definitionObj ワークブックの値取得定義
-	 * @return Excelの値を設定したMap
-	 * @throws IOException ファイルの取得に失敗
-	 */
-	public static List<Map<String, Object>> read(String excelFilePath, List<Map<String, Object>> definitionObj) throws IOException {
-		WorkbookDefinitionImpl definition = DefinitionBuilder.build(definitionObj);
-		return read(excelFilePath, definition);
-	}
-
-	/**
-	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
-	 * @param excelFilePath Excelファイルのパス
 	 * @param definition ワークブックの読み込み定義
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗

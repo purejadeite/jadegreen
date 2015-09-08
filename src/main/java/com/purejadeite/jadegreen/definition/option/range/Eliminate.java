@@ -14,6 +14,11 @@ import org.apache.commons.collections.MapUtils;
 public class Eliminate extends AbstractRangeConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"keyId", "conditionValue"};
+
+	/**
 	 * 削除キー
 	 */
 	protected String keyId;
@@ -30,6 +35,7 @@ public class Eliminate extends AbstractRangeConverter {
 	 */
 	public Eliminate(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.keyId = MapUtils.getString(config, "keyId");
 		this.conditionValue = MapUtils.getString(config, "conditionValue");
 	}

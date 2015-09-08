@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 
 /**
  * 単一セルのリンク定義です
@@ -13,15 +13,23 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public abstract class AbstractLinkCellDefinition extends AbstractDefinition implements LinkCellDefinition {
 
+	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"mySheetKeyId", "sheetKeyId", "valueId"};
+
+	/**
+	 * 自身のシートのキーになる項目のID
+	 */
 	protected String mySheetKeyId;
 
 	/**
-	 * リンク先のキーになる定義ID
+	 * リンク先のキーになる項目のID
 	 */
 	protected String sheetKeyId;
 
 	/**
-	 * リンク先取得する値の定義ID
+	 * リンク先の値を取得する対象の項目のID
 	 */
 	protected String valueId;
 
@@ -40,6 +48,7 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 */
 	protected AbstractLinkCellDefinition(WorkbookDefinitionImpl book, Definition parent, String id, boolean noOutput, Map<String, String> config) {
 		super(parent, id, noOutput);
+		this.validateConfig(config, CONFIG);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");
 		this.sheetKeyId = config.get("sheetKeyId");
@@ -100,7 +109,7 @@ public abstract class AbstractLinkCellDefinition extends AbstractDefinition impl
 		throw new UnsupportedOperationException();
 	}
 
-	public Object aplly(Object value) {
+	public Object apply(Object value) {
 		return value;
 	}
 

@@ -13,6 +13,11 @@ import org.apache.commons.lang3.StringUtils;
 public class Split extends AbstractStringCellConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"splitter"};
+
+	/**
 	 * 区切り文字
 	 */
 	private String splitter;
@@ -24,6 +29,7 @@ public class Split extends AbstractStringCellConverter {
 	 */
 	public Split(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.splitter = (String) config.get("splitter");
 	}
 

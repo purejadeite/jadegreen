@@ -18,6 +18,11 @@ public class DefinitionKeys {
 	public static final String COMMENT = "comment";
 
 	/**
+	 * シート
+	 */
+	public static final String SHEETS = "sheets";
+
+	/**
 	 * 取得条件・シート名
 	 */
 	public static final String NAME = "name";

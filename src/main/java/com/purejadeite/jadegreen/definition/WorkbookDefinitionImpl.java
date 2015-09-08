@@ -19,8 +19,8 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	public WorkbookDefinitionImpl() {
-		super();
+	public WorkbookDefinitionImpl(Map<String, Object> config) {
+		super(null, config);
 	}
 
 	/**
@@ -43,23 +43,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getId() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String getFullId() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Definition getParent() {
 		return null;
 	}
 
@@ -85,7 +69,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 		return this.worksheets;
 	}
 
-	public Object aplly(Object value) {
+	public Object apply(Object value) {
 		return value;
 	}
 

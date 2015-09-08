@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.collections.MapUtils;
 
 /**
- * ランダムなUUIDを生成するクラス
+ * Indexを生成するクラス
  * @author mitsuhiroseino
  *
  */
@@ -35,7 +35,7 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object generate(Object value) {
+	public Object apply(Object value) {
 		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;

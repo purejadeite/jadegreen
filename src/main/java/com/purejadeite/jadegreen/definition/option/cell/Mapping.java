@@ -10,6 +10,11 @@ import java.util.Map;
 public class Mapping extends AbstractCellConverter {
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"map"};
+
+	/**
 	 * 値変換マップ
 	 */
 	private Map<String, String> map;
@@ -31,6 +36,7 @@ public class Mapping extends AbstractCellConverter {
 	@SuppressWarnings("unchecked")
 	public Mapping(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.map = (Map<String, String>) config.get("map");
 		this.lazy = (Boolean) config.get("lazy");
 	}

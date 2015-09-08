@@ -3,7 +3,7 @@ package com.purejadeite.jadegreen.definition.generator;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.AbstractToMap;
+import com.purejadeite.jadegreen.definition.AbstractOption;
 
 /**
  * 値を生成する抽象クラス
@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.AbstractToMap;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractRelatedValueGenerator extends AbstractToMap implements ValueGenerator, Serializable {
+public abstract class AbstractRelatedValueGenerator extends AbstractOption implements ValueGenerator, Serializable {
 
 	/**
 	 * コンストラクタ

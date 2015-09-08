@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * ランダムなUUIDを生成するクラス
+ * 現在時刻を生成するクラス
  * @author mitsuhiroseino
  *
  */

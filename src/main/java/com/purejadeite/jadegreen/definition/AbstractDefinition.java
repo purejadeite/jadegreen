@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-
-import com.purejadeite.jadegreen.AbstractToMap;
 
 /**
 *
@@ -15,7 +14,12 @@ import com.purejadeite.jadegreen.AbstractToMap;
 * @author mitsuhiroseino
 *
 */
-public abstract class AbstractDefinition extends AbstractToMap implements Definition, Serializable {
+public abstract class AbstractDefinition extends AbstractOption implements Definition, Serializable {
+
+	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"id"};
 
 	/**
 	 * 定義ID
@@ -41,6 +45,20 @@ public abstract class AbstractDefinition extends AbstractToMap implements Defini
 	 */
 	protected AbstractDefinition() {
 		super();
+	}
+
+	/**
+	 * コンストラクタ
+	 * @param parent 親定義
+	 * @param id 定義ID
+	 * @param noOutput 値の出力有無
+	 */
+	protected AbstractDefinition(Definition parent, Map<String, ? extends Object> config) {
+		super();
+		this.validateConfig(config, CONFIG);
+		this.parent = parent;
+		this.id = MapUtils.getString(config, "id");
+		this.noOutput = MapUtils.getBooleanValue(config, "noOutput");
 	}
 
 	/**

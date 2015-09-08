@@ -93,7 +93,7 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	}
 
 	@Override
-	public Object aplly(Object value) {
+	public Object apply(Object value) {
 		if (options == null) {
 			return value;
 		} else {

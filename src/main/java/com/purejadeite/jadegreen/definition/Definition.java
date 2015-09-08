@@ -2,8 +2,6 @@ package com.purejadeite.jadegreen.definition;
 
 import java.util.List;
 
-import com.purejadeite.jadegreen.ToMap;
-
 /**
  *
  * Excelファイル読み込みの定義情報インターフェイス
@@ -11,7 +9,7 @@ import com.purejadeite.jadegreen.ToMap;
  * @author mitsuhiroseino
  *
  */
-public interface Definition extends ToMap {
+public interface Definition extends Option {
 
 	/**
 	 * 定義IDを取得します
@@ -80,6 +78,6 @@ public interface Definition extends ToMap {
 	 *            値
 	 * @return オプション適用後の値
 	 */
-	public Object aplly(Object value);
+	public Object apply(Object value);
 
 }

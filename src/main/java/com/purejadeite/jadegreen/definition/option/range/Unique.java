@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class Unique extends AbstractRangeConverter {
 
-
 	/**
 	 * コンストラクタ
 	 * @param range 変換元の値を持つ定義

@@ -31,30 +31,18 @@ public class DefinitionBuilder {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefinitionBuilder.class);
 
 	/**
-	 * Mapから読み込み
-	 *
-	 * @param definition
-	 *            JSONから変換されたMAP形式の定義
-	 * @return Book読み込み定義
-	 */
-	public static WorkbookDefinitionImpl build(Map<String, Object> definition) {
-		List<Map<String, Object>> def = new ArrayList<>();
-		def.add(definition);
-		return build(def);
-	}
-
-	/**
 	 * MapのListから読み込み
 	 *
 	 * @param definition
 	 *            JSONから変換されたMAPのLIST形式の定義
 	 * @return Book読み込み定義
 	 */
-	public static WorkbookDefinitionImpl build(List<Map<String, Object>> definition) {
+	public static WorkbookDefinitionImpl build(Map<String, Object> definition) {
 
 		// bookのビルド
-		WorkbookDefinitionImpl book = new WorkbookDefinitionImpl();
-		for (Map<String, Object> sheetDef : definition) {
+		WorkbookDefinitionImpl book = new WorkbookDefinitionImpl(definition);
+		List<Map<String, Object>> sheets = (List<Map<String, Object>>) definition.get(SHEETS);
+		for (Map<String, Object> sheetDef : sheets) {
 
 			// sheetのビルド
 			String id = MapUtils.getString(sheetDef, ID);

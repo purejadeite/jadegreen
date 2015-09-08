@@ -19,6 +19,11 @@ public class Read extends AbstractCellConverter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Read.class);
 
 	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"default"};
+
+	/**
 	 * デフォルトの読み込みファイル
 	 */
 	private String file;
@@ -36,6 +41,7 @@ public class Read extends AbstractCellConverter {
 	@SuppressWarnings("unchecked")
 	public Read(Map<String, Object> config) {
 		super();
+		this.validateConfig(config, CONFIG);
 		this.file = MapUtils.getString(config, "default");
 		this.map = (Map<String, String>) config.get("map");
 	}
