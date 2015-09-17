@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 
 /**
 *
@@ -57,8 +58,8 @@ public abstract class AbstractDefinition extends AbstractOption implements Defin
 		super();
 		this.validateConfig(config, CONFIG);
 		this.parent = parent;
-		this.id = MapUtils.getString(config, "id");
-		this.noOutput = MapUtils.getBooleanValue(config, "noOutput");
+		this.id = RoughlyMapUtils.getString(config, "id");
+		this.noOutput = RoughlyMapUtils.getBooleanValue(config, "noOutput");
 	}
 
 	/**

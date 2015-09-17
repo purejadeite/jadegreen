@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
-
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
@@ -63,7 +62,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	public WorksheetDefinitionImpl(Definition parent, Map<String, Object> config) {
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
-		this.name = MapUtils.getString(config, "name");
+		this.name = RoughlyMapUtils.getString(config, "name");
 	}
 
 	/**

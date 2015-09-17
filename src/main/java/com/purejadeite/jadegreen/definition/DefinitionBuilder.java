@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
@@ -41,18 +41,17 @@ public class DefinitionBuilder {
 
 		// bookのビルド
 		WorkbookDefinitionImpl book = new WorkbookDefinitionImpl(definition);
-		List<Map<String, Object>> sheets = (List<Map<String, Object>>) definition.get(SHEETS);
+		List<Map<String, Object>> sheets = RoughlyMapUtils.getList(definition, SHEETS);
 		for (Map<String, Object> sheetDef : sheets) {
 
 			// sheetのビルド
-			String id = MapUtils.getString(sheetDef, ID);
-			String name = MapUtils.getString(sheetDef, NAME);
-			boolean noOutput = MapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
+			String id = RoughlyMapUtils.getString(sheetDef, ID);
+			String name = RoughlyMapUtils.getString(sheetDef, NAME);
+			boolean noOutput = RoughlyMapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
 			WorksheetDefinitionImpl sheet = new WorksheetDefinitionImpl(book, id, name, noOutput);
 
 			// cellのビルド
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> cellDefs = (List<Map<String, Object>>) sheetDef.get(CELLS);
+			List<Map<String, Object>> cellDefs = RoughlyMapUtils.getList(sheetDef,CELLS);
 			for (Map<String, Object> cellDef : cellDefs) {
 				sheet.addChild(createCell(cellDef, sheet));
 			}
@@ -87,25 +86,21 @@ public class DefinitionBuilder {
 	 */
 	private static Definition createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet,
 			RangeDefinition range) {
-		String id = MapUtils.getString(cellDef, ID);
-		boolean noOutput = MapUtils.getBooleanValue(cellDef, NO_OUTPUT);
-		int row = MapUtils.getIntValue(cellDef, ROW);
-		int beginRow = MapUtils.getIntValue(cellDef, BEGIN_ROW);
-		int endRow = MapUtils.getIntValue(cellDef, END_ROW);
-		int col = MapUtils.getIntValue(cellDef, COLUMN);
-		int beginCol = MapUtils.getIntValue(cellDef, BEGIN_COLUMN);
-		int endCol = MapUtils.getIntValue(cellDef, END_COLUMN);
-		String endKey = MapUtils.getString(cellDef, END_KEY);
-		String endValue = MapUtils.getString(cellDef, END_VALUE);
-		String splitter = MapUtils.getString(cellDef, SPLITTER);
-		@SuppressWarnings("unchecked")
-		Map<String, String> link = MapUtils.getMap(cellDef, LINK);
-		@SuppressWarnings("unchecked")
-		List<Map<String, String>> options = (List<Map<String, String>>) cellDef.get(OPTIONS);
-		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> rows = (List<Map<String, Object>>) cellDef.get(ROWS);
-		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> columns = (List<Map<String, Object>>) cellDef.get(COLUMNS);
+		String id = RoughlyMapUtils.getString(cellDef, ID);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(cellDef, NO_OUTPUT);
+		int row = RoughlyMapUtils.getIntValue(cellDef, ROW);
+		int beginRow = RoughlyMapUtils.getIntValue(cellDef, BEGIN_ROW);
+		int endRow = RoughlyMapUtils.getIntValue(cellDef, END_ROW);
+		int col = RoughlyMapUtils.getIntValue(cellDef, COLUMN);
+		int beginCol = RoughlyMapUtils.getIntValue(cellDef, BEGIN_COLUMN);
+		int endCol = RoughlyMapUtils.getIntValue(cellDef, END_COLUMN);
+		String endKey = RoughlyMapUtils.getString(cellDef, END_KEY);
+		String endValue = RoughlyMapUtils.getString(cellDef, END_VALUE);
+		String splitter = RoughlyMapUtils.getString(cellDef, SPLITTER);
+		Map<String, String> link = RoughlyMapUtils.getMap(cellDef, LINK);
+		List<Map<String, String>> options = RoughlyMapUtils.getList(cellDef, OPTIONS);
+		List<Map<String, Object>> rows = RoughlyMapUtils.getList(cellDef, ROWS);
+		List<Map<String, Object>> columns = RoughlyMapUtils.getList(cellDef, COLUMNS);
 
 		Definition definition = null;
 		if (link != null) {
@@ -130,14 +125,14 @@ public class DefinitionBuilder {
 			}
 		} else if (columns != null) {
 			// 行方向の繰り返しの場合
-			RangeDefinition rowDifinition = RowDefinitionImpl.getInstance(sheet, id, noOutput, beginRow, endRow, endKey, endValue,
-					options);
+			RangeDefinition rowDifinition = RowDefinitionImpl.getInstance(sheet, id, noOutput, beginRow, endRow, endKey,
+					endValue, options);
 			rowDifinition.addChildren(createCells(columns, sheet, rowDifinition));
 			definition = rowDifinition;
 		} else if (rows != null) {
 			// 列方向の繰り返しの場合
-			RangeDefinition colDifinition = ColumnDefinitionImpl.getInstance(sheet, id, noOutput, beginCol, endCol, endKey,
-					endValue, options);
+			RangeDefinition colDifinition = ColumnDefinitionImpl.getInstance(sheet, id, noOutput, beginCol, endCol,
+					endKey, endValue, options);
 			colDifinition.addChildren(createCells(columns, sheet, colDifinition));
 			definition = colDifinition;
 		} else {

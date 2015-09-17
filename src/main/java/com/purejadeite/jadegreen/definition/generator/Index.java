@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 
 /**
  * Indexを生成するクラス
@@ -24,10 +24,10 @@ public class Index extends AbstractRelatedValueGenerator {
 	 */
 	public Index(Map<String, Object> config) {
 		super();
-		from = MapUtils.getIntValue(config, "from");
-		Object increment = config.get("increment");
+		from = RoughlyMapUtils.getIntValue(config, "from");
+		Integer increment = RoughlyMapUtils.getInteger(config, "increment");
 		if (increment != null) {
-			this.increment = Integer.parseInt(increment.toString());
+			this.increment = increment.intValue();
 		}
 	}
 

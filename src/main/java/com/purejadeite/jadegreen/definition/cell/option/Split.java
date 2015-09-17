@@ -1,0 +1,54 @@
+package com.purejadeite.jadegreen.definition.cell.option;
+
+import java.util.Arrays;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.purejadeite.jadegreen.RoughlyMapUtils;
+
+/**
+ * 指定された区切り文字で文字列を分割するクラス
+ * @author mitsuhiroseino
+ *
+ */
+public class Split extends AbstractStringCellConverter {
+
+	/**
+	 * 必須項目名称
+	 */
+	private static final String[] CONFIG = {"splitter"};
+
+	/**
+	 * 区切り文字
+	 */
+	private String splitter;
+
+	/**
+	 * コンストラクタ
+	 * @param cell 値の取得元Cell読み込み定義
+	 * @param config コンバーターのコンフィグ
+	 */
+	public Split(Map<String, Object> config) {
+		super();
+		this.validateConfig(config, CONFIG);
+		this.splitter = RoughlyMapUtils.getString(config, "splitter");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected Object applyToString(String value) {
+		if (StringUtils.isEmpty(value)) {
+			return value;
+		}
+		String[] values = StringUtils.split(value, splitter);
+		return (Object) Arrays.asList(values);
+	}
+
+	public Map<String, Object> toMap() {
+		Map<String, Object> map = super.toMap();
+		map.put("splitter", this.splitter);
+		return map;
+	}
+}

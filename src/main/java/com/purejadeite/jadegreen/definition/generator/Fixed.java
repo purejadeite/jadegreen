@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.generator;
 
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 
 /**
  * 固定値を提供するクラス
@@ -29,7 +29,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	public Fixed(Map<String, Object> config) {
 		super();
 		this.validateConfig(config, CONFIG);
-		value = MapUtils.getString(config, "value");
+		value = RoughlyMapUtils.getString(config, "value");
 	}
 
 	/**
