@@ -9,7 +9,7 @@ import java.util.List;
  * @author mitsuhiroseino
  *
  */
-public interface Definition extends Option {
+public interface Definition<P extends Definition<?>> extends Applier {
 
 	/**
 	 * 定義IDを取得します
@@ -37,21 +37,21 @@ public interface Definition extends Option {
 	 *
 	 * @return
 	 */
-	public Definition getParent();
+	public P getParent();
 
 	/**
 	 * 子定義を取得します
 	 *
 	 * @return
 	 */
-	public List<? extends Definition> getChildren();
+	public List<? extends Definition<?>> getChildren();
 
 	/**
 	 * 子定義を追加します
 	 *
 	 * @param child
 	 */
-	public void addChild(Definition child);
+	public void addChild(Definition<?> child);
 
 	/**
 	 * 配下の定義を取得します
@@ -60,7 +60,7 @@ public interface Definition extends Option {
 	 *            当定義から辿った定義ID
 	 * @return 対象の定義
 	 */
-	public Definition get(String fullId);
+	public Definition<?> get(String fullId);
 
 	/**
 	 * 配下の定義を取得します
@@ -69,7 +69,7 @@ public interface Definition extends Option {
 	 *            当定義から辿った定義IDの配列
 	 * @return 対象の定義
 	 */
-	public Definition get(String... ids);
+	public Definition<?> get(String... ids);
 
 	/**
 	 * 値にオプションを適用します

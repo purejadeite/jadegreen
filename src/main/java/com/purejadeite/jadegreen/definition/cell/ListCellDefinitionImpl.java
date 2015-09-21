@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
 
 /**
  * 単一セル内で一覧になっているセルの読み込み定義です
@@ -33,21 +33,20 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	 * @param options
 	 *            コンバーター
 	 */
-	private ListCellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int col, String splitter,
+	private ListCellDefinitionImpl(WorksheetDefinitionImpl parent, String id, boolean noOutput, int row, int col, String splitter,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, row, col, options);
 		this.splitter = splitter;
 	}
 
-	public static CellDefinition newInstance(Definition parent, Map<String, Object> config) {
+	public static CellDefinition<WorksheetDefinitionImpl> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);
 		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
 		String splitter = RoughlyMapUtils.getString(config, SPLITTER, "\n");
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		CellDefinition cell = new ListCellDefinitionImpl(parent, id, noOutput, row, col, splitter, options);
-		return cell;
+		return new ListCellDefinitionImpl(parent, id, noOutput, row, col, splitter, options);
 	}
 
 	@Override

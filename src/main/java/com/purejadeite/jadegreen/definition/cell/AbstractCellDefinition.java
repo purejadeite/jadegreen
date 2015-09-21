@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.definition.OptionsBuilder;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
+abstract public class AbstractCellDefinition<P extends Definition<?>> extends AbstractDefinition<P> implements CellDefinition<P> {
 
 	/**
 	 * オプション
@@ -32,7 +32,7 @@ abstract public class AbstractCellDefinition extends AbstractDefinition implemen
 	 * @param options
 	 *            オプション
 	 */
-	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput,
+	protected AbstractCellDefinition(P parent, String id, boolean noOutput,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput);
 		this.options = OptionsBuilder.build(options);

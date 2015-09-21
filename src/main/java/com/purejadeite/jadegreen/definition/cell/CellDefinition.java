@@ -7,7 +7,7 @@ import com.purejadeite.jadegreen.definition.Options;
  * Cell読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface CellDefinition extends Definition {
+public interface CellDefinition<P extends Definition<?>> extends Definition<P> {
 
 	public static final int NO_ADDRESS = 0;
 

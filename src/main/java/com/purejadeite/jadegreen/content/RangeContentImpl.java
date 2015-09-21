@@ -34,7 +34,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	 */
 	public RangeContentImpl(Content parent, RangeDefinition definition) {
 		super(parent, definition);
-		for (Definition childDefinition : definition.getChildren()) {
+		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof LinkRangeCellDefinitionImpl) {
 				// リンクの場合
 				cells.add(new LinkRangeCellContentImpl(this, (LinkRangeCellDefinitionImpl) childDefinition));

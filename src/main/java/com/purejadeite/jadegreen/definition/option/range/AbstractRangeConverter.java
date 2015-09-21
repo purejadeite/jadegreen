@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractOption;
+import com.purejadeite.jadegreen.definition.AbstractApplier;
 
 /**
  * Rangeの値を変換する抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeConverter extends AbstractOption implements RangeOption, Serializable {
+abstract public class AbstractRangeConverter extends AbstractApplier implements RangeOption, Serializable {
 
 	/**
 	 * コンストラクタ

@@ -9,7 +9,7 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class WorkbookDefinitionImpl extends AbstractDefinition {
+public class WorkbookDefinitionImpl extends AbstractDefinition<Definition<?>> {
 
 	/**
 	 * シート定義
@@ -39,7 +39,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(Definition child) {
+	public void addChild(Definition<?> child) {
 		this.worksheets.add((WorksheetDefinitionImpl) child);
 	}
 
@@ -58,7 +58,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(Definition sheet: worksheets) {
+		for(Definition<?> sheet: worksheets) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);
@@ -69,7 +69,7 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<? extends Definition> getChildren() {
+	public List<? extends Definition<?>> getChildren() {
 		return this.worksheets;
 	}
 

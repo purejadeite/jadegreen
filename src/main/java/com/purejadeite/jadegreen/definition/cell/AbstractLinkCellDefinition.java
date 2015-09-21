@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
  * 単一セルのリンク定義です
  * @author mitsuhiroseino
  */
-abstract public class AbstractLinkCellDefinition extends AbstractDefinition implements LinkCellDefinition {
+abstract public class AbstractLinkCellDefinition<P extends Definition<?>> extends AbstractDefinition<P> implements LinkCellDefinition<P> {
 
 	/**
 	 * 必須項目名称
@@ -46,7 +46,7 @@ abstract public class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * @param options オプション
 	 * @param config リンク設定
 	 */
-	protected AbstractLinkCellDefinition(WorkbookDefinitionImpl book, Definition parent, String id, boolean noOutput, Map<String, String> config) {
+	protected AbstractLinkCellDefinition(WorkbookDefinitionImpl book, P parent, String id, boolean noOutput, Map<String, String> config) {
 		super(parent, id, noOutput);
 		this.validateConfig(config, CONFIG);
 		this.book = book;
@@ -62,21 +62,21 @@ abstract public class AbstractLinkCellDefinition extends AbstractDefinition impl
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getMySheetKeyDefinition() {
+	public Definition<?> getMySheetKeyDefinition() {
 		return book.get(mySheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getSheetKeyDefinition() {
+	public Definition<?> getSheetKeyDefinition() {
 		return book.get(sheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getValueDefinition() {
+	public Definition<?> getValueDefinition() {
 		return book.get(valueId);
 	}
 
@@ -97,7 +97,7 @@ abstract public class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * サポートされていないオペレーションです
 	 */
 	@Override
-	public List<Definition> getChildren() {
+	public List<Definition<?>> getChildren() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -105,7 +105,7 @@ abstract public class AbstractLinkCellDefinition extends AbstractDefinition impl
 	 * サポートされていないオペレーションです
 	 */
 	@Override
-	public void addChild(Definition child) {
+	public void addChild(Definition<?> child) {
 		throw new UnsupportedOperationException();
 	}
 

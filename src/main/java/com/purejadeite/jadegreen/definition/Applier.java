@@ -8,7 +8,7 @@ import com.purejadeite.jadegreen.ToMap;
  * @author mitsuhiroseino
  *
  */
-public interface Option extends ToMap {
+public interface Applier extends ToMap {
 
 	/**
 	 * オプションを適用します

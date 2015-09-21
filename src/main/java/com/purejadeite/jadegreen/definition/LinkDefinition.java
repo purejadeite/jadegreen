@@ -4,23 +4,23 @@ package com.purejadeite.jadegreen.definition;
  * リンク定義です
  * @author mitsuhiroseino
  */
-public interface LinkDefinition extends Definition {
+public interface LinkDefinition<P extends Definition<?>> extends Definition<P> {
 
 	public String getSheetKeyId();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getMySheetKeyDefinition();
+	public Definition<?> getMySheetKeyDefinition();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getSheetKeyDefinition();
+	public Definition<?> getSheetKeyDefinition();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getValueDefinition();
+	public Definition<?> getValueDefinition();
 
 }

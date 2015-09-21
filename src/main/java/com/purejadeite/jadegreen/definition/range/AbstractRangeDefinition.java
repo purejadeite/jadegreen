@@ -8,13 +8,14 @@ import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.OptionsBuilder;
+import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeDefinition extends AbstractDefinition implements RangeDefinition {
+abstract public class AbstractRangeDefinition extends AbstractDefinition<WorksheetDefinitionImpl> implements RangeDefinition {
 
 	/**
 	 * 開始位置
@@ -29,7 +30,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition impleme
 	/**
 	 * 配下のセル読み込み情報
 	 */
-	protected List<CellDefinition> cells = new ArrayList<>();
+	protected List<CellDefinition<?>> cells = new ArrayList<>();
 
 	/**
 	 * 開始キー項目
@@ -74,7 +75,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	protected AbstractRangeDefinition(Definition parent, String id, boolean noOutput, int begin,
+	protected AbstractRangeDefinition(WorksheetDefinitionImpl parent, String id, boolean noOutput, int begin,
 			int end, String endKeyId, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput);
 		this.begin = begin;
@@ -153,7 +154,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<? extends Definition> getChildren() {
+	public List<? extends Definition<?>> getChildren() {
 		return this.cells;
 	}
 
@@ -161,16 +162,16 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(Definition child) {
-		cells.add((CellDefinition) child);
+	public void addChild(Definition<?> child) {
+		cells.add((CellDefinition<?>) child);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChildren(List<Definition> children) {
-		for (Definition child : children) {
+	public void addChildren(List<Definition<?>> children) {
+		for (Definition<?> child : children) {
 			addChild(child);
 		}
 	}
@@ -189,7 +190,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition impleme
 		map.put("endValue", endValue);
 		map.put("size", size);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(Definition cell: cells) {
+		for(Definition<?> cell: cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);

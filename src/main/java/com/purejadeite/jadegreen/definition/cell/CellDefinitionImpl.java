@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
 
 /**
  * 単一セルの読み込み定義です
  * @author mitsuhiroseino
  */
-public class CellDefinitionImpl extends AbstractCellDefinition {
+public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefinitionImpl> {
 
 	/**
 	 * 取得対象列
@@ -32,13 +32,13 @@ public class CellDefinitionImpl extends AbstractCellDefinition {
 	 * @param col 取得対象列
 	 * @param options オプション
 	 */
-	protected CellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int col, List<Map<String, Object>> options) {
+	protected CellDefinitionImpl(WorksheetDefinitionImpl parent, String id, boolean noOutput, int row, int col, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
 		this.row = row;
 		this.col = col;
 	}
 
-	public static CellDefinition newInstance(Definition parent, Map<String, Object> config) {
+	public static CellDefinition<WorksheetDefinitionImpl> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);

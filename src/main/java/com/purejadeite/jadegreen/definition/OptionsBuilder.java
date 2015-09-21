@@ -13,8 +13,8 @@ public class OptionsBuilder {
 		if (opts == null || opts.size() == 0) {
 			return null;
 		}
-		List<Option> options = new ArrayList<>();
-		Option option = null;
+		List<Applier> options = new ArrayList<>();
+		Applier option = null;
 		for (Map<String, Object> opt : opts) {
 			option = build(opt);
 			if (option != null) {
@@ -24,8 +24,8 @@ public class OptionsBuilder {
 		return new Options(options);
 	}
 
-	public static Option build(Map<String, Object> opt) {
-		Option option;
+	public static Applier build(Map<String, Object> opt) {
+		Applier option;
 		option = CellOptionManager.build(opt);
 		if (option == null) {
 			option = RangeOptionManager.build(opt);

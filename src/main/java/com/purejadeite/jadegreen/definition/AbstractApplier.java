@@ -12,12 +12,12 @@ import com.purejadeite.jadegreen.AbstractToMap;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractOption extends AbstractToMap implements Option, Serializable {
+abstract public class AbstractApplier extends AbstractToMap implements Applier, Serializable {
 
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	protected AbstractOption() {
+	protected AbstractApplier() {
 		super();
 	}
 
@@ -29,7 +29,7 @@ abstract public class AbstractOption extends AbstractToMap implements Option, Se
 	 * @param persistence
 	 *            必須項目名称
 	 */
-	protected void validateConfig(Map<String, ? extends Object> config, String[] persistence) {
+	protected void validateConfig(Map<String, ? extends Object> config, String... persistence) {
 		for (String property : persistence) {
 			Object value = config.get(property);
 			if (value == null) {

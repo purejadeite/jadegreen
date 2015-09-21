@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
 * @author mitsuhiroseino
 *
 */
-abstract public class AbstractDefinition extends AbstractOption implements Definition, Serializable {
+abstract public class AbstractDefinition<P extends Definition<?>> extends AbstractApplier implements Definition<P>, Serializable {
 
 	/**
 	 * 必須項目名称
@@ -30,7 +30,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	/**
 	 * 親定義
 	 */
-	protected Definition parent;
+	protected P parent;
 
 	/**
 	 * <pre>
@@ -54,7 +54,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * @param id 定義ID
 	 * @param noOutput 値の出力有無
 	 */
-	protected AbstractDefinition(Definition parent, Map<String, ? extends Object> config) {
+	protected AbstractDefinition(P parent, Map<String, ? extends Object> config) {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.parent = parent;
@@ -68,7 +68,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * @param id 定義ID
 	 * @param noOutput 値の出力有無
 	 */
-	protected AbstractDefinition(Definition parent, String id, boolean noOutput) {
+	protected AbstractDefinition(P parent, String id, boolean noOutput) {
 		super();
 		this.parent = parent;
 		this.id = id;
@@ -106,7 +106,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition getParent() {
+	public P getParent() {
 		return parent;
 	}
 
@@ -114,7 +114,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * サポートされていないオペレーションです
 	 */
 	@Override
-	public List<? extends Definition> getChildren() {
+	public List<? extends Definition<?>> getChildren() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -122,7 +122,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * サポートされていないオペレーションです
 	 */
 	@Override
-	public void addChild(Definition child) {
+	public void addChild(Definition<?> child) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -130,7 +130,7 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition get(String fullId) {
+	public Definition<?> get(String fullId) {
 		String[] ids = StringUtils.split(fullId, ".");
 		return get(ids);
 
@@ -140,16 +140,16 @@ abstract public class AbstractDefinition extends AbstractOption implements Defin
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition get(String... ids) {
+	public Definition<?> get(String... ids) {
 		if (ids.length == 0) {
 			return null;
 		}
-		List<? extends Definition> children = getChildren();
+		List<? extends Definition<?>> children = getChildren();
 		if (children == null) {
 			return null;
 		}
 		String id = ids[0];
-		for (Definition child : children) {
+		for (Definition<?> child : children) {
 			if (child.getId().equals(id)) {
 				if (ids.length == 1) {
 					return child;

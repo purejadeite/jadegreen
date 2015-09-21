@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Options extends AbstractOption {
+public class Options extends AbstractApplier {
 
-	private List<Option> options;
+	private List<Applier> options;
 
-	public Options (List<Option> options) {
+	public Options (List<Applier> options) {
 		this.options = options;
 	}
 
 	@Override
 	public Object apply(Object values) {
 		Object vals = values;
-		for (Option option:options) {
+		for (Applier option:options) {
 			vals = option.apply(vals);
 		}
 		return vals;
@@ -25,7 +25,7 @@ public class Options extends AbstractOption {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> opts = new ArrayList<>();
-		for (Option option: options) {
+		for (Applier option: options) {
 			opts.add(option.toMap());
 		}
 		map.put("options", opts);

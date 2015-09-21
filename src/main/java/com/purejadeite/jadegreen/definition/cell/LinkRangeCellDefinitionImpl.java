@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
@@ -14,7 +15,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  *
  * @author mitsuhiroseino
  */
-public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition implements LinkCellDefinition {
+public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefinition> implements LinkCellDefinition<RangeDefinition> {
 
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
 	private static final String CFG_MY_KEY_ID = "myKeyId";
@@ -56,7 +57,7 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	/**
 	 * Book読み込み定義
 	 */
-	private Definition book;
+	private WorkbookDefinitionImpl book;
 
 	/**
 	 *
@@ -66,7 +67,7 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	 * @param options
 	 * @param link
 	 */
-	public LinkRangeCellDefinitionImpl(Definition book, RangeDefinition range, String id, boolean noOutput,
+	public LinkRangeCellDefinitionImpl(WorkbookDefinitionImpl book, RangeDefinition range, String id, boolean noOutput,
 			List<Map<String, Object>> options, Map<String, String> link) {
 		super(range, id, noOutput, 0, 0, 0, 0, false, null, options);
 		this.validateConfig(link, CONFIG);
@@ -78,13 +79,12 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 		this.valueId = link.get(CFG_VALUE_ID);
 	}
 
-	public static CellDefinition newInstance(Definition book, RangeDefinition range, Map<String, Object> config) {
+	public static CellDefinition<RangeDefinition> newInstance(WorkbookDefinitionImpl book, RangeDefinition range, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		Map<String, String> link = RoughlyMapUtils.getMap(config, LINK);
-		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, link);
-		return cell;
+		return new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, link);
 	}
 
 	/**

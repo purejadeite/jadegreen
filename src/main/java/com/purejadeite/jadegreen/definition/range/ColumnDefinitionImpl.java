@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
 
 /**
  * 列方向の繰り返し範囲の情報を保持するクラスの抽象クラスです
@@ -25,13 +25,13 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition {
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	public ColumnDefinitionImpl(Definition parent, String id, boolean noOutput, int beginCol, int endCol, String endKey,
+	public ColumnDefinitionImpl(WorksheetDefinitionImpl parent, String id, boolean noOutput, int beginCol, int endCol, String endKey,
 			String endValue,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, beginCol, endCol, endKey, endValue, options);
 	}
 
-	public static RangeDefinition newInstance(Definition parent, Map<String, Object> config) {
+	public static RangeDefinition newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int beginCol = RoughlyMapUtils.getIntValue(config, BEGIN_COLUMN);
@@ -39,9 +39,8 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition {
 		String endKey = RoughlyMapUtils.getString(config, END_KEY);
 		String endValue = RoughlyMapUtils.getString(config, END_VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		ColumnDefinitionImpl range = new ColumnDefinitionImpl(parent, id, noOutput, beginCol, endCol, endKey, endValue,
+		return new ColumnDefinitionImpl(parent, id, noOutput, beginCol, endCol, endKey, endValue,
 				options);
-		return range;
 	}
 
 	/**

@@ -3,13 +3,13 @@ package com.purejadeite.jadegreen.definition.cell;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
  * Rangeの構成要素となるCell読み込み定義
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeCellDefinition extends AbstractCellDefinition implements RangeCellDefinition {
+abstract public class AbstractRangeCellDefinition<P extends RangeDefinition> extends AbstractCellDefinition<P> implements RangeCellDefinition<P> {
 
 	/**
 	 * 開始行
@@ -65,7 +65,7 @@ abstract public class AbstractRangeCellDefinition extends AbstractCellDefinition
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	protected AbstractRangeCellDefinition(Definition parent, String id, boolean noOutput, int beginRow, int endRow,
+	protected AbstractRangeCellDefinition(P parent, String id, boolean noOutput, int beginRow, int endRow,
 			int beginCol, int endCol,
 			boolean endKeyId, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);

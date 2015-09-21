@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
@@ -14,7 +13,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  *
  * @author mitsuhiroseino
  */
-public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
+public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefinition> {
 
 	/**
 	 * コンストラクタ
@@ -36,12 +35,12 @@ public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition {
 	 * @param options
 	 *            オプション
 	 */
-	private ColumnCellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int beginCol, int endCol,
+	private ColumnCellDefinitionImpl(RangeDefinition parent, String id, boolean noOutput, int row, int beginCol, int endCol,
 			boolean endKey, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, row, row, beginCol, endCol, endKey, endValue, options);
 	}
 
-	public static CellDefinition newInstance(RangeDefinition range, Map<String, Object> config) {
+	public static CellDefinition<RangeDefinition> newInstance(RangeDefinition range, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);

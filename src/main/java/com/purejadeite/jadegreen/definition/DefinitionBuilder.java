@@ -64,7 +64,7 @@ public class DefinitionBuilder {
 	 *            シート読み込み定義
 	 * @return Cell読み込み定義
 	 */
-	private static Definition createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet) {
+	private static Definition<?> createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet) {
 		return createCell(cellDef, sheet, null);
 	}
 
@@ -79,9 +79,9 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static Definition createCell(Map<String, Object> config, WorksheetDefinitionImpl sheet,
+	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinitionImpl sheet,
 			RangeDefinition range) {
-		Definition definition = null;
+		Definition<?> definition = null;
 		if (config.containsKey(LINK)) {
 			// リンクフィールドの場合
 			if (range != null) {
@@ -138,9 +138,9 @@ public class DefinitionBuilder {
 	 * @param range
 	 * @return
 	 */
-	private static List<Definition> createCells(List<Map<String, Object>> cells, WorksheetDefinitionImpl sheet,
+	private static List<Definition<?>> createCells(List<Map<String, Object>> cells, WorksheetDefinitionImpl sheet,
 			RangeDefinition range) {
-		List<Definition> definitions = new ArrayList<>();
+		List<Definition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
 			definitions.add(createCell(cell, sheet, range));
 		}

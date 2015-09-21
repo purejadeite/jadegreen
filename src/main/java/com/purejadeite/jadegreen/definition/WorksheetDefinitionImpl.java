@@ -16,7 +16,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetDefinitionImpl extends AbstractDefinition {
+public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefinitionImpl> {
 
 	/**
 	 * 必須項目名称
@@ -31,7 +31,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	/**
 	 * Cell読み込み定義
 	 */
-	private List<Definition> cells = new ArrayList<>();
+	private List<Definition<?>> cells = new ArrayList<>();
 
 	/**
 	 * 定義上の最少行番号
@@ -61,7 +61,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	 * @param config
 	 *            コンフィグ
 	 */
-	public WorksheetDefinitionImpl(Definition parent, Map<String, Object> config) {
+	public WorksheetDefinitionImpl(WorkbookDefinitionImpl parent, Map<String, Object> config) {
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
 		this.name = RoughlyMapUtils.getString(config, "name");
@@ -79,12 +79,12 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	 * @param noOutput
 	 *            出力要否
 	 */
-	public WorksheetDefinitionImpl(Definition parent, String id, String name, boolean noOutput) {
+	public WorksheetDefinitionImpl(WorkbookDefinitionImpl parent, String id, String name, boolean noOutput) {
 		super(parent, id, noOutput);
 		this.name = name;
 	}
 
-	public static WorksheetDefinitionImpl newInstance(Definition parent, Map<String, Object> config) {
+	public static WorksheetDefinitionImpl newInstance(WorkbookDefinitionImpl parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		String name = RoughlyMapUtils.getString(config, NAME);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
@@ -95,7 +95,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(Definition child) {
+	public void addChild(Definition<?> child) {
 		this.cells.add(child);
 		this.addCell(child);
 	}
@@ -106,7 +106,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	 * @param child
 	 *            Cell読み込み定義
 	 */
-	private void addCell(Definition child) {
+	private void addCell(Definition<?> child) {
 		if (child != null) {
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
@@ -138,7 +138,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 				}
 			} else if (child instanceof RangeDefinition) {
 				// Rangeの場合は子要素のCellをばらして追加
-				for (Definition c : child.getChildren()) {
+				for (Definition<?> c : child.getChildren()) {
 					addCell(c);
 				}
 			}
@@ -194,7 +194,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<? extends Definition> getChildren() {
+	public List<? extends Definition<?>> getChildren() {
 		return this.cells;
 	}
 
@@ -210,7 +210,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 		map.put("minCol", minCol);
 		map.put("maxCol", maxCol);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for (Definition cell : cells) {
+		for (Definition<?> cell : cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);
