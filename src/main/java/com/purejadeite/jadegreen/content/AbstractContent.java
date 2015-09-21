@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-public abstract class AbstractContent<D extends Definition> extends AbstractToMap implements Content, Serializable {
+abstract public class AbstractContent<D extends Definition> extends AbstractToMap implements Content, Serializable {
 
 	/**
 	 * 親要要素

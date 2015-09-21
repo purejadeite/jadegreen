@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  *
- * Map出力インターフェイス
+ * 関表現用Map出力インターフェイス
  * @author mitsuhiroseino
  *
  */

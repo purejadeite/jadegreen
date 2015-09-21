@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -9,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -38,7 +41,7 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 	 * @param options
 	 *            コンバーター
 	 */
-	private FileCellDefinitionImpl(Definition parent, String id, boolean noOutput, String filePath, List<Map<String, String>> options) {
+	private FileCellDefinitionImpl(Definition parent, String id, boolean noOutput, String filePath, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
 		this.filePath = filePath;
 	}
@@ -60,9 +63,12 @@ public class FileCellDefinitionImpl extends AbstractCellDefinition {
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, String filePath,List<Map<String, String>> options) {
-		CellDefinition cell = new FileCellDefinitionImpl(parent, id, noOutput, filePath, options);
-		return cell;
+	public static CellDefinition newInstance(Definition parent, Map<String, Object> config) {
+		String id = RoughlyMapUtils.getString(config, ID);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
+		String filePath = RoughlyMapUtils.getString(config, FILE);
+		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
+		return new FileCellDefinitionImpl(parent, id, noOutput, filePath, options);
 	}
 
 	/**

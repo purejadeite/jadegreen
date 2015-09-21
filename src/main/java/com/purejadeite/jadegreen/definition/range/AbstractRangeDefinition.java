@@ -14,7 +14,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-public abstract class AbstractRangeDefinition extends AbstractDefinition implements RangeDefinition {
+abstract public class AbstractRangeDefinition extends AbstractDefinition implements RangeDefinition {
 
 	/**
 	 * 開始位置
@@ -75,7 +75,7 @@ public abstract class AbstractRangeDefinition extends AbstractDefinition impleme
 	 * @param options オプション
 	 */
 	protected AbstractRangeDefinition(Definition parent, String id, boolean noOutput, int begin,
-			int end, String endKeyId, String endValue, List<Map<String, String>> options) {
+			int end, String endKeyId, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput);
 		this.begin = begin;
 		this.end = end <= 0 ? Integer.MAX_VALUE : end;

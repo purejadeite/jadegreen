@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +82,13 @@ public class WorksheetDefinitionImpl extends AbstractDefinition {
 	public WorksheetDefinitionImpl(Definition parent, String id, String name, boolean noOutput) {
 		super(parent, id, noOutput);
 		this.name = name;
+	}
+
+	public static WorksheetDefinitionImpl newInstance(Definition parent, Map<String, Object> config) {
+		String id = RoughlyMapUtils.getString(config, ID);
+		String name = RoughlyMapUtils.getString(config, NAME);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
+		return new WorksheetDefinitionImpl(parent, id, name, noOutput);
 	}
 
 	/**

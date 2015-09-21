@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.AbstractToMap;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractOption extends AbstractToMap implements Option, Serializable {
+abstract public class AbstractOption extends AbstractToMap implements Option, Serializable {
 
 	/**
 	 * デフォルトコンストラクタ

@@ -13,6 +13,9 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Index extends AbstractRelatedValueGenerator {
 
+	private static final String CFG_FROM = "from";
+	private static final String CFG_INCREMENT = "increment";
+
 	private int from = 0;
 
 	private int increment = 1;
@@ -24,8 +27,8 @@ public class Index extends AbstractRelatedValueGenerator {
 	 */
 	public Index(Map<String, Object> config) {
 		super();
-		from = RoughlyMapUtils.getIntValue(config, "from");
-		Integer increment = RoughlyMapUtils.getInteger(config, "increment");
+		from = RoughlyMapUtils.getIntValue(config, CFG_FROM);
+		Integer increment = RoughlyMapUtils.getInteger(config, CFG_INCREMENT);
 		if (increment != null) {
 			this.increment = increment.intValue();
 		}

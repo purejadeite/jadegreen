@@ -1,21 +1,32 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
  * Rangeの構成要素となるCellリンク定義
+ *
  * @author mitsuhiroseino
  */
 public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition implements LinkCellDefinition {
 
+	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
+	private static final String CFG_MY_KEY_ID = "myKeyId";
+	private static final String CFG_SHEET_KEY_ID = "sheetKeyId";
+	private static final String CFG_KEY_ID = "keyId";
+	private static final String CFG_VALUE_ID = "valueId";
+
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = {"mySheetKeyId", "myKeyId", "sheetKeyId", "keyId", "valueId"};
+	private static final String[] CONFIG = { CFG_MY_SHEET_KEY_ID, CFG_MY_KEY_ID, CFG_SHEET_KEY_ID, CFG_KEY_ID,
+			CFG_VALUE_ID };
 
 	/**
 	 * 取得対象のRangeの定義ID
@@ -53,25 +64,26 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition imp
 	 * @param range
 	 * @param id
 	 * @param options
-	 * @param config
+	 * @param link
 	 */
 	public LinkRangeCellDefinitionImpl(Definition book, RangeDefinition range, String id, boolean noOutput,
-			List<Map<String, String>> options,
-			Map<String, String> config) {
+			List<Map<String, Object>> options, Map<String, String> link) {
 		super(range, id, noOutput, 0, 0, 0, 0, false, null, options);
-		this.validateConfig(config, CONFIG);
+		this.validateConfig(link, CONFIG);
 		this.book = book;
-		this.mySheetKeyId = config.get("mySheetKeyId");
-		this.myKeyId = config.get("myKeyId");
-		this.sheetKeyId = config.get("sheetKeyId");
-		this.keyId = config.get("keyId");
-		this.valueId = config.get("valueId");
+		this.mySheetKeyId = link.get(CFG_MY_SHEET_KEY_ID);
+		this.myKeyId = link.get(CFG_MY_KEY_ID);
+		this.sheetKeyId = link.get(CFG_SHEET_KEY_ID);
+		this.keyId = link.get(CFG_KEY_ID);
+		this.valueId = link.get(CFG_VALUE_ID);
 	}
 
-	public static CellDefinition getInstance(Definition book, RangeDefinition range, String id, boolean noOutput,
-			List<Map<String, String>> options,
-			Map<String, String> config) {
-		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, config);
+	public static CellDefinition newInstance(Definition book, RangeDefinition range, Map<String, Object> config) {
+		String id = RoughlyMapUtils.getString(config, ID);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
+		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
+		Map<String, String> link = RoughlyMapUtils.getMap(config, LINK);
+		CellDefinition cell = new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, link);
 		return cell;
 	}
 

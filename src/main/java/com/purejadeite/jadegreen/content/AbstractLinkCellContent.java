@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinition;
  * </pre>
  * @author mitsuhiroseino
  */
-public abstract class AbstractLinkCellContent<D extends LinkCellDefinition> extends AbstractContent<D> implements LinkCellContent {
+abstract public class AbstractLinkCellContent<D extends LinkCellDefinition> extends AbstractContent<D> implements LinkCellContent {
 
 	public AbstractLinkCellContent(Content parent, D definition) {
 		super(parent, definition);

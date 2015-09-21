@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.util.CellReference;
 
 /**
- * Sxssfを使用する際に役立つユーティリティ
+ * Sxssf用のユーティリティ
  *
  * @author mitsuhiroseino
  */

@@ -11,10 +11,12 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Fixed extends AbstractUnrelatedValueGenerator {
 
+	private static final String CFG_VALUE = "value";
+
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = {"value"};
+	private static final String[] CONFIG = {CFG_VALUE};
 
 	/**
 	 * 固定値
@@ -29,7 +31,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	public Fixed(Map<String, Object> config) {
 		super();
 		this.validateConfig(config, CONFIG);
-		value = RoughlyMapUtils.getString(config, "value");
+		value = RoughlyMapUtils.getString(config, CFG_VALUE);
 	}
 
 	/**

@@ -38,23 +38,18 @@ public class DefinitionBuilder {
 	 * @return Book読み込み定義
 	 */
 	public static WorkbookDefinitionImpl build(Map<String, Object> definition) {
-
 		// bookのビルド
-		WorkbookDefinitionImpl book = new WorkbookDefinitionImpl(definition);
-		List<Map<String, Object>> sheets = RoughlyMapUtils.getList(definition, SHEETS);
-		for (Map<String, Object> sheetDef : sheets) {
-
+		WorkbookDefinitionImpl book = WorkbookDefinitionImpl.newInstance(definition);
+		List<Map<String, Object>> sheetConfigs = RoughlyMapUtils.getList(definition, SHEETS);
+		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド
-			String id = RoughlyMapUtils.getString(sheetDef, ID);
-			String name = RoughlyMapUtils.getString(sheetDef, NAME);
-			boolean noOutput = RoughlyMapUtils.getBooleanValue(sheetDef, NO_OUTPUT);
-			WorksheetDefinitionImpl sheet = new WorksheetDefinitionImpl(book, id, name, noOutput);
-
+			WorksheetDefinitionImpl sheet = WorksheetDefinitionImpl.newInstance(book, sheetConfig);
 			// cellのビルド
-			List<Map<String, Object>> cellDefs = RoughlyMapUtils.getList(sheetDef,CELLS);
-			for (Map<String, Object> cellDef : cellDefs) {
-				sheet.addChild(createCell(cellDef, sheet));
+			List<Map<String, Object>> cellConfigs = RoughlyMapUtils.getList(sheetConfig,CELLS);
+			for (Map<String, Object> cellConfig : cellConfigs) {
+				sheet.addChild(createCell(cellConfig, sheet));
 			}
+			// bookに追加
 			book.addChild(sheet);
 		}
 		return book;
@@ -76,7 +71,7 @@ public class DefinitionBuilder {
 	/**
 	 * Cell定義の生成
 	 *
-	 * @param cellDef
+	 * @param config
 	 *            Cellひとつ分の定義
 	 * @param sheet
 	 *            シート読み込み定義
@@ -84,68 +79,52 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static Definition createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet,
+	private static Definition createCell(Map<String, Object> config, WorksheetDefinitionImpl sheet,
 			RangeDefinition range) {
-		String id = RoughlyMapUtils.getString(cellDef, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(cellDef, NO_OUTPUT);
-		int row = RoughlyMapUtils.getIntValue(cellDef, ROW);
-		int beginRow = RoughlyMapUtils.getIntValue(cellDef, BEGIN_ROW);
-		int endRow = RoughlyMapUtils.getIntValue(cellDef, END_ROW);
-		int col = RoughlyMapUtils.getIntValue(cellDef, COLUMN);
-		int beginCol = RoughlyMapUtils.getIntValue(cellDef, BEGIN_COLUMN);
-		int endCol = RoughlyMapUtils.getIntValue(cellDef, END_COLUMN);
-		String endKey = RoughlyMapUtils.getString(cellDef, END_KEY);
-		String endValue = RoughlyMapUtils.getString(cellDef, END_VALUE);
-		String splitter = RoughlyMapUtils.getString(cellDef, SPLITTER);
-		Map<String, String> link = RoughlyMapUtils.getMap(cellDef, LINK);
-		List<Map<String, String>> options = RoughlyMapUtils.getList(cellDef, OPTIONS);
-		List<Map<String, Object>> rows = RoughlyMapUtils.getList(cellDef, ROWS);
-		List<Map<String, Object>> columns = RoughlyMapUtils.getList(cellDef, COLUMNS);
-
 		Definition definition = null;
-		if (link != null) {
+		if (config.containsKey(LINK)) {
 			// リンクフィールドの場合
 			if (range != null) {
 				// 親のあるフィールドの場合
-				definition = LinkRangeCellDefinitionImpl.getInstance(sheet.getParent(), range, id, noOutput, options,
-						link);
+				definition = LinkRangeCellDefinitionImpl.newInstance(sheet.getParent(), range, config);
 			} else {
 				// 単独フィールドの場合
-				definition = LinkCellDefinitionImpl.getInstance((WorkbookDefinitionImpl) sheet.getParent(), sheet, id,
-						noOutput, link);
+				definition = LinkCellDefinitionImpl.newInstance((WorkbookDefinitionImpl) sheet.getParent(), sheet, config);
 			}
 		} else if (range != null) {
 			// 親のあるフィールドの場合
 			if (range instanceof RowDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
-				definition = RowCellDefinitionImpl.getInstance(range, id, noOutput, col, options);
+				definition = RowCellDefinitionImpl.newInstance(range, config);
 			} else if (range instanceof ColumnDefinitionImpl) {
 				// 列方向の繰り返し内のフィールドの場合
-				definition = ColumnCellDefinitionImpl.getInstance(range, id, noOutput, row, options);
+				definition = ColumnCellDefinitionImpl.newInstance(range, config);
 			}
-		} else if (columns != null) {
+		} else if (config.containsKey(COLUMNS)) {
 			// 行方向の繰り返しの場合
-			RangeDefinition rowDifinition = RowDefinitionImpl.getInstance(sheet, id, noOutput, beginRow, endRow, endKey,
-					endValue, options);
-			rowDifinition.addChildren(createCells(columns, sheet, rowDifinition));
-			definition = rowDifinition;
-		} else if (rows != null) {
+			List<Map<String, Object>> columns = RoughlyMapUtils.getList(config, COLUMNS);
+			RangeDefinition rowRange = RowDefinitionImpl.newInstance(sheet, config);
+			rowRange.addChildren(createCells(columns, sheet, rowRange));
+			definition = rowRange;
+		} else if (config.containsKey(ROWS)) {
 			// 列方向の繰り返しの場合
-			RangeDefinition colDifinition = ColumnDefinitionImpl.getInstance(sheet, id, noOutput, beginCol, endCol,
-					endKey, endValue, options);
-			colDifinition.addChildren(createCells(columns, sheet, colDifinition));
-			definition = colDifinition;
+			// TODO 現在未対応
+			List<Map<String, Object>> rows = RoughlyMapUtils.getList(config, ROWS);
+			RangeDefinition columnRange = ColumnDefinitionImpl.newInstance(sheet, config);
+			columnRange.addChildren(createCells(rows, sheet, columnRange));
+			definition = columnRange;
 		} else {
 			// 単独フィールドの場合
-			if (splitter == null) {
-				definition = CellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, options);
+			if (config.containsKey(SPLITTER)) {
+				definition = ListCellDefinitionImpl.newInstance(sheet, config);
 			} else {
-				definition = ListCellDefinitionImpl.getInstance(sheet, id, noOutput, row, col, splitter, options);
+				definition = CellDefinitionImpl.newInstance(sheet, config);
 			}
 		}
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
 		} else {
+			String id = RoughlyMapUtils.getString(config, ID);
 			LOGGER.warn("定義が不正です:" + id);
 		}
 		return definition;
@@ -154,16 +133,16 @@ public class DefinitionBuilder {
 	/**
 	 * Cell定義のListの生成
 	 *
-	 * @param cellDefs
+	 * @param cells
 	 * @param sheet
 	 * @param range
 	 * @return
 	 */
-	private static List<Definition> createCells(List<Map<String, Object>> cellDefs, WorksheetDefinitionImpl sheet,
+	private static List<Definition> createCells(List<Map<String, Object>> cells, WorksheetDefinitionImpl sheet,
 			RangeDefinition range) {
 		List<Definition> definitions = new ArrayList<>();
-		for (Map<String, Object> cellDef : cellDefs) {
-			definitions.add(createCell(cellDef, sheet, range));
+		for (Map<String, Object> cell : cells) {
+			definitions.add(createCell(cell, sheet, range));
 		}
 		return definitions;
 	}

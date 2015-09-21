@@ -10,7 +10,7 @@ import com.purejadeite.jadegreen.definition.LinkDefinition;
  * 値のリンクを行う抽象クラス
  * @author mitsuhiroseino
  */
-public abstract class AbstractLinkContent<D extends LinkDefinition> extends AbstractContent<D> implements LinkContent {
+abstract public class AbstractLinkContent<D extends LinkDefinition> extends AbstractContent<D> implements LinkContent {
 
 	public AbstractLinkContent(Content parent, D definition) {
 		super(parent, definition);

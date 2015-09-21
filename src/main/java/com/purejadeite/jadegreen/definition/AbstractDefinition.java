@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
 * @author mitsuhiroseino
 *
 */
-public abstract class AbstractDefinition extends AbstractOption implements Definition, Serializable {
+abstract public class AbstractDefinition extends AbstractOption implements Definition, Serializable {
 
 	/**
 	 * 必須項目名称

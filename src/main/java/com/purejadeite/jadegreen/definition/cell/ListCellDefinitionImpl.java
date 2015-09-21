@@ -1,10 +1,13 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -31,28 +34,18 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	 *            コンバーター
 	 */
 	private ListCellDefinitionImpl(Definition parent, String id, boolean noOutput, int row, int col, String splitter,
-			List<Map<String, String>> options) {
+			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, row, col, options);
 		this.splitter = splitter;
 	}
 
-	/**
-	 * インスタンスを取得します
-	 *
-	 * @param parent
-	 *            シート読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param row
-	 *            取得対象行
-	 * @param col
-	 *            取得対象列
-	 * @param options
-	 *            コンバーター
-	 * @return ラップされたCell読み込み定義
-	 */
-	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, int row, int col,
-			String splitter, List<Map<String, String>> options) {
+	public static CellDefinition newInstance(Definition parent, Map<String, Object> config) {
+		String id = RoughlyMapUtils.getString(config, ID);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
+		int row = RoughlyMapUtils.getIntValue(config, ROW);
+		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
+		String splitter = RoughlyMapUtils.getString(config, SPLITTER, "\n");
+		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		CellDefinition cell = new ListCellDefinitionImpl(parent, id, noOutput, row, col, splitter, options);
 		return cell;
 	}

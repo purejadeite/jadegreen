@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
  * 単一セルのリンク定義です
  * @author mitsuhiroseino
  */
-public abstract class AbstractLinkCellDefinition extends AbstractDefinition implements LinkCellDefinition {
+abstract public class AbstractLinkCellDefinition extends AbstractDefinition implements LinkCellDefinition {
 
 	/**
 	 * 必須項目名称

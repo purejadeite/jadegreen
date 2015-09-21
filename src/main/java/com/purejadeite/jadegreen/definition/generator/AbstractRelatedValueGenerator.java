@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.AbstractOption;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractRelatedValueGenerator extends AbstractOption implements ValueGenerator, Serializable {
+abstract public class AbstractRelatedValueGenerator extends AbstractOption implements ValueGenerator, Serializable {
 
 	/**
 	 * コンストラクタ

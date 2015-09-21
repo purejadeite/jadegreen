@@ -23,6 +23,10 @@ public class WorkbookDefinitionImpl extends AbstractDefinition {
 		super(null, config);
 	}
 
+	public static WorkbookDefinitionImpl newInstance(Map<String, Object> config) {
+		return new WorkbookDefinitionImpl(config);
+	}
+
 	/**
 	 * シートを取得します
 	 * @return

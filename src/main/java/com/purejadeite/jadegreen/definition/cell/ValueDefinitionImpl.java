@@ -32,7 +32,7 @@ public class ValueDefinitionImpl extends AbstractCellDefinition {
 	 * @param options
 	 *            コンバーター
 	 */
-	private ValueDefinitionImpl(Definition parent, String id, boolean noOutput, Map<String, String> generator, List<Map<String, String>> options) {
+	private ValueDefinitionImpl(Definition parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
 		this.generator = ValueGeneratorManager.build(generator);
 	}
@@ -54,7 +54,7 @@ public class ValueDefinitionImpl extends AbstractCellDefinition {
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, Map<String, String> generator, List<Map<String, String>> options) {
+	public static CellDefinition getInstance(Definition parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
 		CellDefinition cell = new ValueDefinitionImpl(parent, id, noOutput, generator, options);
 		return cell;
 	}

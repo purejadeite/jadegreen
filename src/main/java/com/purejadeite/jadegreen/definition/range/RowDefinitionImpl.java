@@ -1,8 +1,11 @@
 package com.purejadeite.jadegreen.definition.range;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -23,24 +26,19 @@ public class RowDefinitionImpl extends AbstractRangeDefinition {
 	 * @param options オプション
 	 */
 	public RowDefinitionImpl(Definition parent, String id, boolean noOutput, int beginRow, int endRow, String endKey,
-			String endValue, List<Map<String, String>> options) {
+			String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, beginRow, endRow, endKey, endValue, options);
 	}
 
-	/**
-	 * インスタンスを取得します
-	 * @param parent 親の読み込み情報
-	 * @param id 定義ID
-	 * @param noOutput データの読み込みのみ行うか
-	 * @param beginRow 開始行
-	 * @param endRow 終了行
-	 * @param endKey 開始キー項目
-	 * @param endValue 終了キー値
-	 * @param options オプション
-	 * @return コンバーターでラップした読み込み定義
-	 */
-	public static RangeDefinition getInstance(Definition parent, String id, boolean noOutput, int beginRow, int endRow,
-			String endKey, String endValue, List<Map<String, String>> options) {
+	public static RangeDefinition newInstance(Definition parent, Map<String, Object> config) {
+		String id = RoughlyMapUtils.getString(config, ID);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
+		int beginRow = RoughlyMapUtils.getIntValue(config, BEGIN_ROW);
+		int endRow = RoughlyMapUtils.getIntValue(config, END_ROW);
+		String endKey = RoughlyMapUtils.getString(config, END_KEY);
+		String endValue = RoughlyMapUtils.getString(config, END_VALUE);
+		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
+
 		RowDefinitionImpl range = new RowDefinitionImpl(parent, id, noOutput, beginRow, endRow, endKey, endValue,
 				options);
 		return range;

@@ -1,8 +1,11 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
@@ -24,19 +27,16 @@ public class RowCellDefinitionImpl extends AbstractRangeCellDefinition {
 	 * @param options オプション
 	 */
 	private RowCellDefinitionImpl(Definition parent, String id, boolean noOutput, int beginRow, int endRow, int col,
-			boolean endKey, String endValue, List<Map<String, String>> options) {
+			boolean endKey, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, beginRow, endRow, col, col, endKey, endValue, options);
 	}
 
-	/**
-	 * インスタンスを取得します
-	 * @param range テーブル読み込み定義
-	 * @param id 定義ID
-	 * @param col 取得対象列
-	 * @param options オプション
-	 * @return ラップされたCell読み込み定義
-	 */
-	public static CellDefinition getInstance(RangeDefinition range, String id, boolean noOutput, int col, List<Map<String, String>> options) {
+	public static CellDefinition newInstance(RangeDefinition range, Map<String, Object> config) {
+		String id = RoughlyMapUtils.getString(config, ID);
+		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
+		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
+		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
+
 		boolean endKey = false;
 		String endValue = null;
 		if (id.equals(range.getEndKeyId())) {

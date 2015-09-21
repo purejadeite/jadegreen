@@ -115,11 +115,16 @@ public class DefinitionKeys {
 	/**
 	 * コンバータークラス
 	 */
-	public static final String CLASS = "class";
+	public static final String TYPE = "type";
 
 	/**
 	 * 分割文字
 	 */
 	public static final String SPLITTER = "splitter";
+
+	/**
+	 * 外部ファイルのパス
+	 */
+	public static final String FILE = "file";
 
 }

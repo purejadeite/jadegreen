@@ -9,8 +9,8 @@
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
 		        {"id": "package", "row": 3, "column": 3},
-		        {"id": "imports", "row": 4, "column": 3, "options": [{"class": "split", "splitter": "\n"}]},
-		        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"class": "sort", "keyId": "fieldName"}],
+		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
+		        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},

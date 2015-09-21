@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  * </pre>
  * @author mitsuhiroseino
  */
-public abstract class AbstractCellContent<D extends Definition> extends AbstractContent<D> implements CellContent {
+abstract public class AbstractCellContent<D extends Definition> extends AbstractContent<D> implements CellContent {
 
 	protected Object values;
 

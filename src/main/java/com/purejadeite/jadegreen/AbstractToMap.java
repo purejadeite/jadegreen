@@ -5,11 +5,11 @@ import java.util.Map;
 
 /**
 *
-* Map出抽象クラス
+* 簡易表現用Map出力抽象クラス
 * @author mitsuhiroseino
 *
 */
-public abstract class AbstractToMap implements ToMap {
+abstract public class AbstractToMap implements ToMap {
 
 	/**
 	 * デフォルトコンストラクタ

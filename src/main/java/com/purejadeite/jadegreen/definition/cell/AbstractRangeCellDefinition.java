@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  * Rangeの構成要素となるCell読み込み定義
  * @author mitsuhiroseino
  */
-public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition implements RangeCellDefinition {
+abstract public class AbstractRangeCellDefinition extends AbstractCellDefinition implements RangeCellDefinition {
 
 	/**
 	 * 開始行
@@ -67,7 +67,7 @@ public abstract class AbstractRangeCellDefinition extends AbstractCellDefinition
 	 */
 	protected AbstractRangeCellDefinition(Definition parent, String id, boolean noOutput, int beginRow, int endRow,
 			int beginCol, int endCol,
-			boolean endKeyId, String endValue, List<Map<String, String>> options) {
+			boolean endKeyId, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
 		this.beginRow = beginRow;
 		this.endRow = endRow <= 0 ? Integer.MAX_VALUE : endRow;

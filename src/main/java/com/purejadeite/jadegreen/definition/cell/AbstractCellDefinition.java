@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.definition.OptionsBuilder;
  *
  * @author mitsuhiroseino
  */
-public abstract class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
+abstract public class AbstractCellDefinition extends AbstractDefinition implements CellDefinition {
 
 	/**
 	 * オプション
@@ -32,25 +32,8 @@ public abstract class AbstractCellDefinition extends AbstractDefinition implemen
 	 * @param options
 	 *            オプション
 	 */
-	protected AbstractCellDefinition(Definition parent, Map<String, Object> config) {
-		super(parent, config);
-		@SuppressWarnings("unchecked")
-		List<Map<String, String>> options = (List<Map<String, String>>) config.get("options");
-		this.options = OptionsBuilder.build(options);
-	}
-
-	/**
-	 * コンストラクタ
-	 *
-	 * @param parent
-	 *            親定義
-	 * @param id
-	 *            定義ID
-	 * @param options
-	 *            オプション
-	 */
 	protected AbstractCellDefinition(Definition parent, String id, boolean noOutput,
-			List<Map<String, String>> options) {
+			List<Map<String, Object>> options) {
 		super(parent, id, noOutput);
 		this.options = OptionsBuilder.build(options);
 	}

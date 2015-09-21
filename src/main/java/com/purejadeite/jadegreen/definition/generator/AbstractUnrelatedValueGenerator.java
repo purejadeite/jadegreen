@@ -9,7 +9,7 @@ import java.util.Collection;
  * @author mitsuhiroseino
  *
  */
-public abstract class AbstractUnrelatedValueGenerator extends AbstractRelatedValueGenerator {
+abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedValueGenerator {
 
 	/**
 	 * コンストラクタ

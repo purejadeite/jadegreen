@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 
 public class ValueGeneratorManager {
@@ -23,13 +24,16 @@ public class ValueGeneratorManager {
 		GENERATORS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-	public static ValueGenerator build(Map<String, String> config) {
+	public static ValueGenerator build(Map<String, Object> config) {
 		if (config == null) {
 			return null;
 		}
-		String name = config.get(DefinitionKeys.CLASS);
+		String type = RoughlyMapUtils.getString(config, DefinitionKeys.TYPE);
+		if (type == null) {
+			return null;
+		}
 		// クラスを取得
-		Class<? extends ValueGenerator> clazz = GENERATORS.get(name.toLowerCase());
+		Class<? extends ValueGenerator> clazz = GENERATORS.get(type.toLowerCase());
 		if (clazz == null) {
 			return null;
 		}
