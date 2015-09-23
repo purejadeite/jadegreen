@@ -1,10 +1,8 @@
 package com.purejadeite.jadegreen.definition;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
@@ -15,7 +13,7 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
 * @author mitsuhiroseino
 *
 */
-abstract public class AbstractDefinition<P extends Definition<?>> extends AbstractApplier implements Definition<P>, Serializable {
+abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> extends AbstractApplier implements Definition<P>, Serializable {
 
 	/**
 	 * 必須項目名称
@@ -108,58 +106,6 @@ abstract public class AbstractDefinition<P extends Definition<?>> extends Abstra
 	@Override
 	public P getParent() {
 		return parent;
-	}
-
-	/**
-	 * サポートされていないオペレーションです
-	 */
-	@Override
-	public List<? extends Definition<?>> getChildren() {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * サポートされていないオペレーションです
-	 */
-	@Override
-	public void addChild(Definition<?> child) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Definition<?> get(String fullId) {
-		String[] ids = StringUtils.split(fullId, ".");
-		return get(ids);
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Definition<?> get(String... ids) {
-		if (ids.length == 0) {
-			return null;
-		}
-		List<? extends Definition<?>> children = getChildren();
-		if (children == null) {
-			return null;
-		}
-		String id = ids[0];
-		for (Definition<?> child : children) {
-			if (child.getId().equals(id)) {
-				if (ids.length == 1) {
-					return child;
-				} else {
-					String[] subIds = ArrayUtils.subarray(ids, 1, ids.length);
-					return child.get(subIds);
-				}
-			}
-		}
-		return null;
 	}
 
 	/**

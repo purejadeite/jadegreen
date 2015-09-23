@@ -30,7 +30,7 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 
 	private String sheetName;
 
-	private List<Content> contents = new ArrayList<>();
+	private List<Content<?>> contents = new ArrayList<>();
 
 	private int prevRow = 0;
 
@@ -38,19 +38,19 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 
 	private int maxCol = 0;
 
-	public WorksheetContentImpl(Content parent, WorksheetDefinitionImpl definition, String sheetName) {
+	public WorksheetContentImpl(Content<?> parent, WorksheetDefinitionImpl definition, String sheetName) {
 		super(parent, definition);
 		this.sheetName = sheetName;
-		for (Definition childDefinition : definition.getChildren()) {
+		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof LinkCellDefinitionImpl) {
 				// 単独セルのリンクの場合
 				contents.add(new LinkCellContentImpl(this, (LinkCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
-				contents.add(new CellContentImpl(this, (CellDefinition) childDefinition));
+				contents.add(new CellContentImpl(this, (CellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof RangeDefinition) {
 				// テーブルの場合
-				contents.add(new RangeContentImpl(this, (RangeDefinition) childDefinition));
+				contents.add(new RangeContentImpl(this, (RangeDefinition<?>) childDefinition));
 			}
 		}
 		maxCol = definition.getMaxCol();
@@ -82,7 +82,7 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 	private Status addValueImpl(int row, int col, Object value) {
 		Status status = END;
 		LOGGER.trace("cell(" + row + "," + col + ").value=" + value);
-		for (Content content : contents) {
+		for (Content<?> content : contents) {
 			Status addStatus = content.addValue(row, col, value);
 			if (0 < addStatus.compareTo(status)) {
 				status = addStatus;
@@ -172,7 +172,7 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 		if (closed) {
 			return true;
 		}
-		for (Content content : contents) {
+		for (Content<?> content : contents) {
 			if (!content.isClosed()) {
 				return false;
 			}
@@ -193,9 +193,9 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object getRawValuesImpl(Definition... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		Map<String, Object> values = new HashMap<>();
-		for (Content content : contents) {
+		for (Content<?> content : contents) {
 			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
 				values.put(content.getId(), content.getRawValues(ignore));
 			}
@@ -207,10 +207,10 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		Map<String, Object> values = new HashMap<>();
 		values.put("sheetName", sheetName);
-		for (Content content : contents) {
+		for (Content<?> content : contents) {
 			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
 				Object vals = content.getValues(ignore);
 				if (vals != SpecificValue.NO_OUTPUT) {
@@ -222,12 +222,12 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 	}
 
 	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> cntnts = new ArrayList<>();
+	public List<Content<?>> searchContents(Definition<?> key) {
+		List<Content<?>> cntnts = new ArrayList<>();
 		if (definition == key) {
 			cntnts.add(this);
 		}
-		for (Content content : contents) {
+		for (Content<?> content : contents) {
 			cntnts.addAll(content.searchContents(key));
 		}
 		return cntnts;
@@ -241,7 +241,7 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 		Map<String, Object> map = super.toMap();
 		map.put("sheetName", sheetName);
 		List<Map<String, Object>> contentMaps = new ArrayList<>();
-		for(Content content: contents) {
+		for(Content<?> content: contents) {
 			contentMaps.add(content.toMap());
 		}
 		map.put("contents", contentMaps);

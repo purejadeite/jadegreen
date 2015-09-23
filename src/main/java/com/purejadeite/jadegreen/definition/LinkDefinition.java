@@ -4,7 +4,7 @@ package com.purejadeite.jadegreen.definition;
  * リンク定義です
  * @author mitsuhiroseino
  */
-public interface LinkDefinition<P extends Definition<?>> extends Definition<P> {
+public interface LinkDefinition<P extends ParentDefinition<?, ?>> extends Definition<P> {
 
 	public String getSheetKeyId();
 

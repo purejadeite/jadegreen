@@ -62,7 +62,7 @@ public class SxssfWorksheetHandler extends DefaultHandler {
 	/**
 	 * シートのコンテンツ
 	 */
-	private Content sheetContent = null;
+	private Content<?> sheetContent = null;
 
 	/**
 	 * 前回のコンテンツ
@@ -89,7 +89,7 @@ public class SxssfWorksheetHandler extends DefaultHandler {
 	 * @param sharedStrings ブックで共有されている文字列テーブル
 	 * @param sheetContent シートの値
 	 */
-	public SxssfWorksheetHandler(SharedStringsTable sharedStrings, Content sheetContent) {
+	public SxssfWorksheetHandler(SharedStringsTable sharedStrings, Content<?> sheetContent) {
 		this.sharedStrings = sharedStrings;
 		this.sheetContent = sheetContent;
 	}

@@ -1,10 +1,12 @@
 package com.purejadeite.jadegreen.content;
 
+import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
+
 /**
  * 一覧形式子要素のセル読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface RangeCellContent extends CellContent {
+public interface RangeCellContent<D extends RangeCellDefinition<?>> extends CellContent<D> {
 
 	/**
 	 * 指定件数でクローズします

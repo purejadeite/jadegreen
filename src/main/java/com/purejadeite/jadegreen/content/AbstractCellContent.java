@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
  * <pre>
@@ -12,27 +13,27 @@ import com.purejadeite.jadegreen.definition.Definition;
  * </pre>
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellContent<D extends Definition> extends AbstractContent<D> implements CellContent {
+abstract public class AbstractCellContent<D extends CellDefinition<?>> extends AbstractContent<D> implements CellContent<D> {
 
 	protected Object values;
 
-	public AbstractCellContent(Content parent, D definition) {
+	public AbstractCellContent(Content<?> parent, D definition) {
 		super(parent, definition);
 	}
 
 	@Override
-	public Object getRawValuesImpl(Definition... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		return values;
 	}
 
 	@Override
-	public Object getValuesImpl(Definition... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		return definition.apply(values);
 	}
 
 	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> contents = new ArrayList<>();
+	public List<Content<?>> searchContents(Definition<?> key) {
+		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}

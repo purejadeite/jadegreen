@@ -3,7 +3,7 @@ package com.purejadeite.jadegreen.definition.cell;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.generator.ValueGenerator;
 import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
 
@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
  *
  * @author mitsuhiroseino
  */
-public class ValueDefinitionImpl extends AbstractCellDefinition<WorksheetDefinitionImpl> {
+public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> {
 
 	private ValueGenerator generator;
 
@@ -32,7 +32,7 @@ public class ValueDefinitionImpl extends AbstractCellDefinition<WorksheetDefinit
 	 * @param options
 	 *            コンバーター
 	 */
-	private ValueDefinitionImpl(WorksheetDefinitionImpl parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
+	private ValueDefinitionImpl(P parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
 		this.generator = ValueGeneratorManager.build(generator);
 	}
@@ -54,8 +54,8 @@ public class ValueDefinitionImpl extends AbstractCellDefinition<WorksheetDefinit
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static CellDefinition<WorksheetDefinitionImpl> getInstance(WorksheetDefinitionImpl parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
-		return new ValueDefinitionImpl(parent, id, noOutput, generator, options);
+	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> getInstance(P parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
+		return new ValueDefinitionImpl<P>(parent, id, noOutput, generator, options);
 	}
 
 	@Override

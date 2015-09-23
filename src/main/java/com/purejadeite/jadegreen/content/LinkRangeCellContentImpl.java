@@ -19,11 +19,11 @@ import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
  * </pre>
  * @author mitsuhiroseino
  */
-public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeCellDefinitionImpl> implements RangeCellContent {
+public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRangeCellDefinitionImpl> implements RangeCellContent<LinkRangeCellDefinitionImpl>, LinkCellContent<LinkRangeCellDefinitionImpl> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkRangeCellContentImpl.class);
 
-	public LinkRangeCellContentImpl(Content parent, LinkRangeCellDefinitionImpl definition) {
+	public LinkRangeCellContentImpl(Content<?> parent, LinkRangeCellDefinitionImpl definition) {
 		super(parent, definition);
 	}
 
@@ -43,40 +43,40 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 	 * リンクしているテーブルのセルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.INVALID;
 	}
 
 	@Override
-	public Object getValuesImpl(Definition... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
-		Content book = this.getUpperContent(WorkbookContentImpl.class);
+		Content<?> book = this.getUpperContent(WorkbookContentImpl.class);
 
 		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content> sheetKeyContents = getSheetKeyContents(book);
+		List<Content<?>> sheetKeyContents = getSheetKeyContents(book);
 
 		// 自分の属するシートのキーを取得
-		Content mySheetKeyContent = getMySheetKeyContent(book);
+		Content<?> mySheetKeyContent = getMySheetKeyContent(book);
 		LOGGER.debug("自分のシート:" + mySheetKeyContent.getFullId());
 
 		// 値の取得元シートを取得
-		Content sheetContent = getTargetSheet(mySheetKeyContent, sheetKeyContents);
+		Content<?> sheetContent = getTargetSheet(mySheetKeyContent, sheetKeyContents);
 
 		// 取得元のキーとなるレコードを取得
-		Content keyContent = sheetContent.searchContents(definition.getKeyDefinition()).get(0);
+		Content<?> keyContent = sheetContent.searchContents(definition.getKeyDefinition()).get(0);
 
 		// 取得元のテーブル丸ごと取得
-		Content rangeContent = keyContent.getUpperContent(RangeContentImpl.class);
+		Content<?> rangeContent = keyContent.getUpperContent(RangeContentImpl.class);
 
 		// 取得元のキーとなるレコードを取得
 //		Content valueContent = sheetContent.searchContents(cell.getValueDefinition()).get(0);
 
 		// 自分の属するsheetを取得
-		Content mySheetContent = this.getUpperContent(WorksheetContentImpl.class);
+		Content<?> mySheetContent = this.getUpperContent(WorksheetContentImpl.class);
 
 		// 自分のキーとなるレコードを取得
-		Content myKeyContent = mySheetContent.searchContents(definition.getMyKeyDefinition()).get(0);
+		Content<?> myKeyContent = mySheetContent.searchContents(definition.getMyKeyDefinition()).get(0);
 
 		// valueのID
 		String[] ids = StringUtils.split(definition.getValueId(), ".");
@@ -101,8 +101,8 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 	}
 
 	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> contents = new ArrayList<>();
+	public List<Content<?>> searchContents(Definition<?> key) {
+		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}
@@ -122,4 +122,22 @@ public class LinkRangeCellContentImpl extends AbstractLinkCellContent<LinkRangeC
 	public int size() {
 		return -1;
 	}
+
+	public List<Content<?>> getSheetKeyContents(Content<?> book) {
+		return LinkContentUtils.getSheetKeyContents(book, definition);
+	}
+
+	public Content<?> getMySheetKeyContent(Content<?> book) {
+		Content<?> sheet = this.getUpperContent(WorksheetContentImpl.class);
+		return LinkContentUtils.getMySheetKeyContent(book, sheet, definition);
+	}
+
+	public Content<?> getTargetSheet(Content<?> mySheetKeyContent, List<Content<?>> sheetKeyContents) {
+		return LinkContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);
+	}
+
+	public Content<?> getValueContent(Content<?> targetSheet, List<Content<?>> valueContents) {
+		return LinkContentUtils.getValueContent(targetSheet, valueContents);
+	}
+
 }

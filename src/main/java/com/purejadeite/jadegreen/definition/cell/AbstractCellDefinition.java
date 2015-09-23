@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.OptionsBuilder;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 
 /**
  * <pre>
@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.definition.OptionsBuilder;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellDefinition<P extends Definition<?>> extends AbstractDefinition<P> implements CellDefinition<P> {
+abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractDefinition<P> implements CellDefinition<P> {
 
 	/**
 	 * オプション

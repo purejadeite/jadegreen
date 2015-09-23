@@ -13,11 +13,11 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * </pre>
  * @author mitsuhiroseino
  */
-public class CellContentImpl extends AbstractCellContent<CellDefinition> {
+public class CellContentImpl extends AbstractCellContent<CellDefinition<?>> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CellContentImpl.class);
 
-	public CellContentImpl(Content parent, CellDefinition definition) {
+	public CellContentImpl(Content<?> parent, CellDefinition<?> definition) {
 		super(parent, definition);
 	}
 

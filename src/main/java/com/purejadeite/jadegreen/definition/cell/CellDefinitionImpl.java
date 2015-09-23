@@ -38,7 +38,7 @@ public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefiniti
 		this.col = col;
 	}
 
-	public static CellDefinition<WorksheetDefinitionImpl> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
+	public static CellDefinition<?> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);

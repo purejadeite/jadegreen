@@ -87,7 +87,7 @@ public class SxssfValueMapper {
 		WorkbookContentImpl workbookContent = new WorkbookContentImpl(workbookDefinition, excelFile.getName());
 		// ブックのパーサーを取得
 		XMLReader workbookParser = new SAXParser();
-		for (WorksheetDefinitionImpl worksheet : workbookDefinition.getWorksheets()) {
+		for (WorksheetDefinitionImpl worksheet : workbookDefinition.getChildren()) {
 			// ハンドラで対象シートのrIdを収集する
 			SxssfWorkbookHandler workbookHandler = new SxssfWorkbookHandler(worksheet.getName());
 			workbookParser.setContentHandler(workbookHandler);
@@ -110,7 +110,7 @@ public class SxssfValueMapper {
 
 			// シートのパーサ
 			XMLReader worksheetParser = null;
-			Content worksheetContent = null;
+			Content<?> worksheetContent = null;
 			SxssfWorksheetHandler worksheetHandler =null;
 
 			InputStream worksheetIs = null;

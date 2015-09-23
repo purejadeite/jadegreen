@@ -16,7 +16,7 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 
 	private String name;
 
-	private List<Content> sheets = new ArrayList<>();
+	private List<Content<?>> sheets = new ArrayList<>();
 
 	public WorkbookContentImpl(WorkbookDefinitionImpl definition, String name) {
 		super(null, definition);
@@ -26,7 +26,7 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 	/**
 	 * {@inheritDoc}
 	 */
-	public void addContent(Content sheet) {
+	public void addContent(Content<?> sheet) {
 		sheets.add(sheet);
 	}
 
@@ -37,9 +37,9 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object getRawValuesImpl(Definition... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
-		for (Content sheet : sheets) {
+		for (Content<?> sheet : sheets) {
 			Object vals = sheet.getRawValues(ignore);
 			if (vals != SpecificValue.INVALID) {
 				values.add(vals);
@@ -56,7 +56,7 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 		if (closed) {
 			return true;
 		}
-		for (Content sheet : sheets) {
+		for (Content<?> sheet : sheets) {
 			if (!sheet.isClosed()) {
 				return false;
 			}
@@ -69,9 +69,9 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
-		for (Content sheet : sheets) {
+		for (Content<?> sheet : sheets) {
 			Object vals = sheet.getValues(ignore);
 			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.INVALID) {
 				values.add(vals);
@@ -81,18 +81,18 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 	}
 
 	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> cntnts = new ArrayList<>();
+	public List<Content<?>> searchContents(Definition<?> key) {
+		List<Content<?>> cntnts = new ArrayList<>();
 		if (definition == key) {
 			cntnts.add(this);
 		}
-		for (Content sheet : sheets) {
+		for (Content<?> sheet : sheets) {
 			cntnts.addAll(sheet.searchContents(key));
 		}
 		return cntnts;
 	}
 
-	public Content getUpperContent(Class<? extends Content> contentClazz) {
+	public Content<?> getUpperContent(Class<? extends Content<?>> contentClazz) {
 		return null;
 	}
 
@@ -103,7 +103,7 @@ public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl>
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(Content sheet: sheets) {
+		for(Content<?> sheet: sheets) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);

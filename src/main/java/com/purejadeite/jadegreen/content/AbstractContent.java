@@ -12,12 +12,12 @@ import com.purejadeite.jadegreen.definition.Definition;
  * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<D extends Definition> extends AbstractToMap implements Content, Serializable {
+abstract public class AbstractContent<D extends Definition<?>> extends AbstractToMap implements Content<D>, Serializable {
 
 	/**
 	 * 親要要素
 	 */
-	protected Content parent;
+	protected Content<?> parent;
 
 	/**
 	 * 値を取得する定義
@@ -34,7 +34,7 @@ abstract public class AbstractContent<D extends Definition> extends AbstractToMa
 	 * @param parent 親要素
 	 * @param definition 値を取得する定義
 	 */
-	public AbstractContent(Content parent, D definition) {
+	public AbstractContent(Content<?> parent, D definition) {
 		this.parent = parent;
 		this.definition = definition;
 		this.closed = false;
@@ -51,7 +51,7 @@ abstract public class AbstractContent<D extends Definition> extends AbstractToMa
 	}
 
 	@Override
-	public Definition getDefinition() {
+	public D getDefinition() {
 		return definition;
 	}
 
@@ -59,7 +59,7 @@ abstract public class AbstractContent<D extends Definition> extends AbstractToMa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValues(Definition... ignore) {
+	public Object getRawValues(Definition<?>... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
 			return SpecificValue.INVALID;
 		} else {
@@ -72,13 +72,13 @@ abstract public class AbstractContent<D extends Definition> extends AbstractToMa
 	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	abstract public Object getRawValuesImpl(Definition... ignore);
+	abstract public Object getRawValuesImpl(Definition<?>... ignore);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValues(Definition... ignore) {
+	public Object getValues(Definition<?>... ignore) {
 		if (this.getDefinition().isNoOutput()) {
 			return SpecificValue.NO_OUTPUT;
 		} else {
@@ -95,9 +95,9 @@ abstract public class AbstractContent<D extends Definition> extends AbstractToMa
 	 * @param ignore
 	 * @return
 	 */
-	abstract public Object getValuesImpl(Definition... ignore);
+	abstract public Object getValuesImpl(Definition<?>... ignore);
 
-	public Content getUpperContent(Class<? extends Content> contentClazz) {
+	public Content<?> getUpperContent(Class<? extends Content<?>> contentClazz) {
 		if (parent == null) {
 			return null;
 		}

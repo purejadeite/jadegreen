@@ -6,7 +6,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * 一覧形式子要素のセル読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface RangeCellDefinition<P extends RangeDefinition> extends CellDefinition<P> {
+public interface RangeCellDefinition<P extends RangeDefinition<?>> extends CellDefinition<P> {
 
 	/**
 	 * 取得可能な状態か判定します

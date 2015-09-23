@@ -18,9 +18,9 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-public class RangeContentImpl extends AbstractContent<RangeDefinition> implements RangeContent {
+public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implements RangeContent {
 
-	protected List<RangeCellContent> cells = new ArrayList<>();
+	protected List<RangeCellContent<?>> cells = new ArrayList<>();
 
 	/**
 	 * レコード数
@@ -32,7 +32,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	/**
 	 * コンストラクタ
 	 */
-	public RangeContentImpl(Content parent, RangeDefinition definition) {
+	public RangeContentImpl(Content<?> parent, RangeDefinition<?> definition) {
 		super(parent, definition);
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof LinkRangeCellDefinitionImpl) {
@@ -40,7 +40,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 				cells.add(new LinkRangeCellContentImpl(this, (LinkRangeCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof RangeCellDefinition) {
 				// セルの場合
-				cells.add(new RangeCellContentImpl(this, (RangeCellDefinition) childDefinition));
+				cells.add(new RangeCellContentImpl(this, (RangeCellDefinition<?>) childDefinition));
 			}
 		}
 	}
@@ -69,7 +69,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 		// 取得対象範囲
 		begin = true;
 		Status status = NO;
-  		for (RangeCellContent cell : cells) {
+  		for (RangeCellContent<?> cell : cells) {
 			Status cellStatus = cell.addValue(row, col, value);
 			// このrangeにおける値の取得状況
 			// 何れかのCellが終わりに達したら、このRangeは処理を終わるので下記の順に優先される
@@ -102,7 +102,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	private void closeChildren() {
 		// 最少のサイズを取得
 		int minSize = Integer.MAX_VALUE;
-		for (RangeCellContent cell : cells) {
+		for (RangeCellContent<?> cell : cells) {
 			int cellSize = cell.size();
 			if (-1 < cellSize && cellSize < minSize) {
 				minSize = cellSize;
@@ -110,7 +110,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 		}
 		size = minSize;
 		// 一番取得数が少ないところに切りそろえる
-		for (RangeCellContent cell : cells) {
+		for (RangeCellContent<?> cell : cells) {
 			cell.close(size);
 		}
 	}
@@ -119,10 +119,10 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(final Definition... ignore) {
+	public Object getRawValuesImpl(final Definition<?>... ignore) {
 		return getCellValues(new CellValueGetter() {
 			@Override
-			public Object get(RangeCellContent cell) {
+			public Object get(RangeCellContent<?> cell) {
 				return cell.getRawValues(ignore);
 			}
 		}, ignore);
@@ -132,10 +132,10 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(final Definition... ignore) {
+	public Object getValuesImpl(final Definition<?>... ignore) {
 		Object values = getCellValues(new CellValueGetter() {
 			@Override
-			public Object get(RangeCellContent cell) {
+			public Object get(RangeCellContent<?> cell) {
 				return cell.getValues(ignore);
 			}
 		}, ignore);
@@ -148,10 +148,10 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	 * @param ignore 取得しない定義
 	 * @return 値
 	 */
-	private Object getCellValues(CellValueGetter getter, Definition... ignore) {
+	private Object getCellValues(CellValueGetter getter, Definition<?>... ignore) {
 		List<Map<String, Object>> values = new ArrayList<>(size);
 
-		for (RangeCellContent cell : cells) {
+		for (RangeCellContent<?> cell : cells) {
 			if (!ArrayUtils.contains(ignore, cell.getDefinition())) {
 				@SuppressWarnings("unchecked")
 				List<Object> vals = (List<Object>) getter.get(cell);
@@ -184,16 +184,16 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 		 * @param cell Cell読み込み情報
 		 * @return 値
 		 */
-		public Object get(RangeCellContent cell);
+		public Object get(RangeCellContent<?> cell);
 	}
 
 	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> contents = new ArrayList<>();
+	public List<Content<?>> searchContents(Definition<?> key) {
+		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}
-		for (RangeCellContent cell : cells) {
+		for (RangeCellContent<?> cell : cells) {
 			contents.addAll(cell.searchContents(key));
 		}
 		return contents;
@@ -206,7 +206,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition> implement
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(Content cell: cells) {
+		for(Content<?> cell: cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);

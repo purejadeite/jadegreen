@@ -2,12 +2,13 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 
 /**
  * Cell読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface CellDefinition<P extends Definition<?>> extends Definition<P> {
+public interface CellDefinition<P extends ParentDefinition<?, ?>> extends Definition<P> {
 
 	public static final int NO_ADDRESS = 0;
 
@@ -40,8 +41,8 @@ public interface CellDefinition<P extends Definition<?>> extends Definition<P> {
 	public boolean isIncluded(int row, int col);
 
 	/**
-	 * コンバーターなどでラップされたCell読み込み定義を取得します
-	 * @return ラップされたCell読み込み定義
+	 * コンバーターなどを取得します
+	 * @return コンバーターなどのオプション
 	 */
 	public Options getOptions();
 }

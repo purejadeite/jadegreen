@@ -2,13 +2,10 @@ package com.purejadeite.jadegreen.definition;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
  * Sheet読み込み定義
@@ -16,22 +13,19 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefinitionImpl> {
+public class WorksheetDefinitionImpl extends AbstractParentDefinition<WorkbookDefinitionImpl, Definition<?>> {
+
+	private static final String CFG_NAME = "name";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { "name" };
+	private static final String[] CONFIG = { CFG_NAME };
 
 	/**
 	 * 対象シート条件・シート名
 	 */
 	private String name;
-
-	/**
-	 * Cell読み込み定義
-	 */
-	private List<Definition<?>> cells = new ArrayList<>();
 
 	/**
 	 * 定義上の最少行番号
@@ -64,7 +58,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefiniti
 	public WorksheetDefinitionImpl(WorkbookDefinitionImpl parent, Map<String, Object> config) {
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
-		this.name = RoughlyMapUtils.getString(config, "name");
+		this.name = RoughlyMapUtils.getString(config, CFG_NAME);
 	}
 
 	/**
@@ -73,6 +67,8 @@ public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefiniti
 	 * @param parent
 	 *            Book読み込み定義
 	 * @param id
+
+	 *
 	 *            定義ID
 	 * @param name
 	 *            シート名
@@ -96,7 +92,7 @@ public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefiniti
 	 */
 	@Override
 	public void addChild(Definition<?> child) {
-		this.cells.add(child);
+		super.addChild(child);
 		this.addCell(child);
 	}
 
@@ -136,9 +132,10 @@ public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefiniti
 					minCol = Math.min(i, minCol);
 					maxCol = Math.max(i, maxCol);
 				}
-			} else if (child instanceof RangeDefinition) {
+			} else if (child instanceof ParentDefinition) {
 				// Rangeの場合は子要素のCellをばらして追加
-				for (Definition<?> c : child.getChildren()) {
+				ParentDefinition<?, ?> pd = (ParentDefinition<?, ?>) child;
+				for (Definition<?> c : pd.getChildren()) {
 					addCell(c);
 				}
 			}
@@ -194,14 +191,6 @@ public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefiniti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<? extends Definition<?>> getChildren() {
-		return this.cells;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("name", name);
@@ -209,11 +198,6 @@ public class WorksheetDefinitionImpl extends AbstractDefinition<WorkbookDefiniti
 		map.put("maxRow", maxRow);
 		map.put("minCol", minCol);
 		map.put("maxCol", maxCol);
-		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for (Definition<?> cell : cells) {
-			cellMaps.add(cell.toMap());
-		}
-		map.put("cells", cellMaps);
 		return map;
 	}
 

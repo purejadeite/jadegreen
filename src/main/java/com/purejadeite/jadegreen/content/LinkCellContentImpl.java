@@ -18,11 +18,11 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
  * </pre>
  * @author mitsuhiroseino
  */
-public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinitionImpl> {
+public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl> implements LinkCellContent<LinkCellDefinitionImpl>{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkCellContentImpl.class);
 
-	public LinkCellContentImpl(Content parentContent, LinkCellDefinitionImpl definition) {
+	public LinkCellContentImpl(Content<?> parentContent, LinkCellDefinitionImpl definition) {
 		super(parentContent, definition);
 	}
 
@@ -41,7 +41,7 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 	 * リンクしている単一セルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.INVALID;
 	}
@@ -51,12 +51,12 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 	 * シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
 	 */
 	@Override
-	public Object getValuesImpl(Definition... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
-		Content book = this.getUpperContent(WorkbookContentImpl.class);
+		Content<?> book = this.getUpperContent(WorkbookContentImpl.class);
 
 		// 全Contentから欲しい値のContentを取得
-		List<Content> valueContents = book.searchContents(definition.getValueDefinition());
+		List<Content<?>> valueContents = book.searchContents(definition.getValueDefinition());
 		if (valueContents.isEmpty()) {
 			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
 			LOGGER.warn("リンク先の値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
@@ -69,16 +69,16 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 		}
 
 		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content> sheetKeyContents = getSheetKeyContents(book);
+		List<Content<?>> sheetKeyContents = getSheetKeyContents(book);
 
 		// 自分の属するシートのキーを取得
-		Content mySheetKeyContent = getMySheetKeyContent(book);
+		Content<?> mySheetKeyContent = getMySheetKeyContent(book);
 
 		// 値の取得元シートを取得
-		Content targetSheet = getTargetSheet(mySheetKeyContent, sheetKeyContents);
+		Content<?> targetSheet = getTargetSheet(mySheetKeyContent, sheetKeyContents);
 
 		// 所得元の値のセルを取得
-		Content valueContent = getValueContent(targetSheet, valueContents);
+		Content<?> valueContent = getValueContent(targetSheet, valueContents);
 		if (valueContent != null) {
 			return valueContent.getValues(ignore);
 		} else {
@@ -92,12 +92,30 @@ public class LinkCellContentImpl extends AbstractLinkCellContent<LinkCellDefinit
 		return true;
 	}
 
+	public List<Content<?>> getSheetKeyContents(Content<?> book) {
+		return LinkContentUtils.getSheetKeyContents(book, definition);
+	}
+
+	public Content<?> getMySheetKeyContent(Content<?> book) {
+		Content<?> sheet = this.getUpperContent(WorksheetContentImpl.class);
+		return LinkContentUtils.getMySheetKeyContent(book, sheet, definition);
+	}
+
+	public Content<?> getTargetSheet(Content<?> mySheetKeyContent, List<Content<?>> sheetKeyContents) {
+		return LinkContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);
+	}
+
+	public Content<?> getValueContent(Content<?> targetSheet, List<Content<?>> valueContents) {
+		return LinkContentUtils.getValueContent(targetSheet, valueContents);
+	}
+
 	@Override
-	public List<Content> searchContents(Definition key) {
-		List<Content> contents = new ArrayList<>();
+	public List<Content<?>> searchContents(Definition<?> key) {
+		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}
 		return contents;
 	}
+
 }

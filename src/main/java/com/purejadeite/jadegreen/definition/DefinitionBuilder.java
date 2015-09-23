@@ -15,6 +15,7 @@ import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.ColumnDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
@@ -80,7 +81,7 @@ public class DefinitionBuilder {
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
 	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinitionImpl sheet,
-			RangeDefinition range) {
+			RangeDefinition<?> range) {
 		Definition<?> definition = null;
 		if (config.containsKey(LINK)) {
 			// リンクフィールドの場合
@@ -103,14 +104,14 @@ public class DefinitionBuilder {
 		} else if (config.containsKey(COLUMNS)) {
 			// 行方向の繰り返しの場合
 			List<Map<String, Object>> columns = RoughlyMapUtils.getList(config, COLUMNS);
-			RangeDefinition rowRange = RowDefinitionImpl.newInstance(sheet, config);
+			RangeDefinition<?> rowRange = RowDefinitionImpl.newInstance(sheet, config);
 			rowRange.addChildren(createCells(columns, sheet, rowRange));
 			definition = rowRange;
 		} else if (config.containsKey(ROWS)) {
 			// 列方向の繰り返しの場合
 			// TODO 現在未対応
 			List<Map<String, Object>> rows = RoughlyMapUtils.getList(config, ROWS);
-			RangeDefinition columnRange = ColumnDefinitionImpl.newInstance(sheet, config);
+			RangeDefinition<?> columnRange = ColumnDefinitionImpl.newInstance(sheet, config);
 			columnRange.addChildren(createCells(rows, sheet, columnRange));
 			definition = columnRange;
 		} else {
@@ -138,11 +139,16 @@ public class DefinitionBuilder {
 	 * @param range
 	 * @return
 	 */
-	private static List<Definition<?>> createCells(List<Map<String, Object>> cells, WorksheetDefinitionImpl sheet,
-			RangeDefinition range) {
-		List<Definition<?>> definitions = new ArrayList<>();
+	private static List<RangeCellDefinition<?>> createCells(List<Map<String, Object>> cells, WorksheetDefinitionImpl sheet,
+			RangeDefinition<?> range) {
+		List<RangeCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
-			definitions.add(createCell(cell, sheet, range));
+			Definition<?> child = createCell(cell, sheet, range);
+			if (child instanceof RangeCellDefinition) {
+				definitions.add((RangeCellDefinition<?>) child);
+			} else {
+				throw new IllegalArgumentException("rangeの配下にはcellを定義してください：range=" + range.getFullId() + ",cell=" + child.getFullId());
+			}
 		}
 		return definitions;
 	}

@@ -2,15 +2,16 @@ package com.purejadeite.jadegreen.definition.range;
 
 import java.util.List;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
  * @author mitsuhiroseino
  */
-public interface RangeDefinition extends Definition<WorksheetDefinitionImpl> {
+public interface RangeDefinition<C extends RangeCellDefinition<?>> extends ParentDefinition<WorksheetDefinitionImpl, C> {
 
 	/**
 	 * 終了条件になる項目の定義IDを取得します
@@ -66,5 +67,5 @@ public interface RangeDefinition extends Definition<WorksheetDefinitionImpl> {
 	 * 子要素を追加します
 	 * @param children 子要素
 	 */
-	public void addChildren(List<Definition<?>> children);
+	public void addChildren(List<C> children);
 }

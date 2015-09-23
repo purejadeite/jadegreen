@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.OptionsBuilder;
 import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeDefinition extends AbstractDefinition<WorksheetDefinitionImpl> implements RangeDefinition {
+abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> extends AbstractParentDefinition<WorksheetDefinitionImpl, C> implements RangeDefinition<C> {
 
 	/**
 	 * 開始位置
@@ -30,7 +29,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition<Workshe
 	/**
 	 * 配下のセル読み込み情報
 	 */
-	protected List<CellDefinition<?>> cells = new ArrayList<>();
+	protected List<C> cells = new ArrayList<>();
 
 	/**
 	 * 開始キー項目
@@ -154,7 +153,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition<Workshe
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<? extends Definition<?>> getChildren() {
+	public List<C> getChildren() {
 		return this.cells;
 	}
 
@@ -162,16 +161,16 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition<Workshe
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(Definition<?> child) {
-		cells.add((CellDefinition<?>) child);
+	public void addChild(C child) {
+		cells.add(child);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChildren(List<Definition<?>> children) {
-		for (Definition<?> child : children) {
+	public void addChildren(List<C> children) {
+		for (C child : children) {
 			addChild(child);
 		}
 	}
@@ -190,7 +189,7 @@ abstract public class AbstractRangeDefinition extends AbstractDefinition<Workshe
 		map.put("endValue", endValue);
 		map.put("size", size);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(Definition<?> cell: cells) {
+		for(C cell: cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);

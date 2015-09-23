@@ -1,17 +1,18 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.LinkDefinition;
+import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 
 /**
  * 単一セルのリンク定義です
  * @author mitsuhiroseino
  */
-abstract public class AbstractLinkCellDefinition<P extends Definition<?>> extends AbstractDefinition<P> implements LinkCellDefinition<P> {
+abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> implements LinkCellDefinition<P>, LinkDefinition<P> {
 
 	/**
 	 * 必須項目名称
@@ -47,7 +48,7 @@ abstract public class AbstractLinkCellDefinition<P extends Definition<?>> extend
 	 * @param config リンク設定
 	 */
 	protected AbstractLinkCellDefinition(WorkbookDefinitionImpl book, P parent, String id, boolean noOutput, Map<String, String> config) {
-		super(parent, id, noOutput);
+		super(parent, id, noOutput, null);
 		this.validateConfig(config, CONFIG);
 		this.book = book;
 		this.mySheetKeyId = config.get("mySheetKeyId");
@@ -62,15 +63,25 @@ abstract public class AbstractLinkCellDefinition<P extends Definition<?>> extend
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getMySheetKeyDefinition() {
-		return book.get(mySheetKeyId);
+	public ParentDefinition<?, ?> getMySheetKeyDefinition() {
+		Definition<?> sheet = book.get(mySheetKeyId);
+		if (sheet instanceof ParentDefinition) {
+			return (ParentDefinition<?, ?>) sheet;
+		} else {
+			return null;
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getSheetKeyDefinition() {
-		return book.get(sheetKeyId);
+	public ParentDefinition<?, ?> getSheetKeyDefinition() {
+		Definition<?> sheet = book.get(sheetKeyId);
+		if (sheet instanceof ParentDefinition) {
+			return (ParentDefinition<?, ?>) sheet;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -93,24 +104,44 @@ abstract public class AbstractLinkCellDefinition<P extends Definition<?>> extend
 		return map;
 	}
 
-	/**
-	 * サポートされていないオペレーションです
-	 */
-	@Override
-	public List<Definition<?>> getChildren() {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * サポートされていないオペレーションです
-	 */
-	@Override
-	public void addChild(Definition<?> child) {
-		throw new UnsupportedOperationException();
-	}
-
 	public Object apply(Object value) {
 		return value;
+	}
+
+	@Override
+	public int getMinRow() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public int getMaxRow() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public int getMaxCol() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public int getMinCol() {
+		// TODO 自動生成されたメソッド・スタブ
+		return 0;
+	}
+
+	@Override
+	public boolean isIncluded(int row, int col) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
+	@Override
+	public Options getOptions() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 
 }

@@ -9,12 +9,7 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class WorkbookDefinitionImpl extends AbstractDefinition<Definition<?>> {
-
-	/**
-	 * シート定義
-	 */
-	private List<WorksheetDefinitionImpl> worksheets = new ArrayList<>();
+public class WorkbookDefinitionImpl extends AbstractParentDefinition<NoDefinition, WorksheetDefinitionImpl> {
 
 	/**
 	 * デフォルトコンストラクタ
@@ -25,22 +20,6 @@ public class WorkbookDefinitionImpl extends AbstractDefinition<Definition<?>> {
 
 	public static WorkbookDefinitionImpl newInstance(Map<String, Object> config) {
 		return new WorkbookDefinitionImpl(config);
-	}
-
-	/**
-	 * シートを取得します
-	 * @return
-	 */
-	public List<WorksheetDefinitionImpl> getWorksheets() {
-		return worksheets;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addChild(Definition<?> child) {
-		this.worksheets.add((WorksheetDefinitionImpl) child);
 	}
 
 	/**
@@ -58,19 +37,11 @@ public class WorkbookDefinitionImpl extends AbstractDefinition<Definition<?>> {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(Definition<?> sheet: worksheets) {
+		for(WorksheetDefinitionImpl sheet: getChildren()) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);
 		return map;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<? extends Definition<?>> getChildren() {
-		return this.worksheets;
 	}
 
 	public Object apply(Object value) {

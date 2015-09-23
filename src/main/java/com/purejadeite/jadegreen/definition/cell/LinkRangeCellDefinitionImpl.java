@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
@@ -15,7 +16,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  *
  * @author mitsuhiroseino
  */
-public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefinition> implements LinkCellDefinition<RangeDefinition> {
+public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefinition<RangeDefinition<?>> implements LinkCellDefinition<RangeDefinition<?>>, LinkDefinition<RangeDefinition<?>> {
 
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
 	private static final String CFG_MY_KEY_ID = "myKeyId";
@@ -65,66 +66,26 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition<Ran
 	 * @param range
 	 * @param id
 	 * @param options
-	 * @param link
+	 * @param linkConfig
 	 */
-	public LinkRangeCellDefinitionImpl(WorkbookDefinitionImpl book, RangeDefinition range, String id, boolean noOutput,
-			List<Map<String, Object>> options, Map<String, String> link) {
-		super(range, id, noOutput, 0, 0, 0, 0, false, null, options);
-		this.validateConfig(link, CONFIG);
+	public LinkRangeCellDefinitionImpl(WorkbookDefinitionImpl book, RangeDefinition<?> range, String id, boolean noOutput,
+			List<Map<String, Object>> options, Map<String, String> linkConfig) {
+		super(range, id, noOutput, options);
+		this.validateConfig(linkConfig, CONFIG);
 		this.book = book;
-		this.mySheetKeyId = link.get(CFG_MY_SHEET_KEY_ID);
-		this.myKeyId = link.get(CFG_MY_KEY_ID);
-		this.sheetKeyId = link.get(CFG_SHEET_KEY_ID);
-		this.keyId = link.get(CFG_KEY_ID);
-		this.valueId = link.get(CFG_VALUE_ID);
+		this.mySheetKeyId = linkConfig.get(CFG_MY_SHEET_KEY_ID);
+		this.myKeyId = linkConfig.get(CFG_MY_KEY_ID);
+		this.sheetKeyId = linkConfig.get(CFG_SHEET_KEY_ID);
+		this.keyId = linkConfig.get(CFG_KEY_ID);
+		this.valueId = linkConfig.get(CFG_VALUE_ID);
 	}
 
-	public static CellDefinition<RangeDefinition> newInstance(WorkbookDefinitionImpl book, RangeDefinition range, Map<String, Object> config) {
+	public static CellDefinition<RangeDefinition<?>> newInstance(WorkbookDefinitionImpl book, RangeDefinition<?> range, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		Map<String, String> link = RoughlyMapUtils.getMap(config, LINK);
 		return new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, link);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMinRow() {
-		return 0;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMaxRow() {
-		return 0;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMinCol() {
-		return 0;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMaxCol() {
-		return 0;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isIncluded(int row, int col) {
-		return false;
 	}
 
 	public String getSheetKeyId() {
@@ -142,35 +103,35 @@ public class LinkRangeCellDefinitionImpl extends AbstractRangeCellDefinition<Ran
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getMyKeyDefinition() {
+	public Definition<?> getMyKeyDefinition() {
 		return book.get(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getMySheetKeyDefinition() {
+	public Definition<?> getMySheetKeyDefinition() {
 		return book.get(mySheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getSheetKeyDefinition() {
+	public Definition<?> getSheetKeyDefinition() {
 		return book.get(sheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getKeyDefinition() {
+	public Definition<?> getKeyDefinition() {
 		return book.get(keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition getValueDefinition() {
+	public Definition<?> getValueDefinition() {
 		return book.get(valueId);
 	}
 

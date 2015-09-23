@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * Rangeの構成要素となるCell読み込み定義
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeCellDefinition<P extends RangeDefinition> extends AbstractCellDefinition<P> implements RangeCellDefinition<P> {
+abstract public class AbstractRangeCellDefinition<P extends RangeDefinition<?>> extends AbstractCellDefinition<P> implements RangeCellDefinition<P> {
 
 	/**
 	 * 開始行

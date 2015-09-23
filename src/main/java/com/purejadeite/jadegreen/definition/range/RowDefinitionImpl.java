@@ -7,12 +7,13 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
  * 行方向の繰り返し範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-public class RowDefinitionImpl extends AbstractRangeDefinition {
+public class RowDefinitionImpl extends AbstractRangeDefinition<RangeCellDefinition<?>> {
 
 	/**
 	 * コンストラクタ
@@ -30,7 +31,7 @@ public class RowDefinitionImpl extends AbstractRangeDefinition {
 		super(parent, id, noOutput, beginRow, endRow, endKey, endValue, options);
 	}
 
-	public static RangeDefinition newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
+	public static RangeDefinition<?> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int beginRow = RoughlyMapUtils.getIntValue(config, BEGIN_ROW);

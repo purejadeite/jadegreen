@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.definition;
 
-import java.util.List;
-
 /**
  *
  * Excelファイル読み込みの定義情報インターフェイス
@@ -9,7 +7,7 @@ import java.util.List;
  * @author mitsuhiroseino
  *
  */
-public interface Definition<P extends Definition<?>> extends Applier {
+public interface Definition<P extends ParentDefinition<?, ?>> extends Applier {
 
 	/**
 	 * 定義IDを取得します
@@ -38,46 +36,5 @@ public interface Definition<P extends Definition<?>> extends Applier {
 	 * @return
 	 */
 	public P getParent();
-
-	/**
-	 * 子定義を取得します
-	 *
-	 * @return
-	 */
-	public List<? extends Definition<?>> getChildren();
-
-	/**
-	 * 子定義を追加します
-	 *
-	 * @param child
-	 */
-	public void addChild(Definition<?> child);
-
-	/**
-	 * 配下の定義を取得します
-	 *
-	 * @param fullId
-	 *            当定義から辿った定義ID
-	 * @return 対象の定義
-	 */
-	public Definition<?> get(String fullId);
-
-	/**
-	 * 配下の定義を取得します
-	 *
-	 * @param ids
-	 *            当定義から辿った定義IDの配列
-	 * @return 対象の定義
-	 */
-	public Definition<?> get(String... ids);
-
-	/**
-	 * 値にオプションを適用します
-	 *
-	 * @param value
-	 *            値
-	 * @return オプション適用後の値
-	 */
-	public Object apply(Object value);
 
 }
