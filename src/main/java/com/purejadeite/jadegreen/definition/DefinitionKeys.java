@@ -113,6 +113,11 @@ public class DefinitionKeys {
 	public static final String OPTIONS = "options";
 
 	/**
+	 * オプション
+	 */
+	public static final String OPTION = "option";
+
+	/**
 	 * コンバータークラス
 	 */
 	public static final String TYPE = "type";
@@ -126,5 +131,10 @@ public class DefinitionKeys {
 	 * 外部ファイルのパス
 	 */
 	public static final String FILE = "file";
+
+	/**
+	 * 値の生成
+	 */
+	public static final String GENERATOR = "generator";
 
 }

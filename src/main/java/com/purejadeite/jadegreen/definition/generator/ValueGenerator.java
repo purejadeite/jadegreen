@@ -1,18 +1,11 @@
 package com.purejadeite.jadegreen.definition.generator;
 
-import com.purejadeite.jadegreen.ToMap;
+import com.purejadeite.jadegreen.definition.Applier;
 
 /**
- * 値を生成するインターフェイス
+ * 値を生成するオプションのインターフェイス
  * @author mitsuhiroseino
  *
  */
-public interface ValueGenerator extends ToMap {
-
-	/**
-	 * オプションを適用します
-	 * @return
-	 */
-	public Object apply(Object values);
-
+public interface ValueGenerator extends Applier {
 }

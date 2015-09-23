@@ -25,6 +25,7 @@ public class CellOptionManager {
 		regiter(ToShort.class);
 		regiter(ToString.class);
 		regiter(ToStringDate.class);
+		regiter(ToNull.class);
 		regiter(Lower.class);
 		regiter(Upper.class);
 		regiter(LowerCamel.class);

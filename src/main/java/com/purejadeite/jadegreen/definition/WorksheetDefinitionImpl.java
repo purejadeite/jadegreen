@@ -106,7 +106,7 @@ public class WorksheetDefinitionImpl extends AbstractParentDefinition<WorkbookDe
 		if (child != null) {
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
-				CellDefinition cell = (CellDefinition) child;
+				CellDefinition<?> cell = (CellDefinition<?>) child;
 				int i;
 				// 最少行番号
 				i = cell.getMinRow();

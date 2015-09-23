@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 import com.purejadeite.jadegreen.definition.option.range.RangeOptionManager;
 
@@ -17,7 +18,9 @@ public class OptionsBuilder {
 		Applier option = null;
 		for (Map<String, Object> opt : opts) {
 			option = build(opt);
-			if (option != null) {
+			if (option == null) {
+				throw new IllegalStateException("type=" + opt.get(DefinitionKeys.TYPE) + "は存在しません");
+			} else {
 				options.add(option);
 			}
 		}
@@ -25,8 +28,10 @@ public class OptionsBuilder {
 	}
 
 	public static Applier build(Map<String, Object> opt) {
-		Applier option;
-		option = CellOptionManager.build(opt);
+		Applier option = ValueGeneratorManager.build(opt);
+		if (option == null) {
+			option = CellOptionManager.build(opt);
+		}
 		if (option == null) {
 			option = RangeOptionManager.build(opt);
 		}

@@ -10,7 +10,7 @@ public class LinkContentUtils {
 		List<Content<?>> sheetKeyContents = book.searchContents(definition.getSheetKeyDefinition());
 		if (sheetKeyContents.isEmpty()) {
 			// 相手のキーが無いならば定義が不正なので例外
-			throw new RuntimeException();
+			throw new IllegalStateException();
 		}
 		return sheetKeyContents;
 	}
@@ -19,7 +19,7 @@ public class LinkContentUtils {
 		List<Content<?>> mySheetKeyContents = sheet.searchContents(definition.getMySheetKeyDefinition());
 		if (mySheetKeyContents.size() != 1) {
 			// キーが一意でないならば例外
-			throw new RuntimeException();
+			throw new IllegalStateException();
 		}
 		return mySheetKeyContents.get(0);
 	}

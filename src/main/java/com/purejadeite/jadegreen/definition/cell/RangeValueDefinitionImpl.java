@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.generator.ValueGenerator;
 import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
+import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
  * 固定値の定義です
  *
  * @author mitsuhiroseino
  */
-public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractNoAdressCellDefinition<P> {
+public class RangeValueDefinitionImpl<P extends RangeDefinition<?>> extends AbstractNoAdressRangeCellDefinition<P> {
 
 	private ValueGenerator generator;
 
@@ -35,7 +35,8 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 * @param options
 	 *            コンバーター
 	 */
-	private ValueDefinitionImpl(P parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
+	private RangeValueDefinitionImpl(P parent, String id, boolean noOutput, Map<String, Object> generator,
+			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
 		if (generator != null) {
 			this.generator = ValueGeneratorManager.build(generator);
@@ -59,12 +60,12 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
+	public static <P extends RangeDefinition<?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		Map<String, Object> generator = RoughlyMapUtils.getMap(config, GENERATOR);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new ValueDefinitionImpl<P>(parent, id, noOutput, generator, options);
+		return new RangeValueDefinitionImpl<P>(parent, id, noOutput, generator, options);
 	}
 
 	@Override

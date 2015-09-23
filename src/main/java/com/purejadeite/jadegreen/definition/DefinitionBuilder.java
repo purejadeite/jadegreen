@@ -16,7 +16,9 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
+import com.purejadeite.jadegreen.definition.cell.RangeValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.ColumnDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 import com.purejadeite.jadegreen.definition.range.RowDefinitionImpl;
@@ -46,7 +48,7 @@ public class DefinitionBuilder {
 			// sheetのビルド
 			WorksheetDefinitionImpl sheet = WorksheetDefinitionImpl.newInstance(book, sheetConfig);
 			// cellのビルド
-			List<Map<String, Object>> cellConfigs = RoughlyMapUtils.getList(sheetConfig,CELLS);
+			List<Map<String, Object>> cellConfigs = RoughlyMapUtils.getList(sheetConfig, CELLS);
 			for (Map<String, Object> cellConfig : cellConfigs) {
 				sheet.addChild(createCell(cellConfig, sheet));
 			}
@@ -90,11 +92,23 @@ public class DefinitionBuilder {
 				definition = LinkRangeCellDefinitionImpl.newInstance(sheet.getParent(), range, config);
 			} else {
 				// 単独フィールドの場合
-				definition = LinkCellDefinitionImpl.newInstance((WorkbookDefinitionImpl) sheet.getParent(), sheet, config);
+				definition = LinkCellDefinitionImpl.newInstance(sheet.getParent(), sheet, config);
+			}
+		} else if (config.containsKey(GENERATOR)) {
+			// 値生成フィールドの場合
+			if (range != null) {
+				// 親のあるフィールドの場合
+				definition = RangeValueDefinitionImpl.newInstance(range, config);
+			} else {
+				// 単独フィールドの場合
+				definition = ValueDefinitionImpl.newInstance(sheet, config);
 			}
 		} else if (range != null) {
 			// 親のあるフィールドの場合
-			if (range instanceof RowDefinitionImpl) {
+			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
+				// アドレスなし
+				definition = RangeValueDefinitionImpl.newInstance(range, config);
+			} else if (range instanceof RowDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
 				definition = RowCellDefinitionImpl.newInstance(range, config);
 			} else if (range instanceof ColumnDefinitionImpl) {
@@ -116,7 +130,10 @@ public class DefinitionBuilder {
 			definition = columnRange;
 		} else {
 			// 単独フィールドの場合
-			if (config.containsKey(SPLITTER)) {
+			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
+				// アドレスなし
+				definition = ValueDefinitionImpl.newInstance(sheet, config);
+			} else if (config.containsKey(SPLITTER)) {
 				definition = ListCellDefinitionImpl.newInstance(sheet, config);
 			} else {
 				definition = CellDefinitionImpl.newInstance(sheet, config);
@@ -139,15 +156,16 @@ public class DefinitionBuilder {
 	 * @param range
 	 * @return
 	 */
-	private static List<RangeCellDefinition<?>> createCells(List<Map<String, Object>> cells, WorksheetDefinitionImpl sheet,
-			RangeDefinition<?> range) {
+	private static List<RangeCellDefinition<?>> createCells(List<Map<String, Object>> cells,
+			WorksheetDefinitionImpl sheet, RangeDefinition<?> range) {
 		List<RangeCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
 			Definition<?> child = createCell(cell, sheet, range);
 			if (child instanceof RangeCellDefinition) {
 				definitions.add((RangeCellDefinition<?>) child);
 			} else {
-				throw new IllegalArgumentException("rangeの配下にはcellを定義してください：range=" + range.getFullId() + ",cell=" + child.getFullId());
+				throw new IllegalArgumentException(
+						"rangeの配下にはcellを定義してください：range=" + range.getFullId() + ",cell=" + child.getFullId());
 			}
 		}
 		return definitions;

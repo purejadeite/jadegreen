@@ -95,7 +95,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> exten
 	public String getFullId() {
 		String fullId = id;
 		if (this.parent != null && !StringUtils.isEmpty(this.parent.getFullId())) {
-			fullId += this.parent.getFullId();
+			fullId = this.parent.getFullId() + "." + fullId;
 		}
 		return fullId;
 	}

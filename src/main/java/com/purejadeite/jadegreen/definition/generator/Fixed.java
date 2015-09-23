@@ -6,6 +6,7 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
 
 /**
  * 固定値を提供するクラス
+ *
  * @author mitsuhiroseino
  *
  */
@@ -16,7 +17,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = {CFG_VALUE};
+	private static final String[] CONFIG = { CFG_VALUE };
 
 	/**
 	 * 固定値
@@ -25,8 +26,11 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 
 	/**
 	 * コンストラクタ
-	 * @param cell 値の取得元Cell読み込み定義
-	 * @param config コンバーターのコンフィグ
+	 *
+	 * @param cell
+	 *            値の取得元Cell読み込み定義
+	 * @param config
+	 *            コンバーターのコンフィグ
 	 */
 	public Fixed(Map<String, Object> config) {
 		super();
