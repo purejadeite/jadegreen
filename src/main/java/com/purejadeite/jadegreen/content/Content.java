@@ -75,6 +75,6 @@ public interface Content<D extends Definition<?>> extends ToMap {
 	 * @param contentClazz Contentのクラス
 	 * @return 対象のContent
 	 */
-	public Content<?> getUpperContent(Class<? extends Content<?>> contentClazz);
+	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz);
 
 }

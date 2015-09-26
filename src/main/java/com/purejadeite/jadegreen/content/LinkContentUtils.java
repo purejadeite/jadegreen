@@ -6,7 +6,7 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinition;
 
 public class LinkContentUtils {
 
-	public static List<Content<?>> getSheetKeyContents(Content<?> book, LinkCellDefinition<?> definition) {
+	public static List<Content<?>> getSheetKeyContents(WorkbookContent book, LinkCellDefinition<?> definition) {
 		List<Content<?>> sheetKeyContents = book.searchContents(definition.getSheetKeyDefinition());
 		if (sheetKeyContents.isEmpty()) {
 			// 相手のキーが無いならば定義が不正なので例外
@@ -15,7 +15,7 @@ public class LinkContentUtils {
 		return sheetKeyContents;
 	}
 
-	public static Content<?> getMySheetKeyContent(Content<?> book, Content<?> sheet, LinkCellDefinition<?> definition) {
+	public static Content<?> getMySheetKeyContent(WorkbookContent book, WorksheetContent sheet, LinkCellDefinition<?> definition) {
 		List<Content<?>> mySheetKeyContents = sheet.searchContents(definition.getMySheetKeyDefinition());
 		if (mySheetKeyContents.size() != 1) {
 			// キーが一意でないならば例外
@@ -24,7 +24,7 @@ public class LinkContentUtils {
 		return mySheetKeyContents.get(0);
 	}
 
-	public static Content<?> getTargetSheet(Content<?> mySheetKeyContent, List<Content<?>> sheetKeyContents) {
+	public static WorksheetContent getTargetSheet(Content<?> mySheetKeyContent, List<Content<?>> sheetKeyContents) {
 		Object mySheetKeyValues = mySheetKeyContent.getValues();
 		for (Content<?> sheetKeyContent : sheetKeyContents) {
 			if (mySheetKeyValues.equals(sheetKeyContent.getValues())) {
@@ -34,7 +34,7 @@ public class LinkContentUtils {
 		return null;
 	}
 
-	public static Content<?> getValueContent(Content<?> targetSheet, List<Content<?>> valueContents) {
+	public static Content<?> getValueContent(WorksheetContent targetSheet, List<Content<?>> valueContents) {
 		for (Content<?> valueContent : valueContents) {
 			// そのキーと同じシートにある値を探す
 			if (targetSheet == valueContent.getUpperContent(WorksheetContent.class)) {

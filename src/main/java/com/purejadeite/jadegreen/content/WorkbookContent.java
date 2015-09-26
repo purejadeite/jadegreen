@@ -16,17 +16,14 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
 	private String name;
 
-	private List<Content<?>> sheets = new ArrayList<>();
+	private List<WorksheetContent> sheets = new ArrayList<>();
 
 	public WorkbookContent(WorkbookDefinition definition, String name) {
 		super(null, definition);
 		this.name = name;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void addContent(Content<?> sheet) {
+	public void addSheet(WorksheetContent sheet) {
 		sheets.add(sheet);
 	}
 
@@ -39,7 +36,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 */
 	public Object getRawValuesImpl(Definition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
-		for (Content<?> sheet : sheets) {
+		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getRawValues(ignore);
 			if (vals != SpecificValue.INVALID) {
 				values.add(vals);
@@ -56,7 +53,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		if (closed) {
 			return true;
 		}
-		for (Content<?> sheet : sheets) {
+		for (WorksheetContent sheet : sheets) {
 			if (!sheet.isClosed()) {
 				return false;
 			}
@@ -71,7 +68,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	@Override
 	public Object getValuesImpl(Definition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
-		for (Content<?> sheet : sheets) {
+		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getValues(ignore);
 			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.INVALID) {
 				values.add(vals);
@@ -82,17 +79,17 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
 	@Override
 	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> cntnts = new ArrayList<>();
+		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
-			cntnts.add(this);
+			contents.add(this);
 		}
-		for (Content<?> sheet : sheets) {
-			cntnts.addAll(sheet.searchContents(key));
+		for (WorksheetContent sheet : sheets) {
+			contents.addAll(sheet.searchContents(key));
 		}
-		return cntnts;
+		return contents;
 	}
 
-	public Content<?> getUpperContent(Class<? extends Content<?>> contentClazz) {
+	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz) {
 		return null;
 	}
 
@@ -103,7 +100,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(Content<?> sheet: sheets) {
+		for(WorksheetContent sheet: sheets) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);

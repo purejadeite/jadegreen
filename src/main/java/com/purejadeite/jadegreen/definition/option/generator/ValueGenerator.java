@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.generator;
+package com.purejadeite.jadegreen.definition.option.generator;
 
 import com.purejadeite.jadegreen.definition.Applier;
 

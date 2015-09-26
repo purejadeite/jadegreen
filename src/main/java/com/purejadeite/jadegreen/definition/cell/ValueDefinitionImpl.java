@@ -7,8 +7,8 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.generator.ValueGenerator;
-import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
+import com.purejadeite.jadegreen.definition.option.generator.ValueGenerator;
+import com.purejadeite.jadegreen.definition.option.generator.ValueGeneratorManager;
 
 /**
  * 固定値の定義です

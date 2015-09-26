@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.WorksheetContent;
 
 /**
  * セルを走査するハンドラ
@@ -62,7 +62,7 @@ public class SxssfWorksheetHandler extends DefaultHandler {
 	/**
 	 * シートのコンテンツ
 	 */
-	private Content<?> sheetContent = null;
+	private WorksheetContent sheetContent = null;
 
 	/**
 	 * 前回のコンテンツ
@@ -89,7 +89,7 @@ public class SxssfWorksheetHandler extends DefaultHandler {
 	 * @param sharedStrings ブックで共有されている文字列テーブル
 	 * @param sheetContent シートの値
 	 */
-	public SxssfWorksheetHandler(SharedStringsTable sharedStrings, Content<?> sheetContent) {
+	public SxssfWorksheetHandler(SharedStringsTable sharedStrings, WorksheetContent sheetContent) {
 		this.sharedStrings = sharedStrings;
 		this.sheetContent = sheetContent;
 	}

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.generator.ValueGeneratorManager;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
+import com.purejadeite.jadegreen.definition.option.generator.ValueGeneratorManager;
 import com.purejadeite.jadegreen.definition.option.range.RangeOptionManager;
 
 public class OptionsBuilder {

@@ -45,7 +45,7 @@ public class Eliminate extends AbstractRangeConverter {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.conditionValue = RoughlyMapUtils.getString(config, CFG_CONDITION_VALUE);
+		this.conditionValue = RoughlyMapUtils.getString(config, CFG_CONDITION_VALUE, null);
 	}
 
 	/**

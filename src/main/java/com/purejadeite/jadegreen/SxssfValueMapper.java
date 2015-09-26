@@ -19,7 +19,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.WorkbookContent;
 import com.purejadeite.jadegreen.content.WorksheetContent;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
@@ -110,7 +109,7 @@ public class SxssfValueMapper {
 
 			// シートのパーサ
 			XMLReader worksheetParser = null;
-			Content<?> worksheetContent = null;
+			WorksheetContent worksheetContent = null;
 			SxssfWorksheetHandler worksheetHandler =null;
 
 			InputStream worksheetIs = null;
@@ -128,7 +127,7 @@ public class SxssfValueMapper {
 					// シートをパース
 					worksheetParser.parse(sheetSource);
 					// パース下結果をbookContentへ追加
-					workbookContent.addContent(worksheetContent);
+					workbookContent.addSheet(worksheetContent);
 				} catch (InvalidFormatException | SAXException | IOException e) {
 					throw new RuntimeException(e);
 				} finally {

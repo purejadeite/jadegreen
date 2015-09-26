@@ -7,7 +7,7 @@ import com.purejadeite.jadegreen.AbstractToMap;
 
 /**
  *
- * オプション定義情報抽象クラス
+ * 値に変更を適用する抽象クラス
  *
  * @author mitsuhiroseino
  *
@@ -22,7 +22,7 @@ abstract public class AbstractApplier extends AbstractToMap implements Applier, 
 	}
 
 	/**
-	 * コンフィグのチェック
+	 * コンフィグの必須チェック
 	 *
 	 * @param config
 	 *            コンフィグ
