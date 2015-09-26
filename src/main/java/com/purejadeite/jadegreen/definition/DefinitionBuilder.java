@@ -40,13 +40,13 @@ public class DefinitionBuilder {
 	 *            JSONから変換されたMAPのLIST形式の定義
 	 * @return Book読み込み定義
 	 */
-	public static WorkbookDefinitionImpl build(Map<String, Object> definition) {
+	public static WorkbookDefinition build(Map<String, Object> definition) {
 		// bookのビルド
-		WorkbookDefinitionImpl book = WorkbookDefinitionImpl.newInstance(definition);
+		WorkbookDefinition book = WorkbookDefinition.newInstance(definition);
 		List<Map<String, Object>> sheetConfigs = RoughlyMapUtils.getList(definition, SHEETS);
 		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド
-			WorksheetDefinitionImpl sheet = WorksheetDefinitionImpl.newInstance(book, sheetConfig);
+			WorksheetDefinition sheet = WorksheetDefinition.newInstance(book, sheetConfig);
 			// cellのビルド
 			List<Map<String, Object>> cellConfigs = RoughlyMapUtils.getList(sheetConfig, CELLS);
 			for (Map<String, Object> cellConfig : cellConfigs) {
@@ -67,7 +67,7 @@ public class DefinitionBuilder {
 	 *            シート読み込み定義
 	 * @return Cell読み込み定義
 	 */
-	private static Definition<?> createCell(Map<String, Object> cellDef, WorksheetDefinitionImpl sheet) {
+	private static Definition<?> createCell(Map<String, Object> cellDef, WorksheetDefinition sheet) {
 		return createCell(cellDef, sheet, null);
 	}
 
@@ -82,7 +82,7 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinitionImpl sheet,
+	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
 			RangeDefinition<?> range) {
 		Definition<?> definition = null;
 		if (config.containsKey(LINK)) {
@@ -157,7 +157,7 @@ public class DefinitionBuilder {
 	 * @return
 	 */
 	private static List<RangeCellDefinition<?>> createCells(List<Map<String, Object>> cells,
-			WorksheetDefinitionImpl sheet, RangeDefinition<?> range) {
+			WorksheetDefinition sheet, RangeDefinition<?> range) {
 		List<RangeCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
 			Definition<?> child = createCell(cell, sheet, range);

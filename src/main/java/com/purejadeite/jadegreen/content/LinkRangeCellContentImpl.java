@@ -51,7 +51,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 	@Override
 	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
-		Content<?> book = this.getUpperContent(WorkbookContentImpl.class);
+		Content<?> book = this.getUpperContent(WorkbookContent.class);
 
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content<?>> sheetKeyContents = getSheetKeyContents(book);
@@ -73,7 +73,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 //		Content valueContent = sheetContent.searchContents(cell.getValueDefinition()).get(0);
 
 		// 自分の属するsheetを取得
-		Content<?> mySheetContent = this.getUpperContent(WorksheetContentImpl.class);
+		Content<?> mySheetContent = this.getUpperContent(WorksheetContent.class);
 
 		// 自分のキーとなるレコードを取得
 		Content<?> myKeyContent = mySheetContent.searchContents(definition.getMyKeyDefinition()).get(0);
@@ -128,7 +128,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 	}
 
 	public Content<?> getMySheetKeyContent(Content<?> book) {
-		Content<?> sheet = this.getUpperContent(WorksheetContentImpl.class);
+		Content<?> sheet = this.getUpperContent(WorksheetContent.class);
 		return LinkContentUtils.getMySheetKeyContent(book, sheet, definition);
 	}
 

@@ -53,7 +53,7 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	@Override
 	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
-		Content<?> book = this.getUpperContent(WorkbookContentImpl.class);
+		Content<?> book = this.getUpperContent(WorkbookContent.class);
 
 		// 全Contentから欲しい値のContentを取得
 		List<Content<?>> valueContents = book.searchContents(definition.getValueDefinition());
@@ -97,7 +97,7 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	}
 
 	public Content<?> getMySheetKeyContent(Content<?> book) {
-		Content<?> sheet = this.getUpperContent(WorksheetContentImpl.class);
+		Content<?> sheet = this.getUpperContent(WorksheetContent.class);
 		return LinkContentUtils.getMySheetKeyContent(book, sheet, definition);
 	}
 

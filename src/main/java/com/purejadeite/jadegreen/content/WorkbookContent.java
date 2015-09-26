@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
  * Workbook読み込み定義
  * @author mitsuhiroseino
  *
  */
-public class WorkbookContentImpl extends AbstractContent<WorkbookDefinitionImpl> {
+public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
 	private String name;
 
 	private List<Content<?>> sheets = new ArrayList<>();
 
-	public WorkbookContentImpl(WorkbookDefinitionImpl definition, String name) {
+	public WorkbookContent(WorkbookDefinition definition, String name) {
 		super(null, definition);
 		this.name = name;
 	}

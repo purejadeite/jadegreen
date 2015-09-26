@@ -7,14 +7,14 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.OptionsBuilder;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> extends AbstractParentDefinition<WorksheetDefinitionImpl, C> implements RangeDefinition<C> {
+abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> extends AbstractParentDefinition<WorksheetDefinition, C> implements RangeDefinition<C> {
 
 	/**
 	 * 開始位置
@@ -74,7 +74,7 @@ abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> 
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	protected AbstractRangeDefinition(WorksheetDefinitionImpl parent, String id, boolean noOutput, int begin,
+	protected AbstractRangeDefinition(WorksheetDefinition parent, String id, boolean noOutput, int begin,
 			int end, String endKeyId, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput);
 		this.begin = begin;

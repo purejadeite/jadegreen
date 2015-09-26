@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 
 /**
  * 単一セル内で一覧になっているセルの読み込み定義です
@@ -33,13 +33,13 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	 * @param options
 	 *            コンバーター
 	 */
-	private ListCellDefinitionImpl(WorksheetDefinitionImpl parent, String id, boolean noOutput, int row, int col, String splitter,
+	private ListCellDefinitionImpl(WorksheetDefinition parent, String id, boolean noOutput, int row, int col, String splitter,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, row, col, options);
 		this.splitter = splitter;
 	}
 
-	public static CellDefinition<WorksheetDefinitionImpl> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
+	public static CellDefinition<WorksheetDefinition> newInstance(WorksheetDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);

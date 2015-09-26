@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
  * Unit test for simple App.
@@ -53,7 +53,7 @@ public class SxssfValueMapperTest {
 		try {
 			// 定義の読み込み
 			Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
-			WorkbookDefinitionImpl bookDefinition = DefinitionBuilder.build(jsonObj);
+			WorkbookDefinition bookDefinition = DefinitionBuilder.build(jsonObj);
 			// 定義の確認
 			LOGGER.debug("■ " + name);
 			LOGGER.debug("☆ 定義 ☆");

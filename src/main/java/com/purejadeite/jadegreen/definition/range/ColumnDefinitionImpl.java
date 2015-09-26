@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
@@ -26,13 +26,13 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition<RangeCellDefin
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	public ColumnDefinitionImpl(WorksheetDefinitionImpl parent, String id, boolean noOutput, int beginCol, int endCol, String endKey,
+	public ColumnDefinitionImpl(WorksheetDefinition parent, String id, boolean noOutput, int beginCol, int endCol, String endKey,
 			String endValue,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, beginCol, endCol, endKey, endValue, options);
 	}
 
-	public static RangeDefinition<?> newInstance(WorksheetDefinitionImpl parent, Map<String, Object> config) {
+	public static RangeDefinition<?> newInstance(WorksheetDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int beginCol = RoughlyMapUtils.getIntValue(config, BEGIN_COLUMN);

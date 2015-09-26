@@ -20,11 +20,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.content.WorkbookContentImpl;
-import com.purejadeite.jadegreen.content.WorksheetContentImpl;
+import com.purejadeite.jadegreen.content.WorkbookContent;
+import com.purejadeite.jadegreen.content.WorksheetContent;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 
 /**
  * <pre>
@@ -44,7 +44,7 @@ public class SxssfValueMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static List<Map<String, Object>> read(String excelFilePath, Map<String, Object> definitionObj) throws IOException {
-		WorkbookDefinitionImpl definition = DefinitionBuilder.build(definitionObj);
+		WorkbookDefinition definition = DefinitionBuilder.build(definitionObj);
 		return read(excelFilePath, definition);
 	}
 
@@ -55,7 +55,7 @@ public class SxssfValueMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(String excelFilePath, WorkbookDefinitionImpl definition) throws IOException {
+	public static List<Map<String, Object>> read(String excelFilePath, WorkbookDefinition definition) throws IOException {
 		File excelFile = new File(excelFilePath);
 		return read(excelFile, definition);
 	}
@@ -68,7 +68,7 @@ public class SxssfValueMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinitionImpl workbookDefinition) throws IOException {
+	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinition workbookDefinition) throws IOException {
 
 		OPCPackage pkg = null;
 		XSSFReader reader = null;
@@ -84,10 +84,10 @@ public class SxssfValueMapper {
 		}
 
 		// 1ファイル分の情報を集めるインスタンス
-		WorkbookContentImpl workbookContent = new WorkbookContentImpl(workbookDefinition, excelFile.getName());
+		WorkbookContent workbookContent = new WorkbookContent(workbookDefinition, excelFile.getName());
 		// ブックのパーサーを取得
 		XMLReader workbookParser = new SAXParser();
-		for (WorksheetDefinitionImpl worksheet : workbookDefinition.getChildren()) {
+		for (WorksheetDefinition worksheet : workbookDefinition.getChildren()) {
 			// ハンドラで対象シートのrIdを収集する
 			SxssfWorkbookHandler workbookHandler = new SxssfWorkbookHandler(worksheet.getName());
 			workbookParser.setContentHandler(workbookHandler);
@@ -117,7 +117,7 @@ public class SxssfValueMapper {
 			for (Entry<String, String> entry : worksheetNames.entrySet()) {
 				LOGGER.debug("対象Sheet:" + entry.getValue());
 				// シートのパーサを取得
-				worksheetContent = new WorksheetContentImpl(workbookContent, worksheet, entry.getValue());
+				worksheetContent = new WorksheetContent(workbookContent, worksheet, entry.getValue());
 				worksheetHandler = new SxssfWorksheetHandler(sst, worksheetContent);
 				worksheetParser = new SAXParser();
 				worksheetParser.setContentHandler(worksheetHandler);

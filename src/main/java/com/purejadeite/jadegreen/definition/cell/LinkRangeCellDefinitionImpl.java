@@ -8,7 +8,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
@@ -58,7 +58,7 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 	/**
 	 * Book読み込み定義
 	 */
-	private WorkbookDefinitionImpl book;
+	private WorkbookDefinition book;
 
 	/**
 	 *
@@ -68,7 +68,7 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 	 * @param options
 	 * @param linkConfig
 	 */
-	public LinkRangeCellDefinitionImpl(WorkbookDefinitionImpl book, RangeDefinition<?> range, String id, boolean noOutput,
+	public LinkRangeCellDefinitionImpl(WorkbookDefinition book, RangeDefinition<?> range, String id, boolean noOutput,
 			List<Map<String, Object>> options, Map<String, String> linkConfig) {
 		super(range, id, noOutput, options);
 		this.validateConfig(linkConfig, CONFIG);
@@ -80,7 +80,7 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 		this.valueId = linkConfig.get(CFG_VALUE_ID);
 	}
 
-	public static CellDefinition<RangeDefinition<?>> newInstance(WorkbookDefinitionImpl book, RangeDefinition<?> range, Map<String, Object> config) {
+	public static CellDefinition<RangeDefinition<?>> newInstance(WorkbookDefinition book, RangeDefinition<?> range, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);

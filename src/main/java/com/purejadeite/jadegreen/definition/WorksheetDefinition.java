@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetDefinitionImpl extends AbstractParentDefinition<WorkbookDefinitionImpl, Definition<?>> {
+public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefinition, Definition<?>> {
 
 	private static final String CFG_NAME = "name";
 
@@ -55,7 +55,7 @@ public class WorksheetDefinitionImpl extends AbstractParentDefinition<WorkbookDe
 	 * @param config
 	 *            コンフィグ
 	 */
-	public WorksheetDefinitionImpl(WorkbookDefinitionImpl parent, Map<String, Object> config) {
+	public WorksheetDefinition(WorkbookDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
 		this.name = RoughlyMapUtils.getString(config, CFG_NAME);
@@ -75,16 +75,16 @@ public class WorksheetDefinitionImpl extends AbstractParentDefinition<WorkbookDe
 	 * @param noOutput
 	 *            出力要否
 	 */
-	public WorksheetDefinitionImpl(WorkbookDefinitionImpl parent, String id, String name, boolean noOutput) {
+	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, boolean noOutput) {
 		super(parent, id, noOutput);
 		this.name = name;
 	}
 
-	public static WorksheetDefinitionImpl newInstance(WorkbookDefinitionImpl parent, Map<String, Object> config) {
+	public static WorksheetDefinition newInstance(WorkbookDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		String name = RoughlyMapUtils.getString(config, NAME);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		return new WorksheetDefinitionImpl(parent, id, name, noOutput);
+		return new WorksheetDefinition(parent, id, name, noOutput);
 	}
 
 	/**

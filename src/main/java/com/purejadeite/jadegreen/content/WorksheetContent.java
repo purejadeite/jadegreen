@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
@@ -24,9 +24,9 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImpl> {
+public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(WorksheetContentImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WorksheetContent.class);
 
 	private String sheetName;
 
@@ -38,7 +38,7 @@ public class WorksheetContentImpl extends AbstractContent<WorksheetDefinitionImp
 
 	private int maxCol = 0;
 
-	public WorksheetContentImpl(Content<?> parent, WorksheetDefinitionImpl definition, String sheetName) {
+	public WorksheetContent(Content<?> parent, WorksheetDefinition definition, String sheetName) {
 		super(parent, definition);
 		this.sheetName = sheetName;
 		for (Definition<?> childDefinition : definition.getChildren()) {

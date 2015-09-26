@@ -6,7 +6,7 @@ import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
  * 単一セルのリンク定義です
@@ -37,7 +37,7 @@ abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?
 	/**
 	 * Book読み込み定義
 	 */
-	protected WorkbookDefinitionImpl book;
+	protected WorkbookDefinition book;
 
 	/**
 	 * コンストラクタ
@@ -47,7 +47,7 @@ abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?
 	 * @param options オプション
 	 * @param config リンク設定
 	 */
-	protected AbstractLinkCellDefinition(WorkbookDefinitionImpl book, P parent, String id, boolean noOutput, Map<String, String> config) {
+	protected AbstractLinkCellDefinition(WorkbookDefinition book, P parent, String id, boolean noOutput, Map<String, String> config) {
 		super(parent, id, noOutput, null);
 		this.validateConfig(config, CONFIG);
 		this.book = book;

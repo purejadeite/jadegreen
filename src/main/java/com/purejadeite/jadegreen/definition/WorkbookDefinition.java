@@ -9,17 +9,17 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class WorkbookDefinitionImpl extends AbstractParentDefinition<NoDefinition, WorksheetDefinitionImpl> {
+public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, WorksheetDefinition> {
 
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	public WorkbookDefinitionImpl(Map<String, Object> config) {
+	public WorkbookDefinition(Map<String, Object> config) {
 		super(null, config);
 	}
 
-	public static WorkbookDefinitionImpl newInstance(Map<String, Object> config) {
-		return new WorkbookDefinitionImpl(config);
+	public static WorkbookDefinition newInstance(Map<String, Object> config) {
+		return new WorkbookDefinition(config);
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class WorkbookDefinitionImpl extends AbstractParentDefinition<NoDefinitio
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(WorksheetDefinitionImpl sheet: getChildren()) {
+		for(WorksheetDefinition sheet: getChildren()) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);

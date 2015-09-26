@@ -28,7 +28,7 @@ public class LinkContentUtils {
 		Object mySheetKeyValues = mySheetKeyContent.getValues();
 		for (Content<?> sheetKeyContent : sheetKeyContents) {
 			if (mySheetKeyValues.equals(sheetKeyContent.getValues())) {
-				return sheetKeyContent.getUpperContent(WorksheetContentImpl.class);
+				return sheetKeyContent.getUpperContent(WorksheetContent.class);
 			}
 		}
 		return null;
@@ -37,7 +37,7 @@ public class LinkContentUtils {
 	public static Content<?> getValueContent(Content<?> targetSheet, List<Content<?>> valueContents) {
 		for (Content<?> valueContent : valueContents) {
 			// そのキーと同じシートにある値を探す
-			if (targetSheet == valueContent.getUpperContent(WorksheetContentImpl.class)) {
+			if (targetSheet == valueContent.getUpperContent(WorksheetContent.class)) {
 				return valueContent;
 			}
 		}

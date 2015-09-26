@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
  * @author mitsuhiroseino
  */
-public interface RangeDefinition<C extends RangeCellDefinition<?>> extends ParentDefinition<WorksheetDefinitionImpl, C> {
+public interface RangeDefinition<C extends RangeCellDefinition<?>> extends ParentDefinition<WorksheetDefinition, C> {
 
 	/**
 	 * 終了条件になる項目の定義IDを取得します

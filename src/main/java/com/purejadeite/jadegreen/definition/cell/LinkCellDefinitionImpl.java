@@ -8,16 +8,16 @@ import java.util.Map;
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
-import com.purejadeite.jadegreen.definition.WorkbookDefinitionImpl;
-import com.purejadeite.jadegreen.definition.WorksheetDefinitionImpl;
+import com.purejadeite.jadegreen.definition.WorkbookDefinition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 
 /**
  * 単一セルのリンク定義です
  *
  * @author mitsuhiroseino
  */
-public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<WorksheetDefinitionImpl>
-		implements LinkCellDefinition<WorksheetDefinitionImpl>, LinkDefinition<WorksheetDefinitionImpl> {
+public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<WorksheetDefinition>
+		implements LinkCellDefinition<WorksheetDefinition>, LinkDefinition<WorksheetDefinition> {
 
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
 
@@ -48,7 +48,7 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 	/**
 	 * Book読み込み定義
 	 */
-	protected WorkbookDefinitionImpl book;
+	protected WorkbookDefinition book;
 
 	/**
 	 * コンストラクタ
@@ -64,7 +64,7 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 	 * @param linkConfig
 	 *            リンク設定
 	 */
-	protected LinkCellDefinitionImpl(WorkbookDefinitionImpl book, WorksheetDefinitionImpl parent, String id,
+	protected LinkCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition parent, String id,
 			boolean noOutput, List<Map<String, Object>> options, Map<String, String> linkConfig) {
 		super(parent, id, noOutput, options);
 		this.validateConfig(linkConfig, CONFIG);
@@ -74,7 +74,7 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 		this.valueId = linkConfig.get(CFG_VALUE_ID);
 	}
 
-	public static Definition<?> newInstance(WorkbookDefinitionImpl book, WorksheetDefinitionImpl parent,
+	public static Definition<?> newInstance(WorkbookDefinition book, WorksheetDefinition parent,
 			Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
