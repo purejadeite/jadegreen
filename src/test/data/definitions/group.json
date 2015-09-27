@@ -1,0 +1,25 @@
+{
+	"id": "book",
+	"sheets": [
+		{
+			"comment": "グループ",
+			"id": "sub",
+		    "name": "validation",
+		    "cells": [
+		        {"id": "logicalClassName", "row": 1, "column": 3},
+		        {"id": "className", "row": 2, "column": 3},
+		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [{"type": "group", "keyId": "fieldName", "toId": "validators"}],
+		            "columns": [
+		                {"id": "logicalFieldName", "column": 2},
+		                {"id": "fieldName", "column": 3},
+		                {"id": "validationType", "column": 4},
+		                {"id": "arg0", "column": 5},
+		                {"id": "arg1", "column": 6},
+		                {"id": "arg2", "column": 7},
+		                {"id": "arg3", "column": 8}
+		            ]
+		        }
+		    ]
+		}
+	]
+}

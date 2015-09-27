@@ -7,8 +7,6 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.option.generator.ValueGenerator;
-import com.purejadeite.jadegreen.definition.option.generator.ValueGeneratorManager;
 
 /**
  * 固定値の定義です
@@ -17,7 +15,7 @@ import com.purejadeite.jadegreen.definition.option.generator.ValueGeneratorManag
  */
 public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractNoAdressCellDefinition<P> {
 
-	private ValueGenerator generator;
+	private String value;
 
 	/**
 	 * コンストラクタ
@@ -35,11 +33,9 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 * @param options
 	 *            コンバーター
 	 */
-	private ValueDefinitionImpl(P parent, String id, boolean noOutput, Map<String, Object> generator, List<Map<String, Object>> options) {
+	private ValueDefinitionImpl(P parent, String id, boolean noOutput, String value, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
-		if (generator != null) {
-			this.generator = ValueGeneratorManager.build(generator);
-		}
+		this.value = value;
 	}
 
 	/**
@@ -62,27 +58,22 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		Map<String, Object> generator = RoughlyMapUtils.getMap(config, GENERATOR);
+		String value = RoughlyMapUtils.getString(config, VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new ValueDefinitionImpl<P>(parent, id, noOutput, generator, options);
+		return new ValueDefinitionImpl<P>(parent, id, noOutput, value, options);
 	}
 
 	@Override
 	public Object apply(Object value) {
-		Object val = value;
-		if (generator != null) {
-			val = generator.apply(val);
-		}
-		return super.apply(val);
+		return super.apply(value);
 	}
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("generator", generator);
+		map.put("value", value);
 		return map;
 	}
 

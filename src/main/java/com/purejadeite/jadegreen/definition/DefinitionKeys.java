@@ -137,4 +137,9 @@ public class DefinitionKeys {
 	 */
 	public static final String GENERATOR = "generator";
 
+	/**
+	 * 値
+	 */
+	public static final String VALUE = "value";
+
 }

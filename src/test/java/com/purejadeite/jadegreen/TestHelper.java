@@ -18,12 +18,12 @@ class TestHelper {
 		return toJsonString(new File(jsonFilePath));
 	}
 
-	public static String toJsonString(File definitionsDir, String jsonFileName) throws IOException {
-		return toJsonString(new File(definitionsDir, jsonFileName));
+	public static String toJsonString(File dir, String jsonFileName) throws IOException {
+		return toJsonString(new File(dir, jsonFileName));
 	}
 
-	public static String toJsonString(String definitionsDirPath, String jsonFileName) throws IOException {
-		return toJsonString(new File(definitionsDirPath, jsonFileName));
+	public static String toJsonString(String dirPath, String jsonFileName) throws IOException {
+		return toJsonString(new File(dirPath, jsonFileName));
 	}
 
 	public static String toJsonString(File jsonFile) throws IOException {
@@ -38,8 +38,8 @@ class TestHelper {
 		return toJsonObject(new File(definitionsDir, jsonFileName));
 	}
 
-	public static Object toJsonObject(String definitionsDirPath, String jsonFileName) throws IOException {
-		return toJsonObject(new File(definitionsDirPath, jsonFileName));
+	public static Object toJsonObject(String dirPath, String jsonFileName) throws IOException {
+		return toJsonObject(new File(dirPath, jsonFileName));
 	}
 
 	public static Object toJsonObject(File jsonFile) throws IOException {
@@ -52,13 +52,13 @@ class TestHelper {
 		return toJsonList(new File(jsonFilePath));
 	}
 
-	public static List<Map<String, Object>> toJsonList(File definitionsDir, String jsonFileName) throws IOException {
-		return toJsonList(new File(definitionsDir, jsonFileName));
+	public static List<Map<String, Object>> toJsonList(File dir, String jsonFileName) throws IOException {
+		return toJsonList(new File(dir, jsonFileName));
 	}
 
-	public static List<Map<String, Object>> toJsonList(String definitionsDirPath, String jsonFileName)
+	public static List<Map<String, Object>> toJsonList(String dirPath, String jsonFileName)
 			throws IOException {
-		return toJsonList(new File(definitionsDirPath, jsonFileName));
+		return toJsonList(new File(dirPath, jsonFileName));
 	}
 
 	public static List<Map<String, Object>> toJsonList(File jsonFile) throws IOException {
@@ -77,12 +77,12 @@ class TestHelper {
 		return toJsonMap(new File(jsonFilePath));
 	}
 
-	public static Map<String, Object> toJsonMap(File definitionsDir, String jsonFileName) throws IOException {
-		return toJsonMap(new File(definitionsDir, jsonFileName));
+	public static Map<String, Object> toJsonMap(File dir, String jsonFileName) throws IOException {
+		return toJsonMap(new File(dir, jsonFileName));
 	}
 
-	public static Map<String, Object> toJsonMap(String definitionsDirPath, String jsonFileName) throws IOException {
-		return toJsonMap(new File(definitionsDirPath, jsonFileName));
+	public static Map<String, Object> toJsonMap(String dirPath, String jsonFileName) throws IOException {
+		return toJsonMap(new File(dirPath, jsonFileName));
 	}
 
 	public static Map<String, Object> toJsonMap(File jsonFile) throws IOException {
@@ -95,6 +95,11 @@ class TestHelper {
 		map = MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {
 		});
 		return map;
+	}
+
+	public static Map<String, Object> readValue(String json) throws IOException {
+		return MAPPER.readValue(json, new TypeReference<Map<String, Object>>() {
+		});
 	}
 
 }

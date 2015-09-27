@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.option.range;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -56,7 +57,7 @@ public class Group extends AbstractRangeConverter {
 	@Override
 	protected Object applyImpl(List<Map<String, Object>> values) {
 		// グループ化された配列を保持するMapに変換
-		Map<Object, List<Map<String, Object>>> groupedMap = new HashMap<>();
+		Map<Object, List<Map<String, Object>>> groupedMap = new LinkedHashMap<>();
 		for (Map<String, Object> line : values) {
 			Object groupKey = line.get(keyId);
 			List<Map<String, Object>> groupedLines = groupedMap.get(groupKey);

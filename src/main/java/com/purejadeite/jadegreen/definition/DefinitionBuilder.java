@@ -94,8 +94,8 @@ public class DefinitionBuilder {
 				// 単独フィールドの場合
 				definition = LinkCellDefinitionImpl.newInstance(sheet.getParent(), sheet, config);
 			}
-		} else if (config.containsKey(GENERATOR)) {
-			// 値生成フィールドの場合
+		} else if (config.containsKey(VALUE)) {
+			// 値フィールドの場合
 			if (range != null) {
 				// 親のあるフィールドの場合
 				definition = RangeValueDefinitionImpl.newInstance(range, config);

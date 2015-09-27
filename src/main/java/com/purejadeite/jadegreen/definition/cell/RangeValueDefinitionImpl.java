@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.option.generator.ValueGenerator;
-import com.purejadeite.jadegreen.definition.option.generator.ValueGeneratorManager;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
@@ -17,7 +15,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class RangeValueDefinitionImpl<P extends RangeDefinition<?>> extends AbstractNoAdressRangeCellDefinition<P> {
 
-	private ValueGenerator generator;
+	private String value;
 
 	/**
 	 * コンストラクタ
@@ -35,12 +33,10 @@ public class RangeValueDefinitionImpl<P extends RangeDefinition<?>> extends Abst
 	 * @param options
 	 *            コンバーター
 	 */
-	private RangeValueDefinitionImpl(P parent, String id, boolean noOutput, Map<String, Object> generator,
+	private RangeValueDefinitionImpl(P parent, String id, boolean noOutput, String value,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput, options);
-		if (generator != null) {
-			this.generator = ValueGeneratorManager.build(generator);
-		}
+		this.value = value;
 	}
 
 	/**
@@ -63,18 +59,14 @@ public class RangeValueDefinitionImpl<P extends RangeDefinition<?>> extends Abst
 	public static <P extends RangeDefinition<?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		Map<String, Object> generator = RoughlyMapUtils.getMap(config, GENERATOR);
+		String value = RoughlyMapUtils.getString(config, VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new RangeValueDefinitionImpl<P>(parent, id, noOutput, generator, options);
+		return new RangeValueDefinitionImpl<P>(parent, id, noOutput, value, options);
 	}
 
 	@Override
 	public Object apply(Object value) {
-		Object val = value;
-		if (generator != null) {
-			val = generator.apply(val);
-		}
-		return super.apply(val);
+		return super.apply(value);
 	}
 
 	/**
@@ -83,7 +75,7 @@ public class RangeValueDefinitionImpl<P extends RangeDefinition<?>> extends Abst
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("generator", generator);
+		map.put("value", value);
 		return map;
 	}
 
