@@ -54,10 +54,6 @@ public class SxssfValueMapperTest {
 		test("multi");
 	}
 
-	@Test
-	public void cell() {
-		LOGGER.debug("" + SxssfUtils.toColIndex("Z12"));
-	}
 	private void test(String name) throws Exception {
 		try {
 			// 定義の読み込み
