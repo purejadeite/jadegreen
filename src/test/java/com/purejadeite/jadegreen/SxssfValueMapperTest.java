@@ -6,8 +6,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,65 +52,40 @@ public class SxssfValueMapperTest {
 		test("multi");
 	}
 
-	private void test(String name) throws Exception {
-		try {
-			// 定義の読み込み
-			Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
-			WorkbookDefinition bookDefinition = DefinitionBuilder.build(jsonObj);
-			// excelファイルの取得
-			File excelFile = null;
-			for (String extension : EXCEL_EXTENSIONS) {
-				excelFile = new File(INPUTS_DIR, name + extension);
-				if (excelFile.exists()) {
-					break;
-				}
-			}
-			// マッパーの実行
-			List<Map<String, Object>> actual = SxssfValueMapper.read(excelFile, bookDefinition);
-
-			// 結果の確認
-			List<Map<String, Object>> expected = TestHelper.toJsonList(EXPECTED_DIR, name + ".json");
-			LOGGER.info("actual: " + actual.toString());
-			LOGGER.info("expected: " + expected.toString());
-			assertEquals(actual, expected);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+	@Test
+	public void multilink() throws Exception {
+		test("multilink");
 	}
 
-	private void exec(String name) {
-		try {
-			Map<String, Object> expected = TestHelper.toJsonMap(EXPECTED_DIR, name + ".json");
-			// 定義の読み込み
-			Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
-			WorkbookDefinition bookDefinition = DefinitionBuilder.build(jsonObj);
-			// 定義の確認
-			LOGGER.debug("■ " + name);
-			LOGGER.debug("☆ 定義 ☆");
-			LOGGER.debug("\r\n\r\n" + bookDefinition.toMap() + "\r\n");
-			// excelファイルの取得
-			File excelFile = null;
-			for (String extension : EXCEL_EXTENSIONS) {
-				excelFile = new File(INPUTS_DIR, name + extension);
-				if (excelFile.exists()) {
-					break;
-				}
+	@Test(expected = ContentException.class)
+	public void ununiquecelllink() throws Exception {
+		test("ununiquecelllink");
+	}
+
+	@Test(expected = ContentException.class)
+	public void ununiquerangelink() throws Exception {
+		test("ununiquerangelink");
+	}
+
+	private void test(String name) throws Exception {
+		// 定義の読み込み
+		Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
+		WorkbookDefinition bookDefinition = DefinitionBuilder.build(jsonObj);
+		// excelファイルの取得
+		File excelFile = null;
+		for (String extension : EXCEL_EXTENSIONS) {
+			excelFile = new File(INPUTS_DIR, name + extension);
+			if (excelFile.exists()) {
+				break;
 			}
-
-			// マッパーの実行
-			List<Map<String, Object>> mappedData = SxssfValueMapper.read(excelFile, bookDefinition);
-
-			// 結果の確認
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(mappedData);
-			LOGGER.debug("★ 結果 ★");
-			LOGGER.debug("\r\n\r\n" + json + "\r\n");
-			// 結果の出力
-			File output = new File(OUTPUTS_DIR, name + ".json");
-			FileUtils.writeStringToFile(output, json);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		// マッパーの実行
+		List<Map<String, Object>> actual = SxssfValueMapper.read(excelFile, bookDefinition);
+
+		// 結果の確認
+		List<Map<String, Object>> expected = TestHelper.toJsonList(EXPECTED_DIR, name + ".json");
+		LOGGER.info("actual: " + TestHelper.toJsonString(actual));
+		LOGGER.info("expected: " + TestHelper.toJsonString(expected));
+		assertEquals(expected, actual);
 	}
 }

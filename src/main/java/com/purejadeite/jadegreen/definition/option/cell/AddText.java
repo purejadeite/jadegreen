@@ -30,7 +30,7 @@ public class AddText extends AbstractStringCellConverter {
 	private String suffix;
 
 	/**
-	 * NULLの場合は処理対象外
+	 * NULL,空文字の場合は処理対象外
 	 */
 	private boolean ignoreEmpty;
 

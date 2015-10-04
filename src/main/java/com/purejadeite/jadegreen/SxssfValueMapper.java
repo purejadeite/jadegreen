@@ -72,6 +72,9 @@ public class SxssfValueMapper {
 		OPCPackage pkg = null;
 		XSSFReader reader = null;
 		SharedStringsTable sst = null;
+		if (!excelFile.isFile()) {
+			throw new MappingException("excelFile=" + excelFile.getPath() + ":ファイルが存在しません");
+		}
 		try {
 			// ファイルを開く
 			pkg = OPCPackage.open(excelFile);

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 import com.purejadeite.jadegreen.definition.option.generator.ValueGeneratorManager;
 import com.purejadeite.jadegreen.definition.option.range.RangeOptionManager;
@@ -17,9 +19,10 @@ public class OptionsBuilder {
 		List<Applier> options = new ArrayList<>();
 		Applier option = null;
 		for (Map<String, Object> opt : opts) {
-			option = build(opt);
+			String type = RoughlyMapUtils.getString(opt, DefinitionKeys.TYPE);
+			option = build(type, opt);
 			if (option == null) {
-				throw new IllegalStateException("type=" + opt.get(DefinitionKeys.TYPE) + "は存在しません");
+				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");
 			} else {
 				options.add(option);
 			}
@@ -27,13 +30,16 @@ public class OptionsBuilder {
 		return new Options(options);
 	}
 
-	public static Applier build(Map<String, Object> opt) {
-		Applier option = ValueGeneratorManager.build(opt);
+	public static Applier build(String type, Map<String, Object> config) {
+		if (type == null) {
+			throw new DefinitionException("option=" + config + ":optionにtypeが設定されていません");
+		}
+		Applier option = ValueGeneratorManager.build(type, config);
 		if (option == null) {
-			option = CellOptionManager.build(opt);
+			option = CellOptionManager.build(type, config);
 		}
 		if (option == null) {
-			option = RangeOptionManager.build(opt);
+			option = RangeOptionManager.build(type, config);
 		}
 		return option;
 	}

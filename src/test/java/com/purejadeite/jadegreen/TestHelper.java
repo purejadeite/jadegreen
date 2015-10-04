@@ -14,6 +14,14 @@ class TestHelper {
 
 	private static ObjectMapper MAPPER = new ObjectMapper();
 
+	public static String toJsonString(List<?> list) throws IOException {
+		return MAPPER.writeValueAsString(list);
+	}
+
+	public static String toJsonString(Map<?, ?> map) throws IOException {
+		return MAPPER.writeValueAsString(map);
+	}
+
 	public static String toJsonString(String jsonFilePath) throws IOException {
 		return toJsonString(new File(jsonFilePath));
 	}

@@ -5,8 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.DefinitionKeys;
+import com.purejadeite.jadegreen.MappingException;
 
 /**
  * テーブルの変換を行うコンバーターインスタンスを生成するクラスです
@@ -39,11 +38,7 @@ public class RangeOptionManager {
 	 * @param config コンバーターのコンフィグ
 	 * @return コンバーター
 	 */
-	public static RangeOption build(Map<String, Object> config) {
-		String type = RoughlyMapUtils.getString(config, DefinitionKeys.TYPE);
-		if (type == null) {
-			return null;
-		}
+	public static RangeOption build(String type, Map<String, Object> config) {
 		// クラスを取得
 		Class<? extends RangeOption> clazz = OPTIONS.get(type.toLowerCase());
 		if (clazz == null) {
@@ -54,7 +49,7 @@ public class RangeOptionManager {
 		try {
 			constructor = clazz.getConstructor(Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			return null;
+			throw new MappingException("type=" + type + ":optionsのclassからデフォルトコンストラクターが取得できません");
 		}
 
 		// インスタンスを取得
@@ -62,7 +57,7 @@ public class RangeOptionManager {
 		try {
 			option = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			return null;
+			throw new MappingException("type=" + type + ":optionsのclassからインスタンスが作成できません");
 		}
 		return option;
 	}

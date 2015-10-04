@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
@@ -143,7 +144,7 @@ public class DefinitionBuilder {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
 		} else {
 			String id = RoughlyMapUtils.getString(config, ID);
-			LOGGER.warn("定義が不正です:" + id);
+			throw new DefinitionException("id=" + id + ":定義が不正です");
 		}
 		return definition;
 	}
@@ -164,8 +165,8 @@ public class DefinitionBuilder {
 			if (child instanceof RangeCellDefinition) {
 				definitions.add((RangeCellDefinition<?>) child);
 			} else {
-				throw new IllegalArgumentException(
-						"rangeの配下にはcellを定義してください：range=" + range.getFullId() + ",cell=" + child.getFullId());
+				throw new DefinitionException("range=" + range.getFullId() + "&illegal child=" + child.getFullId() +
+						":rangeの子要素にはcellを定義してください");
 			}
 		}
 		return definitions;

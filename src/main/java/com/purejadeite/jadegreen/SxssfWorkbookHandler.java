@@ -92,6 +92,7 @@ public class SxssfWorkbookHandler extends DefaultHandler {
 			type = MatchType.REGEX;
 		}
 		this.matchSheetName = str;
+		this.type = type;
 	}
 
 	/**

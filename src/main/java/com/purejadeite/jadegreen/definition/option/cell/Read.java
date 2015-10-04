@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.RoughlyMapUtils;
 
 /**
@@ -70,8 +71,7 @@ public class Read extends AbstractCellConverter {
 			try {
 				return FileUtils.readFileToString(new File(filePath));
 			} catch (IOException e) {
-				LOGGER.error("ファイルがありません:" + filePath);
-				throw new IllegalArgumentException(e);
+				throw new DefinitionException("filePath=" + filePath + ":ファイルを取得できません", e);
 			}
 		}
 		return null;

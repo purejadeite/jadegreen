@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.AbstractToMap;
+import com.purejadeite.jadegreen.DefinitionException;
 
 /**
  *
@@ -31,9 +32,8 @@ abstract public class AbstractApplier extends AbstractToMap implements Applier, 
 	 */
 	protected void validateConfig(Map<String, ? extends Object> config, String... persistence) {
 		for (String property : persistence) {
-			Object value = config.get(property);
-			if (value == null) {
-				throw new IllegalArgumentException(property + " は必須です");
+			if (!config.containsKey(property)) {
+				throw new DefinitionException(property + "=null:必須項目が設定されていません");
 			}
 		}
 	}

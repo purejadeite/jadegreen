@@ -155,7 +155,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 			if (!ArrayUtils.contains(ignore, cell.getDefinition())) {
 				@SuppressWarnings("unchecked")
 				List<Object> vals = (List<Object>) getter.get(cell);
-				if (SpecificValue.NO_OUTPUT.equals(vals)) {
+				if (vals == null || SpecificValue.NO_OUTPUT.equals(vals)) {
 					continue;
 				}
 				for (int i = 0; i < vals.size(); i++) {

@@ -5,8 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.DefinitionKeys;
+import com.purejadeite.jadegreen.MappingException;
 
 public class ValueGeneratorManager {
 
@@ -24,14 +23,7 @@ public class ValueGeneratorManager {
 		GENERATORS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-	public static ValueGenerator build(Map<String, Object> config) {
-		if (config == null) {
-			return null;
-		}
-		String type = RoughlyMapUtils.getString(config, DefinitionKeys.TYPE);
-		if (type == null) {
-			return null;
-		}
+	public static ValueGenerator build(String type, Map<String, Object> config) {
 		// クラスを取得
 		Class<? extends ValueGenerator> clazz = GENERATORS.get(type.toLowerCase());
 		if (clazz == null) {
@@ -42,7 +34,7 @@ public class ValueGeneratorManager {
 		try {
 			constructor = clazz.getConstructor(Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			return null;
+			throw new MappingException("type=" + type + ":optionsのclassからデフォルトコンストラクターが取得できません");
 		}
 
 		// インスタンスを取得
@@ -50,7 +42,7 @@ public class ValueGeneratorManager {
 		try {
 			generator = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			return null;
+			throw new MappingException("type=" + type + ":optionsのclassからインスタンスが作成できません");
 		}
 		return generator;
 	}

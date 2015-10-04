@@ -54,6 +54,8 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
+		// 自分のsheetを取得
+		WorksheetContent sheet = this.getUpperContent(WorksheetContent.class);
 
 		// 全Contentから欲しい値のContentを取得
 		List<Content<?>> valueContents = book.searchContents(definition.getValueDefinition());
@@ -69,44 +71,31 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 		}
 
 		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content<?>> sheetKeyContents = getSheetKeyContents(book);
+		List<Content<?>> sheetKeyContents = LinkContentUtils.getSheetKeyContents(book, definition);
 
 		// 自分の属するシートのキーを取得
-		Content<?> mySheetKeyContent = getMySheetKeyContent(book);
+		Content<?> mySheetKeyContent = LinkContentUtils.getMySheetKeyContent(sheet, definition);
 
 		// 値の取得元シートを取得
-		WorksheetContent targetSheet = getTargetSheet(mySheetKeyContent, sheetKeyContents);
+		WorksheetContent targetSheet = LinkContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);
+		if (targetSheet == null) {
+			// 紐付くシートなし
+			return null;
+		}
 
 		// 所得元の値のセルを取得
-		Content<?> valueContent = getValueContent(targetSheet, valueContents);
+		Content<?> valueContent = LinkContentUtils.getValueContent(targetSheet, valueContents);
 		if (valueContent != null) {
 			return valueContent.getValues(ignore);
 		} else {
-			// 値が見つからないならばシートの状態がおかしい
-			throw new IllegalStateException("リンク先の値を取得できませんでした。");
+			// ない場合もある
+			return null;
 		}
 	}
 
 	@Override
 	public boolean isClosed() {
 		return true;
-	}
-
-	public List<Content<?>> getSheetKeyContents(WorkbookContent book) {
-		return LinkContentUtils.getSheetKeyContents(book, definition);
-	}
-
-	public Content<?> getMySheetKeyContent(WorkbookContent book) {
-		WorksheetContent sheet = this.getUpperContent(WorksheetContent.class);
-		return LinkContentUtils.getMySheetKeyContent(book, sheet, definition);
-	}
-
-	public WorksheetContent getTargetSheet(Content<?> mySheetKeyContent, List<Content<?>> sheetKeyContents) {
-		return LinkContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);
-	}
-
-	public Content<?> getValueContent(WorksheetContent targetSheet, List<Content<?>> valueContents) {
-		return LinkContentUtils.getValueContent(targetSheet, valueContents);
 	}
 
 	@Override
