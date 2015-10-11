@@ -13,6 +13,8 @@ import com.purejadeite.jadegreen.definition.AbstractApplier;
  */
 abstract public class AbstractRangeConverter extends AbstractApplier implements RangeOption, Serializable {
 
+	private static final long serialVersionUID = -2315365183856254349L;
+
 	/**
 	 * コンストラクタ
 	 *

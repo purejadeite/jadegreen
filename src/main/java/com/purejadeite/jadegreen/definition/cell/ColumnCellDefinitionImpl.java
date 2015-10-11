@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class ColumnCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefinition<?>> {
 
+	private static final long serialVersionUID = -1504987549447864687L;
+
 	/**
 	 * コンストラクタ
 	 *

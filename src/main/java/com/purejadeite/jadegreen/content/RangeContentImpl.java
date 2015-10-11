@@ -20,6 +20,8 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implements RangeContent {
 
+	private static final long serialVersionUID = 2393648151533807595L;
+
 	protected List<RangeCellContent<?>> cells = new ArrayList<>();
 
 	/**

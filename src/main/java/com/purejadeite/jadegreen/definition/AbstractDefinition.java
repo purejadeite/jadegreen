@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
 */
 abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> extends AbstractApplier implements Definition<P>, Serializable {
 
+	private static final long serialVersionUID = -847224181929765049L;
+
 	/**
 	 * 必須項目名称
 	 */

@@ -2,10 +2,17 @@ package com.purejadeite.jadegreen.definition.option.range;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.MappingException;
+import com.purejadeite.jadegreen.RoughlyMapUtils;
+import com.purejadeite.jadegreen.definition.Applier;
+import com.purejadeite.jadegreen.definition.DefinitionKeys;
+import com.purejadeite.jadegreen.definition.Options;
 
 /**
  * テーブルの変換を行うコンバーターインスタンスを生成するクラスです
@@ -30,6 +37,24 @@ public class RangeOptionManager {
 
 	public static void register(Class<? extends RangeOption> clazz) {
 		OPTIONS.put(clazz.getSimpleName().toLowerCase(), clazz);
+	}
+
+	public static Options build(List<Map<String, Object>> opts) {
+		if (opts == null || opts.size() == 0) {
+			return null;
+		}
+		List<Applier> options = new ArrayList<>();
+		Applier option = null;
+		for (Map<String, Object> opt : opts) {
+			String type = RoughlyMapUtils.getString(opt, DefinitionKeys.TYPE);
+			option = build(type, opt);
+			if (option == null) {
+				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");
+			} else {
+				options.add(option);
+			}
+		}
+		return new Options(options);
 	}
 
 	/**

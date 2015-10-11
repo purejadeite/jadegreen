@@ -21,6 +21,8 @@ import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
  */
 public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRangeCellDefinitionImpl> implements RangeCellContent<LinkRangeCellDefinitionImpl>, LinkCellContent<LinkRangeCellDefinitionImpl> {
 
+	private static final long serialVersionUID = 7690624851647074594L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkRangeCellContentImpl.class);
 
 	public LinkRangeCellContentImpl(Content<?> parent, LinkRangeCellDefinitionImpl definition) {

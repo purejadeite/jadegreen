@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.definition.ParentDefinition;
  */
 public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractNoAdressCellDefinition<P> {
 
+	private static final long serialVersionUID = 7280801241651790531L;
+
 	private String value;
 
 	/**

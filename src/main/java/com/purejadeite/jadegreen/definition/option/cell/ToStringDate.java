@@ -13,6 +13,8 @@ import com.purejadeite.jadegreen.SxssfUtils;
  */
 public class ToStringDate extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -6876337386509102177L;
+
 	private static final String CFG_DATE_FORMAT = "dateFormat";
 
 	/**

@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.definition.AbstractApplier;
  */
 abstract public class AbstractCellConverter extends AbstractApplier implements CellOption, Serializable {
 
+	private static final long serialVersionUID = 3541565837327103077L;
+
 	/**
 	 * コンストラクタ
 	 *

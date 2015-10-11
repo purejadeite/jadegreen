@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ToNull extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = 7289936917974505093L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.generator;
+package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
@@ -11,6 +11,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  *
  */
 public class Fixed extends AbstractUnrelatedValueGenerator {
+
+	private static final long serialVersionUID = 2129167612190837570L;
 
 	private static final String CFG_VALUE = "value";
 

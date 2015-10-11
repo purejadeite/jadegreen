@@ -6,15 +6,17 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.OptionsBuilder;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
+import com.purejadeite.jadegreen.definition.option.range.RangeOptionManager;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
 abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> extends AbstractParentDefinition<WorksheetDefinition, C> implements RangeDefinition<C> {
+
+	private static final long serialVersionUID = -6138799003034104152L;
 
 	/**
 	 * 開始位置
@@ -81,7 +83,7 @@ abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> 
 		this.end = end <= 0 ? Integer.MAX_VALUE : end;
 		this.endKeyId = endKeyId;
 		this.endValue = endValue;
-		this.options = OptionsBuilder.build(options);
+		this.options = RangeOptionManager.build(options);
 	}
 
 	/**

@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 */
 public class Lower extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -4426567676789266496L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

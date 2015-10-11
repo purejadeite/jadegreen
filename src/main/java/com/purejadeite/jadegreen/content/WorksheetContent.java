@@ -26,6 +26,8 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 
+	private static final long serialVersionUID = -6579860061499426256L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(WorksheetContent.class);
 
 	private String sheetName;

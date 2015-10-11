@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.definition.ParentDefinition;
  */
 abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> {
 
+	private static final long serialVersionUID = 5276446229482797364L;
+
 	/**
 	 * コンストラクタ
 	 *

@@ -21,6 +21,8 @@ import com.purejadeite.jadegreen.definition.ParentDefinition;
  */
 public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> {
 
+	private static final long serialVersionUID = -7466869542966847881L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileCellDefinitionImpl.class);
 
 	private String filePath;

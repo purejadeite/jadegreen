@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class Unique extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = 5701716891112764511L;
+
 	/**
 	 * コンストラクタ
 	 * @param range 変換元の値を持つ定義

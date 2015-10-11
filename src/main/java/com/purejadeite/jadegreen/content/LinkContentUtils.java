@@ -46,10 +46,10 @@ public class LinkContentUtils {
 		List<Content<?>> sheetKeyContents = sheet.searchContents(sheetKeyDefinition);
 		if (sheetKeyContents.isEmpty()) {
 			// キーが無いならば定義が不正なので例外
-			throw new DefinitionException(sheetKeyDefinition, "シートのキーが定義されていません");
+			throw new DefinitionException("シートのキーが定義されていません", sheetKeyDefinition);
 		} else if (sheetKeyContents.size() != 1) {
 			// キーが一意でないならば例外
-			throw new ContentException(sheetKeyContents, "シートのキーが複数存在します");
+			throw new ContentException("シートのキーが複数存在します", sheetKeyContents);
 		}
 		return sheetKeyContents.get(0);
 	}
@@ -70,7 +70,7 @@ public class LinkContentUtils {
 			if (mySheetKeyValues.equals(sheetKeyContent.getValues())) {
 				if (sheetContent != null) {
 					// キーが一意でないならば例外
-					throw new ContentException(sheetKeyContent, "リンク対象のシートが複数存在します");
+					throw new ContentException("リンク対象のシートが複数存在します", sheetKeyContent);
 				}
 				sheetContent = sheetKeyContent.getUpperContent(WorksheetContent.class);
 			}

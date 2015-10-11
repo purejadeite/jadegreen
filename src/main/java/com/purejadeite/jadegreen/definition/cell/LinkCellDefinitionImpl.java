@@ -19,6 +19,8 @@ import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<WorksheetDefinition>
 		implements LinkCellDefinition<WorksheetDefinition>, LinkDefinition<WorksheetDefinition> {
 
+	private static final long serialVersionUID = -6688614988181481927L;
+
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
 
 	private static final String CFG_SHEET_KEY_ID = "sheetKeyId";

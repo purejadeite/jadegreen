@@ -18,6 +18,8 @@ import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
  */
 public class AbstractRangeCellContent<D extends RangeCellDefinition<?>> extends AbstractContent<D> implements RangeCellContent<D> {
 
+	private static final long serialVersionUID = 1420210546938530625L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRangeCellContent.class);
 
 	/**

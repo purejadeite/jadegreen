@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.definition.WorksheetDefinition;
  */
 public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefinition> {
 
+	private static final long serialVersionUID = -6196528307255166352L;
+
 	/**
 	 * 取得対象列
 	 */

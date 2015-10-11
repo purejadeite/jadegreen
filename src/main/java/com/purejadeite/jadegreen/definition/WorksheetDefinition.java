@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  */
 public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefinition, Definition<?>> {
 
+	private static final long serialVersionUID = -1303967958765873003L;
+
 	private static final String CFG_NAME = "name";
 
 	/**

@@ -20,6 +20,8 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
  */
 public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl> implements LinkCellContent<LinkCellDefinitionImpl>{
 
+	private static final long serialVersionUID = 3474501722301631948L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkCellContentImpl.class);
 
 	public LinkCellContentImpl(Content<?> parentContent, LinkCellDefinitionImpl definition) {

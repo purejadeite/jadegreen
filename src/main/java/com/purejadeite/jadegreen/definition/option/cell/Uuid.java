@@ -1,22 +1,23 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
- * 文字列を String へ変換するクラス
+ * ランダムなUUIDを生成するクラス
  * @author mitsuhiroseino
  *
  */
-public class ToString extends AbstractStringCellConverter {
+public class Uuid extends AbstractUnrelatedValueGenerator {
 
-	private static final long serialVersionUID = -4473704020871289734L;
+	private static final long serialVersionUID = 1577740202379006372L;
 
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToString(Map<String, Object> config) {
+	public Uuid(Map<String, Object> config) {
 		super();
 	}
 
@@ -24,8 +25,7 @@ public class ToString extends AbstractStringCellConverter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
-		return value == null ? null : value;
+	public Object applyImpl(Object value) {
+		return UUID.randomUUID();
 	}
-
 }

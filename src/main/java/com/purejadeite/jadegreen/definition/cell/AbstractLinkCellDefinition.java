@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.definition.WorkbookDefinition;
  */
 abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> implements LinkCellDefinition<P>, LinkDefinition<P> {
 
+	private static final long serialVersionUID = 8219059199809135196L;
+
 	/**
 	 * 必須項目名称
 	 */

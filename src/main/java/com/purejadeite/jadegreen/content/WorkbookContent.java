@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.definition.WorkbookDefinition;
  */
 public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
+	private static final long serialVersionUID = -1677962020788016225L;
+
 	private String name;
 
 	private List<WorksheetContent> sheets = new ArrayList<>();

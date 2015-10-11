@@ -12,6 +12,10 @@ import com.purejadeite.jadegreen.SxssfUtils;
  */
 public class ToDate extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = 247396559988860716L;
+
+	private static final String CFG_USE1904 = "use1904";
+
 	private boolean use1904windowing;
 
 	/**
@@ -21,7 +25,7 @@ public class ToDate extends AbstractStringCellConverter {
 	 */
 	public ToDate(Map<String, Object> config) {
 		super();
-		use1904windowing = RoughlyMapUtils.getBooleanValue(config, "use1904windowing");
+		use1904windowing = RoughlyMapUtils.getBooleanValue(config, CFG_USE1904);
 	}
 
 	/**

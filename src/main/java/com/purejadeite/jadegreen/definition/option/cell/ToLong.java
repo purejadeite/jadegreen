@@ -11,6 +11,8 @@ import com.purejadeite.jadegreen.SxssfUtils;
  */
 public class ToLong extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -3511954204763743901L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

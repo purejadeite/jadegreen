@@ -13,6 +13,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class AddText extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -9117326686130712272L;
+
 	private static final String CFG_PREFIX = "prefix";
 
 	private static final String CFG_SUFFIX = "suffix";

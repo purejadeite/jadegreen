@@ -33,6 +33,9 @@ import com.purejadeite.jadegreen.definition.WorksheetDefinition;
  */
 public class SxssfValueMapper {
 
+	/**
+	 * ロガー
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfValueMapper.class);
 
 	/**

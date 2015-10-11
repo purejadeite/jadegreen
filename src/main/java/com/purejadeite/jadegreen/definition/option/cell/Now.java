@@ -1,21 +1,23 @@
-package com.purejadeite.jadegreen.definition.option.generator;
+package com.purejadeite.jadegreen.definition.option.cell;
 
+import java.util.Date;
 import java.util.Map;
-import java.util.UUID;
 
 /**
- * ランダムなUUIDを生成するクラス
+ * 現在時刻を生成するクラス
  * @author mitsuhiroseino
  *
  */
-public class Uuid extends AbstractUnrelatedValueGenerator {
+public class Now extends AbstractUnrelatedValueGenerator {
+
+	private static final long serialVersionUID = 6703579512400061087L;
 
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Uuid(Map<String, Object> config) {
+	public Now(Map<String, Object> config) {
 		super();
 	}
 
@@ -24,6 +26,6 @@ public class Uuid extends AbstractUnrelatedValueGenerator {
 	 */
 	@Override
 	public Object applyImpl(Object value) {
-		return UUID.randomUUID();
+		return new Date();
 	}
 }

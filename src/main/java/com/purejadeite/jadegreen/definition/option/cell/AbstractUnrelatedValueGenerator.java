@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.generator;
+package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +10,8 @@ import java.util.Collection;
  *
  */
 abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedValueGenerator {
+
+	private static final long serialVersionUID = 6845820256414231577L;
 
 	/**
 	 * コンストラクタ

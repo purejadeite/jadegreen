@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.OptionsBuilder;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
 /**
  * <pre>
@@ -16,6 +16,8 @@ import com.purejadeite.jadegreen.definition.ParentDefinition;
  * @author mitsuhiroseino
  */
 abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractDefinition<P> implements CellDefinition<P> {
+
+	private static final long serialVersionUID = -1364121835461648806L;
 
 	/**
 	 * オプション
@@ -35,7 +37,7 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 	protected AbstractCellDefinition(P parent, String id, boolean noOutput,
 			List<Map<String, Object>> options) {
 		super(parent, id, noOutput);
-		this.options = OptionsBuilder.build(options);
+		this.options = CellOptionManager.build(options);
 	}
 
 	/**

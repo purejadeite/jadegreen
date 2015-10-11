@@ -18,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>>
 		extends AbstractDefinition<P>implements ParentDefinition<P, C>, Serializable {
 
+	private static final long serialVersionUID = -6619514528554034278L;
+
 	private List<C> children = new ArrayList<>();
 
 	/**

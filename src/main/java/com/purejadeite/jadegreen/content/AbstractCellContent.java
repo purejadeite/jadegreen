@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  */
 abstract public class AbstractCellContent<D extends CellDefinition<?>> extends AbstractContent<D> implements CellContent<D> {
 
+	private static final long serialVersionUID = 8565694667933995117L;
+
 	protected Object values;
 
 	public AbstractCellContent(Content<?> parent, D definition) {

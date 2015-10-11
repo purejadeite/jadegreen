@@ -9,7 +9,8 @@ import java.util.List;
  * @author mitsuhiroseino
  *
  */
-public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>> extends Definition<P> {
+public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>>
+		extends Definition<P> {
 
 	/**
 	 * 子定義を取得します

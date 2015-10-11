@@ -17,6 +17,8 @@ import com.purejadeite.jadegreen.definition.WorksheetDefinition;
  */
 public class ListCellDefinitionImpl extends CellDefinitionImpl {
 
+	private static final long serialVersionUID = 8480774727785544322L;
+
 	private String splitter;
 
 	/**

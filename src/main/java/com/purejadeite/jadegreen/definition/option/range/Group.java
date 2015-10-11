@@ -17,6 +17,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Group extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = -7712482157745974514L;
+
 	private static final String CFG_KEY_ID = "keyId";
 
 	private static final String CFG_TO_ID = "toId";

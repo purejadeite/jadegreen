@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class Options extends AbstractApplier {
 
+	private static final long serialVersionUID = 5483808061976653682L;
+
 	private List<Applier> options;
 
 	public Options (List<Applier> options) {

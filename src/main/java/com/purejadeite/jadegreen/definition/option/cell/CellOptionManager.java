@@ -2,10 +2,17 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.MappingException;
+import com.purejadeite.jadegreen.RoughlyMapUtils;
+import com.purejadeite.jadegreen.definition.Applier;
+import com.purejadeite.jadegreen.definition.DefinitionKeys;
+import com.purejadeite.jadegreen.definition.Options;
 
 public class CellOptionManager {
 
@@ -13,6 +20,12 @@ public class CellOptionManager {
 
 	static {
 		OPTIONS = new HashMap<>();
+		// generator
+		regiter(Fixed.class);
+		regiter(Index.class);
+		regiter(Now.class);
+		regiter(Uuid.class);
+		// converter
 		regiter(Split.class);
 		regiter(ToBigDecimal.class);
 		regiter(ToBoolean.class);
@@ -38,6 +51,24 @@ public class CellOptionManager {
 
 	public static void regiter(Class<? extends CellOption> clazz) {
 		OPTIONS.put(clazz.getSimpleName().toLowerCase(), clazz);
+	}
+
+	public static Options build(List<Map<String, Object>> opts) {
+		if (opts == null || opts.size() == 0) {
+			return null;
+		}
+		List<Applier> options = new ArrayList<>();
+		Applier option = null;
+		for (Map<String, Object> opt : opts) {
+			String type = RoughlyMapUtils.getString(opt, DefinitionKeys.TYPE);
+			option = build(type, opt);
+			if (option == null) {
+				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");
+			} else {
+				options.add(option);
+			}
+		}
+		return new Options(options);
 	}
 
 	public static CellOption build(String type, Map<String, Object> config) {

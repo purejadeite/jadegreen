@@ -18,10 +18,16 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefinition<RangeDefinition<?>> implements LinkCellDefinition<RangeDefinition<?>>, LinkDefinition<RangeDefinition<?>> {
 
+	private static final long serialVersionUID = 2442986614257910095L;
+
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
+	
 	private static final String CFG_MY_KEY_ID = "myKeyId";
+	
 	private static final String CFG_SHEET_KEY_ID = "sheetKeyId";
+	
 	private static final String CFG_KEY_ID = "keyId";
+	
 	private static final String CFG_VALUE_ID = "valueId";
 
 	/**

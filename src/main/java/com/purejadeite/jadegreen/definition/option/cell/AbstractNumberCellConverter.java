@@ -11,6 +11,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 abstract public class AbstractNumberCellConverter<N> extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = 698720974407694707L;
+
 	private static final String CFG_NULL_TO_ZERO = "nullToZero";
 
 	private static final String CFG_EMPTY_TO_ZERO = "emptyToZero";

@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Split extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = -7086955680521212723L;
+
 	private static final String CFG_SPLITTER = "splitter";
 
 	/**

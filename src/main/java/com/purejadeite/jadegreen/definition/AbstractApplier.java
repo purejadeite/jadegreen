@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.DefinitionException;
  */
 abstract public class AbstractApplier extends AbstractToMap implements Applier, Serializable {
 
+	private static final long serialVersionUID = -5944791488682103592L;
+
 	/**
 	 * デフォルトコンストラクタ
 	 */

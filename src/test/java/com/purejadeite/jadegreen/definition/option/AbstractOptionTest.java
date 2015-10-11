@@ -1,14 +1,14 @@
 package com.purejadeite.jadegreen.definition.option;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Applier;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
-import com.purejadeite.jadegreen.definition.OptionsBuilder;
+import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
 abstract public class AbstractOptionTest {
 
@@ -29,7 +29,7 @@ abstract public class AbstractOptionTest {
 	protected Applier getOption(String type) {
 		Map<String, Object> config = new HashMap<>();
 		config.put(DefinitionKeys.TYPE, type);
-		return OptionsBuilder.build(type, config);
+		return CellOptionManager.build(type, config);
 	}
 
 	protected Map<String, Object> getConfig(String type) {
