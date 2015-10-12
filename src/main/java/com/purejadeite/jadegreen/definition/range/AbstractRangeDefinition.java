@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
+import com.purejadeite.jadegreen.definition.AbstractParentMappingDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
@@ -14,7 +14,7 @@ import com.purejadeite.jadegreen.definition.option.range.RangeOptionManager;
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> extends AbstractParentDefinition<WorksheetDefinition, C> implements RangeDefinition<C> {
+abstract public class AbstractRangeDefinition<C extends RangeCellDefinition<?>> extends AbstractParentMappingDefinition<WorksheetDefinition, C> implements RangeDefinition<C> {
 
 	private static final long serialVersionUID = -6138799003034104152L;
 

@@ -3,7 +3,6 @@ package com.purejadeite.jadegreen.content;
 /**
  * エクセルファイル読み込みステータス
  * @author mitsuhiroseino
- *
  */
 public enum Status {
 	/**

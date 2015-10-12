@@ -1,6 +1,6 @@
 package com.purejadeite.jadegreen;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 
 /**
  * 定義不正時の例外
@@ -14,7 +14,7 @@ public class DefinitionException extends MappingException {
 	/**
 	 * 定義
 	 */
-	private Definition<?> definition;
+	private MappingDefinition<?> definition;
 
 	/**
 	 * コンストラクタ
@@ -27,7 +27,7 @@ public class DefinitionException extends MappingException {
 	 * @param message 詳細
 	 * @param definition 定義
 	 */
-	public DefinitionException(String message, Definition<?> definition) {
+	public DefinitionException(String message, MappingDefinition<?> definition) {
 		super(getErrorMessage(definition, message));
 		this.definition = definition;
 	}
@@ -38,7 +38,7 @@ public class DefinitionException extends MappingException {
 	 * @param cause 原因
 	 * @param definition 定義
 	 */
-	public DefinitionException(String message, Throwable cause, Definition<?> definition) {
+	public DefinitionException(String message, Throwable cause, MappingDefinition<?> definition) {
 		super(getErrorMessage(definition, message), cause);
 		this.definition = definition;
 	}
@@ -88,7 +88,7 @@ public class DefinitionException extends MappingException {
 	 *            元になるメッセージ
 	 * @return エラーメッセージ
 	 */
-	private static String getErrorMessage(Definition<?> definition, String baseMessage) {
+	private static String getErrorMessage(MappingDefinition<?> definition, String baseMessage) {
 		return "key=" + definition.getFullId() + ":" + baseMessage;
 	}
 
@@ -96,7 +96,7 @@ public class DefinitionException extends MappingException {
 	 * 定義を主tくします
 	 * @return 定義
 	 */
-	public Definition<?> getDefinition() {
+	public MappingDefinition<?> getDefinition() {
 		return definition;
 	}
 

@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
@@ -36,7 +36,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 	 */
 	public RangeContentImpl(Content<?> parent, RangeDefinition<?> definition) {
 		super(parent, definition);
-		for (Definition<?> childDefinition : definition.getChildren()) {
+		for (MappingDefinition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof LinkRangeCellDefinitionImpl) {
 				// リンクの場合
 				cells.add(new LinkRangeCellContentImpl(this, (LinkRangeCellDefinitionImpl) childDefinition));
@@ -121,7 +121,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(final Definition<?>... ignore) {
+	public Object getRawValuesImpl(final MappingDefinition<?>... ignore) {
 		return getCellValues(new CellValueGetter() {
 			@Override
 			public Object get(RangeCellContent<?> cell) {
@@ -134,7 +134,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(final Definition<?>... ignore) {
+	public Object getValuesImpl(final MappingDefinition<?>... ignore) {
 		Object values = getCellValues(new CellValueGetter() {
 			@Override
 			public Object get(RangeCellContent<?> cell) {
@@ -150,7 +150,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 	 * @param ignore 取得しない定義
 	 * @return 値
 	 */
-	private Object getCellValues(CellValueGetter getter, Definition<?>... ignore) {
+	private Object getCellValues(CellValueGetter getter, MappingDefinition<?>... ignore) {
 		List<Map<String, Object>> values = new ArrayList<>(size);
 
 		for (RangeCellContent<?> cell : cells) {
@@ -190,7 +190,7 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 	}
 
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
+	public List<Content<?>> searchContents(MappingDefinition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

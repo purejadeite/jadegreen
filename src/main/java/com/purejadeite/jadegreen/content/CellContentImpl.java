@@ -8,31 +8,45 @@ import org.slf4j.LoggerFactory;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
- * <pre>
- * 値の取得元セルの情報を保持する抽象クラス
- * </pre>
+ * セルの値を保持するクラス
  * @author mitsuhiroseino
  */
 public class CellContentImpl extends AbstractCellContent<CellDefinition<?>> {
 
 	private static final long serialVersionUID = -1289731718432529281L;
 
+	/**
+	 * ロガー
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CellContentImpl.class);
 
+	/**
+	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
+	 */
 	public CellContentImpl(Content<?> parent, CellDefinition<?> definition) {
 		super(parent, definition);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Status addValue(int row, int col, Object value) {
 		if (closed) {
+			// 値の取得が終了している場合
 			return END;
 		}
 		if (definition.isIncluded(row, col)) {
+			// 行列番号が取得範囲内の場合
 			this.values = value;
 			close();
 			LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
+			// 取得
 			return SUCCESS;
 		}
+		// 未取得
 		return NO;
 	}
 }

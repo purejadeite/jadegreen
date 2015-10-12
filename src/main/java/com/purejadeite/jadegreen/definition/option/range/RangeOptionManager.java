@@ -10,7 +10,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.MappingException;
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Applier;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.Options;
 
@@ -43,8 +43,8 @@ public class RangeOptionManager {
 		if (opts == null || opts.size() == 0) {
 			return null;
 		}
-		List<Applier> options = new ArrayList<>();
-		Applier option = null;
+		List<Definition> options = new ArrayList<>();
+		Definition option = null;
 		for (Map<String, Object> opt : opts) {
 			String type = RoughlyMapUtils.getString(opt, DefinitionKeys.TYPE);
 			option = build(type, opt);

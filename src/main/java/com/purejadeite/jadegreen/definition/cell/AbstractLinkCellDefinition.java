@@ -2,17 +2,17 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
  * 単一セルのリンク定義です
  * @author mitsuhiroseino
  */
-abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> implements LinkCellDefinition<P>, LinkDefinition<P> {
+abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefinition<?, ?>> extends AbstractCellDefinition<P> implements LinkCellDefinition<P>, LinkDefinition<P> {
 
 	private static final long serialVersionUID = 8219059199809135196L;
 
@@ -65,10 +65,10 @@ abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?
 	/**
 	 * {@inheritDoc}
 	 */
-	public ParentDefinition<?, ?> getMySheetKeyDefinition() {
-		Definition<?> sheet = book.get(mySheetKeyId);
-		if (sheet instanceof ParentDefinition) {
-			return (ParentDefinition<?, ?>) sheet;
+	public ParentMappingDefinition<?, ?> getMySheetKeyDefinition() {
+		MappingDefinition<?> sheet = book.get(mySheetKeyId);
+		if (sheet instanceof ParentMappingDefinition) {
+			return (ParentMappingDefinition<?, ?>) sheet;
 		} else {
 			return null;
 		}
@@ -77,10 +77,10 @@ abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?
 	/**
 	 * {@inheritDoc}
 	 */
-	public ParentDefinition<?, ?> getSheetKeyDefinition() {
-		Definition<?> sheet = book.get(sheetKeyId);
-		if (sheet instanceof ParentDefinition) {
-			return (ParentDefinition<?, ?>) sheet;
+	public ParentMappingDefinition<?, ?> getSheetKeyDefinition() {
+		MappingDefinition<?> sheet = book.get(sheetKeyId);
+		if (sheet instanceof ParentMappingDefinition) {
+			return (ParentMappingDefinition<?, ?>) sheet;
 		} else {
 			return null;
 		}
@@ -89,7 +89,7 @@ abstract public class AbstractLinkCellDefinition<P extends ParentDefinition<?, ?
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getValueDefinition() {
+	public MappingDefinition<?> getValueDefinition() {
 		return book.get(valueId);
 	}
 

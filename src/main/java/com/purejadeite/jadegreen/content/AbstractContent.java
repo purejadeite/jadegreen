@@ -6,13 +6,13 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.purejadeite.jadegreen.AbstractToMap;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 
 /**
  * 値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<D extends Definition<?>> extends AbstractToMap implements Content<D>, Serializable {
+abstract public class AbstractContent<D extends MappingDefinition<?>> extends AbstractToMap implements Content<D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
 
@@ -42,16 +42,25 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 		this.closed = false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getId() {
 		return definition.getId();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String getFullId() {
 		return definition.getFullId();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public D getDefinition() {
 		return definition;
@@ -61,7 +70,7 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValues(Definition<?>... ignore) {
+	public Object getRawValues(MappingDefinition<?>... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
 			return SpecificValue.INVALID;
 		} else {
@@ -74,13 +83,13 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	abstract public Object getRawValuesImpl(Definition<?>... ignore);
+	abstract public Object getRawValuesImpl(MappingDefinition<?>... ignore);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValues(Definition<?>... ignore) {
+	public Object getValues(MappingDefinition<?>... ignore) {
 		if (this.getDefinition().isNoOutput()) {
 			return SpecificValue.NO_OUTPUT;
 		} else {
@@ -97,8 +106,12 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 	 * @param ignore
 	 * @return
 	 */
-	abstract public Object getValuesImpl(Definition<?>... ignore);
+	abstract public Object getValuesImpl(MappingDefinition<?>... ignore);
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz) {
 		if (parent == null) {
@@ -126,6 +139,10 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 		closed = true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("definition", definition.getFullId());

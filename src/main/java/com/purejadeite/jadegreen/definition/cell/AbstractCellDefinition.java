@@ -3,9 +3,9 @@ package com.purejadeite.jadegreen.definition.cell;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractDefinition;
+import com.purejadeite.jadegreen.definition.AbstractMappingDefinition;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
 /**
@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractDefinition<P> implements CellDefinition<P> {
+abstract public class AbstractCellDefinition<P extends ParentMappingDefinition<?, ?>> extends AbstractMappingDefinition<P> implements CellDefinition<P> {
 
 	private static final long serialVersionUID = -1364121835461648806L;
 

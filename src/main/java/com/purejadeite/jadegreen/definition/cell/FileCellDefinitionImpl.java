@@ -12,14 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
 
 /**
  * ファイル読み込みの定義です
  *
  * @author mitsuhiroseino
  */
-public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> {
+public class FileCellDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extends AbstractCellDefinition<P> {
 
 	private static final long serialVersionUID = -7466869542966847881L;
 
@@ -65,7 +65,7 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
+	public static <P extends ParentMappingDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);

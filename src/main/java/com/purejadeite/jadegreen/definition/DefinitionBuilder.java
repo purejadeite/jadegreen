@@ -32,6 +32,9 @@ import com.purejadeite.jadegreen.definition.range.RowDefinitionImpl;
  */
 public class DefinitionBuilder {
 
+	/**
+	 * ロガー
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefinitionBuilder.class);
 
 	/**
@@ -68,7 +71,7 @@ public class DefinitionBuilder {
 	 *            シート読み込み定義
 	 * @return Cell読み込み定義
 	 */
-	private static Definition<?> createCell(Map<String, Object> cellDef, WorksheetDefinition sheet) {
+	private static MappingDefinition<?> createCell(Map<String, Object> cellDef, WorksheetDefinition sheet) {
 		return createCell(cellDef, sheet, null);
 	}
 
@@ -83,9 +86,9 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
+	private static MappingDefinition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
 			RangeDefinition<?> range) {
-		Definition<?> definition = null;
+		MappingDefinition<?> definition = null;
 		if (config.containsKey(LINK)) {
 			// リンクフィールドの場合
 			if (range != null) {
@@ -152,16 +155,16 @@ public class DefinitionBuilder {
 	/**
 	 * Cell定義のListの生成
 	 *
-	 * @param cells
-	 * @param sheet
-	 * @param range
-	 * @return
+	 * @param cells JSONから変換したセル定義
+	 * @param sheet シート定義
+	 * @param range range定義
+	 * @return セルの定義リスト
 	 */
 	private static List<RangeCellDefinition<?>> createCells(List<Map<String, Object>> cells,
 			WorksheetDefinition sheet, RangeDefinition<?> range) {
 		List<RangeCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
-			Definition<?> child = createCell(cell, sheet, range);
+			MappingDefinition<?> child = createCell(cell, sheet, range);
 			if (child instanceof RangeCellDefinition) {
 				definitions.add((RangeCellDefinition<?>) child);
 			} else {

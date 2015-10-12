@@ -9,17 +9,23 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, WorksheetDefinition> {
+public class WorkbookDefinition extends AbstractParentMappingDefinition<NoDefinition, WorksheetDefinition> {
 
 	private static final long serialVersionUID = 1118031049839086924L;
 
 	/**
-	 * デフォルトコンストラクタ
+	 * コンストラクタ
+	 * @param config コンフィグ
 	 */
 	public WorkbookDefinition(Map<String, Object> config) {
 		super(null, config);
 	}
 
+	/**
+	 * インスタンスを取得します
+	 * @param config コンフィグ
+	 * @return インスタンス
+	 */
 	public static WorkbookDefinition newInstance(Map<String, Object> config) {
 		return new WorkbookDefinition(config);
 	}
@@ -46,6 +52,10 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 		return map;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Object apply(Object value) {
 		return value;
 	}

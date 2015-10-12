@@ -12,6 +12,8 @@ public class RangeCellContentImpl extends AbstractRangeCellContent<RangeCellDefi
 
 	/**
 	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
 	 */
 	public RangeCellContentImpl(Content<?> parent, RangeCellDefinition<?> definition) {
 		super(parent, definition);

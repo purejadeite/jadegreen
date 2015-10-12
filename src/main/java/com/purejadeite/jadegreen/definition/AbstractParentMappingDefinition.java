@@ -15,17 +15,20 @@ import org.apache.commons.lang3.StringUtils;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>>
-		extends AbstractDefinition<P>implements ParentDefinition<P, C>, Serializable {
+abstract public class AbstractParentMappingDefinition<P extends ParentMappingDefinition<?, ?>, C extends MappingDefinition<?>>
+		extends AbstractMappingDefinition<P>implements ParentMappingDefinition<P, C>, Serializable {
 
 	private static final long serialVersionUID = -6619514528554034278L;
 
+	/**
+	 * 子要素定義
+	 */
 	private List<C> children = new ArrayList<>();
 
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	protected AbstractParentDefinition() {
+	protected AbstractParentMappingDefinition() {
 		super();
 	}
 
@@ -39,7 +42,7 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	 * @param noOutput
 	 *            値の出力有無
 	 */
-	protected AbstractParentDefinition(P parent, Map<String, ? extends Object> config) {
+	protected AbstractParentMappingDefinition(P parent, Map<String, ? extends Object> config) {
 		super(parent, config);
 	}
 
@@ -53,7 +56,7 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	 * @param noOutput
 	 *            値の出力有無
 	 */
-	protected AbstractParentDefinition(P parent, String id, boolean noOutput) {
+	protected AbstractParentMappingDefinition(P parent, String id, boolean noOutput) {
 		super(parent, id, noOutput);
 	}
 
@@ -77,7 +80,7 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition<?> get(String fullId) {
+	public MappingDefinition<?> get(String fullId) {
 		String[] ids = StringUtils.split(fullId, ".");
 		return get(ids);
 
@@ -87,7 +90,7 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition<?> get(String... ids) {
+	public MappingDefinition<?> get(String... ids) {
 		if (ids.length == 0) {
 			return null;
 		}
@@ -96,12 +99,12 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 			return null;
 		}
 		String id = ids[0];
-		for (Definition<?> child : children) {
+		for (MappingDefinition<?> child : children) {
 			if (child.getId().equals(id)) {
 				if (ids.length == 1) {
 					return child;
-				} else if (child instanceof ParentDefinition) {
-					ParentDefinition<?, ?> pd = (ParentDefinition<?, ?>) child;
+				} else if (child instanceof ParentMappingDefinition) {
+					ParentMappingDefinition<?, ?> pd = (ParentMappingDefinition<?, ?>) child;
 					String[] subIds = ArrayUtils.subarray(ids, 1, ids.length);
 					return pd.get(subIds);
 				}

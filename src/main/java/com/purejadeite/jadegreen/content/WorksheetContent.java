@@ -11,7 +11,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
@@ -19,31 +19,53 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 
 /**
- * Worksheet読み込み定義
- *
+ * Worksheetのコンテンツ
  * @author mitsuhiroseino
- *
  */
 public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 
 	private static final long serialVersionUID = -6579860061499426256L;
 
+	/**
+	 * ロガー
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(WorksheetContent.class);
 
+	/**
+	 * worksheet名
+	 */
 	private String sheetName;
 
+	/**
+	 * worksheet配下のコンテンツ
+	 */
 	private List<Content<?>> contents = new ArrayList<>();
 
+	/**
+	 * 前回処理した行
+	 */
 	private int prevRow = 0;
 
+	/**
+	 * 前回処理した列
+	 */
 	private int prevCol = 0;
 
+	/**
+	 * 定義上の最大列
+	 */
 	private int maxCol = 0;
 
+	/**
+	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
+	 * @param sheetName worksheet名
+	 */
 	public WorksheetContent(Content<?> parent, WorksheetDefinition definition, String sheetName) {
 		super(parent, definition);
 		this.sheetName = sheetName;
-		for (Definition<?> childDefinition : definition.getChildren()) {
+		for (MappingDefinition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof LinkCellDefinitionImpl) {
 				// 単独セルのリンクの場合
 				contents.add(new LinkCellContentImpl(this, (LinkCellDefinitionImpl) childDefinition));
@@ -63,6 +85,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Status addValue(int row, int col, Object value) {
 		if (isClosed()) {
 			return END;
@@ -81,6 +104,13 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		return status;
 	}
 
+	/**
+	 * 対象の範囲に含まれるセルが存在する場合、値を取得します
+	 * @param row 行
+	 * @param col 列
+	 * @param value 値
+	 * @return 取得状況
+	 */
 	private Status addValueImpl(int row, int col, Object value) {
 		Status status = END;
 		LOGGER.trace("cell(" + row + "," + col + ").value=" + value);
@@ -95,6 +125,12 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		return status;
 	}
 
+	/**
+	 * スキップした範囲にnullを追加します
+	 * @param row 行
+	 * @param col 列
+	 * @return 取得状況
+	 */
 	private Status addDummyValues(int row, int col) {
 		Status status = END;
 		boolean added = false;
@@ -151,10 +187,15 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		}
 	}
 
-	private Status addDummyRow(int r) {
+	/**
+	 * スキップした行にnullを追加します
+	 * @param row 行
+	 * @return 取得状況
+	 */
+	private Status addDummyRow(int row) {
 		Status status = END;
-		for (int c = 1; c < definition.getMaxCol() + 1; c++) {
-			Status addStatus = addDummyCol(r, c);
+		for (int col = 1; col < definition.getMaxCol() + 1; col++) {
+			Status addStatus = addDummyCol(row, col);
 			if (0 < addStatus.compareTo(status)) {
 				status = addStatus;
 			}
@@ -162,8 +203,14 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		return status;
 	}
 
-	private Status addDummyCol(int r, int c) {
-		return addValueImpl(r, c, null);
+	/**
+	 * スキップしたセルにnullを追加します
+	 * @param row 行
+	 * @param col 列
+	 * @return 取得状況
+	 */
+	private Status addDummyCol(int row, int col) {
+		return addValueImpl(row, col, null);
 	}
 
 	/**
@@ -183,6 +230,10 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void close() {
 		if (prevCol != maxCol) {
 			// 最終列まで処理していない場合はダミーセルを追加
@@ -195,7 +246,8 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	@Override
+	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		Map<String, Object> values = new HashMap<>();
 		for (Content<?> content : contents) {
 			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
@@ -209,7 +261,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl(MappingDefinition<?>... ignore) {
 		Map<String, Object> values = new HashMap<>();
 		values.put("sheetName", sheetName);
 		for (Content<?> content : contents) {
@@ -223,8 +275,11 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		return values;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
+	public List<Content<?>> searchContents(MappingDefinition<?> key) {
 		List<Content<?>> cntnts = new ArrayList<>();
 		if (definition == key) {
 			cntnts.add(this);
