@@ -2,7 +2,8 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.base.CaseFormat;
+import com.purejadeite.jadegreen.CaseFormat;
+import com.purejadeite.jadegreen.DefinitionException;
 
 /**
  * <pre>
@@ -37,28 +38,18 @@ abstract public class AbstractCaseFormatCellConverter extends AbstractStringCell
 		if (StringUtils.isEmpty(value)) {
 			return value;
 		}
-		CaseFormat underscore = null;
-		if (to == CaseFormat.LOWER_UNDERSCORE) {
-			underscore = CaseFormat.UPPER_UNDERSCORE;
-		} else {
-			underscore = CaseFormat.LOWER_UNDERSCORE;
+
+		CaseFormat from = null;
+		for (CaseFormat cf : CaseFormat.values()) {
+			if (cf.match(value)) {
+				from = cf;
+				break;
+			}
 		}
-		CaseFormat camel = null;
-		if (to == CaseFormat.LOWER_CAMEL) {
-			camel = CaseFormat.UPPER_CAMEL;
-		} else {
-			camel = CaseFormat.LOWER_CAMEL;
+		if (from == null) {
+			throw new DefinitionException();
 		}
-		if (StringUtils.contains(value, "-")) {
-			// ハイフン区切りだと思う
-			return CaseFormat.LOWER_HYPHEN.to(to, value);
-		} else if (StringUtils.contains(value, "_")) {
-			// アンダーバー区切りだと思う
-			return underscore.to(to, value);
-		} else {
-			// キャメルケースだと思う
-			return camel.to(to, value);
-		}
+		return from.to(to, value);
 	}
 
 }

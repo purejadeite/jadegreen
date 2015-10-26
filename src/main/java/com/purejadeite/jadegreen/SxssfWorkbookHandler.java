@@ -57,6 +57,7 @@ public class SxssfWorkbookHandler extends DefaultHandler {
 	 * @param sheetName
 	 * <pre>
 	 * 取得対象のシート名
+	 *   "*": 無条件
 	 *   "sheet": 完全一致
 	 *   "sheet*": 前方一致
 	 *   "*sheet": 後方一致
@@ -68,29 +69,34 @@ public class SxssfWorkbookHandler extends DefaultHandler {
 		String str = sheetName;
 		MatchType type = MatchType.EQUALS;
 
-		if (StringUtils.endsWith(str, "*")) {
-			str = StringUtils.substring(str, 0, str.length() - 1);
-			// 前方一致
-			type = MatchType.START_WITH;
-		}
+		if ("*".equals(str)) {
+			type = MatchType.ANY;
+		} else {
+			if (StringUtils.endsWith(str, "*")) {
+				str = StringUtils.substring(str, 0, str.length() - 1);
+				// 前方一致
+				type = MatchType.START_WITH;
+			}
 
-		if (StringUtils.startsWith(str, "*")) {
-			str = StringUtils.substring(str, 1);
-			if (type == MatchType.EQUALS) {
-				// 後方一致
-				type = MatchType.END_WITH;
-			} else {
-				// 部分一致
-				type = MatchType.LIKE;
+			if (StringUtils.startsWith(str, "*")) {
+				str = StringUtils.substring(str, 1);
+				if (type == MatchType.EQUALS) {
+					// 後方一致
+					type = MatchType.END_WITH;
+				} else {
+					// 部分一致
+					type = MatchType.LIKE;
+				}
+			}
+
+			if (StringUtils.startsWith(str, "/") && StringUtils.endsWith(str, "/")) {
+				str = StringUtils.substring(str, 1, str.length() - 1);
+				reqex = new RegularExpression(str);
+				// 正規表現
+				type = MatchType.REGEX;
 			}
 		}
 
-		if (StringUtils.startsWith(str, "/") && StringUtils.endsWith(str, "/")) {
-			str = StringUtils.substring(str, 1, str.length() - 1);
-			reqex = new RegularExpression(str);
-			// 正規表現
-			type = MatchType.REGEX;
-		}
 		this.matchSheetName = str;
 		this.type = type;
 	}
@@ -130,7 +136,9 @@ public class SxssfWorkbookHandler extends DefaultHandler {
 	 * @return true:取得対象,false:取得対象外
 	 */
 	private boolean isTarget(String name) {
-		if (type == MatchType.START_WITH) {
+		if (type == MatchType.ANY) {
+			return true;
+		} else if (type == MatchType.START_WITH) {
 			return StringUtils.startsWith(name, this.matchSheetName);
 		} else if (type == MatchType.END_WITH) {
 			return StringUtils.endsWith(name, this.matchSheetName);

@@ -8,6 +8,11 @@ package com.purejadeite.jadegreen;
 enum MatchType {
 
 	/**
+	 * 無条件
+	 */
+	ANY,
+
+	/**
 	 * 完全一致
 	 */
 	EQUALS,

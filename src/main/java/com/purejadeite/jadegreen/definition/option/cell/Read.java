@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.RoughlyMapUtils;
@@ -18,8 +16,6 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  *
  */
 public class Read extends AbstractCellConverter {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(Read.class);
 
 	private static final String CFG_DEFAULT = "default";
 

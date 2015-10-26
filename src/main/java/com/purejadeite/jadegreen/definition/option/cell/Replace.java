@@ -43,6 +43,7 @@ public class Replace extends AbstractStringCellConverter {
 	 */
 	@Override
 	public Object applyToString(String value) {
+		// 10000件くらいまでは総当たりの方が早い?
 		String val = value;
 		for (Map.Entry<String, String> entry : map.entrySet()) {
 			val = StringUtils.replace(val, entry.getKey(), entry.getValue());
