@@ -4,23 +4,30 @@ package com.purejadeite.jadegreen.definition;
  * リンク定義です
  * @author mitsuhiroseino
  */
-public interface LinkDefinition<P extends ParentDefinition<?, ?>> extends Definition<P> {
+public interface LinkDefinition<P extends ParentMappingDefinition<?, ?>> extends MappingDefinition<P> {
 
+	/**
+	 * 相手のシートのキーとなる定義IDを取得します
+	 * @return 定義ID
+	 */
 	public String getSheetKeyId();
 
 	/**
-	 * {@inheritDoc}
+	 * 自身のシートのキーとなる定義を取得します
+	 * @return 定義
 	 */
-	public Definition<?> getMySheetKeyDefinition();
+	public MappingDefinition<?> getMySheetKeyDefinition();
 
 	/**
-	 * {@inheritDoc}
+	 * 相手のシートのキーとなる定義を取得します
+	 * @return 定義
 	 */
-	public Definition<?> getSheetKeyDefinition();
+	public MappingDefinition<?> getSheetKeyDefinition();
 
 	/**
-	 * {@inheritDoc}
+	 * 相手のシートの値となる定義を取得します
+	 * @return 定義
 	 */
-	public Definition<?> getValueDefinition();
+	public MappingDefinition<?> getValueDefinition();
 
 }

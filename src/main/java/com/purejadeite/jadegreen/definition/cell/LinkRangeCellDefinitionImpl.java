@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
@@ -18,10 +18,16 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefinition<RangeDefinition<?>> implements LinkCellDefinition<RangeDefinition<?>>, LinkDefinition<RangeDefinition<?>> {
 
+	private static final long serialVersionUID = 2442986614257910095L;
+
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
+	
 	private static final String CFG_MY_KEY_ID = "myKeyId";
+	
 	private static final String CFG_SHEET_KEY_ID = "sheetKeyId";
+	
 	private static final String CFG_KEY_ID = "keyId";
+	
 	private static final String CFG_VALUE_ID = "valueId";
 
 	/**
@@ -103,35 +109,35 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getMyKeyDefinition() {
+	public MappingDefinition<?> getMyKeyDefinition() {
 		return book.get(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getMySheetKeyDefinition() {
+	public MappingDefinition<?> getMySheetKeyDefinition() {
 		return book.get(mySheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getSheetKeyDefinition() {
+	public MappingDefinition<?> getSheetKeyDefinition() {
 		return book.get(sheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getKeyDefinition() {
+	public MappingDefinition<?> getKeyDefinition() {
 		return book.get(keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getValueDefinition() {
+	public MappingDefinition<?> getValueDefinition() {
 		return book.get(valueId);
 	}
 

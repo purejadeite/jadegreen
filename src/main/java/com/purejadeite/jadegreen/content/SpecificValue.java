@@ -1,7 +1,10 @@
 package com.purejadeite.jadegreen.content;
 
+/**
+ * 特殊な値
+ * @author mitsuhiroseino
+ */
 public enum SpecificValue {
-
 	/**
 	 * 出力対象外の値
 	 */

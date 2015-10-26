@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.RoughlyMapUtils;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
@@ -18,6 +18,8 @@ import com.purejadeite.jadegreen.definition.WorksheetDefinition;
  */
 public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<WorksheetDefinition>
 		implements LinkCellDefinition<WorksheetDefinition>, LinkDefinition<WorksheetDefinition> {
+
+	private static final long serialVersionUID = -6688614988181481927L;
 
 	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
 
@@ -74,7 +76,7 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 		this.valueId = linkConfig.get(CFG_VALUE_ID);
 	}
 
-	public static Definition<?> newInstance(WorkbookDefinition book, WorksheetDefinition parent,
+	public static MappingDefinition<?> newInstance(WorkbookDefinition book, WorksheetDefinition parent,
 			Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
@@ -90,21 +92,21 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getMySheetKeyDefinition() {
+	public MappingDefinition<?> getMySheetKeyDefinition() {
 		return book.get(mySheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getSheetKeyDefinition() {
+	public MappingDefinition<?> getSheetKeyDefinition() {
 		return book.get(sheetKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getValueDefinition() {
+	public MappingDefinition<?> getValueDefinition() {
 		return book.get(valueId);
 	}
 

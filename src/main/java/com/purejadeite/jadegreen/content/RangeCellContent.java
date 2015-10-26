@@ -15,7 +15,7 @@ public interface RangeCellContent<D extends RangeCellDefinition<?>> extends Cell
 	public void close(int size);
 
 	/**
-	 * 取得した件数を取得します
+	 * 取得した件数を得します
 	 * @return 取得した値の件数
 	 */
 	public int size();

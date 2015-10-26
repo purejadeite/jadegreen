@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.CaseFormat;
 */
 public class LowerHyphen extends AbstractCaseFormatCellConverter {
 
+	private static final long serialVersionUID = 1942276560388833496L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

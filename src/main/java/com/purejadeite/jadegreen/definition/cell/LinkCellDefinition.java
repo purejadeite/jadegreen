@@ -1,29 +1,29 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
 
 /**
  * 単一セルのリンク定義です
  * @author mitsuhiroseino
  */
-public interface LinkCellDefinition<P extends ParentDefinition<?, ?>> extends CellDefinition<P> {
+public interface LinkCellDefinition<P extends ParentMappingDefinition<?, ?>> extends CellDefinition<P> {
 
 	public String getSheetKeyId();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getMySheetKeyDefinition();
+	public MappingDefinition<?> getMySheetKeyDefinition();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getSheetKeyDefinition();
+	public MappingDefinition<?> getSheetKeyDefinition();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Definition<?> getValueDefinition();
+	public MappingDefinition<?> getValueDefinition();
 
 }

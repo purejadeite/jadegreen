@@ -20,6 +20,8 @@ import com.purejadeite.jadegreen.DefinitionException;
  */
 abstract public class AbstractCaseFormatCellConverter extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = 3778950926406906690L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell Cell読み込み定義

@@ -10,19 +10,27 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
 
 /**
- * <pre>
- * 値の取得元セルの情報を保持する抽象クラス
- * </pre>
+ * 他のセルにリンクしたrange配下のCellクラス
  * @author mitsuhiroseino
  */
 public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRangeCellDefinitionImpl> implements RangeCellContent<LinkRangeCellDefinitionImpl>, LinkCellContent<LinkRangeCellDefinitionImpl> {
 
+	private static final long serialVersionUID = 7690624851647074594L;
+
+	/**
+	 * ロガー
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkRangeCellContentImpl.class);
 
+	/**
+	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
+	 */
 	public LinkRangeCellContentImpl(Content<?> parent, LinkRangeCellDefinitionImpl definition) {
 		super(parent, definition);
 	}
@@ -43,13 +51,16 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 	 * リンクしているテーブルのセルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.INVALID;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl(MappingDefinition<?>... ignore) {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得
@@ -101,9 +112,12 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 		}
 		return myValues;
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
+	public List<Content<?>> searchContents(MappingDefinition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
@@ -111,15 +125,24 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 		return contents;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isClosed() {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void close(int size) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int size() {
 		return -1;

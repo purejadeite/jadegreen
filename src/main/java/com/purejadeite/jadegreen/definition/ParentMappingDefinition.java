@@ -4,12 +4,13 @@ import java.util.List;
 
 /**
  *
- * Excelファイル読み込みの定義情報インターフェイス
+ * Excelファイル読み込みの親定義情報インターフェイス
  *
  * @author mitsuhiroseino
  *
  */
-public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>> extends Definition<P> {
+public interface ParentMappingDefinition<P extends ParentMappingDefinition<?, ?>, C extends MappingDefinition<?>>
+		extends MappingDefinition<P> {
 
 	/**
 	 * 子定義を取得します
@@ -32,7 +33,7 @@ public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends De
 	 *            当定義から辿った定義ID
 	 * @return 対象の定義
 	 */
-	public Definition<?> get(String fullId);
+	public MappingDefinition<?> get(String fullId);
 
 	/**
 	 * 配下の定義を取得します
@@ -41,6 +42,6 @@ public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends De
 	 *            当定義から辿った定義IDの配列
 	 * @return 対象の定義
 	 */
-	public Definition<?> get(String... ids);
+	public MappingDefinition<?> get(String... ids);
 
 }

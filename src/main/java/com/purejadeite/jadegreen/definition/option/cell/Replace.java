@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Replace extends AbstractStringCellConverter {
 
+	private static final long serialVersionUID = 4151445349235116032L;
+
 	private static final String CFG_MAP = "map";
 
 	/**

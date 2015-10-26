@@ -4,14 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractApplier;
+import com.purejadeite.jadegreen.definition.AbstractDefinition;
 
 /**
  * Rangeの値を変換する抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeConverter extends AbstractApplier implements RangeOption, Serializable {
+abstract public class AbstractRangeConverter extends AbstractDefinition implements RangeOption, Serializable {
+
+	private static final long serialVersionUID = -2315365183856254349L;
 
 	/**
 	 * コンストラクタ

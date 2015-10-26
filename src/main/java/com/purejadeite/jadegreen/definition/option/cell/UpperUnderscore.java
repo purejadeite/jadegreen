@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.CaseFormat;
  */
 public class UpperUnderscore extends AbstractCaseFormatCellConverter {
 
+	private static final long serialVersionUID = -6147481277115805078L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

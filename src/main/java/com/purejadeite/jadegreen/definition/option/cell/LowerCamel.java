@@ -15,6 +15,8 @@ import com.purejadeite.jadegreen.CaseFormat;
 */
 public class LowerCamel extends AbstractCaseFormatCellConverter {
 
+	private static final long serialVersionUID = -1001501612819077056L;
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義

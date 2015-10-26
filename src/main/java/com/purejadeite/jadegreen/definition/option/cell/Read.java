@@ -17,6 +17,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Read extends AbstractCellConverter {
 
+	private static final long serialVersionUID = 6328364128215865166L;
+
 	private static final String CFG_DEFAULT = "default";
 
 	private static final String CFG_MAP = "map";

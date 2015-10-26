@@ -3,13 +3,13 @@ package com.purejadeite.jadegreen.content;
 import java.util.List;
 
 import com.purejadeite.jadegreen.ToMap;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 
 /**
- * 値の読み込み処理を
+ * Excelファイルから取得した値
  * @author mitsuhiroseino
  */
-public interface Content<D extends Definition<?>> extends ToMap {
+public interface Content<D extends MappingDefinition<?>> extends ToMap {
 
 	/**
 	 * 定義IDを取得します
@@ -54,21 +54,21 @@ public interface Content<D extends Definition<?>> extends ToMap {
 	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	public Object getRawValues(Definition<?>... ignore);
+	public Object getRawValues(MappingDefinition<?>... ignore);
 
 	/**
 	 * 編集した値を取得します
 	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	public Object getValues(Definition<?>... ignore);
+	public Object getValues(MappingDefinition<?>... ignore);
 
 	/**
 	 * 指定の定義を持ったContentを取得します
 	 * @param key 取得する子要素の定義
 	 * @return 対象のContent
 	 */
-	public List<Content<?>> searchContents(Definition<?> key);
+	public List<Content<?>> searchContents(MappingDefinition<?> key);
 
 	/**
 	 * 自身より上位にある指定のクラスのContentを取得します

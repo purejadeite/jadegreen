@@ -11,6 +11,7 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 abstract public class AbstractNoAdressRangeCellDefinition<P extends RangeDefinition<?>> extends AbstractNoAdressCellDefinition<P> implements RangeCellDefinition<P> {
 
+	private static final long serialVersionUID = -3632667088280645598L;
 
 	/**
 	 * コンストラクタ

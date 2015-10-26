@@ -1,14 +1,14 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
 
 /**
  * Cell読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface CellDefinition<P extends ParentDefinition<?, ?>> extends Definition<P> {
+public interface CellDefinition<P extends ParentMappingDefinition<?, ?>> extends MappingDefinition<P> {
 
 	public static final int NO_ADDRESS = 0;
 

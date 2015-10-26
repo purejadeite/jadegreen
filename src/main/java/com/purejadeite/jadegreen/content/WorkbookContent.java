@@ -4,29 +4,49 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
- * Workbook読み込み定義
+ * Workbookのコンテンツ
  * @author mitsuhiroseino
- *
  */
 public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
+	private static final long serialVersionUID = -1677962020788016225L;
+
+	/**
+	 * workbook名
+	 */
 	private String name;
 
+	/**
+	 * worksheetのコンテンツリスト
+	 */
 	private List<WorksheetContent> sheets = new ArrayList<>();
 
+	/**
+	 * コンストラクタ
+	 * @param definition 定義
+	 * @param name workbook名
+	 */
 	public WorkbookContent(WorkbookDefinition definition, String name) {
 		super(null, definition);
 		this.name = name;
 	}
 
+	/**
+	 * worksheetを追加します
+	 * @param sheet
+	 */
 	public void addSheet(WorksheetContent sheet) {
 		sheets.add(sheet);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Status addValue(int row, int col, Object value) {
 		throw new UnsupportedOperationException();
 	}
@@ -34,7 +54,8 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	@Override
+	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getRawValues(ignore);
@@ -66,7 +87,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl(MappingDefinition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getValues(ignore);
@@ -77,8 +98,11 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		return values;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
+	public List<Content<?>> searchContents(MappingDefinition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
@@ -89,6 +113,10 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		return contents;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz) {
 		return null;
 	}
@@ -107,6 +135,10 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		return map;
 	}
 
+	/**
+	 * workbook名を取得します
+	 * @return workbook名
+	 */
 	public String getName() {
 		return name;
 	}

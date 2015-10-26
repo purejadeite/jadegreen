@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.definition.range.RangeDefinition;
  */
 public class RowCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefinition<?>> {
 
+	private static final long serialVersionUID = 1338170679621437792L;
+
 	/**
 	 * コンストラクタ
 	 * @param parent テーブル読み込み定義

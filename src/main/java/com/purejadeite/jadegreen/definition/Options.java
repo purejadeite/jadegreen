@@ -4,28 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Options extends AbstractApplier {
+public class Options extends AbstractDefinition {
 
-	private List<Applier> options;
+	private static final long serialVersionUID = 5483808061976653682L;
 
-	public Options (List<Applier> options) {
+	/**
+	 * オプションリスト
+	 */
+	private List<Definition> options;
+
+	/**
+	 * コンストラクタ
+	 * @param options オプションリスト
+	 */
+	public Options (List<Definition> options) {
 		this.options = options;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Object apply(Object values) {
 		Object vals = values;
-		for (Applier option:options) {
+		for (Definition option:options) {
 			vals = option.apply(vals);
 		}
 		return vals;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> opts = new ArrayList<>();
-		for (Applier option: options) {
+		for (Definition option: options) {
 			opts.add(option.toMap());
 		}
 		map.put("options", opts);

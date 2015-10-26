@@ -28,8 +28,6 @@ public class SxssfValueMapperTest {
 
 	private static final File INPUTS_DIR = new File(DATA_DIR_PATH, "inputs");
 
-	private static final File OUTPUTS_DIR = new File(DATA_DIR_PATH, "outputs");
-
 	private static final String[] EXCEL_EXTENSIONS = { ".xlsx", ".xlsm" };
 
 	@Test

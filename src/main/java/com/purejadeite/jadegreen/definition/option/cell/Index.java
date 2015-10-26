@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.generator;
+package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,7 +13,10 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Index extends AbstractRelatedValueGenerator {
 
+	private static final long serialVersionUID = -9188313601218449958L;
+
 	private static final String CFG_FROM = "from";
+	
 	private static final String CFG_INCREMENT = "increment";
 
 	private int from = 0;

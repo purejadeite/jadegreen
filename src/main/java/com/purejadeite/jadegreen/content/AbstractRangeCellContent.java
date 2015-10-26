@@ -9,14 +9,16 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
 
 /**
- * Rangeの構成要素となるCell読み込み定義
+ * Range配下のCellのコンテンツ
  * @author mitsuhiroseino
  */
 public class AbstractRangeCellContent<D extends RangeCellDefinition<?>> extends AbstractContent<D> implements RangeCellContent<D> {
+
+	private static final long serialVersionUID = 1420210546938530625L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRangeCellContent.class);
 
@@ -36,7 +38,7 @@ public class AbstractRangeCellContent<D extends RangeCellDefinition<?>> extends 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		return values;
 	}
 
@@ -44,7 +46,7 @@ public class AbstractRangeCellContent<D extends RangeCellDefinition<?>> extends 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl(MappingDefinition<?>... ignore) {
 		return definition.apply(values);
 	}
 
@@ -97,7 +99,7 @@ public class AbstractRangeCellContent<D extends RangeCellDefinition<?>> extends 
 	}
 
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
+	public List<Content<?>> searchContents(MappingDefinition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

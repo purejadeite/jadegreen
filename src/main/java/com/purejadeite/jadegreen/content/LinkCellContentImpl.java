@@ -9,16 +9,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 
 /**
- * <pre>
- * 値の取得元セルの情報を保持する抽象クラス
- * </pre>
+ * 他のセルにリンクしたCellクラス
  * @author mitsuhiroseino
  */
 public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl> implements LinkCellContent<LinkCellDefinitionImpl>{
+
+	private static final long serialVersionUID = 3474501722301631948L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkCellContentImpl.class);
 
@@ -41,7 +41,7 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	 * リンクしている単一セルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.INVALID;
 	}
@@ -51,7 +51,7 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	 * シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl(MappingDefinition<?>... ignore) {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得
@@ -93,13 +93,19 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isClosed() {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
+	public List<Content<?>> searchContents(MappingDefinition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

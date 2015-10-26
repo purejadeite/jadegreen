@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Sort extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = 491868476272944525L;
+
 	private static final String CFG_KEY_ID = "keyId";
 
 	private static final String CFG_DESC = "desc";

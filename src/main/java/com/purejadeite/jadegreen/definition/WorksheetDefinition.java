@@ -13,8 +13,13 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefinition, Definition<?>> {
+public class WorksheetDefinition extends AbstractParentMappingDefinition<WorkbookDefinition, MappingDefinition<?>> {
 
+	private static final long serialVersionUID = -1303967958765873003L;
+
+	/**
+	 * コンフィグ：シート名
+	 */
 	private static final String CFG_NAME = "name";
 
 	/**
@@ -67,7 +72,6 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * @param parent
 	 *            Book読み込み定義
 	 * @param id
-
 	 *
 	 *            定義ID
 	 * @param name
@@ -80,6 +84,12 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		this.name = name;
 	}
 
+	/**
+	 * インスタンスを取得します
+	 * @param parent 親定義
+	 * @param config コンフィグ
+	 * @return インスタンス
+	 */
 	public static WorksheetDefinition newInstance(WorkbookDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		String name = RoughlyMapUtils.getString(config, NAME);
@@ -91,7 +101,7 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(Definition<?> child) {
+	public void addChild(MappingDefinition<?> child) {
 		super.addChild(child);
 		this.addCell(child);
 	}
@@ -102,7 +112,7 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * @param child
 	 *            Cell読み込み定義
 	 */
-	private void addCell(Definition<?> child) {
+	private void addCell(MappingDefinition<?> child) {
 		if (child != null) {
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
@@ -132,10 +142,10 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 					minCol = Math.min(i, minCol);
 					maxCol = Math.max(i, maxCol);
 				}
-			} else if (child instanceof ParentDefinition) {
+			} else if (child instanceof ParentMappingDefinition) {
 				// Rangeの場合は子要素のCellをばらして追加
-				ParentDefinition<?, ?> pd = (ParentDefinition<?, ?>) child;
-				for (Definition<?> c : pd.getChildren()) {
+				ParentMappingDefinition<?, ?> pd = (ParentMappingDefinition<?, ?>) child;
+				for (MappingDefinition<?> c : pd.getChildren()) {
 					addCell(c);
 				}
 			}
@@ -201,6 +211,10 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		return map;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Object apply(Object value) {
 		return value;
 	}

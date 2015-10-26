@@ -14,6 +14,8 @@ import com.purejadeite.jadegreen.RoughlyMapUtils;
  */
 public class Eliminate extends AbstractRangeConverter {
 
+	private static final long serialVersionUID = -7665794968023216952L;
+
 	private static final String CFG_KEY_ID = "keyId";
 
 	private static final String CFG_CONDITION_VALUE = "conditionValue";

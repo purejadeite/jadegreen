@@ -8,8 +8,12 @@ import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
  */
 public class RangeCellContentImpl extends AbstractRangeCellContent<RangeCellDefinition<?>> {
 
+	private static final long serialVersionUID = -6172471723011313228L;
+
 	/**
 	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
 	 */
 	public RangeCellContentImpl(Content<?> parent, RangeCellDefinition<?> definition) {
 		super(parent, definition);
