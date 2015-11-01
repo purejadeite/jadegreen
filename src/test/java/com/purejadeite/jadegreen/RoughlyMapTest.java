@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -13,14 +15,21 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.RoughlyMap;
+import com.purejadeite.StringKeyNestedMap;
+
 /**
  * Unit test for simple App.
  */
-public class RoughlyMapUtilsTest extends AbstractTest {
+public class RoughlyMapTest extends AbstractTest {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(RoughlyMapUtilsTest.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(RoughlyMapTest.class);
 
-	private static Map<String, Object> TEST_DATA;
+	private static final String DATA_DIR_PATH = "src/test/data";
+
+	private static final File DEFINITIONS_DIR = new File(DATA_DIR_PATH, "definitions");
+
+	private static RoughlyMap<String> TEST_MAP;
 
 	private static String KEY_MAP = "MAP";
 	private static Map<String, String> VALUE_MAP = new HashMap<>();
@@ -71,37 +80,50 @@ public class RoughlyMapUtilsTest extends AbstractTest {
 		VALUE_LIST.add("LIST_VALUE");
 		VALUE_MAP.put("MAP_KEY", "MAP_VALUE");
 
-		Map<String, Object> TEST_MAP = new HashMap<>();
+		Map<String, Object> ORG_MAP = new HashMap<>();
+		TEST_MAP = new RoughlyMap<>(ORG_MAP);
 		TEST_MAP.put(KEY_MAP, VALUE_MAP);
 		TEST_MAP.put(KEY_LIST, VALUE_LIST);
 		TEST_MAP.put(KEY_STRING, VALUE_STRING);
+		TEST_MAP.put(KEY_BOOLEAN, VALUE_BOOLEAN);
 		TEST_MAP.put(KEY_BYTE, VALUE_BYTE);
 		TEST_MAP.put(KEY_SHORT, VALUE_SHORT);
 		TEST_MAP.put(KEY_INTEGER, VALUE_INTEGER);
 		TEST_MAP.put(KEY_LONG, VALUE_LONG);
 		TEST_MAP.put(KEY_FLOAT, VALUE_FLOAT);
 		TEST_MAP.put(KEY_DOUBLE, VALUE_DOUBLE);
-		TEST_MAP.put(KEY_STRING, VALUE_STRING);
-		TEST_MAP.put(KEY_STRING, VALUE_STRING);
-		TEST_MAP.put(KEY_STRING, VALUE_STRING);
-		TEST_MAP.put(KEY_STRING, VALUE_STRING);
-		TEST_MAP.put(KEY_STRING, VALUE_STRING);
+		TEST_MAP.put(KEY_BIG_DECIMAL, VALUE_BIG_DECIMAL);
+		TEST_MAP.put(KEY_BIG_INTEGER, VALUE_BIG_INTEGER);
+		TEST_MAP.put(KEY_DATE, VALUE_DATE);
+		TEST_MAP.put(KEY_SQL_DATE, VALUE_SQL_DATE);
+		TEST_MAP.put(KEY_TIMESTAMP, VALUE_TIMESTAMP);
 	}
 
 //	@Test
 //	public void utils() {
-//		Map<String, Set<String>> value = RoughlyMapUtils.getMap(TEST_DATA, KEY_MAP);
-//		LOGGER.debug(value.toString());
+//		Map<String, Set<String>> value = TEST_MAP.getMap(KEY_MAP);
+//		LOGGER.info(value.toString());
+//		Integer integerValue = TEST_MAP.getInteger(KEY_INTEGER);
+//		LOGGER.info(integerValue.toString());
 //	}
 
 	@Test
-	public void utils() {
-		String[] keys = {"a", "b"};
-		Object obj = keys;
-		if (obj instanceof Object[]) {
-			LOGGER.info("true");
-		} else {
-			LOGGER.info("false");
-		}
+	public void nest() throws IOException {
+		Map<String, Object> orgMap = TestHelper.toJsonMap(DEFINITIONS_DIR, "link.json");
+		LOGGER.info(orgMap.toString());
+		Map<String, Object> map = new StringKeyNestedMap(orgMap);
+		Object value = map.get("sheets.cells.columns");
+		LOGGER.info(value.toString());
 	}
+
+//	@Test
+//	public void utils() {
+//		String[] keys = {"a", "b"};
+//		Object obj = keys;
+//		if (obj instanceof Object[]) {
+//			LOGGER.info("true");
+//		} else {
+//			LOGGER.info("false");
+//		}
+//	}
 }
