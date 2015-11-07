@@ -21,13 +21,13 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	protected Map<K, Object> map;
 
-	private static Object[] NO_ARGS = new Object[0];
+	private static final Object[] NO_ARGS = new Object[0];
 
 	@SuppressWarnings("rawtypes")
-	protected static Class<? extends Map> DEFAULT_MAP = HashMap.class;
+	protected static final Class<? extends Map> MAP_CLASS = HashMap.class;
 
 	@SuppressWarnings("rawtypes")
-	protected static Class<? extends List> DEFAULT_LIST = ArrayList.class;
+	protected static final Class<? extends List> LIST_CLASS = ArrayList.class;
 
 	protected boolean lazy = false;
 
@@ -38,21 +38,20 @@ public class NestedMap<K> implements Map<K, Object> {
 	protected Class<? extends List> listClass;
 
 	public NestedMap(Map<K, Object> map) {
-		this(map, false, DEFAULT_MAP, DEFAULT_LIST);
+		this(map, false, MAP_CLASS, LIST_CLASS);
 	}
 
 	public NestedMap(Map<K, Object> map, boolean lazy) {
-		this(map, lazy, DEFAULT_MAP, DEFAULT_LIST);
+		this(map, lazy, MAP_CLASS, LIST_CLASS);
 	}
 
 	@SuppressWarnings("rawtypes")
 	public NestedMap(Map<K, Object> map, boolean lazy, Class<? extends Map> mapClass) {
-		this(map, lazy, mapClass, DEFAULT_LIST);
+		this(map, lazy, mapClass, LIST_CLASS);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public NestedMap(Map<K, Object> map, boolean lazy, Class<? extends Map> mapClass,
-			Class<? extends List> listClass) {
+	public NestedMap(Map<K, Object> map, boolean lazy, Class<? extends Map> mapClass, Class<? extends List> listClass) {
 		this.map = map;
 		this.lazy = lazy;
 		this.mapClass = mapClass;
@@ -85,12 +84,11 @@ public class NestedMap<K> implements Map<K, Object> {
 	}
 
 	public Object get(List<K> keys) {
-		Map<K, Object> nestedMap = getParentMap(keys, false);
-		if (nestedMap == null) {
+		if (keys == null || keys.isEmpty()) {
 			return null;
-		} else {
-			return nestedMap.get(getLastKey(keys));
 		}
+		Object parent = get(map, getParentKeys(keys), false);
+		return getChild(parent, getLastKey(keys));
 	}
 
 	@Override
@@ -107,12 +105,21 @@ public class NestedMap<K> implements Map<K, Object> {
 	}
 
 	public Object put(List<K> keys, Object value) {
-		Map<K, Object> nestedMap = getParentMap(keys, lazy);
-		if (nestedMap == null) {
+		if (keys == null || keys.isEmpty()) {
 			return null;
-		} else {
-			return nestedMap.put(getLastKey(keys), value);
 		}
+		List<K> parentKeys = getParentKeys(keys);
+		Object parent = getObject(map, parentKeys);
+		if (parent == null) {
+			if (lazy) {
+				parent = newMap();
+				Object grandparent = getObject(map, getParentKeys(parentKeys), false);
+				setChild(grandparent, getLastKey(parentKeys), parent);
+			} else {
+				return null;
+			}
+		}
+		return setChild(parent, getLastKey(keys), value);
 	}
 
 	public boolean add(K key, Object value) {
@@ -128,11 +135,10 @@ public class NestedMap<K> implements Map<K, Object> {
 	}
 
 	public boolean add(List<K> keys, Object value) {
-		if (keys == null) {
+		if (keys == null || keys.isEmpty()) {
 			return false;
-		} else {
-			return add(map, keys, value);
 		}
+		return add(map, keys, value);
 	}
 
 	@Override
@@ -141,39 +147,11 @@ public class NestedMap<K> implements Map<K, Object> {
 	}
 
 	public Object remove(List<K> keys) {
-		Map<K, Object> nestedMap = getParentMap(keys, false);
-		if (nestedMap == null) {
-			return null;
-		} else {
-			return nestedMap.remove(getLastKey(keys));
-		}
-	}
-
-	private Map<K, Object> getParentMap(List<K> keys, boolean lazy) {
-		if (keys == null) {
+		if (keys == null || keys.isEmpty()) {
 			return null;
 		}
-		List<K> rootKeys = getParentKeys(keys);
-		return getMap(map, rootKeys, lazy);
-	}
-
-	private List<K> getParentKeys(List<K> keys) {
-		return keys.subList(0, keys.size() - 1);
-	}
-
-	private List<K> getChildKeys(List<K> keys) {
-		return keys.subList(1, keys.size());
-	}
-
-	private K getFirstKey(List<K> keys) {
-		if (keys.isEmpty()) {
-			return null;
-		}
-		return keys.get(0);
-	}
-
-	private K getLastKey(List<K> keys) {
-		return keys.get(keys.size() - 1);
+		Object parent = getObject(map, getParentKeys(keys), false);
+		return removeChild(parent, getLastKey(keys));
 	}
 
 	@Override
@@ -199,6 +177,65 @@ public class NestedMap<K> implements Map<K, Object> {
 	@Override
 	public Set<java.util.Map.Entry<K, Object>> entrySet() {
 		return map.entrySet();
+	}
+
+	/**
+	 * ネストした位置にあるコレクションに値を追加します
+	 *
+	 * @param map
+	 * @param keys
+	 * @param value
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked" })
+	protected boolean add(Object obj, List<K> keys, Object value) {
+		Object parent = getObject(obj, getParentKeys(keys), lazy);
+		if (parent != null) {
+			K key = getLastKey(keys);
+			Object child = getChild(parent, key);
+			Collection<Object> collection = null;
+			if (child instanceof Collection) {
+				collection = (Collection<Object>) child;
+				collection.add(value);
+				return true;
+			} else {
+				collection = newList();
+				collection.add(value);
+				setChild(parent, key, collection);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Map<K, Object> getMap() {
+		return map;
+	}
+
+	protected Object getObject(Object obj, List<K> keys) {
+		return getObject(obj, keys, lazy);
+	}
+
+	protected Object getObject(Object obj, List<K> keys, boolean lazy) {
+		return get(obj, keys, lazy);
+	}
+
+	protected Map<K, Object> getMap(Object obj, List<K> keys) {
+		return getMap(obj, keys, lazy);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Map<K, Object> getMap(Object obj, List<K> keys, boolean lazy) {
+		return (Map<K, Object>) get(obj, keys, lazy);
+	}
+
+	protected List<Object> getList(Object obj, List<K> keys) {
+		return getList(obj, keys, lazy);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Object> getList(Object obj, List<K> keys, boolean lazy) {
+		return (List<Object>) get(obj, keys, lazy);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -228,55 +265,36 @@ public class NestedMap<K> implements Map<K, Object> {
 		}
 	}
 
-	/**
-	 * ネストした位置にあるコレクションに値を追加します
-	 *
-	 * @param map
-	 * @param keys
-	 * @param value
-	 * @return
-	 */
-	@SuppressWarnings({ "unchecked" })
-	protected boolean add(Object obj, List<K> keys, Object value) {
-		Map<K, Object> parent = getMap(obj, getParentKeys(keys), lazy);
-		if (parent != null) {
-			K key = getLastKey(keys);
-			Object child = parent.get(key);
-			List<Object> list = null;
-			if (child == null) {
-				list = newList();
-				list.add(value);
-				parent.put(key, list);
-				return true;
-			} else if (child instanceof Collection) {
-				list = (List<Object>) obj;
-				list.add(value);
-				return true;
-			}
+	private List<K> getParentKeys(List<K> keys) {
+		if (keys.isEmpty()) {
+			return null;
 		}
-		return false;
+		return keys.subList(0, keys.size() - 1);
 	}
 
-	public Map<K, Object> getMap() {
-		return map;
+	private List<K> getChildKeys(List<K> keys) {
+		if (keys.isEmpty()) {
+			return null;
+		}
+		return keys.subList(1, keys.size());
 	}
 
-	protected Map<K, Object> getMap(Map<K, Object> map, List<K> keys) {
-		return getMap(map, keys, lazy);
+	private K getFirstKey(List<K> keys) {
+		if (keys.isEmpty()) {
+			return null;
+		}
+		return keys.get(0);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected Map<K, Object> getMap(Object obj, List<K> keys, boolean lazy) {
-		return (Map<K, Object>) get(obj, keys, lazy);
+	private K getLastKey(List<K> keys) {
+		if (keys.isEmpty()) {
+			return null;
+		}
+		return keys.get(keys.size() - 1);
 	}
 
-	protected List<Object> getList(Object obj, List<K> keys) {
-		return getList(obj, keys, lazy);
-	}
-
-	@SuppressWarnings("unchecked")
-	protected List<Object> getList(Object obj, List<K> keys, boolean lazy) {
-		return (List<Object>) get(obj, keys, lazy);
+	protected Object get(Object obj, List<K> keys) {
+		return get(obj, keys, lazy);
 	}
 
 	/**
@@ -286,37 +304,15 @@ public class NestedMap<K> implements Map<K, Object> {
 	 * @param keys
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	protected Object get(Object obj, List<K> keys, boolean lazy) {
-		// objがMapだった時用
-		Map<K, Object> map = null;
-		// objがListだった時用
-		List<Object> list = null;
-
-		// 受け取ったObjectは何か？
-		if (obj instanceof Map) {
-			map = (Map<K, Object>) obj;
-		} else if (obj instanceof Collection) {
-			list = (List<Object>) obj;
-		} else {
-			// 上記以外の場合、objの子は無いのでnullを返す
-			return null;
+		if (keys.isEmpty()) {
+			return obj;
 		}
-
-		// 子を取得する為のkeyとindexの準備
+		// 子を取得する為のkey
 		K key = getFirstKey(keys);
-		int index = getIndex(key);
-
 		// 子要素を取得
-		Object child = null;
-		if (map != null) {
-			child = map.get(key);
-		} else {
-			if (index < list.size()) {
-				child = list.get(index);
-			}
-		}
-
+		Object child = getChild(obj, key);
+		// さらに配下のキー
 		List<K> childKeys = getChildKeys(keys);
 		if (childKeys.isEmpty()) {
 			// これ以上キーが指定されていないならばchildを返す
@@ -339,17 +335,13 @@ public class NestedMap<K> implements Map<K, Object> {
 					child = newMap();
 				}
 				// 親に追加
-				if (map != null) {
-					map.put(key, child);
-				} else {
-					list.add(child);
-				}
+				setChild(obj, childKey, child);
 			}
 			return get(child, childKeys, lazy);
 		}
 	}
 
-	private int getIndex(K key) {
+	protected int getIndex(K key) {
 		if (key != null && NumberUtils.isNumber(key.toString())) {
 			// キーが数値の場合はlistかもしれないのでindex
 			return Integer.valueOf(key.toString()).intValue();
@@ -378,6 +370,59 @@ public class NestedMap<K> implements Map<K, Object> {
 			// デフォルトコンストラクタが無い場合など
 			throw new IllegalArgumentException(e);
 		}
+	}
+
+	private Object getChild(Object parent, K key) {
+		if (parent instanceof Map) {
+			@SuppressWarnings("unchecked")
+			Map<K, Object> map = (Map<K, Object>) parent;
+			return map.get(key);
+		} else if (parent instanceof List) {
+			int index = getIndex(key);
+			if (index != -1) {
+				@SuppressWarnings("unchecked")
+				List<Object> list = (List<Object>) parent;
+				if (index < list.size()) {
+					return list.get(index);
+				}
+			}
+		}
+		return null;
+	}
+
+	private Object setChild(Object parent, K key, Object child) {
+		if (parent instanceof Map) {
+			@SuppressWarnings("unchecked")
+			Map<K, Object> map = (Map<K, Object>) parent;
+			return map.put(key, child);
+		} else if (parent instanceof List) {
+			int index = getIndex(key);
+			if (index != -1) {
+				@SuppressWarnings("unchecked")
+				List<Object> list = (List<Object>) parent;
+				while (list.size() < index + 1) {
+					list.add(null);
+				}
+				return list.set(index, child);
+			}
+		}
+		return null;
+	}
+
+	private Object removeChild(Object parent, K key) {
+		if (parent instanceof Map) {
+			@SuppressWarnings("unchecked")
+			Map<K, Object> map = (Map<K, Object>) parent;
+			return map.remove(key);
+		} else if (parent instanceof List) {
+			int index = getIndex(key);
+			if (index != -1) {
+				@SuppressWarnings("unchecked")
+				List<Object> list = (List<Object>) parent;
+				list.remove(index);
+			}
+		}
+		return null;
 	}
 
 	@Override
