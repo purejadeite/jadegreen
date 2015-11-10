@@ -1,4 +1,4 @@
-package com.purejadeite;
+package com.purejadeite.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

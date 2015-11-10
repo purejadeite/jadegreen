@@ -1,5 +1,6 @@
-package com.purejadeite;
+package com.purejadeite.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.lang3.reflect.ConstructorUtils;
 
 /**
  * ネストしたmapの値にアクセスしやすくするためのラッパークラス
@@ -19,9 +17,17 @@ import org.apache.commons.lang3.reflect.ConstructorUtils;
  */
 public class NestedMap<K> implements Map<K, Object> {
 
+	/**
+	 * 元のMap
+	 */
 	protected Map<K, Object> map;
 
+	/**
+	 * 引数なし
+	 */
 	private static final Object[] NO_ARGS = new Object[0];
+
+	private static final Class<?>[] NO_ARGS_CLS = new Class[0];
 
 	@SuppressWarnings("rawtypes")
 	protected static final Class<? extends Map> MAP_CLASS = HashMap.class;
@@ -70,14 +76,14 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	@Override
 	public boolean containsKey(Object key) {
-		return map.containsKey(key);
+		return containsKey(getKeys(key));
 	}
 
 	public boolean containsKey(List<K> keys) {
 		if (keys == null || keys.isEmpty()) {
 			return false;
 		}
-		Object parent = get(map, getParentKeys(keys), false);
+		Object parent = follow(map, getParentKeys(keys), false);
 		if (parent == null) {
 			return false;
 		}
@@ -98,7 +104,7 @@ public class NestedMap<K> implements Map<K, Object> {
 		if (keys == null || keys.isEmpty()) {
 			return null;
 		}
-		Object parent = get(map, getParentKeys(keys), false);
+		Object parent = follow(map, getParentKeys(keys), false);
 		return getChild(parent, getLastKey(keys));
 	}
 
@@ -120,11 +126,11 @@ public class NestedMap<K> implements Map<K, Object> {
 			return null;
 		}
 		List<K> parentKeys = getParentKeys(keys);
-		Object parent = get(map, parentKeys);
+		Object parent = follow(map, parentKeys);
 		if (parent == null) {
 			if (lazy) {
 				parent = newMap();
-				Object grandparent = get(map, getParentKeys(parentKeys), false);
+				Object grandparent = follow(map, getParentKeys(parentKeys), false);
 				setChild(grandparent, getLastKey(parentKeys), parent);
 			} else {
 				return null;
@@ -161,7 +167,7 @@ public class NestedMap<K> implements Map<K, Object> {
 		if (keys == null || keys.isEmpty()) {
 			return null;
 		}
-		Object parent = get(map, getParentKeys(keys), false);
+		Object parent = follow(map, getParentKeys(keys), false);
 		return removeChild(parent, getLastKey(keys));
 	}
 
@@ -204,7 +210,7 @@ public class NestedMap<K> implements Map<K, Object> {
 		if (keys.size() == 1) {
 			parent = map;
 		} else {
-			parent = get(obj, getParentKeys(keys), lazy);
+			parent = follow(obj, getParentKeys(keys), lazy);
 		}
 		if (parent != null) {
 			K key = getLastKey(keys);
@@ -289,7 +295,7 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	@SuppressWarnings("unchecked")
 	protected Map<K, Object> getMap(Object obj, List<K> keys, boolean lazy) {
-		return (Map<K, Object>) get(obj, keys, lazy);
+		return (Map<K, Object>) follow(obj, keys, lazy);
 	}
 
 	protected List<Object> getList(Object obj, List<K> keys) {
@@ -298,11 +304,11 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	@SuppressWarnings("unchecked")
 	protected List<Object> getList(Object obj, List<K> keys, boolean lazy) {
-		return (List<Object>) get(obj, keys, lazy);
+		return (List<Object>) follow(obj, keys, lazy);
 	}
 
-	protected Object get(Object obj, List<K> keys) {
-		return get(obj, keys, lazy);
+	protected Object follow(Object obj, List<K> keys) {
+		return follow(obj, keys, lazy);
 	}
 
 	/**
@@ -312,7 +318,7 @@ public class NestedMap<K> implements Map<K, Object> {
 	 * @param keys
 	 * @return
 	 */
-	protected Object get(Object obj, List<K> keys, boolean lazy) {
+	protected Object follow(Object obj, List<K> keys, boolean lazy) {
 		if (keys.isEmpty()) {
 			return obj;
 		}
@@ -328,14 +334,13 @@ public class NestedMap<K> implements Map<K, Object> {
 		} else {
 			if (child == null) {
 				// 子がnullの場合
-				if (lazy) {
+				if (!lazy) {
 					// 子がnullで自動的に要素を作らない場合はnullを返す
 					return null;
 				}
 				// 子要素を自動的に作る場合
-				K childKey = getFirstKey(childKeys);
-				int childIndex = getIndex(childKey);
-				if (childIndex != -1) {
+				int index = getIndex(key);
+				if (index != -1) {
 					// 子要素はlistだと思われる
 					child = newList();
 				} else {
@@ -343,38 +348,39 @@ public class NestedMap<K> implements Map<K, Object> {
 					child = newMap();
 				}
 				// 親に追加
-				setChild(obj, childKey, child);
+				setChild(obj, key, child);
 			}
-			return get(child, childKeys, lazy);
+			return follow(child, childKeys, lazy);
 		}
 	}
 
 	protected int getIndex(K key) {
-		if (key != null && NumberUtils.isNumber(key.toString())) {
+		if (key != null) {
 			// キーが数値の場合はlistかもしれないのでindex
-			return Integer.valueOf(key.toString()).intValue();
-		} else {
-			return -1;
+			try {
+				return Integer.valueOf(key.toString()).intValue();
+			} catch (NumberFormatException e) {
+			}
 		}
+		return -1;
 	}
 
 	@SuppressWarnings("unchecked")
 	private Map<K, Object> newMap() {
-		try {
-			return ConstructorUtils.invokeConstructor(mapClass, NO_ARGS);
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-				| InstantiationException e) {
-			// デフォルトコンストラクタが無い場合など
-			throw new IllegalArgumentException(e);
-		}
+		return invokeConstructor(mapClass);
 	}
 
 	@SuppressWarnings("unchecked")
 	private List<Object> newList() {
+		return invokeConstructor(listClass);
+	}
+
+	private <T> T invokeConstructor(Class<T> clazz) {
 		try {
-			return ConstructorUtils.invokeConstructor(listClass, NO_ARGS);
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-				| InstantiationException e) {
+			Constructor<T> constructor = clazz.getConstructor(NO_ARGS_CLS);
+			return constructor.newInstance(NO_ARGS);
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
 			// デフォルトコンストラクタが無い場合など
 			throw new IllegalArgumentException(e);
 		}
@@ -427,7 +433,7 @@ public class NestedMap<K> implements Map<K, Object> {
 			if (index != -1) {
 				@SuppressWarnings("unchecked")
 				List<Object> list = (List<Object>) parent;
-				list.remove(index);
+				return list.remove(index);
 			}
 		}
 		return null;

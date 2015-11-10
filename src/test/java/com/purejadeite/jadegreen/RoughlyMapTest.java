@@ -15,8 +15,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.RoughlyMap;
-import com.purejadeite.StringKeyNestedMap;
+import com.purejadeite.util.RoughlyMap;
+import com.purejadeite.util.StringKeyNestedMap;
 
 /**
  * Unit test for simple App.

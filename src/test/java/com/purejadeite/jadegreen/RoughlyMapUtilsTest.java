@@ -94,14 +94,21 @@ public class RoughlyMapUtilsTest extends AbstractTest {
 //		LOGGER.debug(value.toString());
 //	}
 
+//	@Test
+//	public void utils() {
+//		String[] keys = {"a", "b"};
+//		Object obj = keys;
+//		if (obj instanceof Object[]) {
+//			LOGGER.info("true");
+//		} else {
+//			LOGGER.info("false");
+//		}
+//	}
+
 	@Test
 	public void utils() {
-		String[] keys = {"a", "b"};
-		Object obj = keys;
-		if (obj instanceof Object[]) {
-			LOGGER.info("true");
-		} else {
-			LOGGER.info("false");
-		}
+		List<String> list = new ArrayList<>();
+		list.add("A");
+		LOGGER.info(list.subList(0, list.size() - 1).toString());
 	}
 }
