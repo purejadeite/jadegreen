@@ -5,11 +5,11 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 単一セルのリンク定義です

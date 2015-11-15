@@ -1,11 +1,10 @@
 package com.purejadeite.util;
 
+import static com.purejadeite.util.RoughlyConverter.*;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.Set;
 
 /**
  *
- * 値がObjectのMap用ユーティリティ
+ * 値がObjectのMap用ラッパー
  *
  * @author mitsuhiroseino
  *
@@ -27,7 +26,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 		this.map = map;
 	}
 
-	public Map<K, Object> getMap() {
+	public Map<K, Object> getOriginalMap() {
 		return map;
 	}
 
@@ -43,13 +42,8 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 *            キー
 	 * @return Map形式の値
 	 */
-	@SuppressWarnings("unchecked")
-	public <V extends Object> Map<K, V> getMap(K key) {
-		Object value = map.get(key);
-		if (value instanceof Map) {
-			return (Map<K, V>) value;
-		}
-		return null;
+	public Map<K, Object> getMap(K key) {
+		return intoMap(map.get(key));
 	}
 
 	/**
@@ -64,13 +58,8 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 *            キー
 	 * @return List形式の値
 	 */
-	@SuppressWarnings("unchecked")
-	public <V extends Object> List<V> getList(K key) {
-		Object value = map.get(key);
-		if (value instanceof List) {
-			return (List<V>) value;
-		}
-		return null;
+	public List<Object> getList(K key) {
+		return intoList(map.get(key));
 	}
 
 	/**
@@ -86,11 +75,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 * @return String形式の値
 	 */
 	public String getString(K key) {
-		Object value = map.get(key);
-		if (value instanceof CharSequence) {
-			return value.toString();
-		}
-		return null;
+		return intoString(map.get(key));
 	}
 
 	/**
@@ -109,16 +94,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 * @return Boolean形式の値
 	 */
 	public Boolean getBoolean(K key) {
-		Object value = map.get(key);
-		if (value instanceof Boolean) {
-			return (Boolean) value;
-		} else if (value instanceof CharSequence) {
-			return Boolean.valueOf(value.toString());
-		} else if (value instanceof Number) {
-			boolean val = ((Number) value).intValue() == 0 ? false : true;
-			return Boolean.valueOf(val);
-		}
-		return null;
+		return intoBoolean(map.get(key));
 	}
 
 	/**
@@ -135,7 +111,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 * @return boolean形式の値
 	 */
 	public boolean getBooleanValue(K key) {
-		return getBooleanValue(key, false);
+		return intoBooleanValue(map.get(key));
 	}
 
 	/**
@@ -153,18 +129,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 * @return Number形式の値
 	 */
 	public Number getNumber(K key) {
-		Object value = map.get(key);
-		if (value instanceof Number) {
-			return (Number) value;
-		} else if (value instanceof CharSequence) {
-			String str = value.toString();
-			try {
-				return NumberFormat.getInstance().parse(str);
-			} catch (ParseException e) {
-				return null;
-			}
-		}
-		return null;
+		return intoNumber(map.get(key));
 	}
 
 	/**
@@ -180,13 +145,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 * @return Byte形式の値
 	 */
 	public Byte getByte(K key) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Byte) {
-			return (Byte) value;
-		}
-		return Byte.valueOf(value.byteValue());
+		return intoByte(map.get(key));
 	}
 
 	/**
@@ -203,289 +162,159 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 * @return Byte形式の値
 	 */
 	public byte getByteValue(K key) {
-		return getByteValue(key, (byte) 0);
+		return intoByteValue(map.get(key));
 	}
 
 	public Integer getInteger(K key) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Integer) {
-			return (Integer) value;
-		}
-		return Integer.valueOf(value.intValue());
+		return intoInteger(map.get(key));
 	}
 
 	public int getIntValue(K key) {
-		return getIntValue(key, 0);
+		return intoIntValue(map.get(key));
 	}
 
 	public Short getShort(K key) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Short) {
-			return (Short) value;
-		}
-		return Short.valueOf(value.shortValue());
+		return intoShort(map.get(key));
 	}
 
 	public short getShortValue(K key) {
-		return getShortValue(key, (short) 0);
+		return intoShortValue(map.get(key));
 	}
 
 	public Long getLong(K key) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Long) {
-			return (Long) value;
-		}
-		return Long.valueOf(value.longValue());
+		return intoLong(map.get(key));
 	}
 
 	public long getLongValue(K key) {
-		return getLongValue(key, 0L);
+		return intoLongValue(map.get(key));
 	}
 
 	public Float getFloat(K key) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Float) {
-			return (Float) value;
-		}
-		return Float.valueOf(value.floatValue());
+		return intoFloat(map.get(key));
 	}
 
 	public float getFloatValue(K key) {
-		return getFloatValue(key, 0F);
+		return intoFloatValue(map.get(key));
 	}
 
 	public Double getDouble(K key) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Double) {
-			return (Double) value;
-		}
-		return Double.valueOf(value.doubleValue());
+		return intoDouble(map.get(key));
 	}
 
 	public double getDoubleValue(K key) {
-		return getDoubleValue(key, 0D);
+		return intoDoubleValue(map.get(key));
 	}
 
 	public BigDecimal getBigDecimal(K key) {
-		Object value = map.get(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof BigDecimal) {
-			return (BigDecimal) value;
-		}
-		try {
-			return new BigDecimal(value.toString());
-		} catch (NumberFormatException e) {
-			return null;
-		}
+		return intoBigDecimal(map.get(key));
 	}
 
 	public BigInteger getBigInteger(K key) {
-		Object value = map.get(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof BigInteger) {
-			return (BigInteger) value;
-		}
-		try {
-			return new BigInteger(value.toString());
-		} catch (NumberFormatException e) {
-			return null;
-		}
+		return intoBigInteger(map.get(key));
 	}
 
 	public Date getDate(K key) {
-		Object value = map.get(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Date) {
-			return (Date) value;
-		} else if (value instanceof CharSequence) {
-			try {
-				return DateFormat.getInstance().parse(value.toString());
-			} catch (ParseException e) {
-				return null;
-			}
-		}
-		return null;
+		return intoDate(map.get(key));
 	}
 
 	public java.sql.Date getSqlDate(K key) {
-		Object value = map.get(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof java.sql.Date) {
-			return (java.sql.Date) value;
-		} else if (value instanceof CharSequence) {
-			try {
-				return java.sql.Date.valueOf(value.toString());
-			} catch (IllegalArgumentException e) {
-				return null;
-			}
-		}
-		return null;
+		return intoSqlDate(map.get(key));
 	}
 
 	public Timestamp getTimestamp(K key) {
-		Object value = map.get(key);
-		if (value == null) {
-			return null;
-		} else if (value instanceof Timestamp) {
-			return (Timestamp) value;
-		} else if (value instanceof CharSequence) {
-			try {
-				return Timestamp.valueOf(value.toString());
-			} catch (IllegalArgumentException e) {
-				return null;
-			}
-		}
-		return null;
+		return intoTimestamp(map.get(key));
 	}
 
 	public <V extends Object> Map<K, V> getMap(K key, Map<K, V> dflt) {
-		Map<K, V> value = getMap(key);
-		return value == null ? dflt : value;
+		return intoMap(map.get(key), dflt);
 	}
 
 	public <V extends Object> List<V> getList(K key, List<V> dflt) {
-		List<V> value = getList(key);
-		return value == null ? dflt : value;
+		return intoList(map.get(key), dflt);
 	}
 
 	public String getString(K key, String dflt) {
-		String value = getString(key);
-		return value == null ? dflt : value;
+		return intoString(map.get(key), dflt);
 	}
 
 	public Boolean getBoolean(K key, Boolean dflt) {
-		Boolean value = getBoolean(key);
-		return value == null ? dflt : value;
+		return intoBoolean(map.get(key), dflt);
 	}
 
 	public boolean getBooleanValue(K key, boolean dflt) {
-		Boolean value = getBoolean(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.booleanValue();
+		return intoBooleanValue(map.get(key), dflt);
 	}
 
 	public Number getNumber(K key, Number dflt) {
-		Number value = getNumber(key);
-		return value == null ? dflt : value;
+		return intoNumber(map.get(key), dflt);
 	}
 
 	public Byte getByte(K key, Byte dflt) {
-		Byte value = getByte(key);
-		return value == null ? dflt : value;
+		return intoByte(map.get(key), dflt);
 	}
 
 	public byte getByteValue(K key, byte dflt) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.byteValue();
+		return intoByteValue(map.get(key), dflt);
 	}
 
 	public Integer getInteger(K key, Integer dflt) {
-		Integer value = getInteger(key);
-		return value == null ? dflt : value;
+		return intoInteger(map.get(key), dflt);
 	}
 
 	public int getIntValue(K key, int dflt) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.intValue();
+		return intoIntValue(map.get(key), dflt);
 	}
 
 	public Short getShort(K key, Short dflt) {
-		Short value = getShort(key);
-		return value == null ? dflt : value;
+		return intoShort(map.get(key), dflt);
 	}
 
 	public short getShortValue(K key, Short dflt) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.shortValue();
+		return intoShortValue(map.get(key), dflt);
 	}
 
 	public Long getLong(K key, Long dflt) {
-		Long value = getLong(key);
-		return value == null ? dflt : value;
+		return intoLong(map.get(key), dflt);
 	}
 
 	public long getLongValue(K key, long dflt) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.longValue();
+		return intoLongValue(map.get(key), dflt);
 	}
 
 	public Float getFloat(K key, Float dflt) {
-		Float value = getFloat(key);
-		return value == null ? dflt : value;
+		return intoFloat(map.get(key), dflt);
 	}
 
 	public float getFloatValue(K key, float dflt) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.floatValue();
+		return intoFloatValue(map.get(key), dflt);
 	}
 
 	public Double getDouble(K key, Double dflt) {
-		Double value = getDouble(key);
-		return value == null ? dflt : value;
+		return intoDouble(map.get(key), dflt);
 	}
 
 	public double getDoubleValue(K key, double dflt) {
-		Number value = getNumber(key);
-		if (value == null) {
-			return dflt;
-		}
-		return value.doubleValue();
+		return intoDoubleValue(map.get(key), dflt);
 	}
 
 	public BigDecimal getBigDecimal(K key, BigDecimal dflt) {
-		BigDecimal value = getBigDecimal(key);
-		return value == null ? dflt : value;
+		return intoBigDecimal(map.get(key), dflt);
 	}
 
 	public BigInteger getBigInteger(K key, BigInteger dflt) {
-		BigInteger value = getBigInteger(key);
-		return value == null ? dflt : value;
+		return intoBigInteger(map.get(key), dflt);
 	}
 
 	public Date getDate(K key, Date dflt) {
-		Date value = getDate(key);
-		return value == null ? dflt : value;
+		return intoDate(map.get(key), dflt);
 	}
 
 	public java.sql.Date getSqlDate(K key, java.sql.Date dflt) {
-		java.sql.Date value = getSqlDate(key);
-		return value == null ? dflt : value;
+		return intoSqlDate(map.get(key), dflt);
 	}
 
 	public Timestamp getTimestamp(K key, Timestamp dflt) {
-		Timestamp value = getTimestamp(key);
-		return value == null ? dflt : value;
+		return intoTimestamp(map.get(key), dflt);
 	}
 
 	@Override

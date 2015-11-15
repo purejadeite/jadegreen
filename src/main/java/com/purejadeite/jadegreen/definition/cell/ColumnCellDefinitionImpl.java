@@ -5,8 +5,8 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 列方向の繰り返しを持つテーブル配下のCell読み込み定義

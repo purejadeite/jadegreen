@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 文字列を定義されたマップに応じた値に置き換えるクラス

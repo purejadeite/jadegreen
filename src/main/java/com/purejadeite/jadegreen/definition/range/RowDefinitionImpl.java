@@ -5,9 +5,9 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 行方向の繰り返し範囲の情報を保持するクラスの抽象クラスです

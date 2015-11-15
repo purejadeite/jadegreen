@@ -5,11 +5,11 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * Rangeの構成要素となるCellリンク定義

@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.RoughlyMapUtils;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 文字列を定義されたマップに応じたファイルを読み込むクラス

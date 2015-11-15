@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
@@ -23,6 +22,7 @@ import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.ColumnDefinitionImpl;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 import com.purejadeite.jadegreen.definition.range.RowDefinitionImpl;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 定義情報を生成するクラスです

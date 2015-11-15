@@ -5,8 +5,8 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 固定値の定義です

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.RoughlyMapUtils;
+import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 文字列の一部を定義されたマップの値に置き換えるクラス

@@ -9,10 +9,10 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.MappingException;
-import com.purejadeite.jadegreen.RoughlyMapUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.util.RoughlyMapUtils;
 
 public class CellOptionManager {
 
