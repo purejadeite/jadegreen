@@ -1,11 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.range;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.util.RoughlyConverter;
+import com.purejadeite.util.EvaluationUtils;
 import com.purejadeite.util.RoughlyMapUtils;
 
 /**
@@ -23,18 +22,6 @@ public class Eliminate extends AbstractRangeConverter {
 	private static final String CFG_OPERATOR = "operator";
 
 	private static final String CFG_VALUE = "value";
-
-	private static final String EQ = "==";
-
-	private static final String NE = "!=";
-
-	private static final String GT = ">";
-
-	private static final String LT = "<";
-
-	private static final String GE = ">=";
-
-	private static final String LE = "<=";
 
 	/**
 	 * 必須項目名称
@@ -68,7 +55,7 @@ public class Eliminate extends AbstractRangeConverter {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.operator = RoughlyMapUtils.getString(config, CFG_OPERATOR, EQ);
+		this.operator = RoughlyMapUtils.getString(config, CFG_OPERATOR, "==");
 		this.value = RoughlyMapUtils.getString(config, CFG_VALUE, null);
 	}
 
@@ -80,60 +67,9 @@ public class Eliminate extends AbstractRangeConverter {
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map<String, Object> row : values) {
 			Object value = row.get(keyId);
-			if (EQ.equals(operator)) {
-				if (value == this.value || (this.value != null && this.value.equals(value))) {
-					continue;
-				}
-			} else if (NE.equals(operator)) {
-				if ((this.value != null && !this.value.equals(value)) || (value != null && !value.equals(this.value))) {
-					continue;
-				}
-			} else if (GT.equals(operator)) {
-				BigDecimal num = RoughlyConverter.intoBigDecimal(value);
-				BigDecimal thisNum = RoughlyConverter.intoBigDecimal(this.value);
-				if (num != null && thisNum != null && num.compareTo(thisNum) > 0) {
-					continue;
-				}
-				String str = RoughlyConverter.intoString(value);
-				String thisStr = RoughlyConverter.intoString(this.value);
-				if (str != null && thisStr != null && str.compareTo(thisStr) > 0) {
-					continue;
-				}
-			} else if (GE.equals(operator)) {
-				BigDecimal num = RoughlyConverter.intoBigDecimal(value);
-				BigDecimal thisNum = RoughlyConverter.intoBigDecimal(this.value);
-				if (num != null && thisNum != null && num.compareTo(thisNum) >= 0) {
-					continue;
-				}
-				String str = RoughlyConverter.intoString(value);
-				String thisStr = RoughlyConverter.intoString(this.value);
-				if (str != null && thisStr != null && str.compareTo(thisStr) >= 0) {
-					continue;
-				}
-			} else if (LT.equals(operator)) {
-				BigDecimal num = RoughlyConverter.intoBigDecimal(value);
-				BigDecimal thisNum = RoughlyConverter.intoBigDecimal(this.value);
-				if (num != null && thisNum != null && num.compareTo(thisNum) < 0) {
-					continue;
-				}
-				String str = RoughlyConverter.intoString(value);
-				String thisStr = RoughlyConverter.intoString(this.value);
-				if (str != null && thisStr != null && str.compareTo(thisStr) < 0) {
-					continue;
-				}
-			} else if (LE.equals(operator)) {
-				BigDecimal num = RoughlyConverter.intoBigDecimal(value);
-				BigDecimal thisNum = RoughlyConverter.intoBigDecimal(this.value);
-				if (num != null && thisNum != null && num.compareTo(thisNum) <= 0) {
-					continue;
-				}
-				String str = RoughlyConverter.intoString(value);
-				String thisStr = RoughlyConverter.intoString(this.value);
-				if (str != null && thisStr != null && str.compareTo(thisStr) <= 0) {
-					continue;
-				}
+			if (EvaluationUtils.evaluate(value, operator, this.value)) {
+				rows.add(row);
 			}
-			rows.add(row);
 		}
 		return rows;
 	}

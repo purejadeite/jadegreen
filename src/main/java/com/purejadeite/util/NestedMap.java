@@ -1,5 +1,7 @@
 package com.purejadeite.util;
 
+import static com.purejadeite.util.RoughlyConverter.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -204,7 +206,6 @@ public class NestedMap<K> implements Map<K, Object> {
 	 * @param value
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked" })
 	protected boolean add(Object obj, List<K> keys, Object value) {
 		Object parent;
 		if (keys.size() == 1) {
@@ -217,7 +218,7 @@ public class NestedMap<K> implements Map<K, Object> {
 			Object child = getChild(parent, key);
 			Collection<Object> collection = null;
 			if (child instanceof Collection) {
-				collection = (Collection<Object>) child;
+				collection = intoCollection(child);
 				collection.add(value);
 				return true;
 			} else {
@@ -234,20 +235,21 @@ public class NestedMap<K> implements Map<K, Object> {
 		return map;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected List<K> getKeys(Object key) {
 		if (key instanceof List) {
-			return (List<K>) key;
+			return intoList(key);
 		} else {
 			List<K> keys = new ArrayList<>();
 			if (key instanceof Iterable) {
 				// Iterableの場合はListに変換
-				for (K k : (Iterable<K>) key) {
+				Iterable<K> keyIte = intoIterable(key);
+				for (K k : keyIte) {
 					keys.add(k);
 				}
 			} else if (key instanceof Object[]) {
 				// 配列の場合はListに変換
-				for (K k : (K[]) key) {
+				K[] keyArray = intoArray(key);
+				for (K k : keyArray) {
 					keys.add(k);
 				}
 			} else if (key == null) {
@@ -293,18 +295,16 @@ public class NestedMap<K> implements Map<K, Object> {
 		return getMap(obj, keys, lazy);
 	}
 
-	@SuppressWarnings("unchecked")
 	protected Map<K, Object> getMap(Object obj, List<K> keys, boolean lazy) {
-		return (Map<K, Object>) follow(obj, keys, lazy);
+		return intoMap(follow(obj, keys, lazy));
 	}
 
 	protected List<Object> getList(Object obj, List<K> keys) {
 		return getList(obj, keys, lazy);
 	}
 
-	@SuppressWarnings("unchecked")
 	protected List<Object> getList(Object obj, List<K> keys, boolean lazy) {
-		return (List<Object>) follow(obj, keys, lazy);
+		return intoList(follow(obj, keys, lazy));
 	}
 
 	protected Object follow(Object obj, List<K> keys) {
@@ -365,14 +365,12 @@ public class NestedMap<K> implements Map<K, Object> {
 		return -1;
 	}
 
-	@SuppressWarnings("unchecked")
 	private Map<K, Object> newMap() {
-		return invokeConstructor(mapClass);
+		return intoMap(invokeConstructor(mapClass));
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Object> newList() {
-		return invokeConstructor(listClass);
+		return intoList(invokeConstructor(listClass));
 	}
 
 	private <T> T invokeConstructor(Class<T> clazz) {
@@ -388,14 +386,12 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	private Object getChild(Object parent, K key) {
 		if (parent instanceof Map) {
-			@SuppressWarnings("unchecked")
-			Map<K, Object> map = (Map<K, Object>) parent;
+			Map<K, Object> map = intoMap(parent);
 			return map.get(key);
 		} else if (parent instanceof List) {
 			int index = getIndex(key);
 			if (index != -1) {
-				@SuppressWarnings("unchecked")
-				List<Object> list = (List<Object>) parent;
+				List<Object> list = intoList(parent);
 				if (index < list.size()) {
 					return list.get(index);
 				}
@@ -406,14 +402,12 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	private Object setChild(Object parent, K key, Object child) {
 		if (parent instanceof Map) {
-			@SuppressWarnings("unchecked")
-			Map<K, Object> map = (Map<K, Object>) parent;
+			Map<K, Object> map = intoMap(parent);
 			return map.put(key, child);
 		} else if (parent instanceof List) {
 			int index = getIndex(key);
 			if (index != -1) {
-				@SuppressWarnings("unchecked")
-				List<Object> list = (List<Object>) parent;
+				List<Object> list = intoList(parent);
 				while (list.size() < index + 1) {
 					list.add(null);
 				}
@@ -425,14 +419,12 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	private Object removeChild(Object parent, K key) {
 		if (parent instanceof Map) {
-			@SuppressWarnings("unchecked")
-			Map<K, Object> map = (Map<K, Object>) parent;
+			Map<K, Object> map = intoMap(parent);
 			return map.remove(key);
 		} else if (parent instanceof List) {
 			int index = getIndex(key);
 			if (index != -1) {
-				@SuppressWarnings("unchecked")
-				List<Object> list = (List<Object>) parent;
+				List<Object> list = intoList(parent);
 				return list.remove(index);
 			}
 		}
@@ -441,14 +433,12 @@ public class NestedMap<K> implements Map<K, Object> {
 
 	private boolean containsKey(Object parent, K key) {
 		if (parent instanceof Map) {
-			@SuppressWarnings("unchecked")
-			Map<K, Object> map = (Map<K, Object>) parent;
+			Map<K, Object> map = intoMap(parent);
 			return map.containsKey(key);
 		} else if (parent instanceof List) {
 			int index = getIndex(key);
 			if (index != -1) {
-				@SuppressWarnings("unchecked")
-				List<Object> list = (List<Object>) parent;
+				List<Object> list = intoList(parent);
 				return index < list.size();
 			}
 		}

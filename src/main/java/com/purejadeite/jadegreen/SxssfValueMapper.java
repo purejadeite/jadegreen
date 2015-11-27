@@ -145,7 +145,6 @@ public class SxssfValueMapper {
 				}
 			}
 		}
-		LOGGER.debug("\r\n\r\n" + workbookContent.toMap() + "\r\n\r\n");
 		return (List<Map<String, Object>>) workbookContent.getValues();
 	}
 

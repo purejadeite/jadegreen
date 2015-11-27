@@ -59,7 +59,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getRawValues(ignore);
-			if (vals != SpecificValue.INVALID) {
+			if (vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
 			}
 		}
@@ -91,7 +91,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getValues(ignore);
-			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.INVALID) {
+			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
 			}
 		}

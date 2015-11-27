@@ -13,7 +13,7 @@ public enum SpecificValue {
 	/**
 	 * 無効な値
 	 */
-	INVALID,
+	UNDEFINED,
 
 	/**
 	 * リンク

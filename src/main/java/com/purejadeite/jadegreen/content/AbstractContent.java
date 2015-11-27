@@ -72,7 +72,7 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 	@Override
 	public Object getRawValues(MappingDefinition<?>... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
-			return SpecificValue.INVALID;
+			return SpecificValue.UNDEFINED;
 		} else {
 			return getRawValuesImpl(ignore);
 		}
@@ -94,7 +94,7 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 			return SpecificValue.NO_OUTPUT;
 		} else {
 			if (ArrayUtils.contains(ignore, this.getDefinition())) {
-				return SpecificValue.INVALID;
+				return SpecificValue.UNDEFINED;
 			} else {
 				return getValuesImpl(ignore);
 			}

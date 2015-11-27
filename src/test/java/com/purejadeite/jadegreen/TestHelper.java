@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-class TestHelper {
+public class TestHelper {
 
 	private static ObjectMapper MAPPER = new ObjectMapper();
 

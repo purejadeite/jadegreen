@@ -7,11 +7,21 @@ package com.purejadeite.jadegreen;
  */
 public enum CaseFormat {
 
+	/**
+	 * Lower Camel
+	 */
 	LOWER_CAMEL() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		protected String normalize(String word) {
 			return camelToUpperHyphen(word);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String convert(String from) {
 			StringBuilder to = new StringBuilder();
@@ -30,6 +40,9 @@ public enum CaseFormat {
 			return to.toString();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean match(String word) {
 			for (int i = 0; i < word.length(); i++) {
@@ -44,11 +57,22 @@ public enum CaseFormat {
 			return true;
 		}
 	},
+
+	/**
+	 * Upper Camel
+	 */
 	UPPER_CAMEL() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		protected String normalize(String word) {
 			return camelToUpperHyphen(word);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String convert(String from) {
 			StringBuilder to = new StringBuilder();
@@ -67,6 +91,9 @@ public enum CaseFormat {
 			return to.toString();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean match(String word) {
 			for (int i = 0; i < word.length(); i++) {
@@ -81,16 +108,30 @@ public enum CaseFormat {
 			return true;
 		}
 	},
+
+	/**
+	 * Lower Hyphen
+	 */
 	LOWER_HYPHEN() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		protected String normalize(String word) {
 			return word.toUpperCase();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String convert(String from) {
 			return from.toLowerCase();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean match(String word) {
 			for (int i = 0; i < word.length(); i++) {
@@ -103,16 +144,30 @@ public enum CaseFormat {
 			return true;
 		}
 	},
+
+	/**
+	 * Upper Hyphen
+	 */
 	UPPER_HYPHEN() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		protected String normalize(String word) {
 			return word;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String convert(String from) {
 			return from;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean match(String word) {
 			for (int i = 0; i < word.length(); i++) {
@@ -125,11 +180,22 @@ public enum CaseFormat {
 			return true;
 		}
 	},
+
+	/**
+	 * Lower Underscore
+	 */
 	LOWER_UNDERSCORE() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		protected String normalize(String word) {
 			return underscoreToUpperHyphen(word);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String convert(String from) {
 			StringBuilder to = new StringBuilder();
@@ -144,6 +210,9 @@ public enum CaseFormat {
 			return to.toString();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean match(String word) {
 			for (int i = 0; i < word.length(); i++) {
@@ -156,11 +225,22 @@ public enum CaseFormat {
 			return true;
 		}
 	},
+
+	/**
+	 * Upper Underscore
+	 */
 	UPPER_UNDERSCORE() {
+
+		/**
+		 * {@inheritDoc}
+		 */
 		protected String normalize(String word) {
 			return underscoreToUpperHyphen(word);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public String convert(String from) {
 			StringBuilder to = new StringBuilder();
@@ -175,6 +255,9 @@ public enum CaseFormat {
 			return to.toString();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public boolean match(String word) {
 			for (int i = 0; i < word.length(); i++) {
@@ -192,16 +275,33 @@ public enum CaseFormat {
 	}
 
 	/**
+	 * アッパーハイフンに変換します
+	 * @param word 文字列
+	 * @return アッパーハイフン文字列
 	 *
-	 * @param word
-	 * @return
 	 */
 	abstract protected String normalize(String word);
 
+	/**
+	 * 目的の形式へ変換します
+	 * @param from 変換前の文字列
+	 * @return 目的の形式の文字列
+	 */
 	abstract public String convert(String from);
 
+	/**
+	 * 自身の形式であるか判定します
+	 * @param word 文字列
+	 * @return 自身の形式かどうか
+	 */
 	abstract public boolean match(String word);
 
+	/**
+	 * 文字列を指定の形式に変換します
+	 * @param to 指定の形式
+	 * @param word 文字列
+	 * @return
+	 */
 	public String to(CaseFormat to, String word) {
 		if (word == null || word.isEmpty()) {
 			return "";
@@ -209,6 +309,11 @@ public enum CaseFormat {
 		return to.convert(normalize(word));
 	}
 
+	/**
+	 * キャメルケースをアッパーハイフンに変換します
+	 * @param word キャメルケースの文字列
+	 * @return アッパーハイフンの文字列
+	 */
 	private static String camelToUpperHyphen(String word) {
 		StringBuilder normalized = new StringBuilder();
 		for (int i = 0; i < word.length(); i++) {
@@ -223,6 +328,11 @@ public enum CaseFormat {
 		return normalized.toString();
 	}
 
+	/**
+	 * アンダースコアをアッパーハイフンに変換します
+	 * @param word アンダースコアの文字列
+	 * @return アッパーハイフンの文字列
+	 */
 	private static String underscoreToUpperHyphen(String word) {
 		StringBuilder normalized = new StringBuilder();
 		for (int i = 0; i < word.length(); i++) {

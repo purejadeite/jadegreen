@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.AbstractTest;
+import com.purejadeite.jadegreen.TestHelper;
 import com.purejadeite.util.RoughlyMap;
 import com.purejadeite.util.StringKeyNestedMap;
 

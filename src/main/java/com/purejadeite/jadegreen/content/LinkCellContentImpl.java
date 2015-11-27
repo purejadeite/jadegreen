@@ -14,9 +14,11 @@ import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
 
 /**
  * 他のセルにリンクしたCellクラス
+ *
  * @author mitsuhiroseino
  */
-public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl> implements LinkCellContent<LinkCellDefinitionImpl>{
+public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
+		implements LinkCellContent<LinkCellDefinitionImpl> {
 
 	private static final long serialVersionUID = 3474501722301631948L;
 
@@ -27,8 +29,7 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * リンクしている単一セルは値の追加が完了しているとして扱います。
+	 * {@inheritDoc} リンクしている単一セルは値の追加が完了しているとして扱います。
 	 */
 	@Override
 	public Status addValue(int row, int col, Object value) {
@@ -37,18 +38,16 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * リンクしている単一セルは取得した値がないため無視をする対象とします。
+	 * {@inheritDoc} リンクしている単一セルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
 	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		// 値は無視してもらう
-		return SpecificValue.INVALID;
+		return SpecificValue.UNDEFINED;
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
+	 * {@inheritDoc} シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
 	 */
 	@Override
 	public Object getValuesImpl(MappingDefinition<?>... ignore) {
@@ -72,9 +71,15 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content<?>> sheetKeyContents = LinkContentUtils.getSheetKeyContents(book, definition);
+		if (sheetKeyContents == null) {
+			throw new IllegalStateException("リンク先シートのキーが見つかりません：" + definition.getSheetKeyDefinition().getFullId());
+		}
 
 		// 自分の属するシートのキーを取得
 		Content<?> mySheetKeyContent = LinkContentUtils.getMySheetKeyContent(sheet, definition);
+		if (mySheetKeyContent == null) {
+			throw new IllegalStateException("リンク元シートのキーが見つかりません：" + definition.getMySheetKeyDefinition().getFullId());
+		}
 
 		// 値の取得元シートを取得
 		WorksheetContent targetSheet = LinkContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);

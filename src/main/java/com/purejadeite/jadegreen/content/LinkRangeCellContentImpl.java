@@ -53,7 +53,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 	@Override
 	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
 		// 値は無視してもらう
-		return SpecificValue.INVALID;
+		return SpecificValue.UNDEFINED;
 	}
 
 	/**
@@ -68,9 +68,15 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content<?>> sheetKeyContents = LinkContentUtils.getSheetKeyContents(book, definition);
+		if (sheetKeyContents == null) {
+			throw new IllegalStateException("リンク先シートのキーが見つかりません：" + definition.getSheetKeyDefinition().getFullId());
+		}
 
 		// 自分のシートのキーを取得
 		Content<?> mySheetKeyContent = LinkContentUtils.getMySheetKeyContent(sheet, definition);
+		if (mySheetKeyContent == null) {
+			throw new IllegalStateException("リンク元シートのキーが見つかりません：" + definition.getMySheetKeyDefinition().getFullId());
+		}
 		LOGGER.debug("自分のシート:" + mySheetKeyContent.getFullId());
 
 		// 値の取得元シートを取得
@@ -79,17 +85,25 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 			return null;
 		}
 
-		// 取得元のキーとなるレコードを取得
-		Content<?> keyContent = sheetContent.searchContents(definition.getKeyDefinition()).get(0);
+		// リンク先のキーとなるレコードを取得
+		List<Content<?>> keyContents = sheetContent.searchContents(definition.getKeyDefinition());
+		if (keyContents.isEmpty()) {
+			return null;
+		}
+		Content<?> keyContent = keyContents.get(0);
 
-		// 取得元のテーブル丸ごと取得
+		// リンク先のテーブル丸ごと取得
 		Content<?> rangeContent = keyContent.getUpperContent(RangeContentImpl.class);
 
-		// 自分の属するsheetを取得
+		// リンク元の属するsheetを取得
 		Content<?> mySheetContent = this.getUpperContent(WorksheetContent.class);
 
-		// 自分のキーとなるレコードを取得
-		Content<?> myKeyContent = mySheetContent.searchContents(definition.getMyKeyDefinition()).get(0);
+		// リンク元のキーとなるレコードを取得
+		List<Content<?>> myKeyContents = mySheetContent.searchContents(definition.getMyKeyDefinition());
+		if (myKeyContents.isEmpty()) {
+			return null;
+		}
+		Content<?> myKeyContent = myKeyContents.get(0);
 
 		// valueのID
 		String[] ids = StringUtils.split(definition.getValueId(), ".");
@@ -112,7 +126,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 		}
 		return myValues;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

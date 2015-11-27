@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,6 +12,8 @@ import java.util.Map;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.purejadeite.jadegreen.AbstractTest;
 
 /**
  * Unit test for simple App.

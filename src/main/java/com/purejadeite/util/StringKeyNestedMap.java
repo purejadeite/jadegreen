@@ -47,6 +47,15 @@ public class StringKeyNestedMap extends NestedMap<String> {
 		this(map, DEFAULT_KEY_SEPARATOR, lazy, mapClass, listClass);
 	}
 
+	public StringKeyNestedMap(Map<String, Object> map, String keySeparator, boolean lazy) {
+		this(map, keySeparator, lazy, MAP_CLASS, LIST_CLASS);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public StringKeyNestedMap(Map<String, Object> map, String keySeparator, boolean lazy, Class<? extends Map> mapClass) {
+		this(map, keySeparator, lazy, mapClass, LIST_CLASS);
+	}
+
 	@SuppressWarnings("rawtypes")
 	public StringKeyNestedMap(Map<String, Object> map, String keySeparator, boolean lazy, Class<? extends Map> mapClass,
 			Class<? extends List> listClass) {
