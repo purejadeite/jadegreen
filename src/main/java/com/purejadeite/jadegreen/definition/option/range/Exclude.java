@@ -13,7 +13,7 @@ import com.purejadeite.util.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Eliminate extends AbstractRangeConverter {
+public class Exclude extends AbstractRangeConverter {
 
 	private static final long serialVersionUID = -7665794968023216952L;
 
@@ -51,7 +51,7 @@ public class Eliminate extends AbstractRangeConverter {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Eliminate(Map<String, Object> config) {
+	public Exclude(Map<String, Object> config) {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);

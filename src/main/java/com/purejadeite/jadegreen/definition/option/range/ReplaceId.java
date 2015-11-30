@@ -13,7 +13,7 @@ import com.purejadeite.util.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class ReplaceKey extends AbstractRangeConverter {
+public class ReplaceId extends AbstractRangeConverter {
 
 	private static final String CFG_KEY_ID = "keyId";
 
@@ -49,7 +49,7 @@ public class ReplaceKey extends AbstractRangeConverter {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public ReplaceKey(Map<String, Object> config) {
+	public ReplaceId(Map<String, Object> config) {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
@@ -65,17 +65,25 @@ public class ReplaceKey extends AbstractRangeConverter {
 		// グループ化された配列を保持するMapに変換
 		List<Map<String, Object>> converted = new ArrayList<>();
 		for (Map<String, Object> line : values) {
+			// 対象の行か？
 			Object keyValue = line.get(keyId);
 			if (map.containsKey(keyValue)) {
+				// 対象の行の場合は指定の項目のidを差し替える
 				Map<String, Object> modefied = new HashMap<>();
+				// 元のMapはいじりたくないので別のMapを作る
 				modefied.putAll(line);
+				// キーの値に対応するidを取得
 				String id = map.get(keyValue);
 				if (id == null) {
+					// idが無い場合は項目を削除
 					modefied.remove(targetId);
 				} else {
+					// idがある場合はidを差し替え
 					modefied.put(id, modefied.remove(targetId));
-
 				}
+				converted.add(modefied);
+			} else {
+				converted.add(line);
 			}
 		}
 		return converted;

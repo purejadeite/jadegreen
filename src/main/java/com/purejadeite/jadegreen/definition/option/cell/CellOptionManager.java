@@ -47,6 +47,9 @@ public class CellOptionManager {
 		regiter(UpperUnderscore.class);
 		regiter(Mapping.class);
 		regiter(Replace.class);
+		regiter(Length.class);
+		regiter(ByteLength.class);
+		regiter(Remove.class);
 	}
 
 	public static void regiter(Class<? extends CellOption> clazz) {

@@ -32,7 +32,8 @@ public class RangeOptionManager {
 		register(Group.class);
 		register(Sort.class);
 		register(Unique.class);
-		register(Eliminate.class);
+		register(Exclude.class);
+		register(ReplaceId.class);
 	}
 
 	public static void register(Class<? extends RangeOption> clazz) {
