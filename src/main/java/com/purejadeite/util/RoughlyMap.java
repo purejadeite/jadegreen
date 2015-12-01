@@ -58,7 +58,7 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 *            キー
 	 * @return List形式の値
 	 */
-	public List<Object> getList(K key) {
+	public <E> List<E> getList(K key) {
 		return intoList(map.get(key));
 	}
 
