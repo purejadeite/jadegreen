@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.CaseFormat;
+import com.purejadeite.util.CaseFormat;
 
 /**
 *

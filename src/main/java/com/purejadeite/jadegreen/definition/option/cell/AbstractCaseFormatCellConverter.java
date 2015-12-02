@@ -2,8 +2,8 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.CaseFormat;
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.util.CaseFormat;
 
 /**
  * <pre>

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.util;
 
 /**
  * Guavaに倣いつつも泥臭い方法で変換をする、ケースフォーマット変換クラス
