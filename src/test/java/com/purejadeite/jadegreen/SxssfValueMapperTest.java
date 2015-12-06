@@ -65,6 +65,11 @@ public class SxssfValueMapperTest {
 		test("ununiquerangelink");
 	}
 
+	@Test
+	public void replaceid() throws Exception {
+		test("replaceid");
+	}
+
 	private void test(String name) throws Exception {
 		// 定義の読み込み
 		Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");

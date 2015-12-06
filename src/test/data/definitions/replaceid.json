@@ -1,0 +1,29 @@
+{
+	"id": "book",
+	"sheets": [
+		{
+			"comment": "キー置換シート",
+			"id": "keyreplace",
+		    "name": "validation",
+		    "cells": [
+		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [
+		                {"type": "replaceid", "keyId": "validationType", "map": {
+		                	"length": {"arg0": "min", "arg1": "max"},
+		                	"maxlength": {"arg0": "length"}
+		                }},
+		                {"type": "group", "keyId": "fieldName", "toId": "validators"}
+		            ],
+		            "columns": [
+		                {"id": "logicalFieldName", "column": 2},
+		                {"id": "fieldName", "column": 3},
+		                {"id": "validationType", "column": 4, "options": [{"type": "lower"}]},
+		                {"id": "arg0", "column": 5, "options": [{"type": "tonull"}, {"type": "remove"}]},
+		                {"id": "arg1", "column": 6, "options": [{"type": "tonull"}, {"type": "remove"}]},
+		                {"id": "arg2", "column": 7, "options": [{"type": "tonull"}, {"type": "remove"}]},
+		                {"id": "arg3", "column": 8, "options": [{"type": "tonull"}, {"type": "remove"}]}
+		            ]
+		        }
+		    ]
+		}
+	]
+}

@@ -75,7 +75,7 @@ public class RangeOptionManager {
 		try {
 			constructor = clazz.getConstructor(Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new MappingException("type=" + type + ":optionsのclassからデフォルトコンストラクターが取得できません");
+			throw new MappingException("type=" + type + ":optionsのclassからコンストラクターを取得できません", e);
 		}
 
 		// インスタンスを取得
@@ -83,7 +83,7 @@ public class RangeOptionManager {
 		try {
 			option = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new MappingException("type=" + type + ":optionsのclassからインスタンスが作成できません");
+			throw new MappingException("type=" + type + ":optionsのclassからインスタンスが作成できません", e);
 		}
 		return option;
 	}

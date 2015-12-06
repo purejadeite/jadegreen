@@ -169,7 +169,9 @@ public class RangeContentImpl extends AbstractContent<RangeDefinition<?>> implem
 					} else {
 						line = values.get(i);
 					}
-					line.put(cell.getId(), val);
+					if (!SpecificValue.UNDEFINED.equals(val)) {
+						line.put(cell.getId(), val);
+					}
 				}
 			}
 		}

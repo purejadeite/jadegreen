@@ -1,0 +1,65 @@
+[
+	{
+		"sheetName": "validation",
+		"fields": [
+			{
+				"fieldName": "fileExistFlag",
+				"validators": [
+		   			{
+						"logicalFieldName": "ファイル有無フラグ",
+						"fieldName": "fileExistFlag",
+						"validationType": "notnull"
+					}
+				]
+			},
+			{
+				"fieldName": "fileName",
+				"validators": [
+		   			{
+		   				"logicalFieldName": "ファイル名",
+						"fieldName": "fileName",
+						"validationType": "notnull"
+					}
+				]
+			},
+			{
+				"fieldName": "filePath",
+				"validators": [
+					{
+						"logicalFieldName": "ファイルパス",
+						"fieldName": "filePath",
+						"validationType": "notnull"
+					},
+		   			{
+						"logicalFieldName": "ファイルパス",
+						"fieldName": "filePath",
+						"validationType": "length",
+						"arg0": "2",
+						"arg1": "10"
+					}
+				]
+			},
+			{
+				"fieldName": "lines",
+				"validators": [
+		   			{
+						"logicalFieldName": "行情報",
+						"fieldName": "lines",
+						"validationType": "notnull"
+					},
+					{
+						"logicalFieldName": "行情報",
+						"fieldName": "lines",
+						"validationType": "maxlength",
+						"arg0": "100"
+					},
+					{
+						"logicalFieldName": "行情報",
+						"fieldName": "lines",
+						"validationType": "kana"
+					}
+				]
+			}
+		]
+	}
+]

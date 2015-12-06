@@ -44,9 +44,9 @@ public class Remove extends AbstractStringCellConverter {
 	@Override
 	public Object applyToString(String value) {
 		if (EvaluationUtils.evaluate(value, operator, this.value)) {
-			return value;
+			return SpecificValue.UNDEFINED;
 		}
-		return SpecificValue.UNDEFINED;
+		return value;
 	}
 
 }
