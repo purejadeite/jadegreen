@@ -21,7 +21,7 @@ public class LinkContentUtils {
 	public static List<Content<?>> getSheetKeyContents(WorkbookContent book,
 			LinkCellDefinition<?> definition) {
 		MappingDefinition<?> sheetKeyDefinition = definition
-				.getSheetKeyDefinition();
+				.getKeyDefinition();
 		return book.searchContents(sheetKeyDefinition);
 	}
 
@@ -37,7 +37,7 @@ public class LinkContentUtils {
 	public static Content<?> getMySheetKeyContent(WorksheetContent sheet,
 			LinkCellDefinition<?> definition) {
 		MappingDefinition<?> sheetKeyDefinition = definition
-				.getMySheetKeyDefinition();
+				.getMyKeyDefinition();
 		List<Content<?>> sheetKeyContents = sheet
 				.searchContents(sheetKeyDefinition);
 		if (sheetKeyContents.isEmpty()) {

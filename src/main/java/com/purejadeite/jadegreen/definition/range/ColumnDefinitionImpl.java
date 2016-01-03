@@ -37,10 +37,10 @@ public class ColumnDefinitionImpl extends AbstractRangeDefinition<RangeCellDefin
 	public static RangeDefinition<?> newInstance(WorksheetDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		int beginCol = RoughlyMapUtils.getIntValue(config, BEGIN_COLUMN);
+		int beginCol = RoughlyMapUtils.getIntValue(config, COLUMN);
 		int endCol = RoughlyMapUtils.getIntValue(config, END_COLUMN);
-		String endKey = RoughlyMapUtils.getString(config, END_KEY);
-		String endValue = RoughlyMapUtils.getString(config, END_VALUE);
+		String endKey = RoughlyMapUtils.getString(config, BREAK_ID);
+		String endValue = RoughlyMapUtils.getString(config, BREAK_VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		return new ColumnDefinitionImpl(parent, id, noOutput, beginCol, endCol, endKey, endValue,
 				options);

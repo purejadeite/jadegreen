@@ -5,8 +5,8 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
@@ -21,26 +21,33 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 
 	private static final long serialVersionUID = -6688614988181481927L;
 
-	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
+	private static final String CFG_SHEET_ID = "sheetId";
 
-	private static final String CFG_SHEET_KEY_ID = "sheetKeyId";
+	private static final String CFG_KEY_ID = "keyId";
+
+	private static final String CFG_MY_KEY_ID = "myKeyId";
 
 	private static final String CFG_VALUE_ID = "valueId";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_MY_SHEET_KEY_ID, CFG_SHEET_KEY_ID, CFG_VALUE_ID };
+	private static final String[] CONFIG = { CFG_SHEET_ID, CFG_KEY_ID };
 
 	/**
 	 * 自身のシートのキーになる項目のID
 	 */
-	protected String mySheetKeyId;
+	protected String myKeyId;
+
+	/**
+	 * リンク先のシートのID
+	 */
+	protected String sheetId;
 
 	/**
 	 * リンク先のキーになる項目のID
 	 */
-	protected String sheetKeyId;
+	protected String keyId;
 
 	/**
 	 * リンク先の値を取得する対象の項目のID
@@ -71,9 +78,32 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 		super(parent, id, noOutput, options);
 		this.validateConfig(linkConfig, CONFIG);
 		this.book = book;
-		this.mySheetKeyId = linkConfig.get(CFG_MY_SHEET_KEY_ID);
-		this.sheetKeyId = linkConfig.get(CFG_SHEET_KEY_ID);
-		this.valueId = linkConfig.get(CFG_VALUE_ID);
+		// 相手シートのID
+		if (linkConfig.containsKey(CFG_SHEET_ID)) {
+			sheetId = linkConfig.get(CFG_SHEET_ID);
+		} else {
+			sheetId = sheet.getJoinSheetId();
+		}
+		// 相手シートのキー項目のID
+		if (linkConfig.containsKey(CFG_KEY_ID)) {
+			keyId = linkConfig.get(CFG_KEY_ID);
+		} else {
+			keyId = sheet.getJoinKeyId();
+		}
+		// 自身のシートのキー項目のID
+		if (linkConfig.containsKey(CFG_MY_KEY_ID)) {
+			myKeyId = linkConfig.get(CFG_MY_KEY_ID);
+		} else if (sheet.getJoinMyKeyId() != null) {
+			myKeyId = sheet.getJoinMyKeyId();
+		} else {
+			myKeyId = keyId;
+		}
+		// 相手シートから取得する項目のID
+		if (linkConfig.containsKey(CFG_VALUE_ID)) {
+			valueId = linkConfig.get(CFG_VALUE_ID);
+		} else {
+			valueId = id;
+		}
 	}
 
 	public static MappingDefinition<?> newInstance(WorkbookDefinition book, WorksheetDefinition parent,
@@ -85,29 +115,31 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 		return new LinkCellDefinitionImpl(book, parent, id, noOutput, options, link);
 	}
 
-	public String getSheetKeyId() {
-		return sheetKeyId;
+	public String getSheetId() {
+		return keyId;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getMySheetKeyDefinition() {
-		return book.get(mySheetKeyId);
+	public MappingDefinition<?> getMyKeyDefinition() {
+		return sheet.getDefinition(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getSheetKeyDefinition() {
-		return book.get(sheetKeyId);
+	public MappingDefinition<?> getKeyDefinition() {
+		WorksheetDefinition sheet = book.getSheet(sheetId);
+		return sheet.getDefinition(keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getValueDefinition() {
-		return book.get(valueId);
+		WorksheetDefinition sheet = book.getSheet(sheetId);
+		return sheet.getDefinition(valueId);
 	}
 
 	/**
@@ -116,8 +148,8 @@ public class LinkCellDefinitionImpl extends AbstractNoAdressCellDefinition<Works
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("mySheetKeyId", mySheetKeyId);
-		map.put("sheetKeyId", sheetKeyId);
+		map.put("mySheetKeyId", myKeyId);
+		map.put("sheetKeyId", keyId);
 		map.put("valueId", valueId);
 		map.put("book", book.getFullId());
 		return map;

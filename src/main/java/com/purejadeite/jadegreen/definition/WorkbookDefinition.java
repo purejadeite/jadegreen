@@ -30,6 +30,15 @@ public class WorkbookDefinition extends AbstractParentMappingDefinition<NoDefini
 		return new WorkbookDefinition(config);
 	}
 
+	public WorksheetDefinition getSheet(String id) {
+		for(WorksheetDefinition sheet : getChildren()){
+			if (id.equals(sheet.getId())) {
+				return sheet;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

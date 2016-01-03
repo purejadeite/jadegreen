@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.cell;
 import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 
 /**
  * Cell読み込み定義のインターフェイス
@@ -45,4 +46,9 @@ public interface CellDefinition<P extends ParentMappingDefinition<?, ?>> extends
 	 * @return コンバーターなどのオプション
 	 */
 	public Options getOptions();
+
+	/**
+	 * シートの定義を設定します
+	 */
+	public void setSheet(WorksheetDefinition sheet);
 }

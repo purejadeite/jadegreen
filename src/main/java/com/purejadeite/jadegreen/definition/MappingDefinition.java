@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition;
 
+import java.util.Map;
+
 /**
  *
  * Excelファイル読み込みの定義情報インターフェイス
@@ -36,5 +38,11 @@ public interface MappingDefinition<P extends ParentMappingDefinition<?, ?>> exte
 	 * @return
 	 */
 	public P getParent();
+
+	/**
+	 * 同シート配下の全定義を設定します
+	 * @param definitions シート配下の全定義
+	 */
+	public void setDefinitions(Map<String, MappingDefinition<?>> definitions);
 
 }

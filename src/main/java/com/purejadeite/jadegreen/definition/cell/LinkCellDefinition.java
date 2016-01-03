@@ -9,17 +9,17 @@ import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
  */
 public interface LinkCellDefinition<P extends ParentMappingDefinition<?, ?>> extends CellDefinition<P> {
 
-	public String getSheetKeyId();
+	public String getSheetId();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getMySheetKeyDefinition();
+	public MappingDefinition<?> getMyKeyDefinition();
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getSheetKeyDefinition();
+	public MappingDefinition<?> getKeyDefinition();
 
 	/**
 	 * {@inheritDoc}

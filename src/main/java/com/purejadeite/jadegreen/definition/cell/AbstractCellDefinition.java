@@ -6,6 +6,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.AbstractMappingDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
 /**
@@ -18,6 +19,11 @@ import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 abstract public class AbstractCellDefinition<P extends ParentMappingDefinition<?, ?>> extends AbstractMappingDefinition<P> implements CellDefinition<P> {
 
 	private static final long serialVersionUID = -1364121835461648806L;
+
+	/**
+	 * シート
+	 */
+	protected WorksheetDefinition sheet;
 
 	/**
 	 * オプション
@@ -46,6 +52,14 @@ abstract public class AbstractCellDefinition<P extends ParentMappingDefinition<?
 	@Override
 	public Options getOptions() {
 		return options;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setSheet(WorksheetDefinition sheet) {
+		this.sheet = sheet;
 	}
 
 	@Override

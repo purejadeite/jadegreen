@@ -48,11 +48,6 @@ public class DefinitionKeys {
 	public static final String ROW = "row";
 
 	/**
-	 * 開始行番号
-	 */
-	public static final String BEGIN_ROW = "beginRow";
-
-	/**
 	 * 終了行番号
 	 */
 	public static final String END_ROW = "endRow";
@@ -63,11 +58,6 @@ public class DefinitionKeys {
 	public static final String COLUMN = "column";
 
 	/**
-	 * 開始列番号
-	 */
-	public static final String BEGIN_COLUMN = "beginColumn";
-
-	/**
 	 * 終了列番号
 	 */
 	public static final String END_COLUMN = "endColumn";
@@ -75,7 +65,7 @@ public class DefinitionKeys {
 	/**
 	 * 繰り返し項目の取得開始判定項目
 	 */
-	public static final String BEGIN_KEY = "beginKeyId";
+	public static final String BEGIN_ID = "beginId";
 
 	/**
 	 * 繰り返し項目の取得開始判定値
@@ -85,12 +75,12 @@ public class DefinitionKeys {
 	/**
 	 * 繰り返し項目の取得終了判定項目
 	 */
-	public static final String END_KEY = "endKeyId";
+	public static final String BREAK_ID = "breakId";
 
 	/**
 	 * 繰り返し項目の取得終了判定値
 	 */
-	public static final String END_VALUE = "endValue";
+	public static final String BREAK_VALUE = "breakValue";
 
 	/**
 	 * 列方向の繰り返しの子要素

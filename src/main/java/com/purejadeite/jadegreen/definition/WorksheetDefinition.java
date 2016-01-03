@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
@@ -21,6 +22,21 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 * コンフィグ：シート名
 	 */
 	private static final String CFG_NAME = "name";
+
+	/**
+	 * コンフィグ：join・相手先シートID
+	 */
+	private static final String CFG_JOIN_SHEET_ID = "join.sheetId";
+
+	/**
+	 * コンフィグ：join・相手先キーID
+	 */
+	private static final String CFG_JOIN_KEY_ID = "join.keyId";
+
+	/**
+	 * コンフィグ：join・自身のキーID
+	 */
+	private static final String CFG_JOIN_MY_KEY_ID = "join.myKeyId";
 
 	/**
 	 * 必須項目名称
@@ -53,6 +69,21 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	private int maxCol = 0;
 
 	/**
+	 * リンク先のシートのID
+	 */
+	protected String joinSheetId;
+
+	/**
+	 * リンク先のキーになる項目のID
+	 */
+	protected String joinKeyId;
+
+	/**
+	 * 自身のシートのキーになる項目のID
+	 */
+	protected String joinMyKeyId;
+
+	/**
 	 * コンストラクタ
 	 *
 	 * @param parent
@@ -64,6 +95,10 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
 		this.name = RoughlyMapUtils.getString(config, CFG_NAME);
+		this.joinSheetId = RoughlyMapUtils.getString(config, CFG_JOIN_SHEET_ID, null);
+		this.joinKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_KEY_ID, null);
+		this.joinMyKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_MY_KEY_ID, null);
+		this.definitions = new HashMap<>();
 	}
 
 	/**
@@ -79,9 +114,13 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 * @param noOutput
 	 *            出力要否
 	 */
-	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, boolean noOutput) {
+	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, boolean noOutput, Map<String, Object> config) {
 		super(parent, id, noOutput);
 		this.name = name;
+		this.joinSheetId = RoughlyMapUtils.getString(config, CFG_JOIN_SHEET_ID, null);
+		this.joinKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_KEY_ID, null);
+		this.joinMyKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_MY_KEY_ID, null);
+		this.definitions = new HashMap<>();
 	}
 
 	/**
@@ -94,7 +133,19 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 		String id = RoughlyMapUtils.getString(config, ID);
 		String name = RoughlyMapUtils.getString(config, NAME);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		return new WorksheetDefinition(parent, id, name, noOutput);
+		return new WorksheetDefinition(parent, id, name, noOutput, config);
+	}
+
+	public String getJoinSheetId() {
+		return joinSheetId;
+	}
+
+	public String getJoinKeyId() {
+		return joinKeyId;
+	}
+
+	public String getJoinMyKeyId() {
+		return joinMyKeyId;
 	}
 
 	/**
@@ -114,9 +165,12 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 */
 	private void addCell(MappingDefinition<?> child) {
 		if (child != null) {
+			definitions.put(child.getId(), child);
+			child.setDefinitions(definitions);
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
 				CellDefinition<?> cell = (CellDefinition<?>) child;
+				cell.setSheet(this);
 				int i;
 				// 最少行番号
 				i = cell.getMinRow();
@@ -144,8 +198,8 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 				}
 			} else if (child instanceof ParentMappingDefinition) {
 				// Rangeの場合は子要素のCellをばらして追加
-				ParentMappingDefinition<?, ?> pd = (ParentMappingDefinition<?, ?>) child;
-				for (MappingDefinition<?> c : pd.getChildren()) {
+				ParentMappingDefinition<?, ?> pmd = (ParentMappingDefinition<?, ?>) child;
+				for (MappingDefinition<?> c : pmd.getChildren()) {
 					addCell(c);
 				}
 			}
@@ -219,4 +273,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 		return value;
 	}
 
+	public MappingDefinition<?> getDefinition(String id) {
+		return definitions.get(id);
+	}
 }

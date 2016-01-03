@@ -36,10 +36,10 @@ public class RowDefinitionImpl extends AbstractRangeDefinition<RangeCellDefiniti
 	public static RangeDefinition<?> newInstance(WorksheetDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		int beginRow = RoughlyMapUtils.getIntValue(config, BEGIN_ROW);
+		int beginRow = RoughlyMapUtils.getIntValue(config, ROW);
 		int endRow = RoughlyMapUtils.getIntValue(config, END_ROW);
-		String endKey = RoughlyMapUtils.getString(config, END_KEY);
-		String endValue = RoughlyMapUtils.getString(config, END_VALUE);
+		String endKey = RoughlyMapUtils.getString(config, BREAK_ID);
+		String endValue = RoughlyMapUtils.getString(config, BREAK_VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		return new RowDefinitionImpl(parent, id, noOutput, beginRow, endRow, endKey, endValue,
 				options);

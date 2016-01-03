@@ -21,7 +21,7 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	private static final long serialVersionUID = -6619514528554034278L;
 
 	/**
-	 * 子要素定義
+	 * 配下の要素定義
 	 */
 	private List<C> children = new ArrayList<>();
 
@@ -61,7 +61,7 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	}
 
 	/**
-	 * サポートされていないオペレーションです
+	 * 配下の定義を取得します
 	 */
 	@Override
 	public List<C> getChildren() {
@@ -69,7 +69,7 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	}
 
 	/**
-	 * サポートされていないオペレーションです
+	 * 配下の定義を追加します
 	 */
 	@Override
 	public void addChild(C child) {

@@ -62,7 +62,7 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
 			LOGGER.warn("リンク先の値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
 			return null;
-		} else if (valueContents.size() == 1 && StringUtils.isEmpty(definition.getSheetKeyId())) {
+		} else if (valueContents.size() == 1 && StringUtils.isEmpty(definition.getSheetId())) {
 			// 欲しい値が1つでキーが指定されていない場合はそれの値を返す
 			// 1ファイルに各シートが1つずつしかない場合を想定
 			LOGGER.debug("リンク先が1つだけ:" + definition.getValueDefinition().getFullId());
@@ -72,13 +72,13 @@ public class LinkCellContentImpl extends AbstractContent<LinkCellDefinitionImpl>
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content<?>> sheetKeyContents = LinkContentUtils.getSheetKeyContents(book, definition);
 		if (sheetKeyContents == null) {
-			throw new IllegalStateException("リンク先シートのキーが見つかりません：" + definition.getSheetKeyDefinition().getFullId());
+			throw new IllegalStateException("リンク先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
 		}
 
 		// 自分の属するシートのキーを取得
 		Content<?> mySheetKeyContent = LinkContentUtils.getMySheetKeyContent(sheet, definition);
 		if (mySheetKeyContent == null) {
-			throw new IllegalStateException("リンク元シートのキーが見つかりません：" + definition.getMySheetKeyDefinition().getFullId());
+			throw new IllegalStateException("リンク元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
 		}
 
 		// 値の取得元シートを取得

@@ -10,7 +10,7 @@
 		        {"id": "className", "row": 2, "column": 3},
 		        {"id": "package", "row": 3, "column": 3},
 		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
-		        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
+		        {"id": "fields", "row": 8, "breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
@@ -18,10 +18,15 @@
 		                {"id": "static", "column": 3, "options": [{"type": "upperunderscore"}]},
 		                {"id": "type", "column": 4},
 		                {"id": "initial", "column": 5},
-		                {"id": "validation", "link": {"mySheetKeyId": "main.className", "myKeyId": "main.fields.fieldName", "sheetKeyId": "sub.className", "keyId": "sub.fields.fieldName", "valueId": "sub.fields.validators"}}
+		                {"id": "validation", "link": {"myKeyId": "className", "myFieldKeyId": "fieldName", "sheetId": "sub", "keyId": "className", "fieldKeyId": "fieldName", "valueId": "validators"}}
+		                {"id": "validation", "link": {
+			                	"me": {"keyId": "className", "fieldKeyId": "fieldName"},
+			                	"sub": {"keyId": "className", "fieldKeyId": "fieldName", "valueId": "validators"}
+			                }
+		                }
 		            ]
 		        },
-		        {"id": "logicalClassNameValid", "link": {"mySheetKeyId": "main.className", "sheetKeyId": "sub.className", "valueId": "sub.logicalClassName"}}
+		        {"id": "logicalClassNameValid", "link": {"myKeyId": "className", "sheetId": "sub", "keyId": "className", "valueId": "logicalClassName"}}
 		    ]
 		},
 		{

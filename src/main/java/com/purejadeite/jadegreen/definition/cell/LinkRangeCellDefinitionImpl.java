@@ -5,9 +5,10 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.LinkDefinition;
+import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.range.RangeDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
@@ -20,46 +21,52 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 
 	private static final long serialVersionUID = 2442986614257910095L;
 
-	private static final String CFG_MY_SHEET_KEY_ID = "mySheetKeyId";
-	
-	private static final String CFG_MY_KEY_ID = "myKeyId";
-	
-	private static final String CFG_SHEET_KEY_ID = "sheetKeyId";
-	
+	private static final String CFG_SHEET_ID = "sheetId";
+
 	private static final String CFG_KEY_ID = "keyId";
-	
+
+	private static final String CFG_TABLE_KEY_ID = "tableKeyId";
+
 	private static final String CFG_VALUE_ID = "valueId";
+
+	private static final String CFG_MY_KEY_ID = "myKeyId";
+
+	private static final String CFG_MY_TABLE_KEY_ID = "myTableKeyId";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_MY_SHEET_KEY_ID, CFG_MY_KEY_ID, CFG_SHEET_KEY_ID, CFG_KEY_ID,
-			CFG_VALUE_ID };
+	private static final String[] CONFIG = { CFG_SHEET_ID, CFG_KEY_ID, CFG_TABLE_KEY_ID};
 
 	/**
-	 * 取得対象のRangeの定義ID
+	 * 取得対象のシートの定義ID
 	 */
-	private String mySheetKeyId;
+	private String sheetId;
 
 	/**
-	 * 自分側のキーとなる項目の定義ID
-	 */
-	private String myKeyId;
-
-	/**
-	 * 取得対象のRangeの定義ID
-	 */
-	private String sheetKeyId;
-
-	/**
-	 * 取得対象のキーとなる項目の定義ID
+	 * 取得対象のシートのキーとなる項目の定義ID
 	 */
 	private String keyId;
+
+	/**
+	 * 取得対象のテーブルのキーとなる項目の定義ID
+	 */
+	private String tableKeyId;
 
 	/**
 	 * 取得対象の値の定義ID
 	 */
 	private String valueId;
+
+	/**
+	 * 自分側のシートのキーとなるの定義ID
+	 */
+	private String myKeyId;
+
+	/**
+	 * 自分側のテーブルのキーとなる項目の定義ID
+	 */
+	private String myTableKeyId;
 
 	/**
 	 * Book読み込み定義
@@ -79,11 +86,40 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 		super(range, id, noOutput, options);
 		this.validateConfig(linkConfig, CONFIG);
 		this.book = book;
-		this.mySheetKeyId = linkConfig.get(CFG_MY_SHEET_KEY_ID);
-		this.myKeyId = linkConfig.get(CFG_MY_KEY_ID);
-		this.sheetKeyId = linkConfig.get(CFG_SHEET_KEY_ID);
-		this.keyId = linkConfig.get(CFG_KEY_ID);
-		this.valueId = linkConfig.get(CFG_VALUE_ID);
+		// 相手シートのID
+		if (linkConfig.containsKey(CFG_SHEET_ID)) {
+			sheetId = linkConfig.get(CFG_SHEET_ID);
+		} else {
+			sheetId = sheet.getJoinSheetId();
+		}
+		// 相手シートのキー項目のID
+		if (linkConfig.containsKey(CFG_KEY_ID)) {
+			keyId = linkConfig.get(CFG_KEY_ID);
+		} else {
+			keyId = sheet.getJoinKeyId();
+		}
+		// 自身のシートのキー項目のID
+		if (linkConfig.containsKey(CFG_MY_KEY_ID)) {
+			myKeyId = linkConfig.get(CFG_MY_KEY_ID);
+		} else if (sheet.getJoinMyKeyId() != null) {
+			myKeyId = sheet.getJoinMyKeyId();
+		} else {
+			myKeyId = keyId;
+		}
+		// 相手シートのテーブルのキー項目のID
+		tableKeyId = linkConfig.get(CFG_TABLE_KEY_ID);
+		// 自身のシートのテーブルのキー項目のID
+		if (linkConfig.containsKey(CFG_MY_TABLE_KEY_ID)) {
+			myTableKeyId = linkConfig.get(CFG_MY_TABLE_KEY_ID);
+		} else {
+			myTableKeyId = tableKeyId;
+		}
+		// 相手シートから取得する項目のID
+		if (linkConfig.containsKey(CFG_VALUE_ID)) {
+			valueId = linkConfig.get(CFG_VALUE_ID);
+		} else {
+			valueId = id;
+		}
 	}
 
 	public static CellDefinition<RangeDefinition<?>> newInstance(WorkbookDefinition book, RangeDefinition<?> range, Map<String, Object> config) {
@@ -94,8 +130,8 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 		return new LinkRangeCellDefinitionImpl(book, range, id, noOutput, options, link);
 	}
 
-	public String getSheetKeyId() {
-		return sheetKeyId;
+	public String getSheetId() {
+		return sheetId;
 	}
 
 	public String getKeyId() {
@@ -109,36 +145,39 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 	/**
 	 * {@inheritDoc}
 	 */
+	public MappingDefinition<?> getMyTableKeyDefinition() {
+		return sheet.getDefinition(myTableKeyId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public MappingDefinition<?> getMyKeyDefinition() {
-		return book.get(myKeyId);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public MappingDefinition<?> getMySheetKeyDefinition() {
-		return book.get(mySheetKeyId);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public MappingDefinition<?> getSheetKeyDefinition() {
-		return book.get(sheetKeyId);
+		return sheet.getDefinition(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getKeyDefinition() {
-		return book.get(keyId);
+		WorksheetDefinition sheet = book.getSheet(sheetId);
+		return sheet.getDefinition(keyId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public MappingDefinition<?> getTableKeyDefinition() {
+		WorksheetDefinition sheet = book.getSheet(sheetId);
+		return sheet.getDefinition(tableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getValueDefinition() {
-		return book.get(valueId);
+		WorksheetDefinition sheet = book.getSheet(sheetId);
+		return sheet.getDefinition(valueId);
 	}
 
 	/**
@@ -147,9 +186,9 @@ public class LinkRangeCellDefinitionImpl extends AbstractNoAdressRangeCellDefini
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("mySheetKeyId", mySheetKeyId);
-		map.put("myKeyId", myKeyId);
-		map.put("sheetKeyId", sheetKeyId);
+		map.put("mySheetKeyId", myKeyId);
+		map.put("myKeyId", myTableKeyId);
+		map.put("sheetKeyId", sheetId);
 		map.put("keyId", keyId);
 		map.put("valueId", valueId);
 		return map;

@@ -69,13 +69,13 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 		// 全Contentから相手のシートのキーになるContentを取得
 		List<Content<?>> sheetKeyContents = LinkContentUtils.getSheetKeyContents(book, definition);
 		if (sheetKeyContents == null) {
-			throw new IllegalStateException("リンク先シートのキーが見つかりません：" + definition.getSheetKeyDefinition().getFullId());
+			throw new IllegalStateException("リンク先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
 		}
 
 		// 自分のシートのキーを取得
 		Content<?> mySheetKeyContent = LinkContentUtils.getMySheetKeyContent(sheet, definition);
 		if (mySheetKeyContent == null) {
-			throw new IllegalStateException("リンク元シートのキーが見つかりません：" + definition.getMySheetKeyDefinition().getFullId());
+			throw new IllegalStateException("リンク元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
 		}
 		LOGGER.debug("自分のシート:" + mySheetKeyContent.getFullId());
 
@@ -86,7 +86,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 		}
 
 		// リンク先のキーとなるレコードを取得
-		List<Content<?>> keyContents = sheetContent.searchContents(definition.getKeyDefinition());
+		List<Content<?>> keyContents = sheetContent.searchContents(definition.getTableKeyDefinition());
 		if (keyContents.isEmpty()) {
 			return null;
 		}
@@ -99,7 +99,7 @@ public class LinkRangeCellContentImpl extends AbstractRangeCellContent<LinkRange
 		Content<?> mySheetContent = this.getUpperContent(WorksheetContent.class);
 
 		// リンク元のキーとなるレコードを取得
-		List<Content<?>> myKeyContents = mySheetContent.searchContents(definition.getMyKeyDefinition());
+		List<Content<?>> myKeyContents = mySheetContent.searchContents(definition.getMyTableKeyDefinition());
 		if (myKeyContents.isEmpty()) {
 			return null;
 		}

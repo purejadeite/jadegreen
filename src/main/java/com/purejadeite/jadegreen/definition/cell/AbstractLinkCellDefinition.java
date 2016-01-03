@@ -58,14 +58,14 @@ abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefiniti
 		this.valueId = config.get("valueId");
 	}
 
-	public String getSheetKeyId() {
+	public String getSheetId() {
 		return sheetKeyId;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public ParentMappingDefinition<?, ?> getMySheetKeyDefinition() {
+	public ParentMappingDefinition<?, ?> getMyKeyDefinition() {
 		MappingDefinition<?> sheet = book.get(mySheetKeyId);
 		if (sheet instanceof ParentMappingDefinition) {
 			return (ParentMappingDefinition<?, ?>) sheet;
@@ -77,7 +77,7 @@ abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefiniti
 	/**
 	 * {@inheritDoc}
 	 */
-	public ParentMappingDefinition<?, ?> getSheetKeyDefinition() {
+	public ParentMappingDefinition<?, ?> getKeyDefinition() {
 		MappingDefinition<?> sheet = book.get(sheetKeyId);
 		if (sheet instanceof ParentMappingDefinition) {
 			return (ParentMappingDefinition<?, ?>) sheet;

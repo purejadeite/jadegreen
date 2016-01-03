@@ -42,7 +42,8 @@ public class RoughlyMap<K> implements Map<K, Object> {
 	 *            キー
 	 * @return Map形式の値
 	 */
-	public Map<K, Object> getMap(K key) {
+	@SuppressWarnings("hiding")
+	public <K> Map<K, Object> getMap(K key) {
 		return intoMap(map.get(key));
 	}
 
