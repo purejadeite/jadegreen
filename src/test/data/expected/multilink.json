@@ -1,8 +1,8 @@
 [
 	{
 		"sheetName": "bean-sample1",
-		"logicalClassName": "シート間のリンク",
-		"logicalClassNameValid": "シート間のリンク(リンク先)",
+		"logicalClassName": "シート間の結合",
+		"logicalClassNameValid": "シート間の結合(結合先)",
 		"className": "Sample1",
 		"package": "com.purejadeite.generated",
 		"imports": [
@@ -128,8 +128,8 @@
 	},
 	{
 		"sheetName": "bean-sample2",
-		"logicalClassName": "シート間のリンク",
-		"logicalClassNameValid": "シート間のリンク(リンク先)",
+		"logicalClassName": "シート間の結合",
+		"logicalClassNameValid": "シート間の結合(結合先)",
 		"className": "Sample2",
 		"package": "com.purejadeite.generated",
 		"imports": [
@@ -255,7 +255,7 @@
 	},
 	{
 		"sheetName": "bean-sample3",
-		"logicalClassName": "シート間のリンク",
+		"logicalClassName": "シート間の結合",
 		"logicalClassNameValid": null,
 		"className": "Sample3",
 		"package": "com.purejadeite.generated",

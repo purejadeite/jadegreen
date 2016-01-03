@@ -5,14 +5,14 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.range.RangeDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
 /**
  * 行方向の繰り返しを持つテーブル配下のCell読み込み定義
  * @author mitsuhiroseino
  */
-public class RowCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefinition<?>> {
+public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefinition<?>> {
 
 	private static final long serialVersionUID = 1338170679621437792L;
 
@@ -27,12 +27,12 @@ public class RowCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefi
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	private RowCellDefinitionImpl(RangeDefinition<?> parent, String id, boolean noOutput, int beginRow, int endRow, int col,
+	private RowCellDefinitionImpl(TableDefinition<?> parent, String id, boolean noOutput, int beginRow, int endRow, int col,
 			boolean endKey, String endValue, List<Map<String, Object>> options) {
 		super(parent, id, noOutput, beginRow, endRow, col, col, endKey, endValue, options);
 	}
 
-	public static CellDefinition<RangeDefinition<?>> newInstance(RangeDefinition<?> range, Map<String, Object> config) {
+	public static CellDefinition<TableDefinition<?>> newInstance(TableDefinition<?> table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
@@ -40,12 +40,12 @@ public class RowCellDefinitionImpl extends AbstractRangeCellDefinition<RangeDefi
 
 		boolean endKey = false;
 		String endValue = null;
-		if (id.equals(range.getEndKeyId())) {
+		if (id.equals(table.getEndKeyId())) {
 			// 終了条件
 			endKey = true;
-			endValue = range.getEndValue();
+			endValue = table.getEndValue();
 		}
-		return new RowCellDefinitionImpl(range, id, noOutput, range.getBegin(), range.getEnd(), col, endKey, endValue,
+		return new RowCellDefinitionImpl(table, id, noOutput, table.getBegin(), table.getEnd(), col, endKey, endValue,
 				options);
 	}
 }

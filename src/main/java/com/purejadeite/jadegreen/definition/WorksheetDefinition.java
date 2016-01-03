@@ -69,12 +69,12 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	private int maxCol = 0;
 
 	/**
-	 * リンク先のシートのID
+	 * 結合先のシートのID
 	 */
 	protected String joinSheetId;
 
 	/**
-	 * リンク先のキーになる項目のID
+	 * 結合先のキーになる項目のID
 	 */
 	protected String joinKeyId;
 
@@ -197,7 +197,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 					maxCol = Math.max(i, maxCol);
 				}
 			} else if (child instanceof ParentMappingDefinition) {
-				// Rangeの場合は子要素のCellをばらして追加
+				// Tableの場合は子要素のCellをばらして追加
 				ParentMappingDefinition<?, ?> pmd = (ParentMappingDefinition<?, ?>) child;
 				for (MappingDefinition<?> c : pmd.getChildren()) {
 					addCell(c);

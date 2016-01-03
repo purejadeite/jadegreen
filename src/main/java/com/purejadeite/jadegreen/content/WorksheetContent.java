@@ -15,8 +15,8 @@ import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.range.RangeDefinition;
+import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * Worksheetのコンテンツ
@@ -66,15 +66,15 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		super(parent, definition);
 		this.sheetName = sheetName;
 		for (MappingDefinition<?> childDefinition : definition.getChildren()) {
-			if (childDefinition instanceof LinkCellDefinitionImpl) {
-				// 単独セルのリンクの場合
-				contents.add(new LinkCellContentImpl(this, (LinkCellDefinitionImpl) childDefinition));
+			if (childDefinition instanceof JoinedCellDefinitionImpl) {
+				// 単独セルの結合の場合
+				contents.add(new JoinedCellContentImpl(this, (JoinedCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
 				contents.add(new CellContentImpl(this, (CellDefinition<?>) childDefinition));
-			} else if (childDefinition instanceof RangeDefinition) {
+			} else if (childDefinition instanceof TableDefinition) {
 				// テーブルの場合
-				contents.add(new RangeContentImpl(this, (RangeDefinition<?>) childDefinition));
+				contents.add(new TableContentImpl(this, (TableDefinition<?>) childDefinition));
 			}
 		}
 		maxCol = definition.getMaxCol();

@@ -41,8 +41,8 @@ public class SxssfValueMapperTest {
 	}
 
 	@Test
-	public void link() throws Exception {
-		test("link");
+	public void join() throws Exception {
+		test("join");
 	}
 
 	@Test
@@ -51,18 +51,18 @@ public class SxssfValueMapperTest {
 	}
 
 	@Test
-	public void multilink() throws Exception {
-		test("multilink");
+	public void multijoin() throws Exception {
+		test("multijoin");
 	}
 
 	@Test(expected = ContentException.class)
-	public void ununiquecelllink() throws Exception {
-		test("ununiquecelllink");
+	public void ununiquecelljoin() throws Exception {
+		test("ununiquecelljoin");
 	}
 
 	@Test(expected = ContentException.class)
-	public void ununiquerangelink() throws Exception {
-		test("ununiquerangelink");
+	public void ununiquerangejoin() throws Exception {
+		test("ununiquerangejoin");
 	}
 
 	@Test

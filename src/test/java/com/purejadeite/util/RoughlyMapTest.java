@@ -17,8 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.AbstractTest;
 import com.purejadeite.jadegreen.TestHelper;
-import com.purejadeite.util.RoughlyMap;
-import com.purejadeite.util.StringKeyNestedMap;
 
 /**
  * Unit test for simple App.
@@ -111,7 +109,7 @@ public class RoughlyMapTest extends AbstractTest {
 
 	@Test
 	public void nest() throws IOException {
-		Map<String, Object> orgMap = TestHelper.toJsonMap(DEFINITIONS_DIR, "link.json");
+		Map<String, Object> orgMap = TestHelper.toJsonMap(DEFINITIONS_DIR, "join.json");
 		LOGGER.info(orgMap.toString());
 		Map<String, Object> map = new StringKeyNestedMap(orgMap);
 		Object value = map.get("sheets.cells.columns");

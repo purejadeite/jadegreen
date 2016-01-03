@@ -93,9 +93,9 @@ public class DefinitionKeys {
 	public static final String COLUMNS = "columns";
 
 	/**
-	 * セルのリンク
+	 * セルの結合
 	 */
-	public static final String LINK = "link";
+	public static final String JOIN = "join";
 
 	/**
 	 * オプション

@@ -16,7 +16,7 @@ public enum SpecificValue {
 	UNDEFINED,
 
 	/**
-	 * リンク
+	 * 結合
 	 */
-	LINK
+	JOINED
 }

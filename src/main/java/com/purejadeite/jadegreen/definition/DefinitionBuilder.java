@@ -12,16 +12,16 @@ import org.slf4j.LoggerFactory;
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.LinkCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.LinkRangeCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.RangeCellDefinition;
-import com.purejadeite.jadegreen.definition.cell.RangeValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.range.ColumnDefinitionImpl;
-import com.purejadeite.jadegreen.definition.range.RangeDefinition;
-import com.purejadeite.jadegreen.definition.range.RowDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.ColumnDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.RowDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
 /**
@@ -82,56 +82,56 @@ public class DefinitionBuilder {
 	 *            Cellひとつ分の定義
 	 * @param sheet
 	 *            シート読み込み定義
-	 * @param range
+	 * @param table
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
 	private static MappingDefinition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
-			RangeDefinition<?> range) {
+			TableDefinition<?> table) {
 		MappingDefinition<?> definition = null;
-		if (config.containsKey(LINK)) {
-			// リンクフィールドの場合
-			if (range != null) {
+		if (config.containsKey(JOIN)) {
+			// 結合フィールドの場合
+			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = LinkRangeCellDefinitionImpl.newInstance(sheet.getParent(), range, config);
+				definition = JoinedTableCellDefinitionImpl.newInstance(sheet.getParent(), table, config);
 			} else {
 				// 単独フィールドの場合
-				definition = LinkCellDefinitionImpl.newInstance(sheet.getParent(), sheet, config);
+				definition = JoinedCellDefinitionImpl.newInstance(sheet.getParent(), sheet, config);
 			}
 		} else if (config.containsKey(VALUE)) {
 			// 値フィールドの場合
-			if (range != null) {
+			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = RangeValueDefinitionImpl.newInstance(range, config);
+				definition = TableValueDefinitionImpl.newInstance(table, config);
 			} else {
 				// 単独フィールドの場合
 				definition = ValueDefinitionImpl.newInstance(sheet, config);
 			}
-		} else if (range != null) {
+		} else if (table != null) {
 			// 親のあるフィールドの場合
 			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
 				// アドレスなし
-				definition = RangeValueDefinitionImpl.newInstance(range, config);
-			} else if (range instanceof RowDefinitionImpl) {
+				definition = TableValueDefinitionImpl.newInstance(table, config);
+			} else if (table instanceof RowDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
-				definition = RowCellDefinitionImpl.newInstance(range, config);
-			} else if (range instanceof ColumnDefinitionImpl) {
+				definition = RowCellDefinitionImpl.newInstance(table, config);
+			} else if (table instanceof ColumnDefinitionImpl) {
 				// 列方向の繰り返し内のフィールドの場合
-				definition = ColumnCellDefinitionImpl.newInstance(range, config);
+				definition = ColumnCellDefinitionImpl.newInstance(table, config);
 			}
 		} else if (config.containsKey(COLUMNS)) {
 			// 行方向の繰り返しの場合
 			List<Map<String, Object>> columns = RoughlyMapUtils.getList(config, COLUMNS);
-			RangeDefinition<?> rowRange = RowDefinitionImpl.newInstance(sheet, config);
-			rowRange.addChildren(createCells(columns, sheet, rowRange));
-			definition = rowRange;
+			TableDefinition<?> rowTable = RowDefinitionImpl.newInstance(sheet, config);
+			rowTable.addChildren(createCells(columns, sheet, rowTable));
+			definition = rowTable;
 		} else if (config.containsKey(ROWS)) {
 			// 列方向の繰り返しの場合
 			// TODO 現在未対応
 			List<Map<String, Object>> rows = RoughlyMapUtils.getList(config, ROWS);
-			RangeDefinition<?> columnRange = ColumnDefinitionImpl.newInstance(sheet, config);
-			columnRange.addChildren(createCells(rows, sheet, columnRange));
-			definition = columnRange;
+			TableDefinition<?> columnTable = ColumnDefinitionImpl.newInstance(sheet, config);
+			columnTable.addChildren(createCells(rows, sheet, columnTable));
+			definition = columnTable;
 		} else {
 			// 単独フィールドの場合
 			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
@@ -157,19 +157,19 @@ public class DefinitionBuilder {
 	 *
 	 * @param cells JSONから変換したセル定義
 	 * @param sheet シート定義
-	 * @param range range定義
+	 * @param table table定義
 	 * @return セルの定義リスト
 	 */
-	private static List<RangeCellDefinition<?>> createCells(List<Map<String, Object>> cells,
-			WorksheetDefinition sheet, RangeDefinition<?> range) {
-		List<RangeCellDefinition<?>> definitions = new ArrayList<>();
+	private static List<TableCellDefinition<?>> createCells(List<Map<String, Object>> cells,
+			WorksheetDefinition sheet, TableDefinition<?> table) {
+		List<TableCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
-			MappingDefinition<?> child = createCell(cell, sheet, range);
-			if (child instanceof RangeCellDefinition) {
-				definitions.add((RangeCellDefinition<?>) child);
+			MappingDefinition<?> child = createCell(cell, sheet, table);
+			if (child instanceof TableCellDefinition) {
+				definitions.add((TableCellDefinition<?>) child);
 			} else {
-				throw new DefinitionException("range=" + range.getFullId() + "&illegal child=" + child.getFullId() +
-						":rangeの子要素にはcellを定義してください");
+				throw new DefinitionException("table=" + table.getFullId() + "&illegal child=" + child.getFullId() +
+						":tableの子要素にはcellを定義してください");
 			}
 		}
 		return definitions;

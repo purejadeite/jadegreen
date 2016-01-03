@@ -3,16 +3,16 @@ package com.purejadeite.jadegreen.definition.cell;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.MappingDefinition;
-import com.purejadeite.jadegreen.definition.LinkDefinition;
+import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.Options;
 import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
- * 単一セルのリンク定義です
+ * 単一セルの結合定義です
  * @author mitsuhiroseino
  */
-abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefinition<?, ?>> extends AbstractCellDefinition<P> implements LinkCellDefinition<P>, LinkDefinition<P> {
+abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefinition<?, ?>> extends AbstractCellDefinition<P> implements JoinedCellDefinition<P>, JoinDefinition<P> {
 
 	private static final long serialVersionUID = 8219059199809135196L;
 
@@ -27,12 +27,12 @@ abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefiniti
 	protected String mySheetKeyId;
 
 	/**
-	 * リンク先のキーになる項目のID
+	 * 結合先のキーになる項目のID
 	 */
 	protected String sheetKeyId;
 
 	/**
-	 * リンク先の値を取得する対象の項目のID
+	 * 結合先の値を取得する対象の項目のID
 	 */
 	protected String valueId;
 
@@ -47,7 +47,7 @@ abstract public class AbstractLinkCellDefinition<P extends ParentMappingDefiniti
 	 * @param parent シート読み込み定義
 	 * @param id 定義ID
 	 * @param options オプション
-	 * @param config リンク設定
+	 * @param config 結合設定
 	 */
 	protected AbstractLinkCellDefinition(WorkbookDefinition book, P parent, String id, boolean noOutput, Map<String, String> config) {
 		super(parent, id, noOutput, null);

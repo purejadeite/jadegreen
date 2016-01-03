@@ -1,8 +1,8 @@
 [
 	{
 		"sheetName": "bean",
-		"logicalClassName": "シート間のリンク",
-		"logicalClassNameValid": "シート間のリンク(リンク先)",
+		"logicalClassName": "シート間の結合",
+		"logicalClassNameValid": "シート間の結合(結合先)",
 		"className": "Sample",
 		"package": "com.purejadeite.generated",
 		"imports": [
