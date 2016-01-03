@@ -123,23 +123,23 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getMyKeyDefinition() {
-		return sheet.getDefinition(myKeyId);
+		return sheet.get(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getKeyDefinition() {
-		WorksheetDefinition sheet = book.getSheet(sheetId);
-		return sheet.getDefinition(keyId);
+		WorksheetDefinition sheet = book.get(sheetId);
+		return sheet.get(keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getValueDefinition() {
-		WorksheetDefinition sheet = book.getSheet(sheetId);
-		return sheet.getDefinition(valueId);
+		WorksheetDefinition sheet = book.get(sheetId);
+		return sheet.get(valueId);
 	}
 
 	/**

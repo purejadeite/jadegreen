@@ -273,7 +273,4 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 		return value;
 	}
 
-	public MappingDefinition<?> getDefinition(String id) {
-		return definitions.get(id);
-	}
 }

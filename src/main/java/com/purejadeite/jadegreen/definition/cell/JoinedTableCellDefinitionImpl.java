@@ -146,38 +146,38 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getMyTableKeyDefinition() {
-		return sheet.getDefinition(myTableKeyId);
+		return sheet.get(myTableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getMyKeyDefinition() {
-		return sheet.getDefinition(myKeyId);
+		return sheet.get(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getKeyDefinition() {
-		WorksheetDefinition sheet = book.getSheet(sheetId);
-		return sheet.getDefinition(keyId);
+		WorksheetDefinition sheet = book.get(sheetId);
+		return sheet.get(keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getTableKeyDefinition() {
-		WorksheetDefinition sheet = book.getSheet(sheetId);
-		return sheet.getDefinition(tableKeyId);
+		WorksheetDefinition sheet = book.get(sheetId);
+		return sheet.get(tableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public MappingDefinition<?> getValueDefinition() {
-		WorksheetDefinition sheet = book.getSheet(sheetId);
-		return sheet.getDefinition(valueId);
+		WorksheetDefinition sheet = book.get(sheetId);
+		return sheet.get(valueId);
 	}
 
 	/**
@@ -186,10 +186,11 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("mySheetKeyId", myKeyId);
-		map.put("myKeyId", myTableKeyId);
-		map.put("sheetKeyId", sheetId);
+		map.put("myKeyId", myKeyId);
+		map.put("myTableKeyId", myTableKeyId);
+		map.put("sheetId", sheetId);
 		map.put("keyId", keyId);
+		map.put("tableKeyId", tableKeyId);
 		map.put("valueId", valueId);
 		return map;
 	}

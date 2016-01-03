@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
 /**
  *
  * Excelファイル読み込みの定義情報抽象クラス
@@ -79,38 +76,11 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public MappingDefinition<?> get(String fullId) {
-		String[] ids = StringUtils.split(fullId, ".");
-		return get(ids);
+	public C get(String id) {
+		return (C) definitions.get(id);
 
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public MappingDefinition<?> get(String... ids) {
-		if (ids.length == 0) {
-			return null;
-		}
-		List<C> children = getChildren();
-		if (children == null) {
-			return null;
-		}
-		String id = ids[0];
-		for (MappingDefinition<?> child : children) {
-			if (child.getId().equals(id)) {
-				if (ids.length == 1) {
-					return child;
-				} else if (child instanceof ParentMappingDefinition) {
-					ParentMappingDefinition<?, ?> pd = (ParentMappingDefinition<?, ?>) child;
-					String[] subIds = ArrayUtils.subarray(ids, 1, ids.length);
-					return pd.get(subIds);
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
