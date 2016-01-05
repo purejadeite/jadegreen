@@ -19,24 +19,24 @@ public class Group extends AbstractTableConverter {
 
 	private static final long serialVersionUID = -7712482157745974514L;
 
-	private static final String CFG_KEY_ID = "keyId";
+	private static final String CFG_GROUP_ID = "groupId";
 
-	private static final String CFG_TO_ID = "toId";
+	private static final String CFG_VALUES_ID = "valuesId";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_KEY_ID, CFG_TO_ID };
+	private static final String[] CONFIG = { CFG_GROUP_ID, CFG_VALUES_ID };
 
 	/**
 	 * グループ化キーとなる項目の定義ID
 	 */
-	private String keyId;
+	private String groupId;
 
 	/**
 	 * グループ化した値を保存する項目の定義ID
 	 */
-	private String toId;
+	private String valuesId;
 
 	/**
 	 * コンストラクタ
@@ -47,8 +47,8 @@ public class Group extends AbstractTableConverter {
 	public Group(Map<String, Object> config) {
 		super();
 		this.validateConfig(config, CONFIG);
-		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.toId = RoughlyMapUtils.getString(config, CFG_TO_ID);
+		this.groupId = RoughlyMapUtils.getString(config, CFG_GROUP_ID);
+		this.valuesId = RoughlyMapUtils.getString(config, CFG_VALUES_ID);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Group extends AbstractTableConverter {
 		// グループ化された配列を保持するMapに変換
 		Map<Object, List<Map<String, Object>>> groupedMap = new LinkedHashMap<>();
 		for (Map<String, Object> line : values) {
-			Object groupKey = line.get(keyId);
+			Object groupKey = line.get(groupId);
 			List<Map<String, Object>> groupedLines = groupedMap.get(groupKey);
 			if (groupedLines == null) {
 				groupedLines = new ArrayList<>();
@@ -72,8 +72,8 @@ public class Group extends AbstractTableConverter {
 		List<Map<String, Object>> groupedValues = new ArrayList<>();
 		for (Entry<Object, List<Map<String, Object>>> entry : groupedMap.entrySet()) {
 			Map<String, Object> newLine = new HashMap<>();
-			newLine.put(keyId, entry.getKey());
-			newLine.put(toId, entry.getValue());
+			newLine.put(groupId, entry.getKey());
+			newLine.put(valuesId, entry.getValue());
 			groupedValues.add(newLine);
 		}
 
@@ -86,8 +86,8 @@ public class Group extends AbstractTableConverter {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("keyId", keyId);
-		map.put("toId", toId);
+		map.put("keyId", groupId);
+		map.put("toId", valuesId);
 		return map;
 	}
 }

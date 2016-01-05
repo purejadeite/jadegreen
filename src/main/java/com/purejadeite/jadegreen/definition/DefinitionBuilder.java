@@ -93,7 +93,7 @@ public class DefinitionBuilder {
 			// 結合フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = JoinedTableCellDefinitionImpl.newInstance(sheet.getParent(), table, config);
+				definition = JoinedTableCellDefinitionImpl.newInstance(sheet.getParent(), sheet, table, config);
 			} else {
 				// 単独フィールドの場合
 				definition = JoinedCellDefinitionImpl.newInstance(sheet.getParent(), sheet, config);
@@ -102,7 +102,7 @@ public class DefinitionBuilder {
 			// 値フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = TableValueDefinitionImpl.newInstance(table, config);
+				definition = TableValueDefinitionImpl.newInstance(sheet, table, config);
 			} else {
 				// 単独フィールドの場合
 				definition = ValueDefinitionImpl.newInstance(sheet, config);
@@ -111,13 +111,13 @@ public class DefinitionBuilder {
 			// 親のあるフィールドの場合
 			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
 				// アドレスなし
-				definition = TableValueDefinitionImpl.newInstance(table, config);
+				definition = TableValueDefinitionImpl.newInstance(sheet, table, config);
 			} else if (table instanceof RowDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
-				definition = RowCellDefinitionImpl.newInstance(table, config);
+				definition = RowCellDefinitionImpl.newInstance(sheet, table, config);
 			} else if (table instanceof ColumnDefinitionImpl) {
 				// 列方向の繰り返し内のフィールドの場合
-				definition = ColumnCellDefinitionImpl.newInstance(table, config);
+				definition = ColumnCellDefinitionImpl.newInstance(sheet, table, config);
 			}
 		} else if (config.containsKey(COLUMNS)) {
 			// 行方向の繰り返しの場合

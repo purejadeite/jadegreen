@@ -5,6 +5,8 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
@@ -32,7 +34,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_SHEET_ID, CFG_KEY_ID };
+	private static final String[] CONFIG = {};
 
 	/**
 	 * 自身のシートのキーになる項目のID
@@ -73,46 +75,29 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	 * @param joinConfig
 	 *            結合設定
 	 */
-	protected JoinedCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition parent, String id,
+	protected JoinedCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, String id,
 			boolean noOutput, List<Map<String, Object>> options, Map<String, String> joinConfig) {
-		super(parent, id, noOutput, options);
+		super(sheet, id, noOutput, options);
 		this.validateConfig(joinConfig, CONFIG);
 		this.book = book;
+		this.sheet = sheet;
 		// 相手シートのID
-		if (joinConfig.containsKey(CFG_SHEET_ID)) {
-			sheetId = joinConfig.get(CFG_SHEET_ID);
-		} else {
-			sheetId = sheet.getJoinSheetId();
-		}
+		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
 		// 相手シートのキー項目のID
-		if (joinConfig.containsKey(CFG_KEY_ID)) {
-			keyId = joinConfig.get(CFG_KEY_ID);
-		} else {
-			keyId = sheet.getJoinKeyId();
-		}
+		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getJoinKeyId());
 		// 自身のシートのキー項目のID
-		if (joinConfig.containsKey(CFG_MY_KEY_ID)) {
-			myKeyId = joinConfig.get(CFG_MY_KEY_ID);
-		} else if (sheet.getJoinMyKeyId() != null) {
-			myKeyId = sheet.getJoinMyKeyId();
-		} else {
-			myKeyId = keyId;
-		}
+		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getJoinMyKeyId(), keyId);
 		// 相手シートから取得する項目のID
-		if (joinConfig.containsKey(CFG_VALUE_ID)) {
-			valueId = joinConfig.get(CFG_VALUE_ID);
-		} else {
-			valueId = id;
-		}
+		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}
 
-	public static MappingDefinition<?> newInstance(WorkbookDefinition book, WorksheetDefinition parent,
+	public static MappingDefinition<?> newInstance(WorkbookDefinition book, WorksheetDefinition sheet,
 			Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		Map<String, String> join = RoughlyMapUtils.getMap(config, JOIN);
-		return new JoinedCellDefinitionImpl(book, parent, id, noOutput, options, join);
+		return new JoinedCellDefinitionImpl(book, sheet, id, noOutput, options, join);
 	}
 
 	public String getSheetId() {

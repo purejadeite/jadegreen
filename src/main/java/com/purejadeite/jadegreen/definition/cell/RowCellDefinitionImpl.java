@@ -5,6 +5,7 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
@@ -18,7 +19,7 @@ public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefi
 
 	/**
 	 * コンストラクタ
-	 * @param parent テーブル読み込み定義
+	 * @param table テーブル読み込み定義
 	 * @param id 定義ID
 	 * @param beginRow 取得開始行
 	 * @param endRow 取得終了行
@@ -27,12 +28,13 @@ public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefi
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	private RowCellDefinitionImpl(TableDefinition<?> parent, String id, boolean noOutput, int beginRow, int endRow, int col,
+	private RowCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id, boolean noOutput, int beginRow, int endRow, int col,
 			boolean endKey, String endValue, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, beginRow, endRow, col, col, endKey, endValue, options);
+		super(table, id, noOutput, beginRow, endRow, col, col, endKey, endValue, options);
+		this.sheet = sheet;
 	}
 
-	public static CellDefinition<TableDefinition<?>> newInstance(TableDefinition<?> table, Map<String, Object> config) {
+	public static CellDefinition<TableDefinition<?>> newInstance(WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
@@ -45,7 +47,7 @@ public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefi
 			endKey = true;
 			endValue = table.getEndValue();
 		}
-		return new RowCellDefinitionImpl(table, id, noOutput, table.getBegin(), table.getEnd(), col, endKey, endValue,
+		return new RowCellDefinitionImpl(sheet, table, id, noOutput, table.getBegin(), table.getEnd(), col, endKey, endValue,
 				options);
 	}
 }

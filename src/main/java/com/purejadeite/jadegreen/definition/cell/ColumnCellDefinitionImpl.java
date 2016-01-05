@@ -5,6 +5,7 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
@@ -20,7 +21,7 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 	/**
 	 * コンストラクタ
 	 *
-	 * @param parent
+	 * @param sheet
 	 *            テーブル読み込み定義
 	 * @param id
 	 *            定義ID
@@ -37,12 +38,13 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 	 * @param options
 	 *            オプション
 	 */
-	private ColumnCellDefinitionImpl(TableDefinition<?> parent, String id, boolean noOutput, int row, int beginCol, int endCol,
+	private ColumnCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id, boolean noOutput, int row, int beginCol, int endCol,
 			boolean endKey, String endValue, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, row, row, beginCol, endCol, endKey, endValue, options);
+		super(table, id, noOutput, row, row, beginCol, endCol, endKey, endValue, options);
+		this.sheet = sheet;
 	}
 
-	public static CellDefinition<TableDefinition<?>> newInstance(TableDefinition<?> table, Map<String, Object> config) {
+	public static CellDefinition<TableDefinition<?>> newInstance(WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);
@@ -54,7 +56,7 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 			endKey = true;
 			endValue = table.getEndValue();
 		}
-		return new ColumnCellDefinitionImpl(table, id, noOutput, row, table.getBegin(), table.getEnd(), endKey,
+		return new ColumnCellDefinitionImpl(sheet, table, id, noOutput, row, table.getBegin(), table.getEnd(), endKey,
 				endValue, options);
 	}
 

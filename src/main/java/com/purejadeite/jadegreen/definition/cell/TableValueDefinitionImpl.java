@@ -5,6 +5,7 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
@@ -22,7 +23,7 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	/**
 	 * コンストラクタ
 	 *
-	 * @param parent
+	 * @param table
 	 *            シート読み込み定義
 	 * @param id
 	 *            定義ID
@@ -35,16 +36,17 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	 * @param options
 	 *            コンバーター
 	 */
-	private TableValueDefinitionImpl(P parent, String id, boolean noOutput, String value,
+	private TableValueDefinitionImpl(WorksheetDefinition sheet, P table, String id, boolean noOutput, String value,
 			List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+		super(table, id, noOutput, options);
+		this.sheet = sheet;
 		this.value = value;
 	}
 
 	/**
 	 * インスタンスを取得します
 	 *
-	 * @param parent
+	 * @param table
 	 *            シート読み込み定義
 	 * @param id
 	 *            定義ID
@@ -58,12 +60,12 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static <P extends TableDefinition<?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
+	public static <P extends TableDefinition<?>> CellDefinition<P> newInstance(WorksheetDefinition sheet, P table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		String value = RoughlyMapUtils.getString(config, VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new TableValueDefinitionImpl<P>(parent, id, noOutput, value, options);
+		return new TableValueDefinitionImpl<P>(sheet, table, id, noOutput, value, options);
 	}
 
 	@Override
