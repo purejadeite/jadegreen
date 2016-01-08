@@ -6,7 +6,7 @@
 			"id": "keyreplace",
 		    "name": "validation",
 		    "cells": [
-		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [
+		        {"id": "fields", "row": 6, "endKeyId": "fieldName", "options": [
 		                {"type": "replaceid", "keyId": "validationType", "map": {
 		                	"length": {"arg0": "min", "arg1": "max"},
 		                	"maxlength": {"arg0": "length"}

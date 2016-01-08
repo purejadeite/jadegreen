@@ -4,13 +4,7 @@
 		{
 			"comment": "結合あり1件読み込み",
 			"id": "main",
-			"target": {
-			    "name": "bean"
-			},
-		    "join": {
-		    	"sheetId": "sub",
-		    	"keyId": "className"
-		    },
+		    "name": "bean",
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
@@ -24,23 +18,26 @@
 		                {"id": "static", "column": 3, "options": [{"type": "upperunderscore"}]},
 		                {"id": "type", "column": 4},
 		                {"id": "initial", "column": 5},
-		                {"id": "validators", "join": {"tableKeyId": "fieldName"}}
+		                {"id": "validation", "join": {"myKeyId": "className", "myFieldKeyId": "fieldName", "sheetId": "sub", "keyId": "className", "fieldKeyId": "fieldName", "valueId": "validators"}}
+		                {"id": "validation", "join": {
+			                	"me": {"keyId": "className", "fieldKeyId": "fieldName"},
+			                	"sub": {"keyId": "className", "fieldKeyId": "fieldName", "valueId": "validators"}
+			                }
+		                }
 		            ]
 		        },
-		        {"id": "logicalClassNameValid", "join": {"valueId": "logicalClassName"}}
+		        {"id": "logicalClassNameValid", "join": {"myKeyId": "className", "sheetId": "sub", "keyId": "className", "valueId": "logicalClassName"}}
 		    ]
 		},
 		{
 			"comment": "結合先シート",
 			"id": "sub",
-			"target": {
-			    "name": "validation"
-			},
+		    "name": "validation",
 			"noOutput": true,
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "fields", "row": 6, "endKeyId": "fieldName", "options": [{"type": "group", "groupId": "fieldName", "valueId": "validators"}],
+		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [{"type": "group", "keyId": "fieldName", "toId": "validators"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},

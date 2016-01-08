@@ -67,13 +67,13 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		WorksheetContent sheet = this.getUpperContent(WorksheetContent.class);
 
 		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content<?>> sheetKeyContents = JoinedContentUtils.getSheetKeyContents(book, definition);
+		List<Content<?>> sheetKeyContents = JoinedContentUtils.getKeyContents(book, definition);
 		if (sheetKeyContents == null) {
 			throw new IllegalStateException("結合先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
 		}
 
 		// 自分のシートのキーを取得
-		Content<?> mySheetKeyContent = JoinedContentUtils.getMySheetKeyContent(sheet, definition);
+		Content<?> mySheetKeyContent = JoinedContentUtils.getMyKeyContent(sheet, definition);
 		if (mySheetKeyContent == null) {
 			throw new IllegalStateException("結合元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
 		}

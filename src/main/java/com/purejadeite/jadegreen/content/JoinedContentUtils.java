@@ -18,7 +18,7 @@ public class JoinedContentUtils {
 	 *            取得する値の定義
 	 * @return 対象の値リスト
 	 */
-	public static List<Content<?>> getSheetKeyContents(WorkbookContent book,
+	public static List<Content<?>> getKeyContents(WorkbookContent book,
 			JoinedCellDefinition<?> definition) {
 		MappingDefinition<?> sheetKeyDefinition = definition
 				.getKeyDefinition();
@@ -34,7 +34,7 @@ public class JoinedContentUtils {
 	 *            取得する値の定義
 	 * @return 対象の値
 	 */
-	public static Content<?> getMySheetKeyContent(WorksheetContent sheet,
+	public static Content<?> getMyKeyContent(WorksheetContent sheet,
 			JoinedCellDefinition<?> definition) {
 		MappingDefinition<?> sheetKeyDefinition = definition
 				.getMyKeyDefinition();
@@ -54,24 +54,24 @@ public class JoinedContentUtils {
 	/**
 	 * 指定のキーの値と一致するキーを持つシートを取得する
 	 *
-	 * @param mySheetKeyContent
+	 * @param myKeyContent
 	 *            キーとなる値
-	 * @param sheetKeyContents
+	 * @param keyContents
 	 *            相手先候補シートのキーの値
 	 * @return シート
 	 */
-	public static WorksheetContent getTargetSheet(Content<?> mySheetKeyContent,
-			List<Content<?>> sheetKeyContents) {
+	public static WorksheetContent getTargetSheet(Content<?> myKeyContent,
+			List<Content<?>> keyContents) {
 		WorksheetContent sheetContent = null;
-		Object mySheetKeyValues = mySheetKeyContent.getValues();
-		for (Content<?> sheetKeyContent : sheetKeyContents) {
-			if (mySheetKeyValues.equals(sheetKeyContent.getValues())) {
+		Object myKeyValues = myKeyContent.getValues();
+		for (Content<?> keyContent : keyContents) {
+			if (myKeyContent != keyContent && myKeyValues.equals(keyContent.getValues())) {
 				if (sheetContent != null) {
 					// キーが一意でないならば例外
 					throw new ContentException("結合対象のシートが複数存在します",
-							sheetKeyContent);
+							keyContent);
 				}
-				sheetContent = sheetKeyContent
+				sheetContent = keyContent
 						.getUpperContent(WorksheetContent.class);
 			}
 		}
@@ -80,7 +80,7 @@ public class JoinedContentUtils {
 
 	/**
 	 * 値のリストの中から対象シートの値を取得する
-	 * 
+	 *
 	 * @param targetSheet
 	 *            対象シート
 	 * @param valueContents

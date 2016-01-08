@@ -7,14 +7,12 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.purejadeite.util.SimpleComparison;
-
 /**
  * ワークブック用ハンドラ
  *
  * @author mitsuhiroseino
  */
-public class SxssfWorkbookHandler extends DefaultHandler {
+public class SxssfTableWorkbookHandler extends DefaultHandler {
 
 	/**
 	 * シートの開始終了を表わすタグ名
@@ -32,31 +30,14 @@ public class SxssfWorkbookHandler extends DefaultHandler {
 	private static final String NAME_RID = "r:id";
 
 	/**
-	 * シート名と一致した場合に取得対象とする文字列
-	 */
-	private String sheetName;
-
-	/**
 	 * 一致したシートの名前
 	 */
 	private Map<String, String> sheetNames = new HashMap<>();
 
 	/**
 	 * コンストラクタ
-	 *
-	 * @param sheetName
-	 * <pre>
-	 * 取得対象のシート名
-	 *   "*": 無条件
-	 *   "sheet": 完全一致
-	 *   "sheet*": 前方一致
-	 *   "*sheet": 後方一致
-	 *   "*sheet*": 部分一致
-	 *   "/sheet/": 正規表現
-	 * </pre>
 	 */
-	public SxssfWorkbookHandler(String sheetName) {
-		this.sheetName = sheetName;
+	public SxssfTableWorkbookHandler() {
 	}
 
 	/**
@@ -81,9 +62,7 @@ public class SxssfWorkbookHandler extends DefaultHandler {
 			// シートの開始タグならばシート名とr:IDを取得
 			String sheetNameTemp = attributes.getValue(NAME_SHEET_NAME);
 			String rIdTemp = attributes.getValue(NAME_RID);
-			if (SimpleComparison.compare(sheetName, sheetNameTemp)) {
-				sheetNames.put(rIdTemp, sheetNameTemp);
-			}
+			sheetNames.put(rIdTemp, sheetNameTemp);
 		}
 	}
 

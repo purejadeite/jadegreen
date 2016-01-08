@@ -5,7 +5,6 @@ import static com.purejadeite.jadegreen.content.Status.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,27 +61,22 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
 			LOGGER.warn("結合先の値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
 			return null;
-		} else if (valueContents.size() == 1 && StringUtils.isEmpty(definition.getSheetId())) {
-			// 欲しい値が1つでキーが指定されていない場合はそれの値を返す
-			// 1ファイルに各シートが1つずつしかない場合を想定
-			LOGGER.debug("結合先が1つだけ:" + definition.getValueDefinition().getFullId());
-			return valueContents.get(0).getValues(ignore);
 		}
 
 		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content<?>> sheetKeyContents = JoinedContentUtils.getSheetKeyContents(book, definition);
-		if (sheetKeyContents == null) {
+		List<Content<?>> keyContents = JoinedContentUtils.getKeyContents(book, definition);
+		if (keyContents == null) {
 			throw new IllegalStateException("結合先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
 		}
 
 		// 自分の属するシートのキーを取得
-		Content<?> mySheetKeyContent = JoinedContentUtils.getMySheetKeyContent(sheet, definition);
-		if (mySheetKeyContent == null) {
+		Content<?> myKeyContent = JoinedContentUtils.getMyKeyContent(sheet, definition);
+		if (myKeyContent == null) {
 			throw new IllegalStateException("結合元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
 		}
 
 		// 値の取得元シートを取得
-		WorksheetContent targetSheet = JoinedContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);
+		WorksheetContent targetSheet = JoinedContentUtils.getTargetSheet(myKeyContent, keyContents);
 		if (targetSheet == null) {
 			// 紐付くシートなし
 			return null;

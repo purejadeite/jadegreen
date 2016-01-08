@@ -5,8 +5,13 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.SimpleComparison;
+import com.purejadeite.util.StringKeyNestedMap;
+import com.purejadeite.util.Table;
 
 /**
  * Sheet読み込み定義
@@ -19,9 +24,34 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	private static final long serialVersionUID = -1303967958765873003L;
 
 	/**
-	 * コンフィグ：シート名
+	 * コンフィグ：target
 	 */
-	private static final String CFG_NAME = "name";
+	private static final String CFG_TARGET = "target";
+
+	/**
+	 * コンフィグ：target・シート名
+	 */
+	private static final String CFG_TARGET_NAME = "target.name";
+
+	/**
+	 * コンフィグ：target・Cell
+	 */
+	private static final String CFG_TARGET_CELL = "target.cell";
+
+	/**
+	 * コンフィグ：target・Cell・Row
+	 */
+	private static final String CFG_TARGET_CELL_ROW = "target.cell.row";
+
+	/**
+	 * コンフィグ：target・Cell・Column
+	 */
+	private static final String CFG_TARGET_CELL_COLUMN = "target.cell.column";
+
+	/**
+	 * コンフィグ：target・Cell・Value
+	 */
+	private static final String CFG_TARGET_CELL_VALUE = "target.cell.value";
 
 	/**
 	 * コンフィグ：join・相手先シートID
@@ -41,12 +71,32 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_NAME };
+	private static final String[] CONFIG = { CFG_TARGET };
 
 	/**
 	 * 対象シート条件・シート名
 	 */
 	private String name;
+
+	/**
+	 * 対象シート条件・シート名
+	 */
+	private String targetName;
+
+	/**
+	 * 対象シート条件・Cell行番号
+	 */
+	private int targetCellRow;
+
+	/**
+	 * 対象シート条件・Cell列番号
+	 */
+	private int targetCellColumn;
+
+	/**
+	 * 対象シート条件・Cell値
+	 */
+	private String targetCellValue;
 
 	/**
 	 * 定義上の最少行番号
@@ -94,10 +144,14 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	public WorksheetDefinition(WorkbookDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
-		this.name = RoughlyMapUtils.getString(config, CFG_NAME);
-		this.joinSheetId = RoughlyMapUtils.getString(config, CFG_JOIN_SHEET_ID, null);
-		this.joinKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_KEY_ID, null);
-		this.joinMyKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_MY_KEY_ID, null);
+		Map<String, Object> cfg = new StringKeyNestedMap(config);
+		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME, null);
+		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW, -1);
+		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN, -1);
+		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE, null);
+		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID, null);
+		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID, null);
+		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID, null);
 		this.definitions = new HashMap<>();
 	}
 
@@ -117,9 +171,14 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, boolean noOutput, Map<String, Object> config) {
 		super(parent, id, noOutput);
 		this.name = name;
-		this.joinSheetId = RoughlyMapUtils.getString(config, CFG_JOIN_SHEET_ID, null);
-		this.joinKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_KEY_ID, null);
-		this.joinMyKeyId = RoughlyMapUtils.getString(config, CFG_JOIN_MY_KEY_ID, null);
+		Map<String, Object> cfg = new StringKeyNestedMap(config);
+		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME, null);
+		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW, -1);
+		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN, -1);
+		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE, null);
+		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID, null);
+		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID, null);
+		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID, null);
 		this.definitions = new HashMap<>();
 	}
 
@@ -131,9 +190,8 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 */
 	public static WorksheetDefinition newInstance(WorkbookDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		String name = RoughlyMapUtils.getString(config, NAME);
 		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		return new WorksheetDefinition(parent, id, name, noOutput, config);
+		return new WorksheetDefinition(parent, id, null, noOutput, config);
 	}
 
 	public String getJoinSheetId() {
@@ -271,6 +329,21 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	@Override
 	public Object apply(Object value) {
 		return value;
+	}
+
+	public boolean match(String name, Table<String> table) {
+		if (targetName != null) {
+			if (!SimpleComparison.compare(targetName, name)) {
+				return false;
+			};
+		}
+		if (targetCellRow != -1 && targetCellColumn != -1) {
+			String value = table.get(targetCellRow, targetCellColumn);
+			if (!StringUtils.equals(targetCellValue, value)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

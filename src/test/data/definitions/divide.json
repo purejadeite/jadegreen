@@ -1,0 +1,33 @@
+{
+	"id": "book",
+	"sheets": [
+		{
+			"comment": "分割元",
+			"id": "main",
+		    "name": "i18n",
+			"noOutput": true,
+		    "cells": [
+		        {"id": "properties", "beginRow": 2, "endKeyId": "property",
+		            "columns": [
+		                {"id": "property", "column": 1},
+		                {"id": "ja", "column": 2},
+		                {"id": "en", "column": 3},
+		                {"id": "it", "column": 4}
+		            ]
+		        }
+		    ]
+		},
+		{
+			"comment": "日本語",
+			"id": "ja",
+		    "cells": [
+		        {"id": "properties", "pick": {"sheetId": "i18n", "keyId": "properties"}
+		            "columns": [
+		                {"id": "property", "join": "property"},
+		                {"id": "ja", , "join": "ja"}
+		            ]
+		        }
+		    ]
+		}
+	]
+}

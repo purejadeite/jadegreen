@@ -21,12 +21,12 @@ public class Group extends AbstractTableConverter {
 
 	private static final String CFG_GROUP_ID = "groupId";
 
-	private static final String CFG_VALUES_ID = "valuesId";
+	private static final String CFG_VALUE_ID = "valueId";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_GROUP_ID, CFG_VALUES_ID };
+	private static final String[] CONFIG = { CFG_GROUP_ID, CFG_VALUE_ID };
 
 	/**
 	 * グループ化キーとなる項目の定義ID
@@ -36,7 +36,7 @@ public class Group extends AbstractTableConverter {
 	/**
 	 * グループ化した値を保存する項目の定義ID
 	 */
-	private String valuesId;
+	private String valueId;
 
 	/**
 	 * コンストラクタ
@@ -48,7 +48,7 @@ public class Group extends AbstractTableConverter {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.groupId = RoughlyMapUtils.getString(config, CFG_GROUP_ID);
-		this.valuesId = RoughlyMapUtils.getString(config, CFG_VALUES_ID);
+		this.valueId = RoughlyMapUtils.getString(config, CFG_VALUE_ID);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class Group extends AbstractTableConverter {
 		for (Entry<Object, List<Map<String, Object>>> entry : groupedMap.entrySet()) {
 			Map<String, Object> newLine = new HashMap<>();
 			newLine.put(groupId, entry.getKey());
-			newLine.put(valuesId, entry.getValue());
+			newLine.put(valueId, entry.getValue());
 			groupedValues.add(newLine);
 		}
 
@@ -86,8 +86,8 @@ public class Group extends AbstractTableConverter {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("keyId", groupId);
-		map.put("toId", valuesId);
+		map.put("groupId", groupId);
+		map.put("valueId", valueId);
 		return map;
 	}
 }
