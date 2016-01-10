@@ -67,10 +67,10 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	protected AbstractTableCellDefinition(P parent, String id, boolean noOutput, int beginRow, int endRow,
+	protected AbstractTableCellDefinition(P parent, String id, int beginRow, int endRow,
 			int beginCol, int endCol,
 			boolean endKeyId, String endValue, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+		super(parent, id, options);
 		this.beginRow = beginRow;
 		this.endRow = endRow <= 0 ? Integer.MAX_VALUE : endRow;
 		this.beginCol = beginCol;

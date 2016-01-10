@@ -93,7 +93,7 @@ public class CellOptionManager {
 		try {
 			option = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new MappingException("type=" + type + ":optionsのclassからインスタンスが作成できません", e);
+			throw new MappingException("cell option " + type + ": " + e.getCause().getMessage() ,e);
 		}
 		return option;
 	}

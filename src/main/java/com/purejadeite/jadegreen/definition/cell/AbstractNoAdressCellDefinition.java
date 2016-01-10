@@ -26,9 +26,9 @@ abstract public class AbstractNoAdressCellDefinition<P extends ParentMappingDefi
 	 * @param options
 	 *            オプション
 	 */
-	protected AbstractNoAdressCellDefinition(P parent, String id, boolean noOutput,
+	protected AbstractNoAdressCellDefinition(P parent, String id,
 			List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+		super(parent, id, options);
 	}
 
 	@Override

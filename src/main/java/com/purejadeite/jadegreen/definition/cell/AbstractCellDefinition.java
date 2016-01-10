@@ -40,9 +40,9 @@ abstract public class AbstractCellDefinition<P extends ParentMappingDefinition<?
 	 * @param options
 	 *            オプション
 	 */
-	protected AbstractCellDefinition(P parent, String id, boolean noOutput,
+	protected AbstractCellDefinition(P parent, String id,
 			List<Map<String, Object>> options) {
-		super(parent, id, noOutput);
+		super(parent, id);
 		this.options = CellOptionManager.build(options);
 	}
 

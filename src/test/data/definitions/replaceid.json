@@ -4,14 +4,18 @@
 		{
 			"comment": "キー置換シート",
 			"id": "keyreplace",
-		    "name": "validation",
+			"output": true,
+			"target": {
+			    "name": "validation"
+			},
 		    "cells": [
-		        {"id": "fields", "row": 6, "endKeyId": "fieldName", "options": [
-		                {"type": "replaceid", "keyId": "validationType", "map": {
+		        {"id": "fields", "row": 6, "breakId": "fieldName", "options": [
+		                {"type": "replaceid", "keyId": "validationType", "newIds": {
 		                	"length": {"arg0": "min", "arg1": "max"},
 		                	"maxlength": {"arg0": "length"}
 		                }},
-		                {"type": "group", "keyId": "fieldName", "toId": "validators"}
+		                {"type": "sort", "keyId": "fieldName"},
+		                {"type": "group", "groupId": "fieldName", "valueId": "validators"}
 		            ],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},

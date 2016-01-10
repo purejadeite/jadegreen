@@ -59,14 +59,19 @@ public class SxssfMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	@SuppressWarnings("unchecked")
 	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinition workbookDefinition) throws IOException {
-		WorkbookContent workbookContent = new WorkbookContent(workbookDefinition, excelFile.getName());
 		Map<String, Table<String>> tables = SxssfTableMapper.read(excelFile);
+		return read(excelFile.getName(), tables, workbookDefinition);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Map<String, Object>> read(String bookName, Map<String, Table<String>> tables, WorkbookDefinition workbookDefinition) throws IOException {
+		WorkbookContent workbookContent = new WorkbookContent(workbookDefinition, bookName);
 		for (WorksheetDefinition worksheet : workbookDefinition.getChildren()) {
 			for (String name: tables.keySet()) {
 				Table<String> table = tables.get(name);
 				if (worksheet.match(name, table)) {
+					LOGGER.debug("[取得] sheet:" + name + ", type:" + worksheet.getId());
 					WorksheetContent sheet = toSheetContent(name, table, workbookContent, worksheet);
 					workbookContent.addSheet(sheet);
 				}
@@ -75,6 +80,7 @@ public class SxssfMapper {
 		return (List<Map<String, Object>>) workbookContent.getValues();
 	}
 
+	// tableの値をWorksheetContentにマッピングします
 	public static WorksheetContent toSheetContent(String sheetName, Table<String> table, WorkbookContent book, WorksheetDefinition definition) {
 		WorksheetContent sheet = new WorksheetContent(book, definition, sheetName);
 		List<List<String>> rows = table.getAdjustedTable();

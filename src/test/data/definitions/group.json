@@ -4,13 +4,14 @@
 		{
 			"comment": "グループ",
 			"id": "sub",
+			"output": true,
 			"target": {
 			    "name": "validation"
 			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "fields", "row": 6, "endKeyId": "fieldName", "options": [{"type": "group", "groupId": "fieldName", "valueId": "validators"}],
+		        {"id": "fields", "row": 6, "breakId": "fieldName", "options": [{"type": "group", "groupId": "fieldName", "valueId": "validators"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},

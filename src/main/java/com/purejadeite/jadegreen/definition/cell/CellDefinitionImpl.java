@@ -34,19 +34,18 @@ public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefiniti
 	 * @param col 取得対象列
 	 * @param options オプション
 	 */
-	protected CellDefinitionImpl(WorksheetDefinition parent, String id, boolean noOutput, int row, int col, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+	protected CellDefinitionImpl(WorksheetDefinition parent, String id, int row, int col, List<Map<String, Object>> options) {
+		super(parent, id, options);
 		this.row = row;
 		this.col = col;
 	}
 
 	public static CellDefinition<?> newInstance(WorksheetDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);
 		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new CellDefinitionImpl(parent, id, noOutput, row, col, options);
+		return new CellDefinitionImpl(parent, id, row, col, options);
 	}
 
 	/**

@@ -27,8 +27,6 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	 *            シート読み込み定義
 	 * @param id
 	 *            定義ID
-	 * @param noOutput
-	 *            出力可否
 	 * @param row
 	 *            取得対象行
 	 * @param col
@@ -36,9 +34,9 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	 * @param options
 	 *            コンバーター
 	 */
-	private TableValueDefinitionImpl(WorksheetDefinition sheet, P table, String id, boolean noOutput, String value,
+	private TableValueDefinitionImpl(WorksheetDefinition sheet, P table, String id, String value,
 			List<Map<String, Object>> options) {
-		super(table, id, noOutput, options);
+		super(table, id, options);
 		this.sheet = sheet;
 		this.value = value;
 	}
@@ -62,10 +60,9 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	 */
 	public static <P extends TableDefinition<?>> CellDefinition<P> newInstance(WorksheetDefinition sheet, P table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		String value = RoughlyMapUtils.getString(config, VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new TableValueDefinitionImpl<P>(sheet, table, id, noOutput, value, options);
+		return new TableValueDefinitionImpl<P>(sheet, table, id, value, options);
 	}
 
 	@Override

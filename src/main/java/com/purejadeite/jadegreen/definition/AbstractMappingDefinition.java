@@ -33,15 +33,6 @@ abstract public class AbstractMappingDefinition<P extends ParentMappingDefinitio
 	protected P parent;
 
 	/**
-	 * <pre>
-	 * データの出力を行うか
-	 * true: 行わない
-	 * false: 行う
-	 * </pre>
-	 */
-	protected boolean noOutput = false;
-
-	/**
 	 * 同シート配下の全定義
 	 */
 	protected Map<String, MappingDefinition<?>> definitions;
@@ -72,7 +63,6 @@ abstract public class AbstractMappingDefinition<P extends ParentMappingDefinitio
 		this.validateConfig(config, CONFIG);
 		this.parent = parent;
 		this.id = RoughlyMapUtils.getString(config, "id");
-		this.noOutput = RoughlyMapUtils.getBooleanValue(config, "noOutput");
 	}
 
 	/**
@@ -81,18 +71,10 @@ abstract public class AbstractMappingDefinition<P extends ParentMappingDefinitio
 	 * @param id 定義ID
 	 * @param noOutput 値の出力有無
 	 */
-	protected AbstractMappingDefinition(P parent, String id, boolean noOutput) {
+	protected AbstractMappingDefinition(P parent, String id) {
 		super();
 		this.parent = parent;
 		this.id = id;
-		this.noOutput = noOutput;
-	}
-
-	/**
-	 * Mapへの出力を行わないか
-	 */
-	public boolean isNoOutput() {
-		return noOutput;
 	}
 
 	/**
@@ -130,7 +112,6 @@ abstract public class AbstractMappingDefinition<P extends ParentMappingDefinitio
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("id", id);
-		map.put("noOutput", noOutput);
 		if (parent != null) {
 			map.put("parent", parent.getFullId());
 		} else {

@@ -262,6 +262,9 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 */
 	@Override
 	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+		if (!this.getDefinition().isOutput()) {
+			return SpecificValue.NO_OUTPUT;
+		}
 		Map<String, Object> values = new HashMap<>();
 		values.put("sheetName", sheetName);
 		for (Content<?> content : contents) {

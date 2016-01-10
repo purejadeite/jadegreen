@@ -43,8 +43,8 @@ public class FileCellDefinitionImpl<P extends ParentMappingDefinition<?, ?>> ext
 	 * @param options
 	 *            コンバーター
 	 */
-	private FileCellDefinitionImpl(P parent, String id, boolean noOutput, String filePath, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+	private FileCellDefinitionImpl(P parent, String id, String filePath, List<Map<String, Object>> options) {
+		super(parent, id, options);
 		this.filePath = filePath;
 	}
 
@@ -66,12 +66,10 @@ public class FileCellDefinitionImpl<P extends ParentMappingDefinition<?, ?>> ext
 	 * @return ラップされたCell読み込み定義
 	 */
 	public static <P extends ParentMappingDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
-
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		String filePath = RoughlyMapUtils.getString(config, FILE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new FileCellDefinitionImpl<P>(parent, id, noOutput, filePath, options);
+		return new FileCellDefinitionImpl<P>(parent, id, filePath, options);
 	}
 
 	/**

@@ -83,9 +83,9 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * @param options
 	 * @param joinConfig
 	 */
-	public JoinedTableCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, TableDefinition<?> table, String id, boolean noOutput,
+	public JoinedTableCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, TableDefinition<?> table, String id,
 			List<Map<String, Object>> options, Map<String, String> joinConfig) {
-		super(table, id, noOutput, options);
+		super(table, id, options);
 		this.validateConfig(joinConfig, CONFIG);
 		this.book = book;
 		this.sheet = sheet;
@@ -105,10 +105,9 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 
 	public static CellDefinition<TableDefinition<?>> newInstance(WorkbookDefinition book, WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		Map<String, String> join = RoughlyMapUtils.getMap(config, JOIN);
-		return new JoinedTableCellDefinitionImpl(book, sheet, table, id, noOutput, options, join);
+		return new JoinedTableCellDefinitionImpl(book, sheet, table, id, options, join);
 	}
 
 	public String getSheetId() {

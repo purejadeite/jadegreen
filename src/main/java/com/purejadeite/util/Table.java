@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author mitsuhiroseino
  */
-public interface Table<E> {
+public interface Table<E> extends List<List<E>> {
 
 	/**
 	 * 行数を取得します
@@ -68,7 +68,7 @@ public interface Table<E> {
 	 * 最終行に値を追加します
 	 * @param value 値
 	 */
-	public void add(E value);
+	public void addValue(E value);
 
 	/**
 	 * 行を追加します

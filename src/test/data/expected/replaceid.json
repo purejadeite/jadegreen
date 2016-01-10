@@ -34,8 +34,8 @@
 						"logicalFieldName": "ファイルパス",
 						"fieldName": "filePath",
 						"validationType": "length",
-						"arg0": "2",
-						"arg1": "10"
+						"min": "2",
+						"max": "10"
 					}
 				]
 			},
@@ -51,7 +51,7 @@
 						"logicalFieldName": "行情報",
 						"fieldName": "lines",
 						"validationType": "maxlength",
-						"arg0": "100"
+						"length": "100"
 					},
 					{
 						"logicalFieldName": "行情報",

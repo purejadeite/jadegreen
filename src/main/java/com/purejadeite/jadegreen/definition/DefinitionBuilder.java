@@ -19,8 +19,8 @@ import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.ColumnDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.RowDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.ColumnRepeatDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.RowRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.RoughlyMapUtils;
 
@@ -112,24 +112,24 @@ public class DefinitionBuilder {
 			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
 				// アドレスなし
 				definition = TableValueDefinitionImpl.newInstance(sheet, table, config);
-			} else if (table instanceof RowDefinitionImpl) {
+			} else if (table instanceof RowRepeatDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
 				definition = RowCellDefinitionImpl.newInstance(sheet, table, config);
-			} else if (table instanceof ColumnDefinitionImpl) {
+			} else if (table instanceof ColumnRepeatDefinitionImpl) {
 				// 列方向の繰り返し内のフィールドの場合
 				definition = ColumnCellDefinitionImpl.newInstance(sheet, table, config);
 			}
 		} else if (config.containsKey(COLUMNS)) {
 			// 行方向の繰り返しの場合
 			List<Map<String, Object>> columns = RoughlyMapUtils.getList(config, COLUMNS);
-			TableDefinition<?> rowTable = RowDefinitionImpl.newInstance(sheet, config);
+			TableDefinition<?> rowTable = RowRepeatDefinitionImpl.newInstance(sheet, config);
 			rowTable.addChildren(createCells(columns, sheet, rowTable));
 			definition = rowTable;
 		} else if (config.containsKey(ROWS)) {
 			// 列方向の繰り返しの場合
 			// TODO 現在未対応
 			List<Map<String, Object>> rows = RoughlyMapUtils.getList(config, ROWS);
-			TableDefinition<?> columnTable = ColumnDefinitionImpl.newInstance(sheet, config);
+			TableDefinition<?> columnTable = ColumnRepeatDefinitionImpl.newInstance(sheet, config);
 			columnTable.addChildren(createCells(rows, sheet, columnTable));
 			definition = columnTable;
 		} else {

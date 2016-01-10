@@ -4,7 +4,10 @@
 		{
 			"comment": "2種類各1件①",
 			"id": "main",
-		    "name": "bean",
+			"output": true,
+			"target": {
+			    "name": "bean"
+			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
@@ -14,7 +17,7 @@
 		                                                             {"type": "upper"}
 		                                                             ]
 		        },
-		        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
+		        {"id": "fields", "row": 8, " breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
@@ -29,11 +32,13 @@
 		{
 			"comment": "2種類各1件②",
 			"id": "sub",
-		    "name": "validation",
+			"target": {
+			    "name": "validation"
+			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName",
+		        {"id": "fields", "row": 6, "breakId": "fieldName",
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},

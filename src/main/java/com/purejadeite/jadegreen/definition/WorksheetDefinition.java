@@ -69,6 +69,11 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	private static final String CFG_JOIN_MY_KEY_ID = "join.myKeyId";
 
 	/**
+	 * 出力
+	 */
+	private static final String CFG_OUTPUT = "output";
+
+	/**
 	 * 必須項目名称
 	 */
 	private static final String[] CONFIG = { CFG_TARGET };
@@ -134,6 +139,15 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	protected String joinMyKeyId;
 
 	/**
+	 * <pre>
+	 * データの出力を行うか
+	 * true: 行う
+	 * false: 行わない
+	 * </pre>
+	 */
+	protected boolean output = false;
+
+	/**
 	 * コンストラクタ
 	 *
 	 * @param parent
@@ -145,13 +159,14 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 		super(parent, config);
 		this.validateConfig(config, CONFIG);
 		Map<String, Object> cfg = new StringKeyNestedMap(config);
-		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME, null);
-		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW, -1);
-		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN, -1);
-		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE, null);
-		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID, null);
-		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID, null);
-		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID, null);
+		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME);
+		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
+		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN) - 1;
+		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE);
+		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID);
+		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID);
+		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID);
+		this.output = RoughlyMapUtils.getBooleanValue(cfg, CFG_OUTPUT);
 		this.definitions = new HashMap<>();
 	}
 
@@ -168,17 +183,18 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 * @param noOutput
 	 *            出力要否
 	 */
-	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, boolean noOutput, Map<String, Object> config) {
-		super(parent, id, noOutput);
+	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, Map<String, Object> config) {
+		super(parent, id);
 		this.name = name;
 		Map<String, Object> cfg = new StringKeyNestedMap(config);
-		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME, null);
-		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW, -1);
-		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN, -1);
-		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE, null);
-		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID, null);
-		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID, null);
-		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID, null);
+		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME);
+		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
+		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN) - 1;
+		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE);
+		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID);
+		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID);
+		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID);
+		this.output = RoughlyMapUtils.getBooleanValue(cfg, CFG_OUTPUT);
 		this.definitions = new HashMap<>();
 	}
 
@@ -190,8 +206,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 */
 	public static WorksheetDefinition newInstance(WorkbookDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
-		return new WorksheetDefinition(parent, id, null, noOutput, config);
+		return new WorksheetDefinition(parent, id, null, config);
 	}
 
 	public String getJoinSheetId() {
@@ -204,6 +219,13 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 
 	public String getJoinMyKeyId() {
 		return joinMyKeyId;
+	}
+
+	/**
+	 * Mapへの出力を行うか
+	 */
+	public boolean isOutput() {
+		return output;
 	}
 
 	/**
@@ -320,6 +342,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 		map.put("maxRow", maxRow);
 		map.put("minCol", minCol);
 		map.put("maxCol", maxCol);
+		map.put("output", output);
 		return map;
 	}
 

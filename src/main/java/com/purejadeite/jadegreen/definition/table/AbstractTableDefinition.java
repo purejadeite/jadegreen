@@ -48,12 +48,12 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	/**
 	 * 終了キー項目
 	 */
-	protected String endKeyId = null;
+	protected String breakId = null;
 
 	/**
 	 * 終了キー値
 	 */
-	protected String endValue = null;
+	protected String breakValue = null;
 
 	/**
 	 * オプション
@@ -69,20 +69,19 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報
 	 * @param id 定義ID
-	 * @param noOutput データの読み込みのみ行うか
 	 * @param begin 開始位置
 	 * @param end 終了位置
 	 * @param endKey 開始キー項目
-	 * @param endValue 終了キー値
+	 * @param breakValue 終了キー値
 	 * @param options オプション
 	 */
-	protected AbstractTableDefinition(WorksheetDefinition parent, String id, boolean noOutput, int begin,
-			int end, String endKeyId, String endValue, List<Map<String, Object>> options) {
-		super(parent, id, noOutput);
+	protected AbstractTableDefinition(WorksheetDefinition parent, String id, int begin,
+			int end, String breakId, String breakValue, List<Map<String, Object>> options) {
+		super(parent, id);
 		this.begin = begin;
 		this.end = end <= 0 ? Integer.MAX_VALUE : end;
-		this.endKeyId = endKeyId;
-		this.endValue = endValue;
+		this.breakId = breakId;
+		this.breakValue = breakValue;
 		this.options = TableOptionManager.build(options);
 	}
 
@@ -107,32 +106,32 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getEndKeyId() {
-		return endKeyId;
+	public String getBreakId() {
+		return breakId;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setEndKeyId(String endKeyId) {
-		this.endKeyId = endKeyId;
+	public void setBreakId(String breakId) {
+		this.breakId = breakId;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getEndValue() {
-		return endValue;
+	public String getBreakValue() {
+		return breakValue;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setEndValue(String endValue) {
-		this.endValue = endValue;
+	public void setBreakValue(String breakValue) {
+		this.breakValue = breakValue;
 	}
 
 	/**
@@ -164,6 +163,12 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 */
 	@Override
 	public void addChild(C child) {
+		if (cells.isEmpty()) {
+			if (end == Integer.MAX_VALUE && breakId == null) {
+				// 終了条件が設定されていない場合は、先頭の項目がnullになった時に終了
+				breakId = child.getId();
+			}
+		}
 		cells.add(child);
 	}
 
@@ -187,8 +192,8 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		map.put("end", end);
 		map.put("beginKeyId", beginKeyId);
 		map.put("beginValue", beginValue);
-		map.put("endKeyId", endKeyId);
-		map.put("endValue", endValue);
+		map.put("endKeyId", breakId);
+		map.put("endValue", breakValue);
 		map.put("size", size);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
 		for(C cell: cells) {

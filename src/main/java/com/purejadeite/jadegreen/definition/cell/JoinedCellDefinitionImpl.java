@@ -76,8 +76,8 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	 *            結合設定
 	 */
 	protected JoinedCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, String id,
-			boolean noOutput, List<Map<String, Object>> options, Map<String, String> joinConfig) {
-		super(sheet, id, noOutput, options);
+			List<Map<String, Object>> options, Map<String, String> joinConfig) {
+		super(sheet, id, options);
 		this.validateConfig(joinConfig, CONFIG);
 		this.book = book;
 		this.sheet = sheet;
@@ -94,10 +94,9 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	public static MappingDefinition<?> newInstance(WorkbookDefinition book, WorksheetDefinition sheet,
 			Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		Map<String, String> join = RoughlyMapUtils.getMap(config, JOIN);
-		return new JoinedCellDefinitionImpl(book, sheet, id, noOutput, options, join);
+		return new JoinedCellDefinitionImpl(book, sheet, id, options, join);
 	}
 
 	public String getSheetId() {
@@ -133,8 +132,9 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("mySheetKeyId", myKeyId);
-		map.put("sheetKeyId", keyId);
+		map.put("myKeyId", myKeyId);
+		map.put("sheetId", sheetId);
+		map.put("keyId", keyId);
 		map.put("valueId", valueId);
 		map.put("book", book.getFullId());
 		return map;

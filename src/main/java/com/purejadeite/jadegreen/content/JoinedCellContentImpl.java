@@ -59,7 +59,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 		List<Content<?>> valueContents = book.searchContents(definition.getValueDefinition());
 		if (valueContents.isEmpty()) {
 			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
-			LOGGER.warn("結合先の値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
+			LOGGER.warn("結合元のキー値に一致する結合先のキー値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
 			return null;
 		}
 

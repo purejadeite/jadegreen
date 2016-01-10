@@ -50,11 +50,9 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	 *            親定義
 	 * @param id
 	 *            定義ID
-	 * @param noOutput
-	 *            値の出力有無
 	 */
-	protected AbstractParentMappingDefinition(P parent, String id, boolean noOutput) {
-		super(parent, id, noOutput);
+	protected AbstractParentMappingDefinition(P parent, String id) {
+		super(parent, id);
 	}
 
 	/**

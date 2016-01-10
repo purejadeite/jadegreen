@@ -90,14 +90,10 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 	 */
 	@Override
 	public Object getValues(MappingDefinition<?>... ignore) {
-		if (this.getDefinition().isNoOutput()) {
-			return SpecificValue.NO_OUTPUT;
+		if (ArrayUtils.contains(ignore, this.getDefinition())) {
+			return SpecificValue.UNDEFINED;
 		} else {
-			if (ArrayUtils.contains(ignore, this.getDefinition())) {
-				return SpecificValue.UNDEFINED;
-			} else {
-				return getValuesImpl(ignore);
-			}
+			return getValuesImpl(ignore);
 		}
 	}
 

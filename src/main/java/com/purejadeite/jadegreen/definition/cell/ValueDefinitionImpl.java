@@ -26,8 +26,6 @@ public class ValueDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extend
 	 *            シート読み込み定義
 	 * @param id
 	 *            定義ID
-	 * @param noOutput
-	 *            出力可否
 	 * @param row
 	 *            取得対象行
 	 * @param col
@@ -35,8 +33,8 @@ public class ValueDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extend
 	 * @param options
 	 *            コンバーター
 	 */
-	private ValueDefinitionImpl(P parent, String id, boolean noOutput, String value, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+	private ValueDefinitionImpl(P parent, String id, String value, List<Map<String, Object>> options) {
+		super(parent, id, options);
 		this.value = value;
 	}
 
@@ -47,8 +45,6 @@ public class ValueDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extend
 	 *            シート読み込み定義
 	 * @param id
 	 *            定義ID
-	 * @param noOutput
-	 *            出力可否
 	 * @param row
 	 *            取得対象行
 	 * @param col
@@ -59,10 +55,9 @@ public class ValueDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extend
 	 */
 	public static <P extends ParentMappingDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		String value = RoughlyMapUtils.getString(config, VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new ValueDefinitionImpl<P>(parent, id, noOutput, value, options);
+		return new ValueDefinitionImpl<P>(parent, id, value, options);
 	}
 
 	@Override

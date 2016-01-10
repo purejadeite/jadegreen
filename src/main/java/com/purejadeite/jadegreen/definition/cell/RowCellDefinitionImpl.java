@@ -28,26 +28,25 @@ public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefi
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	private RowCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id, boolean noOutput, int beginRow, int endRow, int col,
+	private RowCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id, int beginRow, int endRow, int col,
 			boolean endKey, String endValue, List<Map<String, Object>> options) {
-		super(table, id, noOutput, beginRow, endRow, col, col, endKey, endValue, options);
+		super(table, id, beginRow, endRow, col, col, endKey, endValue, options);
 		this.sheet = sheet;
 	}
 
 	public static CellDefinition<TableDefinition<?>> newInstance(WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 
 		boolean endKey = false;
 		String endValue = null;
-		if (id.equals(table.getEndKeyId())) {
+		if (id.equals(table.getBreakId())) {
 			// 終了条件
 			endKey = true;
-			endValue = table.getEndValue();
+			endValue = table.getBreakValue();
 		}
-		return new RowCellDefinitionImpl(sheet, table, id, noOutput, table.getBegin(), table.getEnd(), col, endKey, endValue,
+		return new RowCellDefinitionImpl(sheet, table, id, table.getBegin(), table.getEnd(), col, endKey, endValue,
 				options);
 	}
 }

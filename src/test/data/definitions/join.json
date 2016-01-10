@@ -4,6 +4,7 @@
 		{
 			"comment": "結合あり1件読み込み",
 			"id": "main",
+			"output": true,
 			"target": {
 			    "name": "bean"
 			},
@@ -36,7 +37,6 @@
 			"target": {
 			    "name": "validation"
 			},
-			"noOutput": true,
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},

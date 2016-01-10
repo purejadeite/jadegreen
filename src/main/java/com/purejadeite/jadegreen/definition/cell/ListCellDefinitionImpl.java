@@ -35,20 +35,19 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	 * @param options
 	 *            コンバーター
 	 */
-	private ListCellDefinitionImpl(WorksheetDefinition parent, String id, boolean noOutput, int row, int col, String splitter,
+	private ListCellDefinitionImpl(WorksheetDefinition parent, String id, int row, int col, String splitter,
 			List<Map<String, Object>> options) {
-		super(parent, id, noOutput, row, col, options);
+		super(parent, id, row, col, options);
 		this.splitter = splitter;
 	}
 
 	public static CellDefinition<WorksheetDefinition> newInstance(WorksheetDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
-		boolean noOutput = RoughlyMapUtils.getBooleanValue(config, NO_OUTPUT);
 		int row = RoughlyMapUtils.getIntValue(config, ROW);
 		int col = RoughlyMapUtils.getIntValue(config, COLUMN);
 		String splitter = RoughlyMapUtils.getString(config, SPLITTER, "\n");
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new ListCellDefinitionImpl(parent, id, noOutput, row, col, splitter, options);
+		return new ListCellDefinitionImpl(parent, id, row, col, splitter, options);
 	}
 
 	@Override

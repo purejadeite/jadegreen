@@ -20,8 +20,8 @@ abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinit
 	 * @param noOutput 出力対象外フラグ
 	 * @param options オプション
 	 */
-	protected AbstractNoAdressTableCellDefinition(P parent, String id, boolean noOutput, List<Map<String, Object>> options) {
-		super(parent, id, noOutput, options);
+	protected AbstractNoAdressTableCellDefinition(P parent, String id, List<Map<String, Object>> options) {
+		super(parent, id, options);
 	}
 
 	/**

@@ -4,13 +4,16 @@
 		{
 			"comment": "結合あり1件読み込み",
 			"id": "main",
-		    "name": "bean",
+			"output": true,
+			"target": {
+			    "name": "bean"
+			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
 		        {"id": "package", "row": 3, "column": 3},
 		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
-		        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
+		        {"id": "fields", "row": 8, "breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
@@ -26,12 +29,13 @@
 		{
 			"comment": "結合先シート",
 			"id": "sub",
-		    "name": "validation*",
-			"noOutput": true,
+			"target": {
+			    "name": "validation"
+			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [{"type": "group", "keyId": "fieldName", "toId": "validators"}],
+		        {"id": "fields", "row": 6, "breakaId": "fieldName", "options": [{"type": "group", "groupId": "fieldName", "valueId": "validators"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},

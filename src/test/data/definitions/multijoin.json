@@ -2,40 +2,22 @@
 	"id": "book",
 	"sheets": [
 		{
-			"comment": "結合あり1件読み込み",
-			"id": "main",
-		    "name": "bean-*",
-		    "cells": [
-		        {"id": "logicalClassName", "row": 1, "column": 3},
-		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "package", "row": 3, "column": 3},
-		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
-		        {"id": "fields", "beginRow": 8, "endKeyId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
-		            "columns": [
-		                {"id": "logicalFieldName", "column": 2},
-		                {"id": "fieldName", "column": 3},
-		                {"id": "method", "column": 3, "options": [{"type": "uppercamel"}]},
-		                {"id": "static", "column": 3, "options": [{"type": "upperunderscore"}]},
-		                {"id": "type", "column": 4},
-		                {"id": "initial", "column": 5},
-		                {"id": "validation", "join": {"mySheetKeyId": "main.className", "myKeyId": "main.fields.fieldName", "sheetKeyId": "sub.className", "keyId": "sub.fields.fieldName", "valueId": "sub.fields.validators"}}
-		            ]
-		        },
-		        {"id": "logicalClassNameValid", "join": {"mySheetKeyId": "main.className", "sheetKeyId": "sub.className", "valueId": "sub.logicalClassName"}}
-		    ]
-		},
-		{
 			"comment": "結合先シート",
 			"id": "sub",
-		    "name": "validation-*",
-			"noOutput": true,
+			"target": {
+			    "cell": {
+			    	"row": 3,
+			    	"column": 3,
+			    	"value": "validation"
+			    }
+			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "fields", "beginRow": 6, "endKeyId": "fieldName", "options": [{"type": "group", "keyId": "fieldName", "toId": "validators"}],
+		        {"id": "fields", "row": 6, "options": [{"type": "group", "groupId": "fieldName", "valueId": "validators"}],
 		            "columns": [
-		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
+		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "validationType", "column": 4, "options": [{"type": "mapping", "map": {"notnull": "NotNull"}, "lazy": true}]},
 		                {"id": "arg0", "column": 5, "options": [{"type": "tonull"}]},
 		                {"id": "arg1", "column": 6, "options": [{"type": "tonull"}]},
@@ -43,6 +25,36 @@
 		                {"id": "arg3", "column": 8, "options": [{"type": "tonull"}]}
 		            ]
 		        }
+		    ]
+		},
+		{
+			"comment": "結合あり1件読み込み",
+			"id": "main",
+			"output": true,
+			"target": {
+			    "cell": {
+			    	"row": 5,
+			    	"column": 3,
+			    	"value": "bean"
+			    }
+			},
+		    "cells": [
+		        {"id": "logicalClassName", "row": 1, "column": 3},
+		        {"id": "className", "row": 2, "column": 3},
+		        {"id": "package", "row": 3, "column": 3},
+		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
+		        {"id": "fields", "row": 8, "options": [{"type": "sort", "keyId": "fieldName"}],
+		            "columns": [
+		                {"id": "fieldName", "column": 3},
+		                {"id": "logicalFieldName", "column": 2},
+		                {"id": "method", "column": 3, "options": [{"type": "uppercamel"}]},
+		                {"id": "static", "column": 3, "options": [{"type": "upperunderscore"}]},
+		                {"id": "type", "column": 4},
+		                {"id": "initial", "column": 5},
+		                {"id": "validation", "join": {"myKeyId": "className", "mytableKeyId": "fieldName", "sheetId": "sub", "keyId": "className", "tableKeyId": "fieldName", "valueId": "validators"}}
+		            ]
+		        },
+		        {"id": "logicalClassNameValid", "join": {"myKeyId": "className", "sheetId": "sub", "keyId": "className", "valueId": "logicalClassName"}}
 		    ]
 		}
 	]

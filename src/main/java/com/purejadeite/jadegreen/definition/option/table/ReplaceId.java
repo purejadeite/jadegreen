@@ -17,12 +17,12 @@ public class ReplaceId extends AbstractTableConverter {
 
 	private static final String CFG_KEY_ID = "keyId";
 
-	private static final String CFG_MAP = "map";
+	private static final String CFG_NEW_IDS = "newIds";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_KEY_ID, CFG_MAP };
+	private static final String[] CONFIG = { CFG_KEY_ID, CFG_NEW_IDS };
 
 	/**
 	 * キーとなる項目の定義ID
@@ -32,7 +32,7 @@ public class ReplaceId extends AbstractTableConverter {
 	/**
 	 * キーとなる項目の値と変換後の定義IDを紐付けた定義
 	 */
-	private Map<String, Object> map;
+	private Map<String, Object> newIds;
 
 	/**
 	 * コンストラクタ
@@ -44,7 +44,7 @@ public class ReplaceId extends AbstractTableConverter {
 		super();
 		this.validateConfig(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
+		this.newIds = RoughlyMapUtils.getMap(config, CFG_NEW_IDS);
 	}
 
 	/**
@@ -57,13 +57,13 @@ public class ReplaceId extends AbstractTableConverter {
 		for (Map<String, Object> line : values) {
 			// 対象の行か？
 			String keyValue = RoughlyMapUtils.getString(line, keyId);
-			if (map.containsKey(keyValue)) {
+			if (newIds.containsKey(keyValue)) {
 				// 対象の行の場合は指定の項目のidを差し替える
 				Map<String, Object> modefied = new HashMap<>();
 				// 元のMapはいじりたくないので別のMapを作る
 				modefied.putAll(line);
 				// キーの値に対応するidを取得
-				Map<String, Object> idMap = RoughlyMapUtils.getMap(map, keyValue);
+				Map<String, Object> idMap = RoughlyMapUtils.getMap(newIds, keyValue);
 				if (idMap == null) {
 					continue;
 				} else {
@@ -93,7 +93,7 @@ public class ReplaceId extends AbstractTableConverter {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("keyId", keyId);
-		map.put("map", this.map);
+		map.put("map", this.newIds);
 		return map;
 	}
 }

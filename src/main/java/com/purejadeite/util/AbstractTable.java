@@ -1,6 +1,7 @@
 package com.purejadeite.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -26,6 +27,38 @@ abstract public class AbstractTable<E> implements Table<E> {
 	public AbstractTable() {
 		super();
 		table = new ArrayList<>();
+	}
+
+	/**
+	 * コンストラクタ
+	 */
+	public <T extends Collection<R>, R extends Collection<E>> AbstractTable(T table) {
+		super();
+		List<List<E>> thisTable = new ArrayList<>();
+		for (Collection<E> row : table) {
+			columnSize = Math.max(columnSize, row.size());
+			List<E> thisRow = new ArrayList<>(row);
+			thisTable.add(thisRow);
+		}
+		this.table = thisTable;
+	}
+
+
+	/**
+	 * コンストラクタ
+	 */
+	public AbstractTable(E[][] table) {
+		super();
+		List<List<E>> thisTable = new ArrayList<>();
+		for (E[] row : table) {
+			columnSize = Math.max(columnSize, row.length);
+			List<E> thisRow = new ArrayList<>();
+			for (E value : row) {
+				thisRow.add(value);
+			}
+			thisTable.add(thisRow);
+		}
+		this.table = thisTable;
 	}
 
 	/**
@@ -114,7 +147,7 @@ abstract public class AbstractTable<E> implements Table<E> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void add(E value) {
+	public void addValue(E value) {
 		List<E> row = table.get(table.size() - 1);
 		row.add(value);
 	}

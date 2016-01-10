@@ -19,7 +19,7 @@
 				"static": "FILE_EXIST_FLAG",
 				"type": "Boolean",
 				"initial": "Boolean.TRUE",
-				"validation": [
+				"validators": [
 		   			{
 						"logicalFieldName": "ファイル有無フラグ",
 						"fieldName": "fileExistFlag",
@@ -38,7 +38,7 @@
 				"static": "FILE_NAME",
 				"type": "String",
 				"initial": "null",
-				"validation": [
+				"validators": [
 		   			{
 		   				"logicalFieldName": "ファイル名",
 						"fieldName": "fileName",
@@ -57,7 +57,7 @@
 				"static": "FILE_NAME_JP",
 				"type": "String",
 				"initial": "null",
-				"validation": null
+				"validators": null
 			},
 			{
 				"logicalFieldName": "ファイルパス",
@@ -66,7 +66,7 @@
 				"static": "FILE_PATH",
 				"type": "String",
 				"initial": null,
-				"validation": [
+				"validators": [
 					{
 						"logicalFieldName": "ファイルパス",
 						"fieldName": "filePath",
@@ -94,7 +94,7 @@
 				"static": "LINES",
 				"type": "List<LineBean>",
 				"initial": "new ArrayList<>()",
-				"validation": [
+				"validators": [
 		   			{
 						"logicalFieldName": "行情報",
 						"fieldName": "lines",

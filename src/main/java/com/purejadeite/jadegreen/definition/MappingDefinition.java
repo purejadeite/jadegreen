@@ -26,13 +26,6 @@ public interface MappingDefinition<P extends ParentMappingDefinition<?, ?>> exte
 	public String getFullId();
 
 	/**
-	 * 値の出力を行うかを示します
-	 *
-	 * @return
-	 */
-	public boolean isNoOutput();
-
-	/**
 	 * 親定義を取得します
 	 *
 	 * @return
