@@ -90,10 +90,18 @@ abstract public class AbstractTable<E> implements Table<E> {
 	 */
 	@Override
 	public List<List<E>> getAdjustedTable() {
+		return getAdjustedTable(0);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<List<E>> getAdjustedTable(int minColumnSize) {
 		List<List<E>> adjustedTable = new ArrayList<>();
 		int rowSize = getRowSize();
 		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {
-			adjustedTable.add(getAdjustedRow(rowIndex));
+			adjustedTable.add(getAdjustedRow(rowIndex, minColumnSize));
 		}
 		return adjustedTable;
 	}
@@ -114,17 +122,26 @@ abstract public class AbstractTable<E> implements Table<E> {
 	 */
 	@Override
 	public List<E> getAdjustedRow(int rowIndex) {
+		return getAdjustedRow(rowIndex, 0);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<E> getAdjustedRow(int rowIndex, int minColumnSize) {
+		int cSize = Math.max(minColumnSize, columnSize);
 		List<E> adjustedRow = new ArrayList<>();
 		List<E> row = getRow(rowIndex);
 		if (row == null) {
-			for (int columnIndex = 0; columnIndex < columnSize; columnIndex++) {
+			for (int columnIndex = 0; columnIndex < cSize; columnIndex++) {
 				adjustedRow.add(null);
 			}
 		} else {
 			for (int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
 				adjustedRow.add(row.get(columnIndex));
 			}
-			for (int columnIndex = row.size(); columnIndex < columnSize; columnIndex++) {
+			for (int columnIndex = row.size(); columnIndex < cSize; columnIndex++) {
 				adjustedRow.add(null);
 			}
 		}

@@ -42,21 +42,6 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	private List<Content<?>> contents = new ArrayList<>();
 
 	/**
-	 * 前回処理した行
-	 */
-	private int prevRow = 0;
-
-	/**
-	 * 前回処理した列
-	 */
-	private int prevCol = 0;
-
-	/**
-	 * 定義上の最大列
-	 */
-	private int maxCol = 0;
-
-	/**
 	 * コンストラクタ
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
@@ -77,8 +62,6 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 				contents.add(new TableContentImpl(this, (TableDefinition<?>) childDefinition));
 			}
 		}
-		maxCol = definition.getMaxCol();
-		prevCol = maxCol;
 		LOGGER.debug("create: " + sheetName);
 	}
 
@@ -90,14 +73,8 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		if (isClosed()) {
 			return END;
 		}
-		// セルが連続していない場合の処理
-		Status status = addDummyValues(row, col);
-		if (status == END) {
-			close();
-			return status;
-		}
-		// 今回のセルの処理
-		status = addValueImpl(row, col, value);
+		// セルの値を取得
+		Status status = addValueImpl(row, col, value);
 		if (status == END) {
 			close();
 		}
@@ -120,97 +97,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 				status = addStatus;
 			}
 		}
-		prevRow = row;
-		prevCol = col;
 		return status;
-	}
-
-	/**
-	 * スキップした範囲にnullを追加します
-	 * @param row 行
-	 * @param col 列
-	 * @return 取得状況
-	 */
-	private Status addDummyValues(int row, int col) {
-		Status status = END;
-		boolean added = false;
-
-		// ①前回処理していた行が最後の列まで処理されていない場合
-		if (prevRow < row && prevCol < maxCol) {
-			// 前回処理していた行にダミー列の追加処理
-			for (int c = prevCol + 1; c < maxCol + 1; c++) {
-				Status addStatus = addDummyCol(prevRow, c);
-				if (0 < addStatus.compareTo(status)) {
-					status = addStatus;
-				}
-			}
-			added = true;
-		}
-		// ②前回処理していた行と今回処理する行が連続していない場合
-		if (prevRow + 1 < row) {
-			// ダミー行の追加処理
-			for (int r = prevRow + 1; r < row; r++) {
-				Status addStatus = addDummyRow(r);
-				if (0 < addStatus.compareTo(status)) {
-					status = addStatus;
-				}
-			}
-			added = true;
-		}
-		// ③現在処理している行が先頭の列から始まっていない場合
-		if (prevRow + 1 == row && maxCol <= prevCol && col != 1) {
-			// ダミー列の追加処理
-			for (int c = 1; c < col; c++) {
-				Status addStatus = addDummyCol(row, c);
-				if (0 < addStatus.compareTo(status)) {
-					status = addStatus;
-				}
-			}
-			added = true;
-		}
-		// ④現在処理している行で列が連続していない場合
-		if (prevRow == row && prevCol + 1 < col) {
-			// ダミー列の追加処理
-			for (int c = prevCol + 1; c < col; c++) {
-				Status addStatus = addDummyCol(row, c);
-				if (0 < addStatus.compareTo(status)) {
-					status = addStatus;
-				}
-			}
-			added = true;
-		}
-		// ダミー行の追加があった場合のみstatusを返す
-		if (added) {
-			return status;
-		} else {
-			return NO;
-		}
-	}
-
-	/**
-	 * スキップした行にnullを追加します
-	 * @param row 行
-	 * @return 取得状況
-	 */
-	private Status addDummyRow(int row) {
-		Status status = END;
-		for (int col = 1; col < definition.getMaxCol() + 1; col++) {
-			Status addStatus = addDummyCol(row, col);
-			if (0 < addStatus.compareTo(status)) {
-				status = addStatus;
-			}
-		}
-		return status;
-	}
-
-	/**
-	 * スキップしたセルにnullを追加します
-	 * @param row 行
-	 * @param col 列
-	 * @return 取得状況
-	 */
-	private Status addDummyCol(int row, int col) {
-		return addValueImpl(row, col, null);
 	}
 
 	/**
@@ -235,10 +122,6 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 */
 	@Override
 	public void close() {
-		if (prevCol != maxCol) {
-			// 最終列まで処理していない場合はダミーセルを追加
-			addDummyValues(prevRow + 1, 1);
-		}
 		super.close();
 		LOGGER.debug("close: " + sheetName);
 	}

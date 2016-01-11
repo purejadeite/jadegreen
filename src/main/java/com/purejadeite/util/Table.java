@@ -34,6 +34,16 @@ public interface Table<E> extends List<List<E>> {
 	public List<List<E>> getAdjustedTable();
 
 	/**
+	 */
+
+	/**
+	 * 全ての行の列数を指定の最小列数または列数の最大値のいずれか大きい値に揃えた、指定行のリストを取得します
+	 * @param minColumnSize 最大列数
+	 * @return リスト
+	 */
+	public List<List<E>> getAdjustedTable(int minColumnSize);
+
+	/**
 	 * 指定行のリストを取得します
 	 * @param rowIndex 行インデックス
 	 * @return 指定行のリスト
@@ -46,6 +56,14 @@ public interface Table<E> extends List<List<E>> {
 	 * @return 指定行のリスト
 	 */
 	public List<E> getAdjustedRow(int rowIndex);
+
+	/**
+	 * 列数を指定の最小列数または列数の最大値のいずれか大きい値に揃えた、指定行のリストを取得します
+	 * @param rowIndex 行インデックス
+	 * @param minColumnSize 最小列数
+	 * @return 指定行のリスト
+	 */
+	public List<E> getAdjustedRow(int rowIndex, int minColumnSize);
 
 	/**
 	 * 指定位置の値を取得します
