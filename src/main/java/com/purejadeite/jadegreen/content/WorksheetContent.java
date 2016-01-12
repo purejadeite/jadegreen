@@ -50,17 +50,22 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	public WorksheetContent(Content<?> parent, WorksheetDefinition definition, String sheetName) {
 		super(parent, definition);
 		this.sheetName = sheetName;
+		Content<?> content = null;
 		for (MappingDefinition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedCellDefinitionImpl) {
 				// 単独セルの結合の場合
-				contents.add(new JoinedCellContentImpl(this, (JoinedCellDefinitionImpl) childDefinition));
+				content = new JoinedCellContentImpl(this, (JoinedCellDefinitionImpl) childDefinition);
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
-				contents.add(new CellContentImpl(this, (CellDefinition<?>) childDefinition));
+				content = new CellContentImpl(this, (CellDefinition<?>) childDefinition);
 			} else if (childDefinition instanceof TableDefinition) {
 				// テーブルの場合
-				contents.add(new TableContentImpl(this, (TableDefinition<?>) childDefinition));
+				content = new TableContentImpl(this, (TableDefinition<?>) childDefinition);
+			} else {
+				continue;
 			}
+			contents.add(content);
+			ContentManager.register(getId(), content);
 		}
 		LOGGER.debug("create: " + sheetName);
 	}

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 列方向の繰り返しを持つテーブル配下のCell読み込み定義

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.StringUtils;
 
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列のバイト長を取得するクラス

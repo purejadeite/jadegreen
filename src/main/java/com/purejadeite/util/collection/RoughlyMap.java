@@ -1,4 +1,4 @@
-package com.purejadeite.util;
+package com.purejadeite.util.collection;
 
 import static com.purejadeite.util.RoughlyConverter.*;
 

@@ -8,10 +8,10 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.util.RoughlyMapUtils;
 import com.purejadeite.util.SimpleComparison;
-import com.purejadeite.util.StringKeyNestedMap;
-import com.purejadeite.util.Table;
+import com.purejadeite.util.collection.RoughlyMapUtils;
+import com.purejadeite.util.collection.StringKeyNestedMap;
+import com.purejadeite.util.collection.Table;
 
 /**
  * Sheet読み込み定義

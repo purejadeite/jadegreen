@@ -17,6 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.AbstractTest;
 import com.purejadeite.jadegreen.TestHelper;
+import com.purejadeite.util.collection.RoughlyMap;
+import com.purejadeite.util.collection.StringKeyNestedMap;
 
 /**
  * Unit test for simple App.

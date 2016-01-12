@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 単一セル内で一覧になっているセルの読み込み定義です

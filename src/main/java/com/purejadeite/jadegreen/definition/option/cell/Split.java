@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 指定された区切り文字で文字列を分割するクラス

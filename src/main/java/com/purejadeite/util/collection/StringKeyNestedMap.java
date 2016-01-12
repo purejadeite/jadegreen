@@ -1,4 +1,4 @@
-package com.purejadeite.util;
+package com.purejadeite.util.collection;
 
 import java.util.List;
 import java.util.Map;

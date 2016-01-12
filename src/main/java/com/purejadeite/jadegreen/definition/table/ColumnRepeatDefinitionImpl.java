@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 列方向の繰り返し範囲の情報を保持するクラスの抽象クラスです

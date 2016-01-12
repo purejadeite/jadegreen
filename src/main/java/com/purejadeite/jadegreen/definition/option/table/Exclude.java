@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.EvaluationUtils;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 削除コンバーター

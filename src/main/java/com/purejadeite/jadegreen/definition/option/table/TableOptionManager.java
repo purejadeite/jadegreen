@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.MappingException;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * テーブルの変換を行うコンバーターインスタンスを生成するクラスです

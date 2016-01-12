@@ -19,8 +19,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.purejadeite.util.LazyTable;
-import com.purejadeite.util.Table;
+import com.purejadeite.util.collection.LazyTable;
+import com.purejadeite.util.collection.Table;
 
 /**
  * <pre>

@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.util.EvaluationUtils;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 条件に一致する場合に項目を削除するクラス

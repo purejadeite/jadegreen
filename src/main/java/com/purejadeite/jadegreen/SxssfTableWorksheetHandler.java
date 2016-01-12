@@ -6,7 +6,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.purejadeite.util.Table;
+import com.purejadeite.util.collection.Table;
 
 /**
  * セルを走査するハンドラ

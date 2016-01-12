@@ -10,9 +10,11 @@ import com.purejadeite.jadegreen.definition.MappingDefinition;
 
 /**
  * 値を保持する抽象クラス
+ *
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<D extends MappingDefinition<?>> extends AbstractToMap implements Content<D>, Serializable {
+abstract public class AbstractContent<D extends MappingDefinition<?>> extends AbstractToMap
+		implements Content<D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
 
@@ -31,10 +33,15 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 	 */
 	protected boolean closed;
 
+	private Object valuesCache;
+
 	/**
 	 * コンストラクター
-	 * @param parent 親要素
-	 * @param definition 値を取得する定義
+	 *
+	 * @param parent
+	 *            親要素
+	 * @param definition
+	 *            値を取得する定義
 	 */
 	public AbstractContent(Content<?> parent, D definition) {
 		this.parent = parent;
@@ -80,7 +87,9 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 
 	/**
 	 * 編集していない値を取得する実装です
-	 * @param ignore 取得対象外とする子要素の定義
+	 *
+	 * @param ignore
+	 *            取得対象外とする子要素の定義
 	 * @return 値
 	 */
 	abstract public Object getRawValuesImpl(MappingDefinition<?>... ignore);
@@ -93,12 +102,16 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
 			return SpecificValue.UNDEFINED;
 		} else {
-			return getValuesImpl(ignore);
+			if (valuesCache == null) {
+				valuesCache = getValuesImpl(ignore);
+			}
+			return valuesCache;
 		}
 	}
 
 	/**
 	 * 編集した値を取得する実装です
+	 *
 	 * @param ignore
 	 * @return
 	 */

@@ -22,7 +22,7 @@ import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.ColumnRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.RowRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 定義情報を生成するクラスです
@@ -145,6 +145,7 @@ public class DefinitionBuilder {
 		}
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
+			DefinitionManager.register(sheet.getId(), definition);
 		} else {
 			String id = RoughlyMapUtils.getString(config, ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");

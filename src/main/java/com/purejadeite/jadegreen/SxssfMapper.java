@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.content.WorksheetContent;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
-import com.purejadeite.util.Table;
+import com.purejadeite.util.collection.Table;
 
 /**
  * <pre>

@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.MappingDefinition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
-import com.purejadeite.util.RoughlyMapUtils;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 単一セルの結合定義です
