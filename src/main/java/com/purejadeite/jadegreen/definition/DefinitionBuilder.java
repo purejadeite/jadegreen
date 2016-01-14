@@ -93,10 +93,10 @@ public class DefinitionBuilder {
 			// 結合フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = JoinedTableCellDefinitionImpl.newInstance(sheet.getParent(), sheet, table, config);
+				definition = JoinedTableCellDefinitionImpl.newInstance(sheet, table, config);
 			} else {
 				// 単独フィールドの場合
-				definition = JoinedCellDefinitionImpl.newInstance(sheet.getParent(), sheet, config);
+				definition = JoinedCellDefinitionImpl.newInstance(sheet, config);
 			}
 		} else if (config.containsKey(VALUE)) {
 			// 値フィールドの場合
@@ -145,7 +145,7 @@ public class DefinitionBuilder {
 		}
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
-			DefinitionManager.register(sheet.getId(), definition);
+			DefinitionManager.register(sheet, definition);
 		} else {
 			String id = RoughlyMapUtils.getString(config, ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");

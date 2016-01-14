@@ -36,19 +36,6 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	protected P parent;
 
 	/**
-	 * 同シート配下の全定義
-	 */
-	protected Map<String, Definition<?>> definitions;
-
-	/**
-	 * 同シート配下の全定義を設定します
-	 * @param definitions シート配下の全定義
-	 */
-	public void setDefinitions(Map<String, Definition<?>> definitions) {
-		this.definitions = definitions;
-	}
-
-	/**
 	 * デフォルトコンストラクタ
 	 */
 	protected AbstractDefinition() {

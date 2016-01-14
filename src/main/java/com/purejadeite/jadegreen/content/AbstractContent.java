@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.content;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -13,8 +14,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<D extends Definition<?>> extends AbstractToMap
-		implements Content<D>, Serializable {
+abstract public class AbstractContent<D extends Definition<?>> implements Content<D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
 
@@ -153,7 +153,7 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 	 */
 	@Override
 	public Map<String, Object> toMap() {
-		Map<String, Object> map = super.toMap();
+		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("definition", definition.getFullId());
 		if (parent != null) {
 			map.put("parent", parent.getFullId());
@@ -162,6 +162,14 @@ abstract public class AbstractContent<D extends Definition<?>> extends AbstractT
 		}
 		map.put("closed", closed);
 		return map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return toMap().toString();
 	}
 
 }

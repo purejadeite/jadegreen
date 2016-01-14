@@ -1,7 +1,6 @@
 package com.purejadeite.jadegreen.definition;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 */
 	public WorkbookDefinition(Map<String, Object> config) {
 		super(null, config);
-		this.definitions = new HashMap<>();
 	}
 
 	/**
@@ -68,7 +66,6 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	@Override
 	public void addChild(WorksheetDefinition child) {
 		super.addChild(child);
-		definitions.put(child.getId(), child);
 	}
 
 }

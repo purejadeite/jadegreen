@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
@@ -17,11 +14,6 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  *
  */
 public class ContentManager {
-
-	/**
-	 * ロガー
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ContentManager.class);
 
 	// シート毎に全ての定義を保持するマップ
 	private static Map<String, Map<String, Map<String, Content<?>>>> contents = new HashMap<>();

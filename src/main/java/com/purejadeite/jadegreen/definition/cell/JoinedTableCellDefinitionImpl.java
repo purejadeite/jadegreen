@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 
-import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.WorkbookDefinition;
+import com.purejadeite.jadegreen.definition.DefinitionManager;
+import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
@@ -72,11 +72,6 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	private String myTableKeyId;
 
 	/**
-	 * Book読み込み定義
-	 */
-	private WorkbookDefinition book;
-
-	/**
 	 *
 	 * @param book
 	 * @param table
@@ -84,11 +79,10 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * @param options
 	 * @param joinConfig
 	 */
-	public JoinedTableCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, TableDefinition<?> table, String id,
+	public JoinedTableCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id,
 			List<Map<String, Object>> options, Map<String, String> joinConfig) {
 		super(table, id, options);
 		SimpleValidator.containsKey(joinConfig, CONFIG);
-		this.book = book;
 		this.sheet = sheet;
 		// 相手シートのID
 		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
@@ -104,11 +98,11 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}
 
-	public static CellDefinition<TableDefinition<?>> newInstance(WorkbookDefinition book, WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
+	public static CellDefinition<TableDefinition<?>> newInstance(WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
 		Map<String, String> join = RoughlyMapUtils.getMap(config, JOIN);
-		return new JoinedTableCellDefinitionImpl(book, sheet, table, id, options, join);
+		return new JoinedTableCellDefinitionImpl(sheet, table, id, options, join);
 	}
 
 	public String getSheetId() {
@@ -127,38 +121,35 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyTableKeyDefinition() {
-		return sheet.get(myTableKeyId);
+		return DefinitionManager.get(sheet, myTableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyKeyDefinition() {
-		return sheet.get(myKeyId);
+		return DefinitionManager.get(sheet, myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getKeyDefinition() {
-		WorksheetDefinition sheet = book.get(sheetId);
-		return sheet.get(keyId);
+		return DefinitionManager.get(sheetId, keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getTableKeyDefinition() {
-		WorksheetDefinition sheet = book.get(sheetId);
-		return sheet.get(tableKeyId);
+		return DefinitionManager.get(sheetId, tableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getValueDefinition() {
-		WorksheetDefinition sheet = book.get(sheetId);
-		return sheet.get(valueId);
+		return DefinitionManager.get(sheetId, valueId);
 	}
 
 	/**

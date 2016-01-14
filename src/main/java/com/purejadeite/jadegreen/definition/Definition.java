@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.definition;
 
-import java.util.Map;
-
 import com.purejadeite.jadegreen.ToMap;
 
 /**
@@ -33,12 +31,6 @@ public interface Definition<P extends ParentDefinition<?, ?>> extends ToMap {
 	 * @return
 	 */
 	public P getParent();
-
-	/**
-	 * 同シート配下の全定義を設定します
-	 * @param definitions シート配下の全定義
-	 */
-	public void setDefinitions(Map<String, Definition<?>> definitions);
 
 	/**
 	 * 値に変更を適用します

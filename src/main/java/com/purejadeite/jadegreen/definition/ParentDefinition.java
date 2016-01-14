@@ -26,14 +26,4 @@ public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends De
 	 */
 	public void addChild(C child);
 
-
-	/**
-	 * 配下の定義を取得します
-	 *
-	 * @param ids
-	 *            当定義から辿った定義IDの配列
-	 * @return 対象の定義
-	 */
-	public Definition<?> get(String id);
-
 }

@@ -3,9 +3,6 @@ package com.purejadeite.jadegreen.definition;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * 定義情報を管理するクラスです
  *
@@ -14,15 +11,14 @@ import org.slf4j.LoggerFactory;
  */
 public class DefinitionManager {
 
-	/**
-	 * ロガー
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(DefinitionManager.class);
-
 	// シート毎に全ての定義を保持するマップ
 	private static Map<String, Map<String, Definition<?>>> definitions = new HashMap<>();
 
-	public static boolean register(String sheetId, Definition<?> definition) {
+	private static Map<String, WorksheetDefinition> sheetDefinitions = new HashMap<>();
+
+	public static boolean register(WorksheetDefinition sheet, Definition<?> definition) {
+		String sheetId = sheet.getId();
+		sheetDefinitions.put(sheetId, sheet);
 		Map<String, Definition<?>> defs = getDefinitionMap(sheetId);
 		return defs.put(definition.getId(), definition) == null;
 	}
@@ -36,12 +32,20 @@ public class DefinitionManager {
 		return defs;
 	}
 
+	public static Definition<?> get(WorksheetDefinition sheet, String id) {
+		return get(sheet.getId(), id);
+	}
+
 	public static Definition<?> get(String sheetId, String id) {
 		Map<String, Definition<?>> defs = definitions.get(sheetId);
 		if (defs == null) {
 			return null;
 		}
 		return defs.get(id);
+	}
+
+	public static WorksheetDefinition get(String sheetId) {
+		return sheetDefinitions.get(sheetId);
 	}
 
 }

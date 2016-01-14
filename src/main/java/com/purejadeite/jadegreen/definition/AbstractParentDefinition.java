@@ -74,16 +74,6 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public C get(String id) {
-		return (C) definitions.get(id);
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();

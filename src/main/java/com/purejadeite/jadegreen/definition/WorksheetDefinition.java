@@ -2,8 +2,8 @@ package com.purejadeite.jadegreen.definition;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -33,11 +33,6 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * コンフィグ：target・シート名
 	 */
 	private static final String CFG_TARGET_NAME = "target.name";
-
-	/**
-	 * コンフィグ：target・Cell
-	 */
-	private static final String CFG_TARGET_CELL = "target.cell";
 
 	/**
 	 * コンフィグ：target・Cell・Row
@@ -168,7 +163,6 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID);
 		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID);
 		this.output = RoughlyMapUtils.getBooleanValue(cfg, CFG_OUTPUT);
-		this.definitions = new HashMap<>();
 	}
 
 	/**
@@ -196,7 +190,6 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID);
 		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID);
 		this.output = RoughlyMapUtils.getBooleanValue(cfg, CFG_OUTPUT);
-		this.definitions = new HashMap<>();
 	}
 
 	/**
@@ -207,6 +200,9 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 */
 	public static WorksheetDefinition newInstance(WorkbookDefinition parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
+		if (id == null) {
+			id = UUID.randomUUID().toString();
+		}
 		return new WorksheetDefinition(parent, id, null, config);
 	}
 
@@ -246,8 +242,6 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 */
 	private void addCell(Definition<?> child) {
 		if (child != null) {
-			definitions.put(child.getId(), child);
-			child.setDefinitions(definitions);
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
 				CellDefinition<?> cell = (CellDefinition<?>) child;
