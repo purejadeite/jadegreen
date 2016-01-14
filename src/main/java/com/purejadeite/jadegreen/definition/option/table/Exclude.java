@@ -14,7 +14,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Exclude extends AbstractTableConverter {
+public class Exclude extends AbstractTableOption {
 
 	private static final long serialVersionUID = -7665794968023216952L;
 

@@ -11,7 +11,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class AddText extends AbstractStringCellConverter {
+public class AddText extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = -9117326686130712272L;
 

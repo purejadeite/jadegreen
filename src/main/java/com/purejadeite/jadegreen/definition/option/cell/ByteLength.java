@@ -11,7 +11,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class ByteLength extends AbstractStringCellConverter {
+public class ByteLength extends AbstractStringCellOption {
 
 	private static final String CFG_ENCODE = "encode";
 

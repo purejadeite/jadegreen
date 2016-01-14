@@ -10,7 +10,7 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class Unique extends AbstractTableConverter {
+public class Unique extends AbstractTableOption {
 
 	private static final long serialVersionUID = 5701716891112764511L;
 

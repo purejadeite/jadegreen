@@ -10,7 +10,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Mapping extends AbstractCellConverter {
+public class Mapping extends AbstractCellOption {
 
 	private static final long serialVersionUID = -2189657683860067037L;
 

@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.SxssfUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToBigDecimal extends AbstractStringCellConverter {
+public class ToBigDecimal extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 8053055718334698484L;
 

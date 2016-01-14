@@ -16,7 +16,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Read extends AbstractCellConverter {
+public class Read extends AbstractCellOption {
 
 	private static final long serialVersionUID = 6328364128215865166L;
 

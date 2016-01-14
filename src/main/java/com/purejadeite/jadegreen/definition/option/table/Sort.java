@@ -13,7 +13,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Sort extends AbstractTableConverter {
+public class Sort extends AbstractTableOption {
 
 	private static final long serialVersionUID = 491868476272944525L;
 

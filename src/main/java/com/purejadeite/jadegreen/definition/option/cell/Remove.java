@@ -11,7 +11,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Remove extends AbstractStringCellConverter {
+public class Remove extends AbstractStringCellOption {
 
 	private static final String CFG_OPERATOR = "operator";
 

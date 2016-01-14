@@ -10,7 +10,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToDate extends AbstractStringCellConverter {
+public class ToDate extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 247396559988860716L;
 

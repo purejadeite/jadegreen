@@ -14,7 +14,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Split extends AbstractStringCellConverter {
+public class Split extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = -7086955680521212723L;
 

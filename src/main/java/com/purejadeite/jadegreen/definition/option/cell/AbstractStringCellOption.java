@@ -5,7 +5,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractStringCellConverter extends AbstractCellConverter {
+abstract public class AbstractStringCellOption extends AbstractCellOption {
 
 	private static final long serialVersionUID = -6680013687885034863L;
 
@@ -13,7 +13,7 @@ abstract public class AbstractStringCellConverter extends AbstractCellConverter 
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractStringCellConverter() {
+	public AbstractStringCellOption() {
 		super();
 	}
 

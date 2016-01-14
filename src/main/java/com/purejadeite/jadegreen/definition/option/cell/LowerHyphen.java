@@ -13,7 +13,7 @@ import com.purejadeite.util.CaseFormat;
 * @author mitsuhiroseino
 *
 */
-public class LowerHyphen extends AbstractCaseFormatCellConverter {
+public class LowerHyphen extends AbstractCaseFormatCellOption {
 
 	private static final long serialVersionUID = 1942276560388833496L;
 

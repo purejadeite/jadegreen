@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.definition.option.AbstractOption;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractCellConverter extends AbstractOption implements CellOption, Serializable {
+abstract public class AbstractCellOption extends AbstractOption implements CellOption, Serializable {
 
 	private static final long serialVersionUID = 3541565837327103077L;
 
@@ -23,7 +23,7 @@ abstract public class AbstractCellConverter extends AbstractOption implements Ce
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractCellConverter() {
+	public AbstractCellOption() {
 	}
 
 	public Object apply(Object value) {

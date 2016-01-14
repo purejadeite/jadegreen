@@ -14,7 +14,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class ReplaceId extends AbstractTableConverter {
+public class ReplaceId extends AbstractTableOption {
 
 	private static final String CFG_KEY_ID = "keyId";
 

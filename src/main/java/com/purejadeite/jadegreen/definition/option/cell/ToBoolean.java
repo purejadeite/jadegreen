@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.SxssfUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToBoolean extends AbstractStringCellConverter {
+public class ToBoolean extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 1780810272134810268L;
 

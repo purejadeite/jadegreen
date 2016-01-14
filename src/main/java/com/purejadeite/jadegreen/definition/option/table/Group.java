@@ -15,7 +15,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-public class Group extends AbstractTableConverter {
+public class Group extends AbstractTableOption {
 
 	private static final long serialVersionUID = -7712482157745974514L;
 

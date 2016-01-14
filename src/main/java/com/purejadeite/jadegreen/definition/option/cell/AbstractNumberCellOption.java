@@ -9,7 +9,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractNumberCellConverter<N> extends AbstractStringCellConverter {
+abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 698720974407694707L;
 
@@ -25,7 +25,7 @@ abstract public class AbstractNumberCellConverter<N> extends AbstractStringCellC
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractNumberCellConverter(Map<String, Object> config) {
+	public AbstractNumberCellOption(Map<String, Object> config) {
 		super();
 		this.nullToZero = RoughlyMapUtils.getBooleanValue(config, CFG_NULL_TO_ZERO, true);
 		this.emptyToZero = RoughlyMapUtils.getBooleanValue(config, CFG_EMPTY_TO_ZERO, true);

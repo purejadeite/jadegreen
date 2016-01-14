@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author mitsuhiroseino
  *
  */
-public class ToNull extends AbstractStringCellConverter {
+public class ToNull extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 7289936917974505093L;
 

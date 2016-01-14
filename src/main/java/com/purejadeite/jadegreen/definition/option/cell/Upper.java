@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 * @author mitsuhiroseino
 *
 */
-public class Upper extends AbstractStringCellConverter {
+public class Upper extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 2045257264059932768L;
 

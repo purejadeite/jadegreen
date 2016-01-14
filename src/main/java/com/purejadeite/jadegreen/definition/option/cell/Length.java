@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author mitsuhiroseino
  *
  */
-public class Length extends AbstractStringCellConverter {
+public class Length extends AbstractStringCellOption {
 
 	/**
 	 * コンストラクタ

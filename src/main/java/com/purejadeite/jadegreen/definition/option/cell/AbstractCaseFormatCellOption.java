@@ -18,7 +18,7 @@ import com.purejadeite.util.CaseFormat;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractCaseFormatCellConverter extends AbstractStringCellConverter {
+abstract public class AbstractCaseFormatCellOption extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 3778950926406906690L;
 
@@ -26,7 +26,7 @@ abstract public class AbstractCaseFormatCellConverter extends AbstractStringCell
 	 * コンストラクタ
 	 * @param cell Cell読み込み定義
 	 */
-	public AbstractCaseFormatCellConverter() {
+	public AbstractCaseFormatCellOption() {
 		super();
 	}
 

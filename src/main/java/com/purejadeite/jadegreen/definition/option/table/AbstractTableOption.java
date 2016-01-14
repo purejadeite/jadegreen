@@ -11,14 +11,14 @@ import com.purejadeite.jadegreen.definition.option.AbstractOption;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableConverter extends AbstractOption implements TableOption, Serializable {
+abstract public class AbstractTableOption extends AbstractOption implements TableOption, Serializable {
 
 	private static final long serialVersionUID = -2315365183856254349L;
 
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractTableConverter() {
+	public AbstractTableOption() {
 	}
 
 	@SuppressWarnings("unchecked")

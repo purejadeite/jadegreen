@@ -13,7 +13,7 @@ import com.purejadeite.util.CaseFormat;
 * @author mitsuhiroseino
 *
 */
-public class LowerUnderscore extends AbstractCaseFormatCellConverter {
+public class LowerUnderscore extends AbstractCaseFormatCellOption {
 
 	private static final long serialVersionUID = 3288974366700476812L;
 

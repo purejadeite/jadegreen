@@ -13,7 +13,7 @@ import com.purejadeite.util.CaseFormat;
 * @author mitsuhiroseino
 *
 */
-public class UpperCamel extends AbstractCaseFormatCellConverter {
+public class UpperCamel extends AbstractCaseFormatCellOption {
 
 	private static final long serialVersionUID = 7814724537813902517L;
 
