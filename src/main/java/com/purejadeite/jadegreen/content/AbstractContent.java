@@ -6,14 +6,14 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.purejadeite.jadegreen.AbstractToMap;
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 値を保持する抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<D extends MappingDefinition<?>> extends AbstractToMap
+abstract public class AbstractContent<D extends Definition<?>> extends AbstractToMap
 		implements Content<D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
@@ -77,7 +77,7 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValues(MappingDefinition<?>... ignore) {
+	public Object getRawValues(Definition<?>... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
 			return SpecificValue.UNDEFINED;
 		} else {
@@ -92,13 +92,13 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 	 *            取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	abstract public Object getRawValuesImpl(MappingDefinition<?>... ignore);
+	abstract public Object getRawValuesImpl(Definition<?>... ignore);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValues(MappingDefinition<?>... ignore) {
+	public Object getValues(Definition<?>... ignore) {
 		if (ArrayUtils.contains(ignore, this.getDefinition())) {
 			return SpecificValue.UNDEFINED;
 		} else {
@@ -115,7 +115,7 @@ abstract public class AbstractContent<D extends MappingDefinition<?>> extends Ab
 	 * @param ignore
 	 * @return
 	 */
-	abstract public Object getValuesImpl(MappingDefinition<?>... ignore);
+	abstract public Object getValuesImpl(Definition<?>... ignore);
 
 	/**
 	 * {@inheritDoc}

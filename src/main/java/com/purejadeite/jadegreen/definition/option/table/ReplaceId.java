@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -42,7 +43,7 @@ public class ReplaceId extends AbstractTableConverter {
 	 */
 	public ReplaceId(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
 		this.newIds = RoughlyMapUtils.getMap(config, CFG_NEW_IDS);
 	}

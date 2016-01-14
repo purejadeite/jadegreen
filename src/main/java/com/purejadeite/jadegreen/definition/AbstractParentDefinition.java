@@ -12,8 +12,8 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractParentMappingDefinition<P extends ParentMappingDefinition<?, ?>, C extends MappingDefinition<?>>
-		extends AbstractMappingDefinition<P>implements ParentMappingDefinition<P, C>, Serializable {
+abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>>
+		extends AbstractDefinition<P>implements ParentDefinition<P, C>, Serializable {
 
 	private static final long serialVersionUID = -6619514528554034278L;
 
@@ -25,7 +25,7 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	protected AbstractParentMappingDefinition() {
+	protected AbstractParentDefinition() {
 		super();
 	}
 
@@ -39,7 +39,7 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	 * @param noOutput
 	 *            値の出力有無
 	 */
-	protected AbstractParentMappingDefinition(P parent, Map<String, ? extends Object> config) {
+	protected AbstractParentDefinition(P parent, Map<String, ? extends Object> config) {
 		super(parent, config);
 	}
 
@@ -51,7 +51,7 @@ abstract public class AbstractParentMappingDefinition<P extends ParentMappingDef
 	 * @param id
 	 *            定義ID
 	 */
-	protected AbstractParentMappingDefinition(P parent, String id) {
+	protected AbstractParentDefinition(P parent, String id) {
 		super(parent, id);
 	}
 

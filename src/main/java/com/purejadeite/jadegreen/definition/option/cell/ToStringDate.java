@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.SxssfUtils;
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -37,7 +38,7 @@ public class ToStringDate extends AbstractStringCellConverter {
 	 */
 	public ToStringDate(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.dateFormat = RoughlyMapUtils.getString(config, CFG_DATE_FORMAT);
 	}
 

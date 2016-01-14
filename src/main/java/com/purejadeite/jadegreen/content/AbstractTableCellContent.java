@@ -9,7 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 
 /**
@@ -38,7 +38,7 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		return values;
 	}
 
@@ -46,7 +46,7 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		return definition.apply(values);
 	}
 
@@ -99,7 +99,7 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	}
 
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

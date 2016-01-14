@@ -9,8 +9,8 @@ import java.util.List;
  * @author mitsuhiroseino
  *
  */
-public interface ParentMappingDefinition<P extends ParentMappingDefinition<?, ?>, C extends MappingDefinition<?>>
-		extends MappingDefinition<P> {
+public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>>
+		extends Definition<P> {
 
 	/**
 	 * 子定義を取得します
@@ -34,6 +34,6 @@ public interface ParentMappingDefinition<P extends ParentMappingDefinition<?, ?>
 	 *            当定義から辿った定義IDの配列
 	 * @return 対象の定義
 	 */
-	public MappingDefinition<?> get(String id);
+	public Definition<?> get(String id);
 
 }

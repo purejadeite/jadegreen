@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -36,7 +37,7 @@ public class Replace extends AbstractStringCellConverter {
 	 */
 	public Replace(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
 	}
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractDefinition;
+import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
 /**
  * Cellの値を変換する抽象クラス
@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.definition.AbstractDefinition;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractCellConverter extends AbstractDefinition implements CellOption, Serializable {
+abstract public class AbstractCellConverter extends AbstractOption implements CellOption, Serializable {
 
 	private static final long serialVersionUID = 3541565837327103077L;
 

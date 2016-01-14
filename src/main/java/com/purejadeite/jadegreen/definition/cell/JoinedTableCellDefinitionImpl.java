@@ -8,10 +8,11 @@ import java.util.Map;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.JoinDefinition;
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -86,7 +87,7 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	public JoinedTableCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, TableDefinition<?> table, String id,
 			List<Map<String, Object>> options, Map<String, String> joinConfig) {
 		super(table, id, options);
-		this.validateConfig(joinConfig, CONFIG);
+		SimpleValidator.containsKey(joinConfig, CONFIG);
 		this.book = book;
 		this.sheet = sheet;
 		// 相手シートのID
@@ -125,21 +126,21 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getMyTableKeyDefinition() {
+	public Definition<?> getMyTableKeyDefinition() {
 		return sheet.get(myTableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getMyKeyDefinition() {
+	public Definition<?> getMyKeyDefinition() {
 		return sheet.get(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getKeyDefinition() {
+	public Definition<?> getKeyDefinition() {
 		WorksheetDefinition sheet = book.get(sheetId);
 		return sheet.get(keyId);
 	}
@@ -147,7 +148,7 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getTableKeyDefinition() {
+	public Definition<?> getTableKeyDefinition() {
 		WorksheetDefinition sheet = book.get(sheetId);
 		return sheet.get(tableKeyId);
 	}
@@ -155,7 +156,7 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getValueDefinition() {
+	public Definition<?> getValueDefinition() {
 		WorksheetDefinition sheet = book.get(sheetId);
 		return sheet.get(valueId);
 	}

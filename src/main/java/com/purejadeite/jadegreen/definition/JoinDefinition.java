@@ -5,7 +5,7 @@ package com.purejadeite.jadegreen.definition;
  * 結合の定義です
  * @author mitsuhiroseino
  */
-public interface JoinDefinition<P extends ParentMappingDefinition<?, ?>> extends MappingDefinition<P> {
+public interface JoinDefinition<P extends ParentDefinition<?, ?>> extends Definition<P> {
 
 	/**
 	 * 相手のシートのキーとなる定義IDを取得します
@@ -17,18 +17,18 @@ public interface JoinDefinition<P extends ParentMappingDefinition<?, ?>> extends
 	 * 自身のシートのキーとなる定義を取得します
 	 * @return 定義
 	 */
-	public MappingDefinition<?> getMyKeyDefinition();
+	public Definition<?> getMyKeyDefinition();
 
 	/**
 	 * 相手のシートのキーとなる定義を取得します
 	 * @return 定義
 	 */
-	public MappingDefinition<?> getKeyDefinition();
+	public Definition<?> getKeyDefinition();
 
 	/**
 	 * 相手のシートの値となる定義を取得します
 	 * @return 定義
 	 */
-	public MappingDefinition<?> getValueDefinition();
+	public Definition<?> getValueDefinition();
 
 }

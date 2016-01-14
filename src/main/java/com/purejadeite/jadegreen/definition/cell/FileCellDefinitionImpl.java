@@ -11,7 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -19,7 +19,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  *
  * @author mitsuhiroseino
  */
-public class FileCellDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extends AbstractCellDefinition<P> {
+public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> {
 
 	private static final long serialVersionUID = -7466869542966847881L;
 
@@ -65,7 +65,7 @@ public class FileCellDefinitionImpl<P extends ParentMappingDefinition<?, ?>> ext
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static <P extends ParentMappingDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
+	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		String filePath = RoughlyMapUtils.getString(config, FILE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);

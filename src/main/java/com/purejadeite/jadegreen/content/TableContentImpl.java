@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -36,7 +36,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	 */
 	public TableContentImpl(Content<?> parent, TableDefinition<?> definition) {
 		super(parent, definition);
-		for (MappingDefinition<?> childDefinition : definition.getChildren()) {
+		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
 				// 結合の場合
 				cells.add(new JoinedTableCellContentImpl(this, (JoinedTableCellDefinitionImpl) childDefinition));
@@ -121,7 +121,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(final MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(final Definition<?>... ignore) {
 		return getCellValues(new CellValueGetter() {
 			@Override
 			public Object get(TableCellContent<?> cell) {
@@ -134,7 +134,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(final MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(final Definition<?>... ignore) {
 		Object values = getCellValues(new CellValueGetter() {
 			@Override
 			public Object get(TableCellContent<?> cell) {
@@ -150,7 +150,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	 * @param ignore 取得しない定義
 	 * @return 値
 	 */
-	private Object getCellValues(CellValueGetter getter, MappingDefinition<?>... ignore) {
+	private Object getCellValues(CellValueGetter getter, Definition<?>... ignore) {
 		List<Map<String, Object>> values = new ArrayList<>(size);
 
 		for (TableCellContent<?> cell : cells) {
@@ -192,7 +192,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	}
 
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

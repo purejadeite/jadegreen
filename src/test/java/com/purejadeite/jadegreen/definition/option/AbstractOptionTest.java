@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
@@ -14,7 +13,7 @@ abstract public class AbstractOptionTest {
 
 	protected static final Map<String, Object> EMPTY_CONFIG = new HashMap<>();
 
-	protected void assertOption(Definition option, Object source, Object expected) {
+	protected void assertOption(Option option, Object source, Object expected) {
 		assertThat(option.apply(source), equalTo(expected));
 	}
 
@@ -22,11 +21,11 @@ abstract public class AbstractOptionTest {
 		assertThat(getOption(clazz).apply(source), equalTo(expected));
 	}
 
-	protected Definition getOption(Class<?> clazz) {
+	protected Option getOption(Class<?> clazz) {
 		return getOption(clazz.getSimpleName());
 	}
 
-	protected Definition getOption(String type) {
+	protected Option getOption(String type) {
 		Map<String, Object> config = new HashMap<>();
 		config.put(DefinitionKeys.TYPE, type);
 		return CellOptionManager.build(type, config);

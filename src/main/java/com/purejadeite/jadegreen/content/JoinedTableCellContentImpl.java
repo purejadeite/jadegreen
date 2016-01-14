@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 
 /**
@@ -51,7 +51,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * 結合しているテーブルのセルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.UNDEFINED;
 	}
@@ -60,7 +60,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得
@@ -131,7 +131,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

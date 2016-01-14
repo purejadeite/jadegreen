@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.EvaluationUtils;
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -51,7 +52,7 @@ public class Exclude extends AbstractTableConverter {
 	 */
 	public Exclude(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
 		this.operator = RoughlyMapUtils.getString(config, CFG_OPERATOR, "==");
 		this.value = RoughlyMapUtils.getString(config, CFG_VALUE, null);

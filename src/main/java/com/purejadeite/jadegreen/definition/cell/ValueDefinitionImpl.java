@@ -5,7 +5,7 @@ import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -13,7 +13,7 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
  *
  * @author mitsuhiroseino
  */
-public class ValueDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extends AbstractNoAdressCellDefinition<P> {
+public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractNoAdressCellDefinition<P> {
 
 	private static final long serialVersionUID = 7280801241651790531L;
 
@@ -53,7 +53,7 @@ public class ValueDefinitionImpl<P extends ParentMappingDefinition<?, ?>> extend
 	 *            コンバーター
 	 * @return ラップされたCell読み込み定義
 	 */
-	public static <P extends ParentMappingDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
+	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		String value = RoughlyMapUtils.getString(config, VALUE);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);

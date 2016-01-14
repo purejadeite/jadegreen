@@ -8,7 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 
 /**
@@ -40,7 +40,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 * {@inheritDoc} 結合している単一セルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		// 値は無視してもらう
 		return SpecificValue.UNDEFINED;
 	}
@@ -49,7 +49,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 * {@inheritDoc} シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
 	 */
 	@Override
-	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得
@@ -104,7 +104,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

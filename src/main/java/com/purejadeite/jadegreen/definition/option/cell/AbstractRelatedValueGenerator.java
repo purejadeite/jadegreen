@@ -3,7 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.io.Serializable;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractDefinition;
+import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
 /**
  * 値を生成する抽象クラス
@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.AbstractDefinition;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractRelatedValueGenerator extends AbstractDefinition implements CellOption, Serializable {
+abstract public class AbstractRelatedValueGenerator extends AbstractOption implements CellOption, Serializable {
 
 	private static final long serialVersionUID = -4549283171915975394L;
 

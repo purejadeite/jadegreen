@@ -7,7 +7,6 @@
 				"validators": [
 		   			{
 						"logicalFieldName": "ファイル有無フラグ",
-						"fieldName": "fileExistFlag",
 						"validationType": "notnull"
 					}
 				]
@@ -17,7 +16,6 @@
 				"validators": [
 		   			{
 		   				"logicalFieldName": "ファイル名",
-						"fieldName": "fileName",
 						"validationType": "notnull"
 					}
 				]
@@ -27,12 +25,10 @@
 				"validators": [
 					{
 						"logicalFieldName": "ファイルパス",
-						"fieldName": "filePath",
 						"validationType": "notnull"
 					},
 		   			{
 						"logicalFieldName": "ファイルパス",
-						"fieldName": "filePath",
 						"validationType": "length",
 						"min": "2",
 						"max": "10"
@@ -44,18 +40,15 @@
 				"validators": [
 		   			{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "notnull"
 					},
 					{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "maxlength",
 						"length": "100"
 					},
 					{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "kana"
 					}
 				]

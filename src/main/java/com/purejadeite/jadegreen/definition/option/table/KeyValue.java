@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -41,7 +42,7 @@ public class KeyValue extends AbstractTableConverter {
 	 */
 	public KeyValue(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
 		this.valueId = RoughlyMapUtils.getString(config, CFG_VALUE_ID);
 	}

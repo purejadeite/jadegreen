@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -43,7 +44,7 @@ public class Mapping extends AbstractCellConverter {
 	 */
 	public Mapping(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
 		this.lazy = RoughlyMapUtils.getBooleanValue(config, CFG_LAZY);
 	}

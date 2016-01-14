@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
@@ -33,7 +33,7 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		return values;
 	}
 
@@ -41,7 +41,7 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		return definition.apply(values);
 	}
 
@@ -49,7 +49,7 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

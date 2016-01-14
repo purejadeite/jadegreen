@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.util.SimpleComparison;
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 import com.purejadeite.util.collection.StringKeyNestedMap;
 import com.purejadeite.util.collection.Table;
@@ -19,7 +20,7 @@ import com.purejadeite.util.collection.Table;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetDefinition extends AbstractParentMappingDefinition<WorkbookDefinition, MappingDefinition<?>> {
+public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefinition, Definition<?>> {
 
 	private static final long serialVersionUID = -1303967958765873003L;
 
@@ -157,7 +158,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 */
 	public WorksheetDefinition(WorkbookDefinition parent, Map<String, Object> config) {
 		super(parent, config);
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		Map<String, Object> cfg = new StringKeyNestedMap(config);
 		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME);
 		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
@@ -232,7 +233,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(MappingDefinition<?> child) {
+	public void addChild(Definition<?> child) {
 		super.addChild(child);
 		this.addCell(child);
 	}
@@ -243,7 +244,7 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 	 * @param child
 	 *            Cell読み込み定義
 	 */
-	private void addCell(MappingDefinition<?> child) {
+	private void addCell(Definition<?> child) {
 		if (child != null) {
 			definitions.put(child.getId(), child);
 			child.setDefinitions(definitions);
@@ -276,10 +277,10 @@ public class WorksheetDefinition extends AbstractParentMappingDefinition<Workboo
 					minCol = Math.min(i, minCol);
 					maxCol = Math.max(i, maxCol);
 				}
-			} else if (child instanceof ParentMappingDefinition) {
+			} else if (child instanceof ParentDefinition) {
 				// Tableの場合は子要素のCellをばらして追加
-				ParentMappingDefinition<?, ?> pmd = (ParentMappingDefinition<?, ?>) child;
-				for (MappingDefinition<?> c : pmd.getChildren()) {
+				ParentDefinition<?, ?> pmd = (ParentDefinition<?, ?>) child;
+				for (Definition<?> c : pmd.getChildren()) {
 					addCell(c);
 				}
 			}

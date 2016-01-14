@@ -9,9 +9,9 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.MappingException;
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
-import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.option.Option;
+import com.purejadeite.jadegreen.definition.option.Options;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 public class CellOptionManager {
@@ -60,8 +60,8 @@ public class CellOptionManager {
 		if (opts == null || opts.size() == 0) {
 			return null;
 		}
-		List<Definition> options = new ArrayList<>();
-		Definition option = null;
+		List<Option> options = new ArrayList<>();
+		Option option = null;
 		for (Map<String, Object> opt : opts) {
 			String type = RoughlyMapUtils.getString(opt, DefinitionKeys.TYPE);
 			option = build(type, opt);

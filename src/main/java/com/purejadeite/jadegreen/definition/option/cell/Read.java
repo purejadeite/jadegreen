@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -48,7 +49,7 @@ public class Read extends AbstractCellConverter {
 	 */
 	public Read(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.file = RoughlyMapUtils.getString(config, CFG_DEFAULT);
 		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
 	}

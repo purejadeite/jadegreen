@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.purejadeite.jadegreen.ContentException;
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 
 public class JoinedContentUtils {
@@ -20,7 +20,7 @@ public class JoinedContentUtils {
 	 */
 	public static List<Content<?>> getKeyContents(WorkbookContent book,
 			JoinedCellDefinition<?> definition) {
-		MappingDefinition<?> sheetKeyDefinition = definition
+		Definition<?> sheetKeyDefinition = definition
 				.getKeyDefinition();
 		return book.searchContents(sheetKeyDefinition);
 	}
@@ -36,7 +36,7 @@ public class JoinedContentUtils {
 	 */
 	public static Content<?> getMyKeyContent(WorksheetContent sheet,
 			JoinedCellDefinition<?> definition) {
-		MappingDefinition<?> sheetKeyDefinition = definition
+		Definition<?> sheetKeyDefinition = definition
 				.getMyKeyDefinition();
 		List<Content<?>> sheetKeyContents = sheet
 				.searchContents(sheetKeyDefinition);

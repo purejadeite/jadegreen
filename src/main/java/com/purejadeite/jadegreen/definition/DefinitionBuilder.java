@@ -71,7 +71,7 @@ public class DefinitionBuilder {
 	 *            シート読み込み定義
 	 * @return Cell読み込み定義
 	 */
-	private static MappingDefinition<?> createCell(Map<String, Object> cellDef, WorksheetDefinition sheet) {
+	private static Definition<?> createCell(Map<String, Object> cellDef, WorksheetDefinition sheet) {
 		return createCell(cellDef, sheet, null);
 	}
 
@@ -86,9 +86,9 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static MappingDefinition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
+	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
 			TableDefinition<?> table) {
-		MappingDefinition<?> definition = null;
+		Definition<?> definition = null;
 		if (config.containsKey(JOIN)) {
 			// 結合フィールドの場合
 			if (table != null) {
@@ -165,7 +165,7 @@ public class DefinitionBuilder {
 			WorksheetDefinition sheet, TableDefinition<?> table) {
 		List<TableCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
-			MappingDefinition<?> child = createCell(cell, sheet, table);
+			Definition<?> child = createCell(cell, sheet, table);
 			if (child instanceof TableCellDefinition) {
 				definitions.add((TableCellDefinition<?>) child);
 			} else {

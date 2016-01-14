@@ -2,16 +2,16 @@ package com.purejadeite.jadegreen.definition.table;
 
 import java.util.List;
 
-import com.purejadeite.jadegreen.definition.Options;
-import com.purejadeite.jadegreen.definition.ParentMappingDefinition;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
  * @author mitsuhiroseino
  */
-public interface TableDefinition<C extends TableCellDefinition<?>> extends ParentMappingDefinition<WorksheetDefinition, C> {
+public interface TableDefinition<C extends TableCellDefinition<?>> extends ParentDefinition<WorksheetDefinition, C> {
 
 	/**
 	 * 終了条件になる項目の定義IDを取得します

@@ -20,15 +20,15 @@ public class DefinitionManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefinitionManager.class);
 
 	// シート毎に全ての定義を保持するマップ
-	private static Map<String, Map<String, MappingDefinition<?>>> definitions;
+	private static Map<String, Map<String, Definition<?>>> definitions = new HashMap<>();
 
-	public static boolean register(String sheetId, MappingDefinition<?> definition) {
-		Map<String, MappingDefinition<?>> defs = getDefinitionMap(sheetId);
+	public static boolean register(String sheetId, Definition<?> definition) {
+		Map<String, Definition<?>> defs = getDefinitionMap(sheetId);
 		return defs.put(definition.getId(), definition) == null;
 	}
 
-	private static Map<String, MappingDefinition<?>> getDefinitionMap(String sheetId) {
-		Map<String, MappingDefinition<?>> defs = definitions.get(sheetId);
+	private static Map<String, Definition<?>> getDefinitionMap(String sheetId) {
+		Map<String, Definition<?>> defs = definitions.get(sheetId);
 		if (defs == null) {
 			defs = new HashMap<>();
 			definitions.put(sheetId, defs);
@@ -36,8 +36,8 @@ public class DefinitionManager {
 		return defs;
 	}
 
-	public static MappingDefinition<?> get(String sheetId, String id) {
-		Map<String, MappingDefinition<?>> defs = definitions.get(sheetId);
+	public static Definition<?> get(String sheetId, String id) {
+		Map<String, Definition<?>> defs = definitions.get(sheetId);
 		if (defs == null) {
 			return null;
 		}

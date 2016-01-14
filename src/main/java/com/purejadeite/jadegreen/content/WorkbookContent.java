@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
@@ -55,7 +55,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getRawValues(ignore);
@@ -87,7 +87,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
 			Object vals = sheet.getValues(ignore);
@@ -102,7 +102,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);

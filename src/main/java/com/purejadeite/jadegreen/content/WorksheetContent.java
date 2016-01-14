@@ -11,7 +11,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
@@ -51,7 +51,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		super(parent, definition);
 		this.sheetName = sheetName;
 		Content<?> content = null;
-		for (MappingDefinition<?> childDefinition : definition.getChildren()) {
+		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedCellDefinitionImpl) {
 				// 単独セルの結合の場合
 				content = new JoinedCellContentImpl(this, (JoinedCellDefinitionImpl) childDefinition);
@@ -65,7 +65,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 				continue;
 			}
 			contents.add(content);
-			ContentManager.register(getId(), content);
+			ContentManager.register(getId(), sheetName, content);
 		}
 		LOGGER.debug("create: " + sheetName);
 	}
@@ -135,7 +135,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getRawValuesImpl(Definition<?>... ignore) {
 		Map<String, Object> values = new HashMap<>();
 		for (Content<?> content : contents) {
 			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
@@ -149,7 +149,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(MappingDefinition<?>... ignore) {
+	public Object getValuesImpl(Definition<?>... ignore) {
 		if (!this.getDefinition().isOutput()) {
 			return SpecificValue.NO_OUTPUT;
 		}
@@ -170,7 +170,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(MappingDefinition<?> key) {
+	public List<Content<?>> searchContents(Definition<?> key) {
 		List<Content<?>> cntnts = new ArrayList<>();
 		if (definition == key) {
 			cntnts.add(this);

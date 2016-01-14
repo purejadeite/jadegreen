@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -39,7 +40,7 @@ public class Split extends AbstractStringCellConverter {
 	 */
 	public Split(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
+		SimpleValidator.containsKey(config, CONFIG);
 		this.splitter = RoughlyMapUtils.getString(config, CFG_SPLITTER, "\n");
 	}
 

@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -18,8 +19,6 @@ public class Group extends AbstractTableConverter {
 
 	private static final long serialVersionUID = -7712482157745974514L;
 
-	private static final String CFG_GROUPS = "group";
-
 	private static final String CFG_GROUPS_GROUP_ID = "groupId";
 
 	private static final String CFG_GROUPS_VALUE_ID = "valueId";
@@ -27,12 +26,17 @@ public class Group extends AbstractTableConverter {
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_GROUPS };
+	private static final String[] CONFIG = { CFG_GROUPS_GROUP_ID, CFG_GROUPS_VALUE_ID };
 
 	/**
 	 * グループ化キーとなる項目の定義ID
 	 */
-	private List<Map<String, Object>> groups;
+	private List<String> groupIds;
+
+	/**
+	 * グループ化された値を保存する項目の定義ID
+	 */
+	private String valueId;
 
 	/**
 	 * コンストラクタ
@@ -42,14 +46,15 @@ public class Group extends AbstractTableConverter {
 	 */
 	public Group(Map<String, Object> config) {
 		super();
-		this.validateConfig(config, CONFIG);
-		Map<String, Object> group = RoughlyMapUtils.getMap(config, CFG_GROUPS);
-		if (group == null) {
-			this.groups = RoughlyMapUtils.getList(config, CFG_GROUPS);
+		SimpleValidator.containsKey(config, CONFIG);
+		List<String> groupId = RoughlyMapUtils.getList(config, CFG_GROUPS_GROUP_ID);
+		if (groupId == null) {
+			this.groupIds = new ArrayList<>();
+			this.groupIds.add(RoughlyMapUtils.getString(config, CFG_GROUPS_GROUP_ID));
 		} else {
-			this.groups = new ArrayList<>();
-			this.groups.add(group);
+			this.groupIds = groupId;
 		}
+		this.valueId = RoughlyMapUtils.getString(config, CFG_GROUPS_VALUE_ID);
 	}
 
 	/**
@@ -57,21 +62,7 @@ public class Group extends AbstractTableConverter {
 	 */
 	@Override
 	protected Object applyImpl(List<Map<String, Object>> values) {
-		List<Map<String, Object>> groupedValues = values;
-		for (Map<String, Object> group : groups) {
-			// 繰り返しグループ化
-			List<String> groupIds = null;
-			String groupId = RoughlyMapUtils.getString(group, CFG_GROUPS_GROUP_ID);
-			if (groupId == null) {
-				groupIds = RoughlyMapUtils.getList(group, CFG_GROUPS_GROUP_ID);
-			} else {
-				groupIds = new ArrayList<>();
-				groupIds.add(groupId);
-			}
-			String valueId = RoughlyMapUtils.getString(group, CFG_GROUPS_VALUE_ID);
-			groupedValues = group(groupIds, valueId, groupedValues);
-		}
-		return groupedValues;
+		return group(groupIds, valueId, values);
 	}
 
 	// groupIdをキーとしたテーブルを作成します
@@ -141,7 +132,8 @@ public class Group extends AbstractTableConverter {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("groups", groups);
+		map.put("groupIds", groupIds);
+		map.put("valueId", valueId);
 		return map;
 	}
 }

@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.AbstractParentMappingDefinition;
-import com.purejadeite.jadegreen.definition.Options;
+import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.option.Options;
 import com.purejadeite.jadegreen.definition.option.table.TableOptionManager;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentMappingDefinition<WorksheetDefinition, C> implements TableDefinition<C> {
+abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentDefinition<WorksheetDefinition, C> implements TableDefinition<C> {
 
 	private static final long serialVersionUID = -6138799003034104152L;
 

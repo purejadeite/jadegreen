@@ -10,7 +10,7 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-public class WorkbookDefinition extends AbstractParentMappingDefinition<NoDefinition, WorksheetDefinition> {
+public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, WorksheetDefinition> {
 
 	private static final long serialVersionUID = 1118031049839086924L;
 

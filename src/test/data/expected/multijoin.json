@@ -22,7 +22,6 @@
 				"validation": [
 		   			{
 						"logicalFieldName": "ファイル有無フラグ",
-						"fieldName": "fileExistFlag1",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -41,7 +40,6 @@
 				"validation": [
 		   			{
 		   				"logicalFieldName": "ファイル名",
-						"fieldName": "fileName",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -69,7 +67,6 @@
 				"validation": [
 					{
 						"logicalFieldName": "ファイルパス",
-						"fieldName": "filePath",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -78,7 +75,6 @@
 					},
 		   			{
 						"logicalFieldName": "ファイルパス",
-						"fieldName": "filePath",
 						"validationType": "length",
 						"arg0": "2",
 						"arg1": "10",
@@ -97,7 +93,6 @@
 				"validation": [
 		   			{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -106,7 +101,6 @@
 					},
 					{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "maxlength",
 						"arg0": "100",
 						"arg1": null,
@@ -115,7 +109,6 @@
 					},
 					{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "kana",
 						"arg0": null,
 						"arg1": null,
@@ -149,7 +142,6 @@
 				"validation": [
 		   			{
 						"logicalFieldName": "ファイル有無フラグ",
-						"fieldName": "fileExistFlag2",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -168,7 +160,6 @@
 				"validation": [
 		   			{
 		   				"logicalFieldName": "ファイル名",
-						"fieldName": "fileName",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -196,7 +187,6 @@
 				"validation": [
 					{
 						"logicalFieldName": "ファイルパス",
-						"fieldName": "filePath",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -205,7 +195,6 @@
 					},
 		   			{
 						"logicalFieldName": "ファイルパス",
-						"fieldName": "filePath",
 						"validationType": "length",
 						"arg0": "2",
 						"arg1": "10",
@@ -224,7 +213,6 @@
 				"validation": [
 		   			{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "NotNull",
 						"arg0": null,
 						"arg1": null,
@@ -233,7 +221,6 @@
 					},
 					{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "maxlength",
 						"arg0": "100",
 						"arg1": null,
@@ -242,7 +229,6 @@
 					},
 					{
 						"logicalFieldName": "行情報",
-						"fieldName": "lines",
 						"validationType": "kana",
 						"arg0": null,
 						"arg1": null,

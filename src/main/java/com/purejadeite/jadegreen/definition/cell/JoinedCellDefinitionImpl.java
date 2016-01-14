@@ -8,9 +8,10 @@ import java.util.Map;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.JoinDefinition;
-import com.purejadeite.jadegreen.definition.MappingDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -78,7 +79,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	protected JoinedCellDefinitionImpl(WorkbookDefinition book, WorksheetDefinition sheet, String id,
 			List<Map<String, Object>> options, Map<String, String> joinConfig) {
 		super(sheet, id, options);
-		this.validateConfig(joinConfig, CONFIG);
+		SimpleValidator.containsKey(joinConfig, CONFIG);
 		this.book = book;
 		this.sheet = sheet;
 		// 相手シートのID
@@ -91,7 +92,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}
 
-	public static MappingDefinition<?> newInstance(WorkbookDefinition book, WorksheetDefinition sheet,
+	public static Definition<?> newInstance(WorkbookDefinition book, WorksheetDefinition sheet,
 			Map<String, Object> config) {
 		String id = RoughlyMapUtils.getString(config, ID);
 		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
@@ -106,14 +107,14 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getMyKeyDefinition() {
+	public Definition<?> getMyKeyDefinition() {
 		return sheet.get(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getKeyDefinition() {
+	public Definition<?> getKeyDefinition() {
 		WorksheetDefinition sheet = book.get(sheetId);
 		return sheet.get(keyId);
 	}
@@ -121,7 +122,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	/**
 	 * {@inheritDoc}
 	 */
-	public MappingDefinition<?> getValueDefinition() {
+	public Definition<?> getValueDefinition() {
 		WorksheetDefinition sheet = book.get(sheetId);
 		return sheet.get(valueId);
 	}
