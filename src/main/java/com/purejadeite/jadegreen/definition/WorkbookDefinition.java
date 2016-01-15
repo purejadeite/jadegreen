@@ -56,7 +56,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object apply(Object value) {
+	public Object applyOptions(Object value) {
 		return value;
 	}
 

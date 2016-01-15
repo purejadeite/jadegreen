@@ -40,7 +40,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 * {@inheritDoc} 結合している単一セルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl() {
 		// 値は無視してもらう
 		return SpecificValue.UNDEFINED;
 	}
@@ -49,7 +49,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 * {@inheritDoc} シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl() {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得
@@ -85,7 +85,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 		// 所得元の値のセルを取得
 		Content<?> valueContent = JoinedContentUtils.getValueContent(targetSheet, valueContents);
 		if (valueContent != null) {
-			return valueContent.getValues(ignore);
+			return valueContent.getValues();
 		} else {
 			// ない場合もある
 			return null;

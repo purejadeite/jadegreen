@@ -1,0 +1,19 @@
+{
+	"sheets": [
+		{
+			"comment": "キーバリュー形式",
+			"output": true,
+			"target": {
+			    "name": "keyvalue"
+			},
+		    "cells": [
+		        {"id": "values", "row": 2, "options": [{"type": "keyvalue", "keyId": "key", "valueId": "value"}],
+		            "columns": [
+		                {"id": "key", "column": 2},
+		                {"id": "value", "column": 3}
+		            ]
+		        }
+		    ]
+		}
+	]
+}

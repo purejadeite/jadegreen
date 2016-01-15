@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
@@ -16,9 +14,10 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
+ *
  * @author mitsuhiroseino
  */
-public class TableContentImpl extends AbstractContent<TableDefinition<?>> implements TableContent {
+public class TableContentImpl extends AbstractContent<TableDefinition<?>>implements TableContent {
 
 	private static final long serialVersionUID = 2393648151533807595L;
 
@@ -71,7 +70,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 		// 取得対象範囲
 		begin = true;
 		Status status = NO;
-  		for (TableCellContent<?> cell : cells) {
+		for (TableCellContent<?> cell : cells) {
 			Status cellStatus = cell.addValue(row, col, value);
 			// このtableにおける値の取得状況
 			// 何れかのCellが終わりに達したら、このTableは処理を終わるので下記の順に優先される
@@ -121,57 +120,58 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(final Definition<?>... ignore) {
+	public Object getRawValuesImpl() {
 		return getCellValues(new CellValueGetter() {
 			@Override
 			public Object get(TableCellContent<?> cell) {
-				return cell.getRawValues(ignore);
+				return cell.getRawValues();
 			}
-		}, ignore);
+		});
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(final Definition<?>... ignore) {
+	public Object getValuesImpl() {
 		Object values = getCellValues(new CellValueGetter() {
 			@Override
 			public Object get(TableCellContent<?> cell) {
-				return cell.getValues(ignore);
+				return cell.getValues();
 			}
-		}, ignore);
-		return definition.apply(values);
+		});
+		return definition.applyOptions(values);
 	}
 
 	/**
 	 * 値取得を行う共通処理
-	 * @param getter Getterの実装
-	 * @param ignore 取得しない定義
+	 *
+	 * @param getter
+	 *            Getterの実装
+	 * @param ignore
+	 *            取得しない定義
 	 * @return 値
 	 */
-	private Object getCellValues(CellValueGetter getter, Definition<?>... ignore) {
+	private Object getCellValues(CellValueGetter getter) {
 		List<Map<String, Object>> values = new ArrayList<>(size);
 
 		for (TableCellContent<?> cell : cells) {
-			if (!ArrayUtils.contains(ignore, cell.getDefinition())) {
-				@SuppressWarnings("unchecked")
-				List<Object> vals = (List<Object>) getter.get(cell);
-				if (vals == null || SpecificValue.NO_OUTPUT.equals(vals)) {
-					continue;
+			@SuppressWarnings("unchecked")
+			List<Object> vals = (List<Object>) getter.get(cell);
+			if (vals == null || SpecificValue.NO_OUTPUT.equals(vals)) {
+				continue;
+			}
+			for (int i = 0; i < vals.size(); i++) {
+				Object val = vals.get(i);
+				Map<String, Object> line = null;
+				if (values.size() < i + 1) {
+					line = new HashMap<>();
+					values.add(line);
+				} else {
+					line = values.get(i);
 				}
-				for (int i = 0; i < vals.size(); i++) {
-					Object val = vals.get(i);
-					Map<String, Object> line = null;
-					if (values.size() < i + 1) {
-						line = new HashMap<>();
-						values.add(line);
-					} else {
-						line = values.get(i);
-					}
-					if (!SpecificValue.UNDEFINED.equals(val)) {
-						line.put(cell.getId(), val);
-					}
+				if (!SpecificValue.UNDEFINED.equals(val)) {
+					line.put(cell.getId(), val);
 				}
 			}
 		}
@@ -180,12 +180,15 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 
 	/**
 	 * 値取得処理の共有用インターフェイス
+	 *
 	 * @author mitsuhiroseino
 	 */
 	private static interface CellValueGetter {
 		/**
 		 * cellから値を取得します
-		 * @param cell Cell読み込み情報
+		 *
+		 * @param cell
+		 *            Cell読み込み情報
 		 * @return 値
 		 */
 		public Object get(TableCellContent<?> cell);
@@ -210,7 +213,7 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>> implem
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(Content<?> cell: cells) {
+		for (Content<?> cell : cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);

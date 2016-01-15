@@ -94,7 +94,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	}
 
 	@Override
-	public Object apply(Object value) {
+	public Object applyOptions(Object value) {
 		if (options == null) {
 			return value;
 		} else {

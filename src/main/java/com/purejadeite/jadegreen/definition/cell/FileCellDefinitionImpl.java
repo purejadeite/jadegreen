@@ -111,7 +111,7 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 	}
 
 	@Override
-	public Object apply(Object value) {
+	public Object applyOptions(Object value) {
 		String fileText = null;
 		try {
 			fileText = FileUtils.readFileToString(new File(filePath));

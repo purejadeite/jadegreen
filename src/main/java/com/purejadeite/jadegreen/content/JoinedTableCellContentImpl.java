@@ -51,7 +51,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * 結合しているテーブルのセルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl() {
 		// 値は無視してもらう
 		return SpecificValue.UNDEFINED;
 	}
@@ -60,7 +60,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl() {
 		// Contentのルートを取得
 		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得

@@ -7,7 +7,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  * @author mitsuhiroseino
  *
  */
-public class DefinitionException extends MappingException {
+public class DefinitionException extends JadegreenException {
 
 	private static final long serialVersionUID = -5511748214074563660L;
 

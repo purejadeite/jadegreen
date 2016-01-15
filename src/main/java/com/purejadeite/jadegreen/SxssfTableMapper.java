@@ -56,7 +56,7 @@ public class SxssfTableMapper {
 	public static Map<String, Table<String>> read(File excelFile) throws IOException {
 
 		if (!excelFile.isFile()) {
-			throw new MappingException("excelFile=" + excelFile.getPath() + ":ファイルが存在しません");
+			throw new JadegreenException("excelFile=" + excelFile.getPath() + ":ファイルが存在しません");
 		}
 
 		try {

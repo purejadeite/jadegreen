@@ -61,8 +61,8 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	}
 
 	@Override
-	public Object apply(Object value) {
-		return super.apply(value);
+	public Object applyOptions(Object value) {
+		return super.applyOptions(value);
 	}
 	/**
 	 * {@inheritDoc}

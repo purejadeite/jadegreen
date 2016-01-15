@@ -1,15 +1,15 @@
 package com.purejadeite.jadegreen.content;
 
 import java.util.List;
+import java.util.Map;
 
-import com.purejadeite.jadegreen.ToMap;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * Excelファイルから取得した値
  * @author mitsuhiroseino
  */
-public interface Content<D extends Definition<?>> extends ToMap {
+public interface Content<D extends Definition<?>> {
 
 	/**
 	 * 定義IDを取得します
@@ -51,17 +51,15 @@ public interface Content<D extends Definition<?>> extends ToMap {
 
 	/**
 	 * 編集していない値を取得します
-	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	public Object getRawValues(Definition<?>... ignore);
+	public Object getRawValues();
 
 	/**
 	 * 編集した値を取得します
-	 * @param ignore 取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	public Object getValues(Definition<?>... ignore);
+	public Object getValues();
 
 	/**
 	 * 指定の定義を持ったContentを取得します
@@ -76,5 +74,11 @@ public interface Content<D extends Definition<?>> extends ToMap {
 	 * @return 対象のContent
 	 */
 	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz);
+
+	/**
+	 * コンテンツをMap形式で取得します
+	 * @return コンテンツ
+	 */
+	public Map<String,Object> toMap();
 
 }

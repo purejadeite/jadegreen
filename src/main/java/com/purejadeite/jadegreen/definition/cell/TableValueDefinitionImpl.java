@@ -66,8 +66,8 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	}
 
 	@Override
-	public Object apply(Object value) {
-		return super.apply(value);
+	public Object applyOptions(Object value) {
+		return super.applyOptions(value);
 	}
 
 	/**

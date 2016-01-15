@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,12 +134,10 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl() {
 		Map<String, Object> values = new HashMap<>();
 		for (Content<?> content : contents) {
-			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
-				values.put(content.getId(), content.getRawValues(ignore));
-			}
+			values.put(content.getId(), content.getRawValues());
 		}
 		return values;
 	}
@@ -149,18 +146,16 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl() {
 		if (!this.getDefinition().isOutput()) {
 			return SpecificValue.NO_OUTPUT;
 		}
 		Map<String, Object> values = new HashMap<>();
 		values.put("sheetName", sheetName);
 		for (Content<?> content : contents) {
-			if (!ArrayUtils.contains(ignore, content.getDefinition())) {
-				Object vals = content.getValues(ignore);
-				if (vals != SpecificValue.NO_OUTPUT) {
-					values.put(content.getId(), vals);
-				}
+			Object vals = content.getValues();
+			if (vals != SpecificValue.NO_OUTPUT) {
+				values.put(content.getId(), vals);
 			}
 		}
 		return values;

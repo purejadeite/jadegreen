@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import com.purejadeite.jadegreen.AbstractToMap;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -77,12 +74,8 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValues(Definition<?>... ignore) {
-		if (ArrayUtils.contains(ignore, this.getDefinition())) {
-			return SpecificValue.UNDEFINED;
-		} else {
-			return getRawValuesImpl(ignore);
-		}
+	public Object getRawValues() {
+		return getRawValuesImpl();
 	}
 
 	/**
@@ -92,21 +85,17 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 *            取得対象外とする子要素の定義
 	 * @return 値
 	 */
-	abstract public Object getRawValuesImpl(Definition<?>... ignore);
+	abstract public Object getRawValuesImpl();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValues(Definition<?>... ignore) {
-		if (ArrayUtils.contains(ignore, this.getDefinition())) {
-			return SpecificValue.UNDEFINED;
-		} else {
-			if (valuesCache == null) {
-				valuesCache = getValuesImpl(ignore);
-			}
-			return valuesCache;
+	public Object getValues() {
+		if (valuesCache == null) {
+			valuesCache = getValuesImpl();
 		}
+		return valuesCache;
 	}
 
 	/**
@@ -115,7 +104,7 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 * @param ignore
 	 * @return
 	 */
-	abstract public Object getValuesImpl(Definition<?>... ignore);
+	abstract public Object getValuesImpl();
 
 	/**
 	 * {@inheritDoc}

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.MappingException;
+import com.purejadeite.jadegreen.JadegreenException;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.option.Option;
 import com.purejadeite.jadegreen.definition.option.Options;
@@ -34,6 +34,7 @@ public class TableOptionManager {
 		register(Unique.class);
 		register(Exclude.class);
 		register(ReplaceId.class);
+		register(KeyValue.class);
 	}
 
 	public static void register(Class<? extends TableOption> clazz) {
@@ -74,7 +75,7 @@ public class TableOptionManager {
 		try {
 			constructor = clazz.getConstructor(Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new MappingException("type=" + type + ":optionsのclassからコンストラクターを取得できません", e);
+			throw new JadegreenException("type=" + type + ":optionsのclassからコンストラクターを取得できません", e);
 		}
 
 		// インスタンスを取得
@@ -82,7 +83,7 @@ public class TableOptionManager {
 		try {
 			option = constructor.newInstance(config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new MappingException("table option " + type + ": " + e.getCause().getMessage() ,e);
+			throw new JadegreenException("table option " + type + ": " + e.getCause().getMessage() ,e);
 		}
 		return option;
 	}

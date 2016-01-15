@@ -1,0 +1,12 @@
+[
+	{
+		"sheetName": "keyvalue",
+		"values": {
+			"fileExistFlag": "ファイル有無フラグ",
+			"fileName": "ファイル名",
+			"fileNameJp": "ファイル名日本語",
+			"filePath": "ファイルパス",
+			"lines": "行情報"
+		}
+	}
+]

@@ -6,8 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.ToMap;
-import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
@@ -16,14 +14,11 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
 * @author mitsuhiroseino
 *
 */
-abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> implements Definition<P>, ToMap, Serializable {
+abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> implements Definition<P>, Serializable {
 
 	private static final long serialVersionUID = -847224181929765049L;
 
-	/**
-	 * 必須項目名称
-	 */
-	private static final String[] CONFIG = {"id"};
+	private static final String CFG_ID = "id";
 
 	/**
 	 * 定義ID
@@ -50,9 +45,8 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 */
 	protected AbstractDefinition(P parent, Map<String, ? extends Object> config) {
 		super();
-		SimpleValidator.containsKey(config, CONFIG);
 		this.parent = parent;
-		this.id = RoughlyMapUtils.getString(config, "id");
+		this.id = RoughlyMapUtils.getString(config, CFG_ID);
 	}
 
 	/**

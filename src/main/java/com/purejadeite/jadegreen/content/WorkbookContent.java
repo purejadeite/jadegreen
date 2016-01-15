@@ -15,6 +15,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
 	private static final long serialVersionUID = -1677962020788016225L;
 
+
 	/**
 	 * workbook名
 	 */
@@ -55,10 +56,10 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl() {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
-			Object vals = sheet.getRawValues(ignore);
+			Object vals = sheet.getRawValues();
 			if (vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
 			}
@@ -87,10 +88,10 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
+	public Object getValuesImpl() {
 		List<Object> values = new ArrayList<>();
 		for (WorksheetContent sheet : sheets) {
-			Object vals = sheet.getValues(ignore);
+			Object vals = sheet.getValues();
 			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
 			}

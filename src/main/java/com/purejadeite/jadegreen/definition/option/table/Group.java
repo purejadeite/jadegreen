@@ -73,10 +73,13 @@ public class Group extends AbstractTableOption {
 		for (Map<String, Object> line : values) {
 			Map<String, Object> groupKeys = new LinkedHashMap<>();
 			for (String groupId : groupIds) {
+				// キーとなる値を取得
 				groupKeys.put(groupId, line.get(groupId));
 			}
+			// 同じキーを持つ行を纏める
 			List<Map<String, Object>> groupedLines = groupedMap.get(groupKeys);
 			if (groupedLines == null) {
+				// まだ同じキーを持つ行が無いのであればリストを新規作成
 				groupedLines = new ArrayList<>();
 				groupedMap.put(groupKeys, groupedLines);
 			}
@@ -86,7 +89,9 @@ public class Group extends AbstractTableOption {
 		// グループ化したテーブルに変換
 		List<Map<String, Object>> groupedValues = new ArrayList<>();
 		for (Map<String, Object> grpIds : groupedMap.keySet()) {
+			// 同じキーを持つ複数の行を取得
 			List<Map<String, Object>> lines = groupedMap.get(grpIds);
+			// キー以外をvalueId配下に纏めた1行に変換する
 			groupedValues.add(createLine(valueId, grpIds, lines));
 		}
 
@@ -124,6 +129,37 @@ public class Group extends AbstractTableOption {
 			values.add(l);
 		}
 		return newLine;
+	}
+
+	// マップ配下にgroupIdsのキーを持つマップがあれば取得する
+	private Map<String, Object> getTargetValues(Map<String, Object> values, List<String> groupIds) {
+		boolean result = true;
+		// valuesに目的のキーが全てあるか
+		for(String groupId: groupIds) {
+			if (!values.containsKey(groupId)) {
+				result = false;
+				break;
+			}
+		}
+		if (result) {
+			// 目的のキーが全てあればそれが欲しいMap
+			return values;
+		} else {
+			// 目的のキーが無ければ配下のMapを見ていく
+			for (String key : values.keySet()) {
+				Map<String, Object> map = RoughlyMapUtils.getMap(values, key);
+				if (map != null) {
+					// 配下のMapがあるならば再帰処理
+					Map<String, Object> vals = getTargetValues(map, groupIds);
+					if (vals != null) {
+						// 見つかったら終わり
+						return vals;
+					}
+				}
+			}
+			// 無かったらnull
+			return null;
+		}
 	}
 
 	/**

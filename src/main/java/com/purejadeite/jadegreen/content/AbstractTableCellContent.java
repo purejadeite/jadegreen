@@ -38,7 +38,7 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getRawValuesImpl(Definition<?>... ignore) {
+	public Object getRawValuesImpl() {
 		return values;
 	}
 
@@ -46,8 +46,8 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object getValuesImpl(Definition<?>... ignore) {
-		return definition.apply(values);
+	public Object getValuesImpl() {
+		return definition.applyOptions(values);
 	}
 
 	/**

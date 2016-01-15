@@ -1,6 +1,6 @@
 package com.purejadeite.jadegreen.definition;
 
-import com.purejadeite.jadegreen.ToMap;
+import java.util.Map;
 
 /**
  *
@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.ToMap;
  * @author mitsuhiroseino
  *
  */
-public interface Definition<P extends ParentDefinition<?, ?>> extends ToMap {
+public interface Definition<P extends ParentDefinition<?, ?>> {
 
 	/**
 	 * 定義IDを取得します
@@ -33,9 +33,15 @@ public interface Definition<P extends ParentDefinition<?, ?>> extends ToMap {
 	public P getParent();
 
 	/**
-	 * 値に変更を適用します
+	 * 値にオプションを適用します
 	 * @return
 	 */
-	public Object apply(Object values);
+	public Object applyOptions(Object values);
+
+	/**
+	 * 定義をMap形式で取得します
+	 * @return 定義
+	 */
+	public Map<String,Object> toMap();
 
 }

@@ -71,7 +71,7 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 	}
 
 	@Override
-	public Object apply(Object value) {
+	public Object applyOptions(Object value) {
 		if (options == null) {
 			return value;
 		} else {

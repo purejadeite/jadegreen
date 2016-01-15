@@ -36,7 +36,6 @@ abstract public class AbstractOption implements Option, Serializable {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("className", this.getClass().getName());
 		return map;
 	}
 

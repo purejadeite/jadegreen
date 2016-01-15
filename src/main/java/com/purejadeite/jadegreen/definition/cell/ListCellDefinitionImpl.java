@@ -51,8 +51,8 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	}
 
 	@Override
-	public Object apply(Object value) {
-		Object val = super.apply(value);
+	public Object applyOptions(Object value) {
+		Object val = super.applyOptions(value);
 		if (val == null) {
 			return val;
 		} else {

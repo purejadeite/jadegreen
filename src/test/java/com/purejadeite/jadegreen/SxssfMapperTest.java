@@ -36,6 +36,11 @@ public class SxssfMapperTest {
 	}
 
 	@Test
+	public void keyvalue() throws Exception {
+		test("keyvalue");
+	}
+
+	@Test
 	public void single() throws Exception {
 		test("single");
 	}

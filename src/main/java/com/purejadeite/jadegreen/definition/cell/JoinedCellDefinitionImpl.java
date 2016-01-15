@@ -132,7 +132,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 		return map;
 	}
 
-	public Object apply(Object value) {
+	public Object applyOptions(Object value) {
 		return value;
 	}
 

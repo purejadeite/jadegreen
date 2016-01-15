@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.content.Content;
  * @author mitsuhiroseino
  *
  */
-public class ContentException extends MappingException {
+public class ContentException extends JadegreenException {
 
 	private static final long serialVersionUID = 767495151046226836L;
 
