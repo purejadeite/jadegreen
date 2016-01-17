@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.RoughlyConverter.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
@@ -54,14 +53,14 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 */
 	protected AbstractDefinition(Map<String, ? extends Object> config) {
 		super();
-		this.id = getString(config, ID);
+		this.id = getString(config, CFG_ID);
 		if (id == null) {
 			id = UUID.randomUUID().toString();
 		}
 		// オプションの元になる値は親が取得して、子がOptionsのインスタンスを作る
-		List<Map<String, Object>> opts = intoList(get(config, OPTIONS));
+		List<Map<String, Object>> opts = intoList(get(config, CFG_OPTIONS));
 		if (opts == null) {
-			Map<String, Object> opt = intoMap(get(config, OPTIONS));
+			Map<String, Object> opt = intoMap(get(config, CFG_OPTIONS));
 			if (opt != null) {
 				opts = new ArrayList<>();
 				opts.add(opt);

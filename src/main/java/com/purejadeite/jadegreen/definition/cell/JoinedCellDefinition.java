@@ -9,6 +9,11 @@ import com.purejadeite.jadegreen.definition.ParentDefinition;
  */
 public interface JoinedCellDefinition<P extends ParentDefinition<?, ?>> extends CellDefinition<P> {
 
+	/**
+	 * セルの結合
+	 */
+	public static final String CFG_JOIN = "join";
+
 	public static final String CFG_SHEET_ID = "sheetId";
 
 	public static final String CFG_KEY_ID = "keyId";

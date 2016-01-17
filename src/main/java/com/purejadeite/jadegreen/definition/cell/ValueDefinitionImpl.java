@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
@@ -19,6 +18,11 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	private String value;
 
 	/**
+	 * 値
+	 */
+	public static final String CFG_VALUE = "value";
+
+	/**
 	 * コンストラクタ
 	 *
 	 * @param parent
@@ -28,7 +32,7 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 */
 	public ValueDefinitionImpl(P parent, Map<String, Object> config) {
 		super(parent, config);
-		this.value = getString(config, VALUE);
+		this.value = getString(config, CFG_VALUE);
 	}
 
 	@Override

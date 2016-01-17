@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
@@ -16,6 +15,11 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 
 	private static final long serialVersionUID = 960962162579025353L;
 
+	/**
+	 * 値
+	 */
+	public static final String CFG_VALUE = "value";
+
 	private String value;
 
 	/**
@@ -28,7 +32,7 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 	 */
 	public TableValueDefinitionImpl(P parent, Map<String, Object> config) {
 		super(parent, config);
-		this.value = getString(config, VALUE);
+		this.value = getString(config, CFG_VALUE);
 	}
 
 	@Override

@@ -133,35 +133,35 @@ public class Group extends AbstractTableOption {
 	}
 
 	// マップ配下にgroupIdsのキーを持つマップがあれば取得する
-	private Map<String, Object> getTargetValues(Map<String, Object> values, List<String> groupIds) {
-		boolean result = true;
-		// valuesに目的のキーが全てあるか
-		for(String groupId: groupIds) {
-			if (!values.containsKey(groupId)) {
-				result = false;
-				break;
-			}
-		}
-		if (result) {
-			// 目的のキーが全てあればそれが欲しいMap
-			return values;
-		} else {
-			// 目的のキーが無ければ配下のMapを見ていく
-			for (String key : values.keySet()) {
-				Map<String, Object> map = getMap(values, key);
-				if (map != null) {
-					// 配下のMapがあるならば再帰処理
-					Map<String, Object> vals = getTargetValues(map, groupIds);
-					if (vals != null) {
-						// 見つかったら終わり
-						return vals;
-					}
-				}
-			}
-			// 無かったらnull
-			return null;
-		}
-	}
+//	private Map<String, Object> getTargetValues(Map<String, Object> values, List<String> groupIds) {
+//		boolean result = true;
+//		// valuesに目的のキーが全てあるか
+//		for(String groupId: groupIds) {
+//			if (!values.containsKey(groupId)) {
+//				result = false;
+//				break;
+//			}
+//		}
+//		if (result) {
+//			// 目的のキーが全てあればそれが欲しいMap
+//			return values;
+//		} else {
+//			// 目的のキーが無ければ配下のMapを見ていく
+//			for (String key : values.keySet()) {
+//				Map<String, Object> map = getMap(values, key);
+//				if (map != null) {
+//					// 配下のMapがあるならば再帰処理
+//					Map<String, Object> vals = getTargetValues(map, groupIds);
+//					if (vals != null) {
+//						// 見つかったら終わり
+//						return vals;
+//					}
+//				}
+//			}
+//			// 無かったらnull
+//			return null;
+//		}
+//	}
 
 	/**
 	 * {@inheritDoc}

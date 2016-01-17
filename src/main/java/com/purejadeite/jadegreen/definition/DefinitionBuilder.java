@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.ArrayList;
@@ -11,11 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
@@ -47,12 +47,12 @@ public class DefinitionBuilder {
 	public static WorkbookDefinition build(Map<String, Object> config) {
 		// bookのビルド
 		WorkbookDefinition book = new WorkbookDefinition(config);
-		List<Map<String, Object>> sheetConfigs = getList(config, SHEETS);
+		List<Map<String, Object>> sheetConfigs = getList(config, WorkbookDefinition.CFG_SHEETS);
 		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド
 			WorksheetDefinition sheet = new WorksheetDefinition(book, sheetConfig);
 			// cellのビルド
-			List<Map<String, Object>> cellConfigs = getList(sheetConfig, CELLS);
+			List<Map<String, Object>> cellConfigs = getList(sheetConfig, WorksheetDefinition.CFG_CELLS);
 			for (Map<String, Object> cellConfig : cellConfigs) {
 				sheet.addChild(createCell(cellConfig, sheet));
 			}
@@ -89,7 +89,7 @@ public class DefinitionBuilder {
 	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
 			TableDefinition<?> table) {
 		Definition<?> definition = null;
-		if (config.containsKey(JOIN)) {
+		if (config.containsKey(JoinedCellDefinition.CFG_JOIN)) {
 			// 結合フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
@@ -98,7 +98,7 @@ public class DefinitionBuilder {
 				// 単独フィールドの場合
 				definition = new JoinedCellDefinitionImpl(sheet, config);
 			}
-		} else if (config.containsKey(VALUE)) {
+		} else if (config.containsKey(TableValueDefinitionImpl.CFG_VALUE)) {
 			// 値フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
@@ -109,7 +109,7 @@ public class DefinitionBuilder {
 			}
 		} else if (table != null) {
 			// 親のあるフィールドの場合
-			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
+			if (!config.containsKey(RowRepeatDefinitionImpl.CFG_ROW) && !config.containsKey(ColumnCellDefinitionImpl.CFG_COLUMN)) {
 				// アドレスなし
 				definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
 			} else if (table instanceof RowRepeatDefinitionImpl) {
@@ -119,26 +119,24 @@ public class DefinitionBuilder {
 				// 列方向の繰り返し内のフィールドの場合
 				definition = new ColumnCellDefinitionImpl(table, config);
 			}
-		} else if (config.containsKey(COLUMNS)) {
+		} else if (config.containsKey(RowRepeatDefinitionImpl.CFG_COLUMNS)) {
 			// 行方向の繰り返しの場合
-			List<Map<String, Object>> columns = getList(config, COLUMNS);
+			List<Map<String, Object>> columns = getList(config, RowRepeatDefinitionImpl.CFG_COLUMNS);
 			TableDefinition<?> rowTable = new RowRepeatDefinitionImpl(sheet, config);
 			rowTable.addChildren(createCells(columns, sheet, rowTable));
 			definition = rowTable;
-		} else if (config.containsKey(ROWS)) {
+		} else if (config.containsKey(ColumnRepeatDefinitionImpl.CFG_ROWS)) {
 			// 列方向の繰り返しの場合
 			// TODO 現在未対応
-			List<Map<String, Object>> rows = getList(config, ROWS);
+			List<Map<String, Object>> rows = getList(config, ColumnRepeatDefinitionImpl.CFG_ROWS);
 			TableDefinition<?> columnTable = new ColumnRepeatDefinitionImpl(sheet, config);
 			columnTable.addChildren(createCells(rows, sheet, columnTable));
 			definition = columnTable;
 		} else {
 			// 単独フィールドの場合
-			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
+			if (!config.containsKey(CellDefinition.CFG_ROW) && !config.containsKey(CellDefinition.CFG_COLUMN)) {
 				// アドレスなし
 				definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
-			} else if (config.containsKey(SPLITTER)) {
-				definition = new ListCellDefinitionImpl(sheet, config);
 			} else {
 				definition = new CellDefinitionImpl(sheet, config);
 			}
@@ -147,7 +145,7 @@ public class DefinitionBuilder {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
 			DefinitionManager.register(sheet, definition);
 		} else {
-			String id = getString(config, ID);
+			String id = getString(config, Definition.CFG_ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");
 		}
 		return definition;

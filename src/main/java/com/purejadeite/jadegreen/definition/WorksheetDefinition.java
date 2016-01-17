@@ -22,6 +22,15 @@ import com.purejadeite.util.collection.Table;
 public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefinition, Definition<?>> {
 
 	private static final long serialVersionUID = -1303967958765873003L;
+	/**
+	 * 取得条件・シート名
+	 */
+	public static final String CFG_NAME = "name";
+
+	/**
+	 * Sheet配下の全Cellの定義
+	 */
+	public static final String CFG_CELLS = "cells";
 
 	/**
 	 * コンフィグ：target

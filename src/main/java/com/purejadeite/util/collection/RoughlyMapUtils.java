@@ -5,6 +5,7 @@ import static com.purejadeite.util.RoughlyConverter.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -289,6 +290,19 @@ public class RoughlyMapUtils {
 			}
 		}
 		return null;
+	}
+
+	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K key, Getter<E> getter) {
+		List<E> values = getList(map, key);
+		if (values == null) {
+			values = new ArrayList<>();
+			values.add(getter.get(map, key));
+		}
+		return values;
+	}
+
+	public static interface Getter<E> {
+		public <K> E get(Map<K, ? extends Object> map, K key);
 	}
 
 }

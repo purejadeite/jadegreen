@@ -12,6 +12,17 @@ public interface CellDefinition<P extends ParentDefinition<?, ?>> extends Defini
 	public static final int NO_ADDRESS = 0;
 
 	/**
+	 * 行番号
+	 */
+	public static final String CFG_ROW = "row";
+
+	/**
+	 * 列番号
+	 */
+	public static final String CFG_COLUMN = "column";
+
+
+	/**
 	 * 最少行番号を取得します
 	 */
 	public int getMinRow();

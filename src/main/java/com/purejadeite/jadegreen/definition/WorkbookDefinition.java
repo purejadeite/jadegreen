@@ -14,6 +14,11 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	private static final long serialVersionUID = 1118031049839086924L;
 
 	/**
+	 * シート
+	 */
+	public static final String CFG_SHEETS = "sheets";
+
+	/**
 	 * コンストラクタ
 	 * @param config コンフィグ
 	 */

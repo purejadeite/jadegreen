@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
@@ -74,7 +73,7 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 */
 	public JoinedTableCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> parent, Map<String, Object> config) {
 		super(parent, config);
-		Map<String, String> joinConfig = getMap(config, JOIN);
+		Map<String, String> joinConfig = getMap(config, CFG_JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);
 		// 相手シートのID
 		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());

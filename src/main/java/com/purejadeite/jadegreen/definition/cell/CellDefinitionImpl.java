@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
@@ -35,8 +34,8 @@ public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefiniti
 	 */
 	public CellDefinitionImpl(WorksheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
-		row = getIntValue(config, ROW);
-		col = getIntValue(config, COLUMN);
+		row = getIntValue(config, CFG_ROW);
+		col = getIntValue(config, CFG_COLUMN);
 	}
 
 	/**

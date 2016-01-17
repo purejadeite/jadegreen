@@ -14,6 +14,16 @@ import com.purejadeite.jadegreen.definition.option.Options;
 public interface Definition<P extends ParentDefinition<?, ?>> {
 
 	/**
+	 * 定義ID
+	 */
+	public static final String CFG_ID = "id";
+
+	/**
+	 * オプション
+	 */
+	public static final String[] CFG_OPTIONS = {"options", "option"};
+
+	/**
 	 * 定義IDを取得します
 	 *
 	 * @return

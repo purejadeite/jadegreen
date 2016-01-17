@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.definition.table;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
-
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
@@ -14,6 +12,21 @@ import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 public class ColumnRepeatDefinitionImpl extends AbstractTableDefinition<TableCellDefinition<?>> {
 
 	private static final long serialVersionUID = -1028109893285661849L;
+
+	/**
+	 * 列番号
+	 */
+	public static final String CFG_COLUMN = "column";
+
+	/**
+	 * 終了列番号
+	 */
+	public static final String CFG_END_COLUMN = "endColumn";
+
+	/**
+	 * 列方向の繰り返しの子要素
+	 */
+	public static final String CFG_ROWS = "rows";
 
 	/**
 	 * コンストラクタ
@@ -33,14 +46,14 @@ public class ColumnRepeatDefinitionImpl extends AbstractTableDefinition<TableCel
 	 * {@inheritDoc}
 	 */
 	protected String getBeginDefinitionKey() {
-		return COLUMN;
+		return CFG_COLUMN;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected String getEndConfigDefinitionKey() {
-		return END_COLUMN;
+		return CFG_END_COLUMN;
 	}
 
 	/**

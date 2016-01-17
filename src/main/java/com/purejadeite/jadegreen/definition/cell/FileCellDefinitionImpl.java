@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.io.File;
@@ -24,6 +23,11 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileCellDefinitionImpl.class);
 
+	/**
+	 * 外部ファイルのパス
+	 */
+	public static final String CFG_FILE = "file";
+
 	private String filePath;
 
 	/**
@@ -36,7 +40,7 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 	 */
 	private FileCellDefinitionImpl(P parent, Map<String, Object> config) {
 		super(parent, config);
-		this.filePath = getString(config, FILE);
+		this.filePath = getString(config, CFG_FILE);
 	}
 
 	/**

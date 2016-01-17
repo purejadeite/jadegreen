@@ -13,6 +13,26 @@ import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 public interface TableDefinition<C extends TableCellDefinition<?>> extends ParentDefinition<WorksheetDefinition, C> {
 
 	/**
+	 * 繰り返し項目の取得開始判定項目
+	 */
+	public static final String CFG_BEGIN_ID = "beginId";
+
+	/**
+	 * 繰り返し項目の取得開始判定値
+	 */
+	public static final String CFG_BEGIN_VALUE = "beginValue";
+
+	/**
+	 * 繰り返し項目の取得終了判定項目
+	 */
+	public static final String CFG_BREAK_ID = "breakId";
+
+	/**
+	 * 繰り返し項目の取得終了判定値
+	 */
+	public static final String CFG_BREAK_VALUE = "breakValue";
+
+	/**
 	 * 終了条件になる項目の定義IDを取得します
 	 * @return 定義ID
 	 */

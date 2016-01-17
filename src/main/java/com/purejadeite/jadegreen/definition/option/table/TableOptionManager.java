@@ -11,7 +11,6 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.JadegreenException;
-import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.option.Option;
 import com.purejadeite.jadegreen.definition.option.Options;
 
@@ -49,7 +48,7 @@ public class TableOptionManager {
 		List<Option> options = new ArrayList<>();
 		Option option = null;
 		for (Map<String, Object> opt : opts) {
-			String type = getString(opt, DefinitionKeys.TYPE);
+			String type = getString(opt, Option.CFG_TYPE);
 			option = build(type, opt);
 			if (option == null) {
 				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");

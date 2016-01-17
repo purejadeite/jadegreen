@@ -11,6 +11,11 @@ import java.util.Map;
 public interface Option {
 
 	/**
+	 * コンバータークラス
+	 */
+	public static final String CFG_TYPE = "type";
+
+	/**
 	 * 値に変更を適用します
 	 * @return
 	 */

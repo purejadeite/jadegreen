@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.table;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.ArrayList;
@@ -74,8 +73,8 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		super(parent, config);
 		this.begin = getIntValue(config, getBeginDefinitionKey());
 		this.end = getIntValue(config, getEndConfigDefinitionKey(), Integer.MAX_VALUE);
-		this.breakId = getString(config, BREAK_ID);
-		this.breakValue = getString(config, BREAK_VALUE);
+		this.breakId = getString(config, CFG_BREAK_ID);
+		this.breakValue = getString(config, CFG_BREAK_VALUE);
 	}
 
 	/**

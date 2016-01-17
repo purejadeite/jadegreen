@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
 abstract public class AbstractOptionTest {
@@ -27,13 +26,13 @@ abstract public class AbstractOptionTest {
 
 	protected Option getOption(String type) {
 		Map<String, Object> config = new HashMap<>();
-		config.put(DefinitionKeys.TYPE, type);
+		config.put(Option.CFG_TYPE, type);
 		return CellOptionManager.build(type, config);
 	}
 
 	protected Map<String, Object> getConfig(String type) {
 		Map<String, Object> config = new HashMap<>();
-		config.put(DefinitionKeys.TYPE, type);
+		config.put(Option.CFG_TYPE, type);
 		return config;
 	}
 

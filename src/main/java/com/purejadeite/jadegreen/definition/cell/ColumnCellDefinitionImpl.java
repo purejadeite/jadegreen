@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
@@ -44,12 +43,12 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 
 	@Override
 	protected int toBeginRow(TableDefinition<?> parent, Map<String, Object> config) {
-		return getIntValue(config, ROW);
+		return getIntValue(config, CFG_ROW);
 	}
 
 	@Override
 	protected int toEndRow(TableDefinition<?> parent, Map<String, Object> config) {
-		return getIntValue(config, ROW);
+		return getIntValue(config, CFG_ROW);
 	}
 
 	@Override
