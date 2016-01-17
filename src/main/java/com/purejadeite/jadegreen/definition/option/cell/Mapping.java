@@ -1,9 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列を定義されたマップに応じた値に置き換えるクラス
@@ -45,8 +46,8 @@ public class Mapping extends AbstractCellOption {
 	public Mapping(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
-		this.lazy = RoughlyMapUtils.getBooleanValue(config, CFG_LAZY);
+		this.map = getMap(config, CFG_MAP);
+		this.lazy = getBooleanValue(config, CFG_LAZY);
 	}
 
 	/**

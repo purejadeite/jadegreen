@@ -1,13 +1,11 @@
 package com.purejadeite.jadegreen.definition.cell;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
-import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 列方向の繰り返しを持つテーブル配下のCell読み込み定義
@@ -21,42 +19,47 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 	/**
 	 * コンストラクタ
 	 *
-	 * @param sheet
-	 *            テーブル読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param row
-	 *            取得対象行
-	 * @param beginCol
-	 *            取得開始列
-	 * @param endCol
-	 *            取得終了列
-	 * @param endKey
-	 *            終了キー項目フラグ
-	 * @param endValue
-	 *            終了キー値
-	 * @param options
-	 *            オプション
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	private ColumnCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id, int row, int beginCol, int endCol,
-			boolean endKey, String endValue, List<Map<String, Object>> options) {
-		super(table, id, row, row, beginCol, endCol, endKey, endValue, options);
-		this.sheet = sheet;
+	public ColumnCellDefinitionImpl(TableDefinition<?> parent, Map<String, Object> config) {
+		super(parent, config);
 	}
 
-	public static CellDefinition<TableDefinition<?>> newInstance(WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
-		String id = RoughlyMapUtils.getString(config, ID);
-		int row = RoughlyMapUtils.getIntValue(config, ROW);
-		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		boolean endKey = false;
-		String endValue = null;
-		if (id.equals(table.getBreakId())) {
-			// 終了条件
-			endKey = true;
-			endValue = table.getBreakValue();
-		}
-		return new ColumnCellDefinitionImpl(sheet, table, id, row, table.getBegin(), table.getEnd(), endKey,
-				endValue, options);
+	/**
+	 * コンストラクタ
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
+	 * @param breakId 終了キー項目
+	 * @param breakValue 終了キー値
+	 */
+	private ColumnCellDefinitionImpl(TableDefinition<?> parent, Map<String, Object> config, boolean breakId, String breakValue) {
+		super(parent, config, breakId, breakValue);
+	}
+
+	@Override
+	protected int toBeginRow(TableDefinition<?> parent, Map<String, Object> config) {
+		return getIntValue(config, ROW);
+	}
+
+	@Override
+	protected int toEndRow(TableDefinition<?> parent, Map<String, Object> config) {
+		return getIntValue(config, ROW);
+	}
+
+	@Override
+	protected int toBeginCol(TableDefinition<?> parent, Map<String, Object> config) {
+		return parent.getBegin();
+	}
+
+	@Override
+	protected int toEndCol(TableDefinition<?> parent, Map<String, Object> config) {
+		return parent.getEnd();
 	}
 
 }

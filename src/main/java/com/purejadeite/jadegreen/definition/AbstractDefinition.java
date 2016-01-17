@@ -1,12 +1,19 @@
 package com.purejadeite.jadegreen.definition;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.RoughlyConverter.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.util.collection.RoughlyMapUtils;
+import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
 *
@@ -17,8 +24,6 @@ import com.purejadeite.util.collection.RoughlyMapUtils;
 abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> implements Definition<P>, Serializable {
 
 	private static final long serialVersionUID = -847224181929765049L;
-
-	private static final String CFG_ID = "id";
 
 	/**
 	 * 定義ID
@@ -31,10 +36,38 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	protected P parent;
 
 	/**
+	 * オプション
+	 */
+	protected Options options;
+
+	/**
 	 * デフォルトコンストラクタ
 	 */
 	protected AbstractDefinition() {
 		super();
+	}
+
+	/**
+	 * コンストラクタ
+	 * @param id 定義ID
+	 * @param noOutput 値の出力有無
+	 */
+	protected AbstractDefinition(Map<String, ? extends Object> config) {
+		super();
+		this.id = getString(config, ID);
+		if (id == null) {
+			id = UUID.randomUUID().toString();
+		}
+		// オプションの元になる値は親が取得して、子がOptionsのインスタンスを作る
+		List<Map<String, Object>> opts = intoList(get(config, OPTIONS));
+		if (opts == null) {
+			Map<String, Object> opt = intoMap(get(config, OPTIONS));
+			if (opt != null) {
+				opts = new ArrayList<>();
+				opts.add(opt);
+			}
+		}
+		buildOptions(opts);
 	}
 
 	/**
@@ -44,9 +77,8 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * @param noOutput 値の出力有無
 	 */
 	protected AbstractDefinition(P parent, Map<String, ? extends Object> config) {
-		super();
+		this(config);
 		this.parent = parent;
-		this.id = RoughlyMapUtils.getString(config, CFG_ID);
 	}
 
 	/**
@@ -55,11 +87,11 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * @param id 定義ID
 	 * @param noOutput 値の出力有無
 	 */
-	protected AbstractDefinition(P parent, String id) {
-		super();
-		this.parent = parent;
-		this.id = id;
-	}
+//	protected AbstractDefinition(P parent, String id) {
+//		super();
+//		this.parent = parent;
+//		this.id = id;
+//	}
 
 	/**
 	 * {@inheritDoc}
@@ -93,6 +125,25 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Options getOptions() {
+		return options;
+	}
+
+	abstract protected void buildOptions(List<Map<String, Object>> options);
+
+	@Override
+	public Object applyOptions(Object value) {
+		if (options == null) {
+			return value;
+		} else {
+			return options.apply(value);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("id", id);
@@ -100,6 +151,11 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 			map.put("parent", parent.getFullId());
 		} else {
 			map.put("parent", null);
+		}
+		if (options != null) {
+			map.put("options", options.toMap());
+		} else {
+			map.put("options", null);
 		}
 		return map;
 	}

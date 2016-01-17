@@ -5,7 +5,6 @@ import java.util.List;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
@@ -56,12 +55,6 @@ public interface TableDefinition<C extends TableCellDefinition<?>> extends Paren
 	 * @return
 	 */
 	public boolean isIncluded(int row, int col);
-
-	/**
-	 * コンバーターでラップされたTable読み込み定義を取得します
-	 * @return
-	 */
-	public Options getOptions();
 
 	/**
 	 * 子要素を追加します

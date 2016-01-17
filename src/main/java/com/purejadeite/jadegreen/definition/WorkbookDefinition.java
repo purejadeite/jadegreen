@@ -18,7 +18,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 * @param config コンフィグ
 	 */
 	public WorkbookDefinition(Map<String, Object> config) {
-		super(null, config);
+		super(config);
 	}
 
 	/**
@@ -50,6 +50,14 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 		}
 		map.put("sheets", sheetMaps);
 		return map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void buildOptions(List<Map<String, Object>> options) {
+		// 現在はworkbook用のOptionsは無し
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.option.table;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * グループ化用テーブルコンバーター
@@ -47,14 +48,14 @@ public class Group extends AbstractTableOption {
 	public Group(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		List<String> groupId = RoughlyMapUtils.getList(config, CFG_GROUPS_GROUP_ID);
+		List<String> groupId = getList(config, CFG_GROUPS_GROUP_ID);
 		if (groupId == null) {
 			this.groupIds = new ArrayList<>();
-			this.groupIds.add(RoughlyMapUtils.getString(config, CFG_GROUPS_GROUP_ID));
+			this.groupIds.add(getString(config, CFG_GROUPS_GROUP_ID));
 		} else {
 			this.groupIds = groupId;
 		}
-		this.valueId = RoughlyMapUtils.getString(config, CFG_GROUPS_VALUE_ID);
+		this.valueId = getString(config, CFG_GROUPS_VALUE_ID);
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class Group extends AbstractTableOption {
 		} else {
 			// 目的のキーが無ければ配下のMapを見ていく
 			for (String key : values.keySet()) {
-				Map<String, Object> map = RoughlyMapUtils.getMap(values, key);
+				Map<String, Object> map = getMap(values, key);
 				if (map != null) {
 					// 配下のMapがあるならば再帰処理
 					Map<String, Object> vals = getTargetValues(map, groupIds);

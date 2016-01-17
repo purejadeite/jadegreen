@@ -1,10 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * Indexを生成するクラス
@@ -16,7 +16,7 @@ public class Index extends AbstractRelatedValueGenerator {
 	private static final long serialVersionUID = -9188313601218449958L;
 
 	private static final String CFG_FROM = "from";
-	
+
 	private static final String CFG_INCREMENT = "increment";
 
 	private int from = 0;
@@ -30,8 +30,8 @@ public class Index extends AbstractRelatedValueGenerator {
 	 */
 	public Index(Map<String, Object> config) {
 		super();
-		from = RoughlyMapUtils.getIntValue(config, CFG_FROM);
-		Integer increment = RoughlyMapUtils.getInteger(config, CFG_INCREMENT);
+		from = getIntValue(config, CFG_FROM);
+		Integer increment = getInteger(config, CFG_INCREMENT);
 		if (increment != null) {
 			this.increment = increment.intValue();
 		}

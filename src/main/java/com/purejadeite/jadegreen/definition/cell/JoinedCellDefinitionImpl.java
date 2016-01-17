@@ -1,8 +1,8 @@
 package com.purejadeite.jadegreen.definition.cell;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -12,7 +12,6 @@ import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 単一セルの結合定義です
@@ -23,14 +22,6 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 		implements JoinedCellDefinition<WorksheetDefinition>, JoinDefinition<WorksheetDefinition> {
 
 	private static final long serialVersionUID = -6688614988181481927L;
-
-	private static final String CFG_SHEET_ID = "sheetId";
-
-	private static final String CFG_KEY_ID = "keyId";
-
-	private static final String CFG_MY_KEY_ID = "myKeyId";
-
-	private static final String CFG_VALUE_ID = "valueId";
 
 	/**
 	 * 必須項目名称
@@ -60,38 +51,23 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	/**
 	 * コンストラクタ
 	 *
-	 * @param book
-	 *            ブック読み込み定義
 	 * @param parent
-	 *            シート読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param options
-	 *            オプション
-	 * @param joinConfig
-	 *            結合設定
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	protected JoinedCellDefinitionImpl(WorksheetDefinition sheet, String id,
-			List<Map<String, Object>> options, Map<String, String> joinConfig) {
-		super(sheet, id, options);
+	public JoinedCellDefinitionImpl(WorksheetDefinition parent, Map<String, Object> config) {
+		super(parent, config);
+		Map<String, String> joinConfig = getMap(config, JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);
-		this.sheet = sheet;
 		// 相手シートのID
-		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
+		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), parent.getJoinSheetId());
 		// 相手シートのキー項目のID
-		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getJoinKeyId());
+		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), parent.getJoinKeyId());
 		// 自身のシートのキー項目のID
-		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getJoinMyKeyId(), keyId);
+		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), parent.getJoinMyKeyId(), keyId);
 		// 相手シートから取得する項目のID
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
-	}
-
-	public static Definition<?> newInstance(WorksheetDefinition sheet,
-			Map<String, Object> config) {
-		String id = RoughlyMapUtils.getString(config, ID);
-		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		Map<String, String> join = RoughlyMapUtils.getMap(config, JOIN);
-		return new JoinedCellDefinitionImpl(sheet, id, options, join);
 	}
 
 	public String getSheetId() {
@@ -102,7 +78,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyKeyDefinition() {
-		return DefinitionManager.get(sheet, myKeyId);
+		return DefinitionManager.getSheetsDefinition(this, myKeyId);
 	}
 
 	/**

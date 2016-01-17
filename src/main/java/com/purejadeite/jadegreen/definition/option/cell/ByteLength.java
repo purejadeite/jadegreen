@@ -1,10 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import org.apache.commons.codec.binary.StringUtils;
-
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列のバイト長を取得するクラス
@@ -27,7 +27,7 @@ public class ByteLength extends AbstractStringCellOption {
 	 */
 	public ByteLength(Map<String, Object> config) {
 		super();
-		this.encode = RoughlyMapUtils.getString(config, CFG_ENCODE);
+		this.encode = getString(config, CFG_ENCODE);
 	}
 
 	/**

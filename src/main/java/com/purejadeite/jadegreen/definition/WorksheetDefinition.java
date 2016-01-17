@@ -1,16 +1,15 @@
 package com.purejadeite.jadegreen.definition;
 
-import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.util.SimpleComparison;
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 import com.purejadeite.util.collection.StringKeyNestedMap;
 import com.purejadeite.util.collection.Table;
 
@@ -155,55 +154,14 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		super(parent, config);
 		SimpleValidator.containsKey(config, CONFIG);
 		Map<String, Object> cfg = new StringKeyNestedMap(config);
-		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME);
-		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
-		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN) - 1;
-		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE);
-		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID);
-		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID);
-		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID);
-		this.output = RoughlyMapUtils.getBooleanValue(cfg, CFG_OUTPUT);
-	}
-
-	/**
-	 * コンストラクタ
-	 *
-	 * @param parent
-	 *            Book読み込み定義
-	 * @param id
-	 *
-	 *            定義ID
-	 * @param name
-	 *            シート名
-	 * @param noOutput
-	 *            出力要否
-	 */
-	public WorksheetDefinition(WorkbookDefinition parent, String id, String name, Map<String, Object> config) {
-		super(parent, id);
-		this.name = name;
-		Map<String, Object> cfg = new StringKeyNestedMap(config);
-		this.targetName = RoughlyMapUtils.getString(cfg, CFG_TARGET_NAME);
-		this.targetCellRow = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
-		this.targetCellColumn = RoughlyMapUtils.getIntValue(cfg, CFG_TARGET_CELL_COLUMN) - 1;
-		this.targetCellValue = RoughlyMapUtils.getString(cfg, CFG_TARGET_CELL_VALUE);
-		this.joinSheetId = RoughlyMapUtils.getString(cfg, CFG_JOIN_SHEET_ID);
-		this.joinKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_KEY_ID);
-		this.joinMyKeyId = RoughlyMapUtils.getString(cfg, CFG_JOIN_MY_KEY_ID);
-		this.output = RoughlyMapUtils.getBooleanValue(cfg, CFG_OUTPUT);
-	}
-
-	/**
-	 * インスタンスを取得します
-	 * @param parent 親定義
-	 * @param config コンフィグ
-	 * @return インスタンス
-	 */
-	public static WorksheetDefinition newInstance(WorkbookDefinition parent, Map<String, Object> config) {
-		String id = RoughlyMapUtils.getString(config, ID);
-		if (id == null) {
-			id = UUID.randomUUID().toString();
-		}
-		return new WorksheetDefinition(parent, id, null, config);
+		this.targetName = getString(cfg, CFG_TARGET_NAME);
+		this.targetCellRow = getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
+		this.targetCellColumn = getIntValue(cfg, CFG_TARGET_CELL_COLUMN) - 1;
+		this.targetCellValue = getString(cfg, CFG_TARGET_CELL_VALUE);
+		this.joinSheetId = getString(cfg, CFG_JOIN_SHEET_ID);
+		this.joinKeyId = getString(cfg, CFG_JOIN_KEY_ID);
+		this.joinMyKeyId = getString(cfg, CFG_JOIN_MY_KEY_ID);
+		this.output = getBooleanValue(cfg, CFG_OUTPUT);
 	}
 
 	public String getJoinSheetId() {
@@ -245,7 +203,6 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
 				CellDefinition<?> cell = (CellDefinition<?>) child;
-				cell.setSheet(this);
 				int i;
 				// 最少行番号
 				i = cell.getMinRow();
@@ -339,6 +296,14 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		map.put("maxCol", maxCol);
 		map.put("output", output);
 		return map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void buildOptions(List<Map<String, Object>> options) {
+		// 現在はworksheet用のOptionsは無し
 	}
 
 	/**

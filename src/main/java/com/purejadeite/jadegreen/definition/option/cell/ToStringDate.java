@@ -1,10 +1,11 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.jadegreen.SxssfUtils;
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 日付を表す文字列を、別の日付形式の文字列へ変換するクラス
@@ -39,7 +40,7 @@ public class ToStringDate extends AbstractStringCellOption {
 	public ToStringDate(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.dateFormat = RoughlyMapUtils.getString(config, CFG_DATE_FORMAT);
+		this.dateFormat = getString(config, CFG_DATE_FORMAT);
 	}
 
 	/**

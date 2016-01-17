@@ -16,7 +16,10 @@ public class DefinitionManager {
 
 	private static Map<String, WorksheetDefinition> sheetDefinitions = new HashMap<>();
 
+	private static Map<String, WorksheetDefinition> defSheet = new HashMap<>();
+
 	public static boolean register(WorksheetDefinition sheet, Definition<?> definition) {
+		defSheet.put(definition.getFullId(), sheet);
 		String sheetId = sheet.getId();
 		sheetDefinitions.put(sheetId, sheet);
 		Map<String, Definition<?>> defs = getDefinitionMap(sheetId);
@@ -46,6 +49,18 @@ public class DefinitionManager {
 
 	public static WorksheetDefinition get(String sheetId) {
 		return sheetDefinitions.get(sheetId);
+	}
+
+	public static WorksheetDefinition getSheet(Definition<?> definition) {
+		return defSheet.get(definition.getFullId());
+	}
+
+	public static Definition<?> getSheetsDefinition(Definition<?> definition, String id) {
+		WorksheetDefinition sheet = getSheet(definition);
+		if (sheet == null) {
+			return null;
+		}
+		return get(sheet, id);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -15,13 +14,14 @@ abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinit
 
 	/**
 	 * コンストラクタ
-	 * @param parent 範囲定義
-	 * @param id 定義ID
-	 * @param noOutput 出力対象外フラグ
-	 * @param options オプション
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	protected AbstractNoAdressTableCellDefinition(P parent, String id, List<Map<String, Object>> options) {
-		super(parent, id, options);
+	protected AbstractNoAdressTableCellDefinition(P parent, Map<String, Object> config) {
+		super(parent, config);
 	}
 
 	/**
@@ -30,6 +30,12 @@ abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinit
 	@Override
 	public boolean isEndValue(Object value) {
 		return false;
+	}
+
+	public void setBreakId(boolean breakId) {
+	}
+
+	public void setBreakValue(String breakValue) {
 	}
 
 }

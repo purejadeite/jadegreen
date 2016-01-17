@@ -99,26 +99,30 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		Content<?> mySheetContent = this.getUpperContent(WorksheetContent.class);
 
 		// 結合元のキーとなるレコードを取得
-		List<Content<?>> myKeyContents = mySheetContent.searchContents(definition.getMyTableKeyDefinition());
-		if (myKeyContents.isEmpty()) {
+		List<Content<?>> myTableKeyContents = mySheetContent.searchContents(definition.getMyTableKeyDefinition());
+		if (myTableKeyContents.isEmpty()) {
 			return null;
 		}
-		Content<?> myKeyContent = myKeyContents.get(0);
+		Content<?> myTableKeyContent = myTableKeyContents.get(0);
 
 		// valueのID
 		String[] ids = StringUtils.split(definition.getValueId(), ".");
 		String valueId = ids[ids.length - 1];
 
 		// 相手のキーと自分のキーが一致したら相手の値を取得
+		// 相手のテーブルの値全行分
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> tableValues = (List<Map<String, Object>>) tableContent.getValues();
+		// 自分のキーとなる項目の値全行分
 		@SuppressWarnings("unchecked")
-		List<Object> myKeys = (List<Object>) myKeyContent.getValues();
+		List<Object> myTableKeyValues = (List<Object>) myTableKeyContent.getValues();
 		List<Object> myValues = new ArrayList<>();
-		for (Object myKey : myKeys) {
+		// 相手のレコードのキーと自分のキーを比較して一致したら取得
+		for (Object myTableKeyValue : myTableKeyValues) {
 			myValues.add(null);
 			for (Map<String, Object> tableValue : tableValues) {
-				if (tableValue.get(keyContent.getId()).equals(myKey)) {
+				Object tableKeyValue = tableValue.get(keyContent.getId());
+				if (tableKeyValue.equals(myTableKeyValue)) {
 					myValues.set(myValues.size() - 1, tableValue.get(valueId));
 					continue;
 				}

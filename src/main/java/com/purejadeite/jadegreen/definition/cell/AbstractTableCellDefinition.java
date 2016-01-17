@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -48,35 +47,51 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	/**
 	 * 終了キー項目
 	 */
-	protected boolean endKeyId = false;
+	protected boolean breakId = false;
 
 	/**
 	 * 終了キー値
 	 */
-	protected String endValue = null;
+	protected String breakValue = null;
 
 	/**
 	 * コンストラクタ
-	 * @param parent 範囲定義
-	 * @param id 定義ID
-	 * @param beginRow 開始行
-	 * @param endRow 終了行
-	 * @param beginCol 開始列
-	 * @param endCol 終了列
-	 * @param endKeyId 終了キー項目
-	 * @param endValue 終了キー値
-	 * @param options オプション
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	protected AbstractTableCellDefinition(P parent, String id, int beginRow, int endRow,
-			int beginCol, int endCol,
-			boolean endKeyId, String endValue, List<Map<String, Object>> options) {
-		super(parent, id, options);
-		this.beginRow = beginRow;
-		this.endRow = endRow <= 0 ? Integer.MAX_VALUE : endRow;
-		this.beginCol = beginCol;
-		this.endCol = endCol <= 0 ? Integer.MAX_VALUE : endCol;
-		this.endKeyId = endKeyId;
-		this.endValue = endValue;
+	protected AbstractTableCellDefinition(P parent, Map<String, Object> config) {
+		super(parent, config);
+		this.beginRow = toBeginRow(parent, config);
+		this.endRow = toEndRow(parent, config);
+		this.beginCol = toBeginCol(parent, config);
+		this.endCol = toEndCol(parent, config);
+	}
+
+	abstract protected int toBeginRow(P parent, Map<String, Object> config);
+
+	abstract protected int toEndRow(P parent, Map<String, Object> config);
+
+	abstract protected int toBeginCol(P parent, Map<String, Object> config);
+
+	abstract protected int toEndCol(P parent, Map<String, Object> config);
+
+	/**
+	 * コンストラクタ
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
+	 * @param breakId 終了キー項目
+	 * @param breakValue 終了キー値
+	 */
+	protected AbstractTableCellDefinition(P parent, Map<String, Object> config,boolean breakId, String breakValue) {
+		this(parent, config);
+		this.breakId = breakId;
+		this.breakValue = breakValue;
 	}
 
 	/**
@@ -111,18 +126,26 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 		return endCol;
 	}
 
+	public void setBreakId(boolean breakId) {
+		this.breakId = breakId;
+	}
+
+	public void setBreakValue(String breakValue) {
+		this.breakValue = breakValue;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isEndValue(Object value) {
-		if (endKeyId) {
+		if (breakId) {
 			// 自身にクローズ条件の値が設定されている場合
-			if (endValue == null) {
+			if (breakValue == null) {
 				if (value == null) {
 					return true;
 				}
-			} else if (endValue.equals(value)) {
+			} else if (breakValue.equals(value)) {
 				return true;
 			}
 		}
@@ -153,8 +176,8 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 		map.put("endCol", endCol);
 		map.put("beginKeyId", beginKeyId);
 		map.put("beginValue", beginValue);
-		map.put("endKeyId", endKeyId);
-		map.put("endValue", endValue);
+		map.put("endKeyId", breakId);
+		map.put("endValue", breakValue);
 		return map;
 	}
 

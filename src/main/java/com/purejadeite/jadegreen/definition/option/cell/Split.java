@@ -1,12 +1,13 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Arrays;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 指定された区切り文字で文字列を分割するクラス
@@ -41,7 +42,7 @@ public class Split extends AbstractStringCellOption {
 	public Split(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.splitter = RoughlyMapUtils.getString(config, CFG_SPLITTER, "\n");
+		this.splitter = getString(config, CFG_SPLITTER, "\n");
 	}
 
 	/**

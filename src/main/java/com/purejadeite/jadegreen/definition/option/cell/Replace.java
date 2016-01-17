@@ -1,11 +1,12 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列の一部を定義されたマップの値に置き換えるクラス
@@ -38,7 +39,7 @@ public class Replace extends AbstractStringCellOption {
 	public Replace(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
+		this.map = getMap(config, CFG_MAP);
 	}
 
 	/**

@@ -64,7 +64,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 				continue;
 			}
 			contents.add(content);
-			ContentManager.register(getId(), sheetName, content);
+			ContentManager.register(this, content);
 		}
 		LOGGER.debug("create: " + sheetName);
 	}
@@ -174,6 +174,10 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 			cntnts.addAll(content.searchContents(key));
 		}
 		return cntnts;
+	}
+
+	public String getSheetName() {
+		return sheetName;
 	}
 
 	/**

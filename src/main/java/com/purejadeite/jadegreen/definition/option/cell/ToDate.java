@@ -1,9 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.jadegreen.SxssfUtils;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列を Date へ変換するクラス
@@ -25,7 +26,7 @@ public class ToDate extends AbstractStringCellOption {
 	 */
 	public ToDate(Map<String, Object> config) {
 		super();
-		use1904windowing = RoughlyMapUtils.getBooleanValue(config, CFG_USE1904);
+		use1904windowing = getBooleanValue(config, CFG_USE1904);
 	}
 
 	/**

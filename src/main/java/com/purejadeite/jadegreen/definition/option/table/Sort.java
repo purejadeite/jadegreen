@@ -1,12 +1,13 @@
 package com.purejadeite.jadegreen.definition.option.table;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * ソート用テーブルコンバーター
@@ -43,8 +44,8 @@ public class Sort extends AbstractTableOption {
 	public Sort(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.desc = RoughlyMapUtils.getBooleanValue(config, CFG_DESC);
+		this.keyId = getString(config, CFG_KEY_ID);
+		this.desc = getBooleanValue(config, CFG_DESC);
 	}
 
 	/**

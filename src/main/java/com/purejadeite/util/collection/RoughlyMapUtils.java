@@ -281,4 +281,14 @@ public class RoughlyMapUtils {
 		return intoTimestamp(map.get(key), dflt);
 	}
 
+	public static <K, V> V get(Map<K, V> map, @SuppressWarnings("unchecked") K... keys) {
+		for (K key : keys) {
+			V value = map.get(key);
+			if (value != null) {
+				return value;
+			}
+		}
+		return null;
+	}
+
 }

@@ -1,10 +1,11 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.util.EvaluationUtils;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 条件に一致する場合に項目を削除するクラス
@@ -34,8 +35,8 @@ public class Remove extends AbstractStringCellOption {
 	 */
 	public Remove(Map<String, Object> config) {
 		super();
-		this.operator = RoughlyMapUtils.getString(config, CFG_OPERATOR, "==");
-		this.value = RoughlyMapUtils.getString(config, CFG_VALUE, null);
+		this.operator = getString(config, CFG_OPERATOR, "==");
+		this.value = getString(config, CFG_VALUE, null);
 	}
 
 	/**

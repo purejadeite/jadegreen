@@ -15,4 +15,8 @@ public interface TableCellDefinition<P extends TableDefinition<?>> extends CellD
 	 */
 	public boolean isEndValue(Object value);
 
+	public void setBreakId(boolean breakId);
+
+	public void setBreakValue(String breakValue);
+
 }

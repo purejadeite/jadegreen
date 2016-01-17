@@ -46,14 +46,26 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	/**
 	 * コンストラクタ
 	 *
+	 * @param id
+	 *            定義ID
+	 * @param noOutput
+	 *            値の出力有無
+	 */
+	protected AbstractParentDefinition(Map<String, ? extends Object> config) {
+		super(config);
+	}
+
+	/**
+	 * コンストラクタ
+	 *
 	 * @param parent
 	 *            親定義
 	 * @param id
 	 *            定義ID
 	 */
-	protected AbstractParentDefinition(P parent, String id) {
-		super(parent, id);
-	}
+//	protected AbstractParentDefinition(P parent, String id) {
+//		super(parent, id);
+//	}
 
 	/**
 	 * 配下の定義を取得します

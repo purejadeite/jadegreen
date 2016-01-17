@@ -1,12 +1,13 @@
 package com.purejadeite.jadegreen.definition.option.table;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.EvaluationUtils;
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 削除コンバーター
@@ -53,9 +54,9 @@ public class Exclude extends AbstractTableOption {
 	public Exclude(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.operator = RoughlyMapUtils.getString(config, CFG_OPERATOR, "==");
-		this.value = RoughlyMapUtils.getString(config, CFG_VALUE, null);
+		this.keyId = getString(config, CFG_KEY_ID);
+		this.operator = getString(config, CFG_OPERATOR, "==");
+		this.value = getString(config, CFG_VALUE, null);
 	}
 
 	/**

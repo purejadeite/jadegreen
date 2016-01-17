@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.definition;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,6 @@ import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.ColumnRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.RowRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 定義情報を生成するクラスです
@@ -40,19 +40,19 @@ public class DefinitionBuilder {
 	/**
 	 * MapのListから読み込み
 	 *
-	 * @param definition
+	 * @param config
 	 *            JSONから変換されたMAPのLIST形式の定義
 	 * @return Book読み込み定義
 	 */
-	public static WorkbookDefinition build(Map<String, Object> definition) {
+	public static WorkbookDefinition build(Map<String, Object> config) {
 		// bookのビルド
-		WorkbookDefinition book = WorkbookDefinition.newInstance(definition);
-		List<Map<String, Object>> sheetConfigs = RoughlyMapUtils.getList(definition, SHEETS);
+		WorkbookDefinition book = new WorkbookDefinition(config);
+		List<Map<String, Object>> sheetConfigs = getList(config, SHEETS);
 		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド
-			WorksheetDefinition sheet = WorksheetDefinition.newInstance(book, sheetConfig);
+			WorksheetDefinition sheet = new WorksheetDefinition(book, sheetConfig);
 			// cellのビルド
-			List<Map<String, Object>> cellConfigs = RoughlyMapUtils.getList(sheetConfig, CELLS);
+			List<Map<String, Object>> cellConfigs = getList(sheetConfig, CELLS);
 			for (Map<String, Object> cellConfig : cellConfigs) {
 				sheet.addChild(createCell(cellConfig, sheet));
 			}
@@ -93,61 +93,61 @@ public class DefinitionBuilder {
 			// 結合フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = JoinedTableCellDefinitionImpl.newInstance(sheet, table, config);
+				definition = new JoinedTableCellDefinitionImpl(sheet, table, config);
 			} else {
 				// 単独フィールドの場合
-				definition = JoinedCellDefinitionImpl.newInstance(sheet, config);
+				definition = new JoinedCellDefinitionImpl(sheet, config);
 			}
 		} else if (config.containsKey(VALUE)) {
 			// 値フィールドの場合
 			if (table != null) {
 				// 親のあるフィールドの場合
-				definition = TableValueDefinitionImpl.newInstance(sheet, table, config);
+				definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
 			} else {
 				// 単独フィールドの場合
-				definition = ValueDefinitionImpl.newInstance(sheet, config);
+				definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
 			}
 		} else if (table != null) {
 			// 親のあるフィールドの場合
 			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
 				// アドレスなし
-				definition = TableValueDefinitionImpl.newInstance(sheet, table, config);
+				definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
 			} else if (table instanceof RowRepeatDefinitionImpl) {
 				// 行方向の繰り返し内のフィールドの場合
-				definition = RowCellDefinitionImpl.newInstance(sheet, table, config);
+				definition = new RowCellDefinitionImpl(table, config);
 			} else if (table instanceof ColumnRepeatDefinitionImpl) {
 				// 列方向の繰り返し内のフィールドの場合
-				definition = ColumnCellDefinitionImpl.newInstance(sheet, table, config);
+				definition = new ColumnCellDefinitionImpl(table, config);
 			}
 		} else if (config.containsKey(COLUMNS)) {
 			// 行方向の繰り返しの場合
-			List<Map<String, Object>> columns = RoughlyMapUtils.getList(config, COLUMNS);
-			TableDefinition<?> rowTable = RowRepeatDefinitionImpl.newInstance(sheet, config);
+			List<Map<String, Object>> columns = getList(config, COLUMNS);
+			TableDefinition<?> rowTable = new RowRepeatDefinitionImpl(sheet, config);
 			rowTable.addChildren(createCells(columns, sheet, rowTable));
 			definition = rowTable;
 		} else if (config.containsKey(ROWS)) {
 			// 列方向の繰り返しの場合
 			// TODO 現在未対応
-			List<Map<String, Object>> rows = RoughlyMapUtils.getList(config, ROWS);
-			TableDefinition<?> columnTable = ColumnRepeatDefinitionImpl.newInstance(sheet, config);
+			List<Map<String, Object>> rows = getList(config, ROWS);
+			TableDefinition<?> columnTable = new ColumnRepeatDefinitionImpl(sheet, config);
 			columnTable.addChildren(createCells(rows, sheet, columnTable));
 			definition = columnTable;
 		} else {
 			// 単独フィールドの場合
 			if (!config.containsKey(ROW) && !config.containsKey(COLUMN)) {
 				// アドレスなし
-				definition = ValueDefinitionImpl.newInstance(sheet, config);
+				definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
 			} else if (config.containsKey(SPLITTER)) {
-				definition = ListCellDefinitionImpl.newInstance(sheet, config);
+				definition = new ListCellDefinitionImpl(sheet, config);
 			} else {
-				definition = CellDefinitionImpl.newInstance(sheet, config);
+				definition = new CellDefinitionImpl(sheet, config);
 			}
 		}
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
 			DefinitionManager.register(sheet, definition);
 		} else {
-			String id = RoughlyMapUtils.getString(config, ID);
+			String id = getString(config, ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");
 		}
 		return definition;

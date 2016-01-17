@@ -1,9 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 固定値を提供するクラス
@@ -38,7 +39,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	public Fixed(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		value = RoughlyMapUtils.getString(config, CFG_VALUE);
+		value = getString(config, CFG_VALUE);
 	}
 
 	/**

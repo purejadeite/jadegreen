@@ -1,12 +1,11 @@
 package com.purejadeite.jadegreen.definition.cell;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 固定値の定義です
@@ -23,46 +22,18 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 * コンストラクタ
 	 *
 	 * @param parent
-	 *            シート読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param row
-	 *            取得対象行
-	 * @param col
-	 *            取得対象列
-	 * @param options
-	 *            コンバーター
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	private ValueDefinitionImpl(P parent, String id, String value, List<Map<String, Object>> options) {
-		super(parent, id, options);
-		this.value = value;
-	}
-
-	/**
-	 * インスタンスを取得します
-	 *
-	 * @param parent
-	 *            シート読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param row
-	 *            取得対象行
-	 * @param col
-	 *            取得対象列
-	 * @param options
-	 *            コンバーター
-	 * @return ラップされたCell読み込み定義
-	 */
-	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
-		String id = RoughlyMapUtils.getString(config, ID);
-		String value = RoughlyMapUtils.getString(config, VALUE);
-		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new ValueDefinitionImpl<P>(parent, id, value, options);
+	public ValueDefinitionImpl(P parent, Map<String, Object> config) {
+		super(parent, config);
+		this.value = getString(config, VALUE);
 	}
 
 	@Override
 	public Object applyOptions(Object value) {
-		return super.applyOptions(value);
+		return super.applyOptions(this.value);
 	}
 	/**
 	 * {@inheritDoc}

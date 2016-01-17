@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.option.table;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -12,7 +14,6 @@ import com.purejadeite.jadegreen.JadegreenException;
 import com.purejadeite.jadegreen.definition.DefinitionKeys;
 import com.purejadeite.jadegreen.definition.option.Option;
 import com.purejadeite.jadegreen.definition.option.Options;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * テーブルの変換を行うコンバーターインスタンスを生成するクラスです
@@ -48,7 +49,7 @@ public class TableOptionManager {
 		List<Option> options = new ArrayList<>();
 		Option option = null;
 		for (Map<String, Object> opt : opts) {
-			String type = RoughlyMapUtils.getString(opt, DefinitionKeys.TYPE);
+			String type = getString(opt, DefinitionKeys.TYPE);
 			option = build(type, opt);
 			if (option == null) {
 				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");

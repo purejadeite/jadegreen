@@ -1,12 +1,13 @@
 package com.purejadeite.jadegreen.definition.option.table;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * IDの置換用テーブルコンバーター
@@ -44,8 +45,8 @@ public class ReplaceId extends AbstractTableOption {
 	public ReplaceId(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.newIds = RoughlyMapUtils.getMap(config, CFG_NEW_IDS);
+		this.keyId = getString(config, CFG_KEY_ID);
+		this.newIds = getMap(config, CFG_NEW_IDS);
 	}
 
 	/**
@@ -57,19 +58,19 @@ public class ReplaceId extends AbstractTableOption {
 		List<Map<String, Object>> converted = new ArrayList<>();
 		for (Map<String, Object> line : values) {
 			// 対象の行か？
-			String keyValue = RoughlyMapUtils.getString(line, keyId);
+			String keyValue = getString(line, keyId);
 			if (newIds.containsKey(keyValue)) {
 				// 対象の行の場合は指定の項目のidを差し替える
 				Map<String, Object> modefied = new HashMap<>();
 				// 元のMapはいじりたくないので別のMapを作る
 				modefied.putAll(line);
 				// キーの値に対応するidを取得
-				Map<String, Object> idMap = RoughlyMapUtils.getMap(newIds, keyValue);
+				Map<String, Object> idMap = getMap(newIds, keyValue);
 				if (idMap == null) {
 					continue;
 				} else {
 					for (String orgId : idMap.keySet()) {
-						String replacedId = RoughlyMapUtils.getString(idMap, orgId);
+						String replacedId = getString(idMap, orgId);
 						if (replacedId == null) {
 							// nullの場合は削除
 							modefied.remove(replacedId);

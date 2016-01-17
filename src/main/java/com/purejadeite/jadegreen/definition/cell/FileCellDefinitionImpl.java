@@ -1,10 +1,10 @@
 package com.purejadeite.jadegreen.definition.cell;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * ファイル読み込みの定義です
@@ -31,45 +30,13 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 	 * コンストラクタ
 	 *
 	 * @param parent
-	 *            シート読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param noOutput
-	 *            出力可否
-	 * @param row
-	 *            取得対象行
-	 * @param col
-	 *            取得対象列
-	 * @param options
-	 *            コンバーター
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	private FileCellDefinitionImpl(P parent, String id, String filePath, List<Map<String, Object>> options) {
-		super(parent, id, options);
-		this.filePath = filePath;
-	}
-
-	/**
-	 * インスタンスを取得します
-	 *
-	 * @param parent
-	 *            シート読み込み定義
-	 * @param id
-	 *            定義ID
-	 * @param noOutput
-	 *            出力可否
-	 * @param row
-	 *            取得対象行
-	 * @param col
-	 *            取得対象列
-	 * @param options
-	 *            コンバーター
-	 * @return ラップされたCell読み込み定義
-	 */
-	public static <P extends ParentDefinition<?, ?>> CellDefinition<P> newInstance(P parent, Map<String, Object> config) {
-		String id = RoughlyMapUtils.getString(config, ID);
-		String filePath = RoughlyMapUtils.getString(config, FILE);
-		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		return new FileCellDefinitionImpl<P>(parent, id, filePath, options);
+	private FileCellDefinitionImpl(P parent, Map<String, Object> config) {
+		super(parent, config);
+		this.filePath = getString(config, FILE);
 	}
 
 	/**

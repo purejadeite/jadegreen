@@ -1,8 +1,8 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
-import java.util.Map;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
-import com.purejadeite.util.collection.RoughlyMapUtils;
+import java.util.Map;
 
 /**
  * 文字列を変換する抽象クラスです
@@ -27,8 +27,8 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	 */
 	public AbstractNumberCellOption(Map<String, Object> config) {
 		super();
-		this.nullToZero = RoughlyMapUtils.getBooleanValue(config, CFG_NULL_TO_ZERO, true);
-		this.emptyToZero = RoughlyMapUtils.getBooleanValue(config, CFG_EMPTY_TO_ZERO, true);
+		this.nullToZero = getBooleanValue(config, CFG_NULL_TO_ZERO, true);
+		this.emptyToZero = getBooleanValue(config, CFG_EMPTY_TO_ZERO, true);
 	}
 
 	/**

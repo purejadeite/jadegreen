@@ -1,11 +1,12 @@
 package com.purejadeite.jadegreen.definition.option.table;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * Key-Value型テーブルコンバーター
@@ -43,8 +44,8 @@ public class KeyValue extends AbstractTableOption {
 	public KeyValue(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = RoughlyMapUtils.getString(config, CFG_KEY_ID);
-		this.valueId = RoughlyMapUtils.getString(config, CFG_VALUE_ID);
+		this.keyId = getString(config, CFG_KEY_ID);
+		this.valueId = getString(config, CFG_VALUE_ID);
 	}
 
 	/**

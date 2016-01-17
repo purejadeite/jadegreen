@@ -1,5 +1,8 @@
 package com.purejadeite.jadegreen.definition.table;
 
+import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +10,6 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.option.Options;
 import com.purejadeite.jadegreen.definition.option.table.TableOptionManager;
 
 /**
@@ -56,51 +58,45 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	protected String breakValue = null;
 
 	/**
-	 * オプション
-	 */
-	protected Options options;
-
-	/**
 	 * レコード数
 	 */
 	protected int size = 0;
 
 	/**
 	 * コンストラクタ
-	 * @param parent 親の読み込み情報
-	 * @param id 定義ID
-	 * @param begin 開始位置
-	 * @param end 終了位置
-	 * @param endKey 開始キー項目
-	 * @param breakValue 終了キー値
-	 * @param options オプション
+	 *
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	protected AbstractTableDefinition(WorksheetDefinition parent, String id, int begin,
-			int end, String breakId, String breakValue, List<Map<String, Object>> options) {
-		super(parent, id);
-		this.begin = begin;
-		this.end = end <= 0 ? Integer.MAX_VALUE : end;
-		this.breakId = breakId;
-		this.breakValue = breakValue;
-		this.options = TableOptionManager.build(options);
+	protected AbstractTableDefinition(WorksheetDefinition parent, Map<String, Object> config) {
+		super(parent, config);
+		this.begin = getIntValue(config, getBeginDefinitionKey());
+		this.end = getIntValue(config, getEndConfigDefinitionKey(), Integer.MAX_VALUE);
+		this.breakId = getString(config, BREAK_ID);
+		this.breakValue = getString(config, BREAK_VALUE);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Options getOptions() {
-		return options;
+	protected void buildOptions(List<Map<String, Object>> options) {
+		this.options = TableOptionManager.build(options);
 	}
 
-	@Override
-	public Object applyOptions(Object value) {
-		if (options == null) {
-			return value;
-		} else {
-			return options.apply(value);
-		}
-	}
+	/**
+	 * 開始定義のキー名を取得します
+	 * @return 開始定義のキー
+	 */
+	abstract protected String getBeginDefinitionKey();
+
+	/**
+	 * 終了定義のキー名を取得します
+	 * @return 終了定義のキー
+	 */
+	abstract protected String getEndConfigDefinitionKey();
 
 	/**
 	 * {@inheritDoc}
@@ -163,10 +159,17 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 */
 	@Override
 	public void addChild(C child) {
-		if (cells.isEmpty()) {
+		if (child.getId().equals(breakId)) {
+			// 終了条件に指定されている場合
+			child.setBreakId(true);
+			child.setBreakValue(breakValue);
+		} else if (cells.isEmpty()) {
+			// 先頭セルの場合
 			if (end == Integer.MAX_VALUE && breakId == null) {
-				// 終了条件が設定されていない場合は、先頭の項目がnullになった時に終了
+				// 終了条件が設定されていない場合に、項目がnullになった時に終了
 				breakId = child.getId();
+				child.setBreakId(true);
+				child.setBreakValue(breakValue);
 			}
 		}
 		cells.add(child);
@@ -200,11 +203,6 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);
-		if (options != null) {
-			map.put("options", options.toMap());
-		} else {
-			map.put("options", null);
-		}
 		return map;
 	}
 }

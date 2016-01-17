@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * コンテンツを管理するクラスです
@@ -16,12 +16,33 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 public class ContentManager {
 
 	// シート毎に全ての定義を保持するマップ
+	private static Map<WorksheetContent, Content<?>> contents0 = new HashMap<>();
 	private static Map<String, Map<String, Map<String, Content<?>>>> contents = new HashMap<>();
 
+	// definitionからcontentを取れるマップ
+	private static Map<String, List<Content<?>>> defCons = new HashMap<>();
+
+	// contentからsheetを取れるマップ(ContentにtoHashを実装しないとだめ)
+	private static Map<Content<?>, WorksheetContent> conSheet = new HashMap<>();
+
+	public static boolean register(WorksheetContent sheet, Content<?> content) {
+//		conSheet.put(content, sheet);
+		return register(sheet.getId(), sheet.getSheetName(), content);
+	}
+
 	public static boolean register(String sheetId, String sheetName, Content<?> content) {
+		// definitionからcontentを取れるマップ
+		List<Content<?>> cons = defCons.get(content.getDefinition().getFullId());
+		if (cons == null) {
+			cons = new ArrayList<>();
+			defCons.put(content.getDefinition().getFullId(), cons);
+		}
+		cons.add(content);
+		// シート毎に全ての定義を保持するマップ
 		Map<String, Content<?>> sheetContents = getSheetContents(sheetId, sheetName, true);
 		return sheetContents.put(content.getId(), content) == null;
 	}
+
 
 	public static boolean register(String sheetId, String sheetName, List<Content<?>> contents) {
 		boolean result = true;
@@ -55,6 +76,14 @@ public class ContentManager {
 		return sheetContents;
 	}
 
+	public static Content<?> get(WorksheetContent sheet, Definition<?> definition) {
+		return get(sheet, definition.getId());
+	}
+
+	public static Content<?> get(WorksheetContent sheet, String id) {
+		return get(sheet.getDefinition().getId(), sheet.getSheetName(), id);
+	}
+
 	public static Content<?> get(String sheetId, String sheetName, String id) {
 		Map<String, Content<?>> sheetContents = getSheetContents(sheetId, sheetName, false);
 		if (sheetContents == null) {
@@ -78,8 +107,12 @@ public class ContentManager {
 		return c;
 	}
 
-	public static List<Content<?>> get(CellDefinition<?> definition) {
-		return get(definition.getSheet().getId(), definition.getId());
+	public static List<Content<?>> get(Definition<?> definition) {
+		return defCons.get(definition.getFullId());
+	}
+
+	public static Content<?> getSheet(Content<?> leftDef, Content<?> rightDef) {
+		return null;
 	}
 
 }

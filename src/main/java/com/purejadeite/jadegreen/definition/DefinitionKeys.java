@@ -100,12 +100,7 @@ public class DefinitionKeys {
 	/**
 	 * オプション
 	 */
-	public static final String OPTIONS = "options";
-
-	/**
-	 * オプション
-	 */
-	public static final String OPTION = "option";
+	public static final String[] OPTIONS = {"options", "option"};
 
 	/**
 	 * コンバータークラス

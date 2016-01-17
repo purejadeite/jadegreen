@@ -50,13 +50,11 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 */
 	@Override
 	public Object getValuesImpl() {
-		// Contentのルートを取得
-		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
 		// 自分のsheetを取得
 		WorksheetContent sheet = this.getUpperContent(WorksheetContent.class);
 
 		// 全Contentから欲しい値のContentを取得
-		List<Content<?>> valueContents = book.searchContents(definition.getValueDefinition());
+		List<Content<?>> valueContents = ContentManager.get(definition.getValueDefinition());
 		if (valueContents.isEmpty()) {
 			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
 			LOGGER.warn("結合元のキー値に一致する結合先のキー値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
@@ -64,13 +62,13 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 		}
 
 		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content<?>> keyContents = JoinedContentUtils.getKeyContents(book, definition);
+		List<Content<?>> keyContents = ContentManager.get(definition.getKeyDefinition());
 		if (keyContents == null) {
 			throw new IllegalStateException("結合先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
 		}
 
 		// 自分の属するシートのキーを取得
-		Content<?> myKeyContent = JoinedContentUtils.getMyKeyContent(sheet, definition);
+		Content<?> myKeyContent = ContentManager.get(sheet, definition.getMyKeyDefinition());
 		if (myKeyContent == null) {
 			throw new IllegalStateException("結合元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
 		}

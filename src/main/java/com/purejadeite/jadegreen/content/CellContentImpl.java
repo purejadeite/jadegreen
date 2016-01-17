@@ -49,4 +49,5 @@ public class CellContentImpl extends AbstractCellContent<CellDefinition<?>> {
 		// 未取得
 		return NO;
 	}
+
 }

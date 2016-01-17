@@ -1,6 +1,5 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
@@ -21,14 +20,11 @@ abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinition<
 	 *
 	 * @param parent
 	 *            親定義
-	 * @param id
-	 *            定義ID
-	 * @param options
-	 *            オプション
+	 * @param config
+	 *            コンフィグ
 	 */
-	protected AbstractNoAdressCellDefinition(P parent, String id,
-			List<Map<String, Object>> options) {
-		super(parent, id, options);
+	protected AbstractNoAdressCellDefinition(P parent, Map<String, Object> config) {
+		super(parent, config);
 	}
 
 	@Override

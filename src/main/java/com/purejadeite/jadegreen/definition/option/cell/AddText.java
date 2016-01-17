@@ -1,10 +1,10 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列の前後に文字列を追加するクラス
@@ -43,9 +43,9 @@ public class AddText extends AbstractStringCellOption {
 	 */
 	public AddText(Map<String, Object> config) {
 		super();
-		this.prefix = RoughlyMapUtils.getString(config, CFG_PREFIX);
-		this.suffix = RoughlyMapUtils.getString(config, CFG_SUFFIX);
-		this.ignoreEmpty = RoughlyMapUtils.getBooleanValue(config, CFG_IGNORE_EMPTY);
+		this.prefix = getString(config, CFG_PREFIX);
+		this.suffix = getString(config, CFG_SUFFIX);
+		this.ignoreEmpty = getBooleanValue(config, CFG_IGNORE_EMPTY);
 	}
 
 	/**

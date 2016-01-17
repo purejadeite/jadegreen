@@ -1,8 +1,8 @@
 package com.purejadeite.jadegreen.definition.cell;
 
 import static com.purejadeite.jadegreen.definition.DefinitionKeys.*;
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -13,7 +13,6 @@ import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * Tableの構成要素となるCell結合定義
@@ -24,17 +23,9 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 
 	private static final long serialVersionUID = 2442986614257910095L;
 
-	private static final String CFG_SHEET_ID = "sheetId";
+	public static final String CFG_TABLE_KEY_ID = "tableKeyId";
 
-	private static final String CFG_KEY_ID = "keyId";
-
-	private static final String CFG_TABLE_KEY_ID = "tableKeyId";
-
-	private static final String CFG_VALUE_ID = "valueId";
-
-	private static final String CFG_MY_KEY_ID = "myKeyId";
-
-	private static final String CFG_MY_TABLE_KEY_ID = "myTableKeyId";
+	public static final String CFG_MY_TABLE_KEY_ID = "myTableKeyId";
 
 	/**
 	 * 必須項目名称
@@ -72,18 +63,19 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	private String myTableKeyId;
 
 	/**
+	 * コンストラクタ
 	 *
-	 * @param book
-	 * @param table
-	 * @param id
-	 * @param options
-	 * @param joinConfig
+	 * @param sheet
+	 *            シート定義
+	 * @param parent
+	 *            親定義
+	 * @param config
+	 *            コンフィグ
 	 */
-	public JoinedTableCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> table, String id,
-			List<Map<String, Object>> options, Map<String, String> joinConfig) {
-		super(table, id, options);
+	public JoinedTableCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> parent, Map<String, Object> config) {
+		super(parent, config);
+		Map<String, String> joinConfig = getMap(config, JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);
-		this.sheet = sheet;
 		// 相手シートのID
 		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
 		// 相手シートのキー項目のID
@@ -96,13 +88,6 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 		myTableKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_TABLE_KEY_ID), tableKeyId);
 		// 相手シートから取得する項目のID
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
-	}
-
-	public static CellDefinition<TableDefinition<?>> newInstance(WorksheetDefinition sheet, TableDefinition<?> table, Map<String, Object> config) {
-		String id = RoughlyMapUtils.getString(config, ID);
-		List<Map<String, Object>> options = RoughlyMapUtils.getList(config, OPTIONS);
-		Map<String, String> join = RoughlyMapUtils.getMap(config, JOIN);
-		return new JoinedTableCellDefinitionImpl(sheet, table, id, options, join);
 	}
 
 	public String getSheetId() {
@@ -121,14 +106,14 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyTableKeyDefinition() {
-		return DefinitionManager.get(sheet, myTableKeyId);
+		return DefinitionManager.getSheetsDefinition(this, myTableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyKeyDefinition() {
-		return DefinitionManager.get(sheet, myKeyId);
+		return DefinitionManager.getSheetsDefinition(this, myKeyId);
 	}
 
 	/**

@@ -2,8 +2,6 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
-import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
  * Cell読み込み定義のインターフェイス
@@ -40,21 +38,5 @@ public interface CellDefinition<P extends ParentDefinition<?, ?>> extends Defini
 	 * @return
 	 */
 	public boolean isIncluded(int row, int col);
-
-	/**
-	 * コンバーターなどを取得します
-	 * @return コンバーターなどのオプション
-	 */
-	public Options getOptions();
-
-	/**
-	 * シートの定義を設定します
-	 */
-	public void setSheet(WorksheetDefinition sheet);
-
-	/**
-	 * シートの定義を取得します
-	 */
-	public WorksheetDefinition getSheet();
 
 }

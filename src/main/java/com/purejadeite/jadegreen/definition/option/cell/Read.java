@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -8,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.util.SimpleValidator;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 
 /**
  * 文字列を定義されたマップに応じたファイルを読み込むクラス
@@ -50,8 +51,8 @@ public class Read extends AbstractCellOption {
 	public Read(Map<String, Object> config) {
 		super();
 		SimpleValidator.containsKey(config, CONFIG);
-		this.file = RoughlyMapUtils.getString(config, CFG_DEFAULT);
-		this.map = RoughlyMapUtils.getMap(config, CFG_MAP);
+		this.file = getString(config, CFG_DEFAULT);
+		this.map = getMap(config, CFG_MAP);
 	}
 
 	/**
