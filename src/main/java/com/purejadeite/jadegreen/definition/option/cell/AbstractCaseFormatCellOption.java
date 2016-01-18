@@ -26,8 +26,8 @@ abstract public class AbstractCaseFormatCellOption extends AbstractStringCellOpt
 	 * コンストラクタ
 	 * @param cell Cell読み込み定義
 	 */
-	public AbstractCaseFormatCellOption() {
-		super();
+	public AbstractCaseFormatCellOption(String id) {
+		super(id);
 	}
 
 	/**

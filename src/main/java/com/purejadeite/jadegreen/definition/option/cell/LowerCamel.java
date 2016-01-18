@@ -22,8 +22,8 @@ public class LowerCamel extends AbstractCaseFormatCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public LowerCamel(Map<String, Object> config) {
-		super();
+	public LowerCamel(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

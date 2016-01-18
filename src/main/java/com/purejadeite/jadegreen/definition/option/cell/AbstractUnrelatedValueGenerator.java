@@ -19,7 +19,8 @@ abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedVal
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractUnrelatedValueGenerator() {
+	public AbstractUnrelatedValueGenerator(String id) {
+		super(id);
 	}
 
 	/**

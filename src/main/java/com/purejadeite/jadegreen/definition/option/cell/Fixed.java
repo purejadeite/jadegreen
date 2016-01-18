@@ -36,8 +36,8 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Fixed(Map<String, Object> config) {
-		super();
+	public Fixed(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		value = getString(config, CFG_VALUE);
 	}
@@ -46,8 +46,8 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
-		return value;
+	protected Object applyImpl(Object value) {
+		return this.value;
 	}
 
 	@Override

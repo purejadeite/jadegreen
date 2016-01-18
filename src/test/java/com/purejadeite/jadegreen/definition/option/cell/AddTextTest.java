@@ -13,7 +13,7 @@ public class AddTextTest extends AbstractOptionTest {
 	public void prefix() {
 		Map<String, Object> config = new HashMap<>();
 		config.put("prefix", "0");
-		AddText option = new AddText(config);
+		AddText option = new AddText(null, config);
 		assertOption(option, "ABC" ,"0ABC");
 	}
 
@@ -21,7 +21,7 @@ public class AddTextTest extends AbstractOptionTest {
 	public void suffix() {
 		Map<String, Object> config = new HashMap<>();
 		config.put("suffix", "1");
-		AddText option = new AddText(config);
+		AddText option = new AddText(null, config);
 		assertOption(option, "ABC" ,"ABC1");
 	}
 
@@ -30,7 +30,7 @@ public class AddTextTest extends AbstractOptionTest {
 		Map<String, Object> config = new HashMap<>();
 		config.put("prefix", "0");
 		config.put("suffix", "1");
-		AddText option = new AddText(config);
+		AddText option = new AddText(null, config);
 		assertOption(option, "ABC" ,"0ABC1");
 	}
 
@@ -40,7 +40,7 @@ public class AddTextTest extends AbstractOptionTest {
 		config.put("prefix", "0");
 		config.put("suffix", "1");
 		config.put("ignoreEmpty", true);
-		AddText option = new AddText(config);
+		AddText option = new AddText(null, config);
 		assertOption(option, "" ,"");
 	}
 
@@ -50,7 +50,7 @@ public class AddTextTest extends AbstractOptionTest {
 		config.put("prefix", "0");
 		config.put("suffix", "1");
 		config.put("ignoreEmpty", true);
-		AddText option = new AddText(config);
+		AddText option = new AddText(null, config);
 		assertOption(option, null ,null);
 	}
 

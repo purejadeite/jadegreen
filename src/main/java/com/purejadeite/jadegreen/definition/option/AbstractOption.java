@@ -12,15 +12,22 @@ import java.util.Map;
  */
 abstract public class AbstractOption implements Option, Serializable {
 
+	private String id;
+
 	/**
 	 * コンストラクタ
 	 *
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractOption() {
+	public AbstractOption(String id) {
+		this.id = id;
 	}
 
+	@Override
+	public String getId() {
+		return id;
+	}
 
 	/**
 	 * {@inheritDoc}

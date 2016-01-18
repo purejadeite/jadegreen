@@ -24,8 +24,8 @@ public class ToDate extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToDate(Map<String, Object> config) {
-		super();
+	public ToDate(String id, Map<String, Object> config) {
+		super(id);
 		use1904windowing = getBooleanValue(config, CFG_USE1904);
 	}
 

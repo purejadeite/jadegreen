@@ -8,5 +8,4 @@ import com.purejadeite.jadegreen.definition.option.Option;
  *
  */
 public interface CellOption extends Option {
-
 }

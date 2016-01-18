@@ -39,8 +39,8 @@ public class Split extends AbstractStringCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Split(Map<String, Object> config) {
-		super();
+	public Split(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.splitter = getString(config, CFG_SPLITTER, "\n");
 	}

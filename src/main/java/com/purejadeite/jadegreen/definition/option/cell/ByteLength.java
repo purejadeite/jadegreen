@@ -25,8 +25,8 @@ public class ByteLength extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ByteLength(Map<String, Object> config) {
-		super();
+	public ByteLength(String id, Map<String, Object> config) {
+		super(id);
 		this.encode = getString(config, CFG_ENCODE);
 	}
 

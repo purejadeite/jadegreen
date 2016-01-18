@@ -17,8 +17,8 @@ public class Now extends AbstractUnrelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Now(Map<String, Object> config) {
-		super();
+	public Now(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

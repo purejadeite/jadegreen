@@ -36,8 +36,8 @@ public class Replace extends AbstractStringCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Replace(Map<String, Object> config) {
-		super();
+	public Replace(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.map = getMap(config, CFG_MAP);
 	}

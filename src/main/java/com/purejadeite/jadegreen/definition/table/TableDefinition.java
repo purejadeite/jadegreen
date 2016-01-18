@@ -48,13 +48,13 @@ public interface TableDefinition<C extends TableCellDefinition<?>> extends Paren
 	 * 終了条件になる項目の値を取得します
 	 * @return 値
 	 */
-	public String getBreakValue();
+	public List<String> getBreakValues();
 
 	/**
 	 * 終了条件になる項目の値を設定します
 	 * @param endValue 値
 	 */
-	public void setBreakValue(String breakValue);
+	public void setBreakValues(List<String> breakValues);
 
 	/**
 	 * 開始行/列を取得します

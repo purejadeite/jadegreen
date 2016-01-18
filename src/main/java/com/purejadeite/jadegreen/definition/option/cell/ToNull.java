@@ -18,8 +18,8 @@ public class ToNull extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToNull(Map<String, Object> config) {
-		super();
+	public ToNull(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

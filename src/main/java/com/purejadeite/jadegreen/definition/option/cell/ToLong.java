@@ -18,8 +18,8 @@ public class ToLong extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToLong(Map<String, Object> config) {
-		super();
+	public ToLong(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

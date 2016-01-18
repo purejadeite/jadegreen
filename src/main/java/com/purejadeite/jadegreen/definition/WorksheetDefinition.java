@@ -311,7 +311,7 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(List<Map<String, Object>> options) {
+	protected void buildOptions(String id, List<Map<String, Object>> options) {
 		// 現在はworksheet用のOptionsは無し
 	}
 

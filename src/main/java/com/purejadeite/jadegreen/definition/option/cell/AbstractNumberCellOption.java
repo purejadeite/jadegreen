@@ -25,8 +25,8 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractNumberCellOption(Map<String, Object> config) {
-		super();
+	public AbstractNumberCellOption(String id, Map<String, Object> config) {
+		super(id);
 		this.nullToZero = getBooleanValue(config, CFG_NULL_TO_ZERO, true);
 		this.emptyToZero = getBooleanValue(config, CFG_EMPTY_TO_ZERO, true);
 	}

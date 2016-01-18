@@ -13,8 +13,8 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractStringCellOption() {
-		super();
+	public AbstractStringCellOption(String id) {
+		super(id);
 	}
 
 	/**

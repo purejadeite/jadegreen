@@ -45,8 +45,8 @@ public class Group extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Group(Map<String, Object> config) {
-		super();
+	public Group(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		List<String> groupId = getList(config, CFG_GROUPS_GROUP_ID);
 		if (groupId == null) {

@@ -42,8 +42,8 @@ public class ReplaceId extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public ReplaceId(Map<String, Object> config) {
-		super();
+	public ReplaceId(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.newIds = getMap(config, CFG_NEW_IDS);

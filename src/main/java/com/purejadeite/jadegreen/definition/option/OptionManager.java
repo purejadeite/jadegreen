@@ -34,7 +34,7 @@ public class OptionManager<O extends Option> {
 		OPTIONS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-	public Options build(List<Map<String, Object>> opts) {
+	public Options build(String id, List<Map<String, Object>> opts) {
 		if (opts == null || opts.size() == 0) {
 			return null;
 		}
@@ -42,14 +42,14 @@ public class OptionManager<O extends Option> {
 		Option option = null;
 		for (Map<String, Object> opt : opts) {
 			String type = getString(opt, Option.CFG_TYPE);
-			option = build(type, opt);
+			option = build(id, type, opt);
 			if (option == null) {
 				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");
 			} else {
 				options.add(option);
 			}
 		}
-		return new Options(options);
+		return new Options(id, options);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class OptionManager<O extends Option> {
 	 * @param config コンバーターのコンフィグ
 	 * @return コンバーター
 	 */
-	public Option build(String type, Map<String, Object> config) {
+	public Option build(String id, String type, Map<String, Object> config) {
 		// クラスを取得
 		Class<? extends O> clazz = OPTIONS.get(type.toLowerCase());
 		if (clazz == null) {
@@ -66,17 +66,17 @@ public class OptionManager<O extends Option> {
 		// コンストラクタを取得
 		Constructor<? extends O> constructor;
 		try {
-			constructor = clazz.getConstructor(Map.class);
+			constructor = clazz.getConstructor(String.class, Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new JadegreenException("option type = " + type + ":optionsのclassからコンストラクターを取得できません", e);
+			throw new JadegreenException("option id=" + id + ",type = " + type + ":optionsのclassからコンストラクターを取得できません", e);
 		}
 
 		// インスタンスを取得
 		O option = null;
 		try {
-			option = constructor.newInstance(config);
+			option = constructor.newInstance(id, config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new JadegreenException("option type = " + type + ": " + e.getCause().getMessage() ,e);
+			throw new JadegreenException("option id=" + id + ",type = " + type + ": " + e.getCause().getMessage() ,e);
 		}
 		return option;
 	}

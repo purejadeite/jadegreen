@@ -35,8 +35,8 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(List<Map<String, Object>> options) {
-		this.options = CellOptionManager.build(options);
+	protected void buildOptions(String id, List<Map<String, Object>> options) {
+		this.options = CellOptionManager.build(id, options);
 	}
 
 	/**

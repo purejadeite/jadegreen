@@ -27,20 +27,6 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 		super(parent, config);
 	}
 
-	/**
-	 * コンストラクタ
-	 *
-	 * @param parent
-	 *            親定義
-	 * @param config
-	 *            コンフィグ
-	 * @param breakId 終了キー項目
-	 * @param breakValue 終了キー値
-	 */
-	private ColumnCellDefinitionImpl(TableDefinition<?> parent, Map<String, Object> config, boolean breakId, String breakValue) {
-		super(parent, config, breakId, breakValue);
-	}
-
 	@Override
 	protected int toBeginRow(TableDefinition<?> parent, Map<String, Object> config) {
 		return getIntValue(config, CFG_ROW);

@@ -23,7 +23,8 @@ abstract public class AbstractCellOption extends AbstractOption implements CellO
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractCellOption() {
+	public AbstractCellOption(String id) {
+		super(id);
 	}
 
 	public Object apply(Object value) {

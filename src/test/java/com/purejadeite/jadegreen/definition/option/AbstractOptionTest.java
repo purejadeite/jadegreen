@@ -27,7 +27,7 @@ abstract public class AbstractOptionTest {
 	protected Option getOption(String type) {
 		Map<String, Object> config = new HashMap<>();
 		config.put(Option.CFG_TYPE, type);
-		return CellOptionManager.build(type, config);
+		return CellOptionManager.build(null, type, config);
 	}
 
 	protected Map<String, Object> getConfig(String type) {

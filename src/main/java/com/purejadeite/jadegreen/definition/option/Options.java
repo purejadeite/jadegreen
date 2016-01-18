@@ -17,7 +17,8 @@ public class Options extends AbstractOption {
 	 * コンストラクタ
 	 * @param options オプションリスト
 	 */
-	public Options (List<Option> options) {
+	public Options (String id, List<Option> options) {
+		super(id);
 		this.options = options;
 	}
 

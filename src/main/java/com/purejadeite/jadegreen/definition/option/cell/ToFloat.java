@@ -18,8 +18,8 @@ public class ToFloat extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToFloat(Map<String, Object> config) {
-		super();
+	public ToFloat(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

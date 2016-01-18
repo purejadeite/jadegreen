@@ -41,8 +41,8 @@ public class KeyValue extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public KeyValue(Map<String, Object> config) {
-		super();
+	public KeyValue(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.valueId = getString(config, CFG_VALUE_ID);

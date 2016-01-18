@@ -43,8 +43,8 @@ public class Mapping extends AbstractCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Mapping(Map<String, Object> config) {
-		super();
+	public Mapping(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.map = getMap(config, CFG_MAP);
 		this.lazy = getBooleanValue(config, CFG_LAZY);

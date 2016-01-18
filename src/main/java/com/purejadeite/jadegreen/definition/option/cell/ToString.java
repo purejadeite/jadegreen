@@ -16,8 +16,8 @@ public class ToString extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToString(Map<String, Object> config) {
-		super();
+	public ToString(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

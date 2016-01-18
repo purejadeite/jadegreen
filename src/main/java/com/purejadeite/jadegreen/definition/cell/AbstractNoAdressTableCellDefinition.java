@@ -1,5 +1,6 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -32,10 +33,12 @@ abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinit
 		return false;
 	}
 
+	@Override
 	public void setBreakId(boolean breakId) {
 	}
 
-	public void setBreakValue(String breakValue) {
+	@Override
+	public void setBreakValues(List<String> breakValues) {
 	}
 
 }

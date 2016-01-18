@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import java.util.List;
+
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -17,6 +19,6 @@ public interface TableCellDefinition<P extends TableDefinition<?>> extends CellD
 
 	public void setBreakId(boolean breakId);
 
-	public void setBreakValue(String breakValue);
+	public void setBreakValues(List<String> breakValues);
 
 }

@@ -163,15 +163,15 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>>impleme
 			}
 			for (int i = 0; i < vals.size(); i++) {
 				Object val = vals.get(i);
-				Map<String, Object> line = null;
+				Map<String, Object> record = null;
 				if (values.size() < i + 1) {
-					line = new HashMap<>();
-					values.add(line);
+					record = new HashMap<>();
+					values.add(record);
 				} else {
-					line = values.get(i);
+					record = values.get(i);
 				}
 				if (!SpecificValue.UNDEFINED.equals(val)) {
-					line.put(cell.getId(), val);
+					record.put(cell.getId(), val);
 				}
 			}
 		}

@@ -22,6 +22,12 @@ public interface Option {
 	public Object apply(Object values);
 
 	/**
+	 * オプションが付与されている定義のIDを取得します
+	 * @return
+	 */
+	public String getId();
+
+	/**
 	 * オプションの設定内容をMap形式で取得します
 	 * @return オプション設定
 	 */

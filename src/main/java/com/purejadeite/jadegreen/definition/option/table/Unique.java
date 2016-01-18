@@ -18,8 +18,8 @@ public class Unique extends AbstractTableOption {
 	 * コンストラクタ
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Unique(Map<String, Object> config) {
-		super();
+	public Unique(String id, Map<String, Object> config) {
+		super(id);
 	}
 
 	/**

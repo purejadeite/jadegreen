@@ -33,8 +33,8 @@ public class Remove extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Remove(Map<String, Object> config) {
-		super();
+	public Remove(String id, Map<String, Object> config) {
+		super(id);
 		this.operator = getString(config, CFG_OPERATOR, "==");
 		this.value = getString(config, CFG_VALUE, null);
 	}

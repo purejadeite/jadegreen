@@ -41,8 +41,8 @@ public class Sort extends AbstractTableOption {
 	 * コンストラクタ
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Sort(Map<String, Object> config) {
-		super();
+	public Sort(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.desc = getBooleanValue(config, CFG_DESC);

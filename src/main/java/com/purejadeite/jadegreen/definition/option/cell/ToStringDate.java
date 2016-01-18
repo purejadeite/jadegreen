@@ -37,8 +37,8 @@ public class ToStringDate extends AbstractStringCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public ToStringDate(Map<String, Object> config) {
-		super();
+	public ToStringDate(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.dateFormat = getString(config, CFG_DATE_FORMAT);
 	}

@@ -51,8 +51,8 @@ public class Exclude extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Exclude(Map<String, Object> config) {
-		super();
+	public Exclude(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.operator = getString(config, CFG_OPERATOR, "==");

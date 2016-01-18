@@ -28,13 +28,11 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Index(Map<String, Object> config) {
-		super();
-		from = getIntValue(config, CFG_FROM);
-		Integer increment = getInteger(config, CFG_INCREMENT);
-		if (increment != null) {
-			this.increment = increment.intValue();
-		}
+	public Index(String id, Map<String, Object> config) {
+		super(id);
+		from = getIntValue(config, CFG_FROM, 0);
+		Integer increment = getInteger(config, CFG_INCREMENT, 1);
+		this.increment = increment.intValue();
 	}
 
 	/**
@@ -42,7 +40,16 @@ public class Index extends AbstractRelatedValueGenerator {
 	 */
 	@Override
 	public Object apply(Object value) {
+		return applyImpl(value);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object applyImpl(Object value) {
 		if (value instanceof Collection) {
+			// table cellの場合
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
 			Collection<Object> vals = new ArrayList<>();
@@ -53,6 +60,7 @@ public class Index extends AbstractRelatedValueGenerator {
 			}
 			return vals;
 		} else {
+			// 単独のcellの場合
 			return Integer.valueOf(from);
 		}
 	}

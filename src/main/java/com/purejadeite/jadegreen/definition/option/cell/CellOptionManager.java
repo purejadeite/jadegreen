@@ -49,12 +49,12 @@ public class CellOptionManager {
 		manager.register(clazz);
 	}
 
-	public static Options build(List<Map<String, Object>> opts) {
-		return manager.build(opts);
+	public static Options build(String id, List<Map<String, Object>> opts) {
+		return manager.build(id, opts);
 	}
 
-	public static Option build(String type, Map<String, Object> config) {
-		return manager.build(type, config);
+	public static Option build(String id, String type, Map<String, Object> config) {
+		return manager.build(id, type, config);
 	}
 
 }

@@ -18,7 +18,8 @@ abstract public class AbstractTableOption extends AbstractOption implements Tabl
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractTableOption() {
+	public AbstractTableOption(String id) {
+		super(id);
 	}
 
 	@SuppressWarnings("unchecked")

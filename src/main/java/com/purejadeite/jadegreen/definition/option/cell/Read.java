@@ -48,8 +48,8 @@ public class Read extends AbstractCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Read(Map<String, Object> config) {
-		super();
+	public Read(String id, Map<String, Object> config) {
+		super(id);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.file = getString(config, CFG_DEFAULT);
 		this.map = getMap(config, CFG_MAP);

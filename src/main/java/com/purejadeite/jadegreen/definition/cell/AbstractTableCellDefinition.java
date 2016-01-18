@@ -1,5 +1,6 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -52,7 +53,7 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	/**
 	 * 終了キー値
 	 */
-	protected String breakValue = null;
+	protected List<String> breakValues = null;
 
 	/**
 	 * コンストラクタ
@@ -77,22 +78,6 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	abstract protected int toBeginCol(P parent, Map<String, Object> config);
 
 	abstract protected int toEndCol(P parent, Map<String, Object> config);
-
-	/**
-	 * コンストラクタ
-	 *
-	 * @param parent
-	 *            親定義
-	 * @param config
-	 *            コンフィグ
-	 * @param breakId 終了キー項目
-	 * @param breakValue 終了キー値
-	 */
-	protected AbstractTableCellDefinition(P parent, Map<String, Object> config,boolean breakId, String breakValue) {
-		this(parent, config);
-		this.breakId = breakId;
-		this.breakValue = breakValue;
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -130,8 +115,8 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 		this.breakId = breakId;
 	}
 
-	public void setBreakValue(String breakValue) {
-		this.breakValue = breakValue;
+	public void setBreakValues(List<String> breakValues) {
+		this.breakValues = breakValues;
 	}
 
 	/**
@@ -141,12 +126,16 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	public boolean isEndValue(Object value) {
 		if (breakId) {
 			// 自身にクローズ条件の値が設定されている場合
-			if (breakValue == null) {
+			if (breakValues == null) {
 				if (value == null) {
 					return true;
 				}
-			} else if (breakValue.equals(value)) {
-				return true;
+			} else {
+				for (String breakValue : breakValues) {
+					if (breakValue == value || (breakValue != null && breakValue.equals(value))) {
+						return true;
+					}
+				}
 			}
 		}
 		// クローズの状態を返す
@@ -177,7 +166,7 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 		map.put("beginKeyId", beginKeyId);
 		map.put("beginValue", beginValue);
 		map.put("endKeyId", breakId);
-		map.put("endValue", breakValue);
+		map.put("endValue", breakValues);
 		return map;
 	}
 

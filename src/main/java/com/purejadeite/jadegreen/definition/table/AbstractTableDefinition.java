@@ -54,7 +54,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	/**
 	 * 終了キー値
 	 */
-	protected String breakValue = null;
+	protected List<String> breakValues = null;
 
 	/**
 	 * レコード数
@@ -74,15 +74,21 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		this.begin = getIntValue(config, getBeginDefinitionKey());
 		this.end = getIntValue(config, getEndConfigDefinitionKey(), Integer.MAX_VALUE);
 		this.breakId = getString(config, CFG_BREAK_ID);
-		this.breakValue = getString(config, CFG_BREAK_VALUE);
+		List<String> breakValue = getList(config, CFG_BREAK_VALUE);
+		if (breakValue == null) {
+			this.breakValues = new ArrayList<>();
+			this.breakValues.add(getString(config, CFG_BREAK_VALUE));
+		} else {
+			this.breakValues = breakValue;
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(List<Map<String, Object>> options) {
-		this.options = TableOptionManager.build(options);
+	protected void buildOptions(String id, List<Map<String, Object>> options) {
+		this.options = TableOptionManager.build(id, options);
 	}
 
 	/**
@@ -117,16 +123,16 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getBreakValue() {
-		return breakValue;
+	public List<String> getBreakValues() {
+		return breakValues;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setBreakValue(String breakValue) {
-		this.breakValue = breakValue;
+	public void setBreakValues(List<String> breakValues) {
+		this.breakValues = breakValues;
 	}
 
 	/**
@@ -161,14 +167,14 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		if (child.getId().equals(breakId)) {
 			// 終了条件に指定されている場合
 			child.setBreakId(true);
-			child.setBreakValue(breakValue);
+			child.setBreakValues(breakValues);
 		} else if (cells.isEmpty()) {
 			// 先頭セルの場合
 			if (end == Integer.MAX_VALUE && breakId == null) {
 				// 終了条件が設定されていない場合に、項目がnullになった時に終了
 				breakId = child.getId();
 				child.setBreakId(true);
-				child.setBreakValue(breakValue);
+				child.setBreakValues(breakValues);
 			}
 		}
 		cells.add(child);
@@ -195,7 +201,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		map.put("beginKeyId", beginKeyId);
 		map.put("beginValue", beginValue);
 		map.put("endKeyId", breakId);
-		map.put("endValue", breakValue);
+		map.put("endValue", breakValues);
 		map.put("size", size);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
 		for(C cell: cells) {
