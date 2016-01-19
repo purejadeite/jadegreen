@@ -13,11 +13,18 @@ public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends De
 		extends Definition<P> {
 
 	/**
-	 * 子定義を取得します
+	 * 子定義を全て取得します
 	 *
 	 * @return
 	 */
 	public List<C> getChildren();
+
+	/**
+	 * 子定義を取得します
+	 *
+	 * @return
+	 */
+	public C getChild(int index);
 
 	/**
 	 * 子定義を追加します

@@ -59,6 +59,10 @@ public class DefinitionBuilder {
 			// bookに追加
 			book.addChild(sheet);
 		}
+		if (book.getChildren().size() == 1) {
+			// シートが一つしか無い場合はそれが出力対象
+			book.getChild(0).setOutput(true);
+		}
 		return book;
 	}
 

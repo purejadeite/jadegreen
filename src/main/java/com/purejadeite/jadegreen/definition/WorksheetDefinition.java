@@ -192,6 +192,10 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 		return output;
 	}
 
+	public void setOutput(boolean output) {
+		this.output = output;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

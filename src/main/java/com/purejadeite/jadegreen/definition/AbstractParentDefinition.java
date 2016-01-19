@@ -56,23 +56,19 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	}
 
 	/**
-	 * コンストラクタ
-	 *
-	 * @param parent
-	 *            親定義
-	 * @param id
-	 *            定義ID
-	 */
-//	protected AbstractParentDefinition(P parent, String id) {
-//		super(parent, id);
-//	}
-
-	/**
 	 * 配下の定義を取得します
 	 */
 	@Override
 	public List<C> getChildren() {
 		return children;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public C getChild(int index) {
+		return children.get(index);
 	}
 
 	/**
