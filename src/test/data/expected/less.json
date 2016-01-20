@@ -10,6 +10,7 @@
 			"java.util.ArrayList",
 			"com.purejadeite.generated.LineBean"
         ],
+		"others": null,
 		"fields": [
 			{
 				"logicalFieldName": "ファイル有無フラグ",

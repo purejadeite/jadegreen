@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.option.workbook.WorkbookOptionManager;
+
 /**
  * Bookの読み込み定義です
  * @author mitsuhiroseino
@@ -62,7 +64,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 */
 	@Override
 	protected void buildOptions(String id, List<Map<String, Object>> options) {
-		// 現在はworkbook用のOptionsは無し
+		this.options = WorkbookOptionManager.build(id, options);
 	}
 
 	/**

@@ -34,14 +34,18 @@ public interface Table<E> extends List<List<E>> {
 	public List<List<E>> getAdjustedTable();
 
 	/**
-	 */
-
-	/**
-	 * 全ての行の列数を指定の最小列数または列数の最大値のいずれか大きい値に揃えた、指定行のリストを取得します
+	 * 全ての行の列数を指定の最小列数または列数の最大値のいずれか大きい値に揃えた、リストを持ったリストを取得します
 	 * @param minColumnSize 最大列数
 	 * @return リスト
 	 */
 	public List<List<E>> getAdjustedTable(int minColumnSize);
+
+	/**
+	 * 行数、列数を指定の最小数または最大値のいずれか大きい値に揃えた、リストを持ったリストを取得します
+	 * @param minColumnSize 最大列数
+	 * @return リスト
+	 */
+	public List<List<E>> getAdjustedTable(int minRowSize, int minColumnSize);
 
 	/**
 	 * 指定行のリストを取得します

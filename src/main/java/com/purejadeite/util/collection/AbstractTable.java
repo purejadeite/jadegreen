@@ -98,8 +98,16 @@ abstract public class AbstractTable<E> implements Table<E> {
 	 */
 	@Override
 	public List<List<E>> getAdjustedTable(int minColumnSize) {
+		return getAdjustedTable(0, minColumnSize);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<List<E>> getAdjustedTable(int minRowSize, int minColumnSize) {
 		List<List<E>> adjustedTable = new ArrayList<>();
-		int rowSize = getRowSize();
+		int rowSize = Math.max(getRowSize(), minRowSize);
 		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {
 			adjustedTable.add(getAdjustedRow(rowIndex, minColumnSize));
 		}

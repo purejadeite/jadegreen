@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.jadegreen.definition.option.worksheet.WorksheetOptionManager;
 import com.purejadeite.util.SimpleComparison;
 import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.StringKeyNestedMap;
@@ -219,25 +220,25 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 				int i;
 				// 最少行番号
 				i = cell.getMinRow();
-				if (i != CellDefinition.NO_ADDRESS) {
+				if (i != CellDefinition.NO_ADDRESS && i != Integer.MIN_VALUE) {
 					minRow = Math.min(i, minRow);
 					maxRow = Math.max(i, maxRow);
 				}
 				// 最大行番号
 				i = cell.getMaxRow();
-				if (i != CellDefinition.NO_ADDRESS) {
+				if (i != CellDefinition.NO_ADDRESS && i != Integer.MAX_VALUE) {
 					minRow = Math.min(i, minRow);
 					maxRow = Math.max(i, maxRow);
 				}
 				// 最少列番号
 				i = cell.getMinCol();
-				if (i != CellDefinition.NO_ADDRESS) {
+				if (i != CellDefinition.NO_ADDRESS && i != Integer.MIN_VALUE) {
 					minCol = Math.min(i, minCol);
 					maxCol = Math.max(i, maxCol);
 				}
 				// 最大列番号
 				i = cell.getMaxCol();
-				if (i != CellDefinition.NO_ADDRESS) {
+				if (i != CellDefinition.NO_ADDRESS && i != Integer.MAX_VALUE) {
 					minCol = Math.min(i, minCol);
 					maxCol = Math.max(i, maxCol);
 				}
@@ -316,7 +317,7 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 */
 	@Override
 	protected void buildOptions(String id, List<Map<String, Object>> options) {
-		// 現在はworksheet用のOptionsは無し
+		this.options = WorksheetOptionManager.build(id, options);
 	}
 
 	/**

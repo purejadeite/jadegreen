@@ -20,7 +20,8 @@
 		                {"id": "type", "column": 4},
 		                {"id": "initial", "column": 15}
 		            ]
-		        }
+		        },
+		        {"id": "others", "row": 50, "column": 20}
 		    ]
 		}
 	]

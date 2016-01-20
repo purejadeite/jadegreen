@@ -83,7 +83,7 @@ public class SxssfMapper {
 	// tableの値をWorksheetContentにマッピングします
 	public static WorksheetContent toSheetContent(String sheetName, Table<String> table, WorkbookContent book, WorksheetDefinition definition) {
 		WorksheetContent sheet = new WorksheetContent(book, definition, sheetName);
-		List<List<String>> rows = table.getAdjustedTable(definition.getMaxCol());
+		List<List<String>> rows = table.getAdjustedTable(definition.getMaxRow(), definition.getMaxCol());
 		int rowSize = rows.size();
 		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {
 			List<String> row = rows.get(rowIndex);
