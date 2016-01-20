@@ -75,6 +75,11 @@ public class SxssfMapperTest {
 		test("replaceid");
 	}
 
+	@Test
+	public void less() throws Exception {
+		test("less");
+	}
+
 	private void test(String name) throws Exception {
 		// 定義の読み込み
 		Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");

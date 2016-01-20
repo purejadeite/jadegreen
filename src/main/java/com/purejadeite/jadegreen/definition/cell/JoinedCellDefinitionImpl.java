@@ -8,7 +8,6 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
-import com.purejadeite.jadegreen.definition.JoinDefinition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -18,7 +17,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  */
 public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<WorksheetDefinition>
-		implements JoinedCellDefinition<WorksheetDefinition>, JoinDefinition<WorksheetDefinition> {
+		implements JoinedCellDefinition<WorksheetDefinition> {
 
 	private static final long serialVersionUID = -6688614988181481927L;
 

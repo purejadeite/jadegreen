@@ -21,7 +21,7 @@
 		                {"id": "static", "column": 3, "options": [{"type": "upperunderscore"}]},
 		                {"id": "type", "column": 4},
 		                {"id": "initial", "column": 5},
-		                {"id": "validation", "join": {"mySheetKeyId": "main.className", "myKeyId": "main.fields.fieldName", "sheetKeyId": "sub.className", "keyId": "sub.fields.fieldName", "valueId": "sub.fields.validators"}}
+		                {"id": "validation", "join": {"myKeyId": "className", "myTableKeyId": "fieldName", "sheetId": "sub", "keyId": "className", "tableKeyId": "fieldName", "valueId": "validators"}}
 		            ]
 		        }
 		    ]
