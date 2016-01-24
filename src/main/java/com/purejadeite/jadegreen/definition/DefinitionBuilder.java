@@ -43,7 +43,6 @@ public class DefinitionBuilder {
 	 * @return Book読み込み定義
 	 */
 	public static WorkbookDefinition build(Map<String, Object> config) {
-		DefinitionManager.getInstance().init();
 		// bookのビルド
 		WorkbookDefinition book = new WorkbookDefinition(config);
 		List<Map<String, Object>> sheetConfigs = getList(config, WorkbookDefinition.CFG_SHEETS);

@@ -28,7 +28,7 @@
 			"comment": "結合先シート",
 			"id": "sub",
 			"target": {
-			    "name": "validation"
+			    "name": "validation*"
 			},
 		    "cells": [
 		        {"id": "logicalClassName", "row": 1, "column": 3},

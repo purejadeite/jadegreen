@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.ContentException;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 
@@ -62,7 +63,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 			return null;
 		}
 		if (sheetContents.size() != 1) {
-			throw new IllegalStateException("結合先シートを特定できません：" + keyDefinition.getFullId());
+			throw new ContentException("結合先シートを特定できません：" + keyDefinition.getFullId());
 		}
 		WorksheetContent sheetContent = sheetContents.get(0);
 

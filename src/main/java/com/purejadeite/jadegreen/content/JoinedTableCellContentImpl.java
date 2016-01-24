@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.ContentException;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 
@@ -69,11 +70,11 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		// 相手シートを取得
 		List<WorksheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
 		if (sheetContents.isEmpty()) {
-			LOGGER.warn("");
+			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
 			return null;
 		}
 		if (sheetContents.size() != 1) {
-			throw new IllegalStateException("結合先シートを特定できません：" + keyDefinition.getFullId());
+			throw new ContentException("結合先シートを特定できません：" + keyDefinition.getFullId());
 		}
 		WorksheetContent sheetContent = sheetContents.get(0);
 		// 結合先のキーとなるレコードを取得
