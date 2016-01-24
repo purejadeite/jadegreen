@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 固定値の定義です
@@ -33,6 +34,10 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	public ValueDefinitionImpl(P parent, Map<String, Object> config) {
 		super(parent, config);
 		this.value = getString(config, CFG_VALUE);
+	}
+
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table == null && config.containsKey(CFG_VALUE);
 	}
 
 	@Override

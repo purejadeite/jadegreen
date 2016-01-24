@@ -26,7 +26,7 @@ public enum SimpleComparison {
 		}
 
 		@Override
-		public boolean is(String source) {
+		public boolean assess(String source) {
 			return "*".equals(source);
 		}
 	},
@@ -47,9 +47,9 @@ public enum SimpleComparison {
 		}
 
 		@Override
-		public boolean is(String source) {
-			return (!StringUtils.startsWith(source, "*") || !StringUtils.endsWith(source, "*"))
-					|| (!StringUtils.startsWith(source, "/") && !StringUtils.endsWith(source, "/"));
+		public boolean assess(String source) {
+			return (!StringUtils.startsWith(source, "*") && !StringUtils.endsWith(source, "*"))
+					&& (!StringUtils.startsWith(source, "/") && !StringUtils.endsWith(source, "/"));
 		}
 	},
 
@@ -65,11 +65,11 @@ public enum SimpleComparison {
 
 		@Override
 		public String getSource(String source) {
-			return StringUtils.substring(source, 1);
+			return StringUtils.substring(source, 0, source.length() - 1);
 		}
 
 		@Override
-		public boolean is(String source) {
+		public boolean assess(String source) {
 			return 1 < StringUtils.length(source) && !StringUtils.startsWith(source, "*")
 					&& StringUtils.endsWith(source, "*");
 		}
@@ -87,11 +87,11 @@ public enum SimpleComparison {
 
 		@Override
 		public String getSource(String source) {
-			return StringUtils.substring(source, 0, source.length() - 1);
+			return StringUtils.substring(source, 1);
 		}
 
 		@Override
-		public boolean is(String source) {
+		public boolean assess(String source) {
 			return 1 < StringUtils.length(source) && StringUtils.startsWith(source, "*")
 					&& !StringUtils.endsWith(source, "*");
 		}
@@ -113,7 +113,7 @@ public enum SimpleComparison {
 		}
 
 		@Override
-		public boolean is(String source) {
+		public boolean assess(String source) {
 			return 1 < StringUtils.length(source) && StringUtils.startsWith(source, "*")
 					&& StringUtils.endsWith(source, "*");
 		}
@@ -136,7 +136,7 @@ public enum SimpleComparison {
 		}
 
 		@Override
-		public boolean is(String source) {
+		public boolean assess(String source) {
 			return 1 < StringUtils.length(source) && StringUtils.startsWith(source, "/")
 					&& StringUtils.endsWith(source, "/");
 		}
@@ -146,11 +146,11 @@ public enum SimpleComparison {
 
 	abstract public String getSource(String source);
 
-	abstract public boolean is(String source);
+	abstract public boolean assess(String source);
 
 	public static SimpleComparison get(String source) {
 		for (SimpleComparison type : SimpleComparison.values()) {
-			if (type.is(source)) {
+			if (type.assess(source)) {
 				return type;
 			}
 		}

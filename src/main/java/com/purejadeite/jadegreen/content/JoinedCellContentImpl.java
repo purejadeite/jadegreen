@@ -23,8 +23,8 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JoinedCellContentImpl.class);
 
-	public JoinedCellContentImpl(Content<?> parentContent, JoinedCellDefinitionImpl definition) {
-		super(parentContent, definition);
+	public JoinedCellContentImpl(String uuid, Content<?> parent, JoinedCellDefinitionImpl definition) {
+		super(uuid, parent, definition);
 	}
 
 	/**
@@ -50,38 +50,24 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 */
 	@Override
 	public Object getValuesImpl() {
-		// 自分のsheetを取得
-		WorksheetContent sheet = this.getUpperContent(WorksheetContent.class);
+		ContentManager manager = ContentManager.getInstance();
+		Definition<?> myKeyDefinition = definition.getMyKeyDefinition();
+		Definition<?> keyDefinition = definition.getKeyDefinition();
+		Definition<?> valueDefinition = definition.getValueDefinition();
 
-		// 全Contentから欲しい値のContentを取得
-		List<Content<?>> valueContents = ContentManager.get(definition.getValueDefinition());
-		if (valueContents.isEmpty()) {
-			// 欲しい値が無いのはシート自体が無い可能性があるので警告だけ
-			LOGGER.warn("結合元のキー値に一致する結合先のキー値が存在しませんでした。:" + definition.getValueDefinition().getFullId());
+		// 相手シートを取得
+		List<WorksheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
+		if (sheetContents.isEmpty()) {
+			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
 			return null;
 		}
-
-		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content<?>> keyContents = ContentManager.get(definition.getKeyDefinition());
-		if (keyContents == null) {
-			throw new IllegalStateException("結合先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
+		if (sheetContents.size() != 1) {
+			throw new IllegalStateException("結合先シートを特定できません：" + keyDefinition.getFullId());
 		}
+		WorksheetContent sheetContent = sheetContents.get(0);
 
-		// 自分の属するシートのキーを取得
-		Content<?> myKeyContent = ContentManager.get(sheet, definition.getMyKeyDefinition());
-		if (myKeyContent == null) {
-			throw new IllegalStateException("結合元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
-		}
-
-		// 値の取得元シートを取得
-		WorksheetContent targetSheet = JoinedContentUtils.getTargetSheet(myKeyContent, keyContents);
-		if (targetSheet == null) {
-			// 紐付くシートなし
-			return null;
-		}
-
-		// 所得元の値のセルを取得
-		Content<?> valueContent = JoinedContentUtils.getValueContent(targetSheet, valueContents);
+		// 相手から取得する値を取得
+		Content<?> valueContent = manager.getContent(sheetContent, valueDefinition);
 		if (valueContent != null) {
 			return valueContent.getValues();
 		} else {

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +30,8 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public JoinedTableCellContentImpl(Content<?> parent, JoinedTableCellDefinitionImpl definition) {
-		super(parent, definition);
+	public JoinedTableCellContentImpl(String uuid, Content<?> parent, JoinedTableCellDefinitionImpl definition) {
+		super(uuid, parent, definition);
 	}
 
 	/**
@@ -61,54 +60,41 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 */
 	@Override
 	public Object getValuesImpl() {
-		// Contentのルートを取得
-		WorkbookContent book = this.getUpperContent(WorkbookContent.class);
-		// 自分のsheetを取得
-		WorksheetContent sheet = this.getUpperContent(WorksheetContent.class);
+		ContentManager manager = ContentManager.getInstance();
+		Definition<?> myKeyDefinition = definition.getMyKeyDefinition();
+		Definition<?> keyDefinition = definition.getKeyDefinition();
+		Definition<?> myTableKeyDefinition = definition.getMyTableKeyDefinition();
+		Definition<?> keyTableDefinition = definition.getTableKeyDefinition();
 
-		// 全Contentから相手のシートのキーになるContentを取得
-		List<Content<?>> sheetKeyContents = JoinedContentUtils.getKeyContents(book, definition);
-		if (sheetKeyContents == null) {
-			throw new IllegalStateException("結合先シートのキーが見つかりません：" + definition.getKeyDefinition().getFullId());
-		}
-
-		// 自分のシートのキーを取得
-		Content<?> mySheetKeyContent = JoinedContentUtils.getMyKeyContent(sheet, definition);
-		if (mySheetKeyContent == null) {
-			throw new IllegalStateException("結合元シートのキーが見つかりません：" + definition.getMyKeyDefinition().getFullId());
-		}
-		LOGGER.debug("自分のシート:" + mySheetKeyContent.getFullId());
-
-		// 値の取得元シートを取得
-		WorksheetContent sheetContent = JoinedContentUtils.getTargetSheet(mySheetKeyContent, sheetKeyContents);
-		if (sheetContent == null) {
+		// 相手シートを取得
+		List<WorksheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
+		if (sheetContents.isEmpty()) {
+			LOGGER.warn("");
 			return null;
 		}
-
+		if (sheetContents.size() != 1) {
+			throw new IllegalStateException("結合先シートを特定できません：" + keyDefinition.getFullId());
+		}
+		WorksheetContent sheetContent = sheetContents.get(0);
 		// 結合先のキーとなるレコードを取得
-		List<Content<?>> keyContents = sheetContent.searchContents(definition.getTableKeyDefinition());
-		if (keyContents.isEmpty()) {
+		Content<?> tableKeyContent = manager.getContent(sheetContent, keyTableDefinition);
+		if (tableKeyContent == null) {
 			return null;
 		}
-		Content<?> keyContent = keyContents.get(0);
 
 		// 結合先のテーブル丸ごと取得
-		Content<?> tableContent = keyContent.getUpperContent(TableContentImpl.class);
+		Content<?> tableContent = manager.getParentContent(tableKeyContent);
 
 		// 結合元の属するsheetを取得
-		Content<?> mySheetContent = this.getUpperContent(WorksheetContent.class);
+		WorksheetContent mySheetContent = manager.getSheet(this);
 
 		// 結合元のキーとなるレコードを取得
-		List<Content<?>> myTableKeyContents = mySheetContent.searchContents(definition.getMyTableKeyDefinition());
-		if (myTableKeyContents.isEmpty()) {
+		Content<?> myTableKeyContent = manager.getContent(mySheetContent, myTableKeyDefinition);
+		if (myTableKeyContent == null) {
 			return null;
 		}
-		Content<?> myTableKeyContent = myTableKeyContents.get(0);
 
 		// valueのID
-		String[] ids = StringUtils.split(definition.getValueId(), ".");
-		String valueId = ids[ids.length - 1];
-
 		// 相手のキーと自分のキーが一致したら相手の値を取得
 		// 相手のテーブルの値全行分
 		@SuppressWarnings("unchecked")
@@ -121,9 +107,9 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		for (Object myTableKeyValue : myTableKeyValues) {
 			myValues.add(null);
 			for (Map<String, Object> tableValue : tableValues) {
-				Object tableKeyValue = tableValue.get(keyContent.getId());
+				Object tableKeyValue = tableValue.get(tableKeyContent.getId());
 				if (tableKeyValue.equals(myTableKeyValue)) {
-					myValues.set(myValues.size() - 1, tableValue.get(valueId));
+					myValues.set(myValues.size() - 1, tableValue.get(definition.getValueId()));
 					continue;
 				}
 			}

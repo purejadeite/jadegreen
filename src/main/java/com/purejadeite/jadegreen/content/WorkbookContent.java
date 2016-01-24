@@ -15,12 +15,6 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 
 	private static final long serialVersionUID = -1677962020788016225L;
 
-
-	/**
-	 * workbook名
-	 */
-	private String name;
-
 	/**
 	 * worksheetのコンテンツリスト
 	 */
@@ -31,9 +25,8 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * @param definition 定義
 	 * @param name workbook名
 	 */
-	public WorkbookContent(WorkbookDefinition definition, String name) {
-		super(null, definition);
-		this.name = name;
+	public WorkbookContent(WorkbookDefinition definition) {
+		super(null, null, definition);
 	}
 
 	/**
@@ -134,14 +127,6 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 		}
 		map.put("sheets", sheetMaps);
 		return map;
-	}
-
-	/**
-	 * workbook名を取得します
-	 * @return workbook名
-	 */
-	public String getName() {
-		return name;
 	}
 
 }

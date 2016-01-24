@@ -11,51 +11,87 @@ import java.util.Map;
  */
 public class DefinitionManager {
 
-	// シート毎に全ての定義を保持するマップ
-	private static Map<String, Map<String, Definition<?>>> definitions = new HashMap<>();
+	private static ThreadLocal<DefinitionManager> tl = new ThreadLocal<>();
 
-	private static Map<String, WorksheetDefinition> sheetDefinitions = new HashMap<>();
+	/**
+	 * シートから配下のdefinitionを全て取得するMap
+	 */
+	private Map<String, Map<String, Definition<?>>> keySheetValDefs;
 
-	private static Map<String, WorksheetDefinition> defSheet = new HashMap<>();
+	/**
+	 * idからシートのdefinitionを取得するMap
+	 */
+	private Map<String, WorksheetDefinition> keyIdValSheet;
 
-	public static boolean register(WorksheetDefinition sheet, Definition<?> definition) {
-		defSheet.put(definition.getFullId(), sheet);
+	/**
+	 * definitionからシートを取得するMap
+	 */
+	private Map<String, WorksheetDefinition> keyDefValSheet;
+
+	private DefinitionManager() {
+	}
+
+	public void init() {
+		keySheetValDefs = new HashMap<>();
+		keyIdValSheet = new HashMap<>();
+		keyDefValSheet = new HashMap<>();
+	}
+
+	public static DefinitionManager getInstance() {
+		DefinitionManager dm = tl.get();
+		if (dm == null) {
+			dm = createInstance();
+		}
+		return dm;
+	}
+
+	public synchronized static DefinitionManager createInstance() {
+		DefinitionManager dm = tl.get();
+		if (dm == null) {
+			dm = new DefinitionManager();
+			tl.set(dm);
+		}
+		return dm;
+	}
+
+	public boolean register(WorksheetDefinition sheet, Definition<?> definition) {
+		keyDefValSheet.put(definition.getKey(), sheet);
 		String sheetId = sheet.getId();
-		sheetDefinitions.put(sheetId, sheet);
+		keyIdValSheet.put(sheetId, sheet);
 		Map<String, Definition<?>> defs = getDefinitionMap(sheetId);
 		return defs.put(definition.getId(), definition) == null;
 	}
 
-	private static Map<String, Definition<?>> getDefinitionMap(String sheetId) {
-		Map<String, Definition<?>> defs = definitions.get(sheetId);
+	private Map<String, Definition<?>> getDefinitionMap(String sheetId) {
+		Map<String, Definition<?>> defs = keySheetValDefs.get(sheetId);
 		if (defs == null) {
 			defs = new HashMap<>();
-			definitions.put(sheetId, defs);
+			keySheetValDefs.put(sheetId, defs);
 		}
 		return defs;
 	}
 
-	public static Definition<?> get(WorksheetDefinition sheet, String id) {
+	public Definition<?> get(WorksheetDefinition sheet, String id) {
 		return get(sheet.getId(), id);
 	}
 
-	public static Definition<?> get(String sheetId, String id) {
-		Map<String, Definition<?>> defs = definitions.get(sheetId);
+	public Definition<?> get(String sheetId, String id) {
+		Map<String, Definition<?>> defs = keySheetValDefs.get(sheetId);
 		if (defs == null) {
 			return null;
 		}
 		return defs.get(id);
 	}
 
-	public static WorksheetDefinition get(String sheetId) {
-		return sheetDefinitions.get(sheetId);
+	public WorksheetDefinition get(String sheetId) {
+		return keyIdValSheet.get(sheetId);
 	}
 
-	public static WorksheetDefinition getSheet(Definition<?> definition) {
-		return defSheet.get(definition.getFullId());
+	public WorksheetDefinition getSheet(Definition<?> definition) {
+		return keyDefValSheet.get(definition.getKey());
 	}
 
-	public static Definition<?> getSheetsDefinition(Definition<?> definition, String id) {
+	public Definition<?> getSheetsDefinition(Definition<?> definition, String id) {
 		WorksheetDefinition sheet = getSheet(definition);
 		if (sheet == null) {
 			return null;

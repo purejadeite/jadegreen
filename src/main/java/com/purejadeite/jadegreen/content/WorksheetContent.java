@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * Worksheetのコンテンツ
+ *
  * @author mitsuhiroseino
  */
 public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
@@ -42,29 +44,33 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 
 	/**
 	 * コンストラクタ
-	 * @param parent 親コンテンツ
-	 * @param definition 定義
-	 * @param sheetName worksheet名
+	 *
+	 * @param parent
+	 *            親コンテンツ
+	 * @param definition
+	 *            定義
+	 * @param sheetName
+	 *            worksheet名
 	 */
 	public WorksheetContent(Content<?> parent, WorksheetDefinition definition, String sheetName) {
-		super(parent, definition);
+		super(UUID.randomUUID().toString(), parent, definition);
 		this.sheetName = sheetName;
 		Content<?> content = null;
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedCellDefinitionImpl) {
 				// 単独セルの結合の場合
-				content = new JoinedCellContentImpl(this, (JoinedCellDefinitionImpl) childDefinition);
+				content = new JoinedCellContentImpl(uuid, this, (JoinedCellDefinitionImpl) childDefinition);
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
-				content = new CellContentImpl(this, (CellDefinition<?>) childDefinition);
+				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
 			} else if (childDefinition instanceof TableDefinition) {
 				// テーブルの場合
-				content = new TableContentImpl(this, (TableDefinition<?>) childDefinition);
+				content = new TableContentImpl(uuid, this, (TableDefinition<?>) childDefinition);
 			} else {
 				continue;
 			}
 			contents.add(content);
-			ContentManager.register(this, content);
+			ContentManager.getInstance().register(this, content);
 		}
 		LOGGER.debug("create: " + sheetName);
 	}
@@ -87,9 +93,13 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 
 	/**
 	 * 対象の範囲に含まれるセルが存在する場合、値を取得します
-	 * @param row 行
-	 * @param col 列
-	 * @param value 値
+	 *
+	 * @param row
+	 *            行
+	 * @param col
+	 *            列
+	 * @param value
+	 *            値
 	 * @return 取得状況
 	 */
 	private Status addValueImpl(int row, int col, Object value) {
@@ -188,7 +198,7 @@ public class WorksheetContent extends AbstractContent<WorksheetDefinition> {
 		Map<String, Object> map = super.toMap();
 		map.put("sheetName", sheetName);
 		List<Map<String, Object>> contentMaps = new ArrayList<>();
-		for(Content<?> content: contents) {
+		for (Content<?> content : contents) {
 			contentMaps.add(content.toMap());
 		}
 		map.put("contents", contentMaps);

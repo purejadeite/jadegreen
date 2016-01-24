@@ -25,8 +25,8 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public AbstractCellContent(Content<?> parent, D definition) {
-		super(parent, definition);
+	public AbstractCellContent(String uuid, Content<?> parent, D definition) {
+		super(uuid, parent, definition);
 	}
 
 	/**

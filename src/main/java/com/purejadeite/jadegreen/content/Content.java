@@ -11,6 +11,10 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public interface Content<D extends Definition<?>> {
 
+	public List<String> getKey();
+
+	public String getUuid();
+
 	/**
 	 * 定義IDを取得します
 	 * @return 定義ID

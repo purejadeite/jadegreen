@@ -116,6 +116,14 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
+	public String getKey() {
+		return getFullId();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public P getParent() {
 		return parent;
 	}

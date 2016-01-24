@@ -2,8 +2,13 @@ package com.purejadeite.jadegreen.content;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
 
@@ -15,104 +20,226 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 public class ContentManager {
 
-	// シート毎に全ての定義を保持するマップ
-	private static Map<WorksheetContent, Content<?>> contents0 = new HashMap<>();
-	private static Map<String, Map<String, Map<String, Content<?>>>> contents = new HashMap<>();
+	private static ThreadLocal<ContentManager> tl = new ThreadLocal<>();
 
-	// definitionからcontentを取れるマップ
-	private static Map<String, List<Content<?>>> defCons = new HashMap<>();
+	/**
+	 * ContentからWorksheetContentを取得するためのMap
+	 */
+	private Map<List<String>, WorksheetContent> keyConValSheet;
 
-	// contentからsheetを取れるマップ(ContentにtoHashを実装しないとだめ)
-	private static Map<Content<?>, WorksheetContent> conSheet = new HashMap<>();
+	/**
+	 * DefinitionからContentのリストを取得するためのMap
+	 */
+	private Map<String, List<Content<?>>> keyDefValConts;
 
-	public static boolean register(WorksheetContent sheet, Content<?> content) {
-//		conSheet.put(content, sheet);
-		return register(sheet.getId(), sheet.getSheetName(), content);
+	/**
+	 * WorksheetContentからContentのリストを取得するためのMap
+	 */
+	private Map<List<String>, Map<String, Content<?>>> keySheetValConts;
+
+	private ContentManager() {
+		super();
 	}
 
-	public static boolean register(String sheetId, String sheetName, Content<?> content) {
-		// definitionからcontentを取れるマップ
-		List<Content<?>> cons = defCons.get(content.getDefinition().getFullId());
-		if (cons == null) {
-			cons = new ArrayList<>();
-			defCons.put(content.getDefinition().getFullId(), cons);
+	/**
+	 * Contentの初期化
+	 */
+	public void init() {
+		keyConValSheet = new HashMap<>();
+		keyDefValConts = new HashMap<>();
+		keySheetValConts = new HashMap<>();
+	}
+
+	public static ContentManager getInstance() {
+		ContentManager cm = tl.get();
+		if (cm == null) {
+			cm = createInstance();
 		}
-		cons.add(content);
-		// シート毎に全ての定義を保持するマップ
-		Map<String, Content<?>> sheetContents = getSheetContents(sheetId, sheetName, true);
-		return sheetContents.put(content.getId(), content) == null;
+		return cm;
 	}
 
+	public synchronized static ContentManager createInstance() {
+		ContentManager cm = tl.get();
+		if (cm == null) {
+			cm = new ContentManager();
+			tl.set(cm);
+		}
+		return cm;
+	}
 
-	public static boolean register(String sheetId, String sheetName, List<Content<?>> contents) {
-		boolean result = true;
+	/**
+	 * WorksheetContentとContentの紐付けを登録します
+	 * @param sheetContent シート
+	 * @param content シート配下のコンテンツ
+	 */
+	public void register(WorksheetContent sheetContent, Content<?> content) {
+		String definitionKey = content.getDefinition().getKey();
+
+		// 1. Content-SheetContent
+		keyConValSheet.put(content.getKey(), sheetContent);
+
+		// 2. Definition-Contents
+		List<Content<?>> conList = keyDefValConts.get(definitionKey);
+		if (conList == null) {
+			conList = new ArrayList<>();
+			keyDefValConts.put(definitionKey, conList);
+		}
+		conList.add(content);
+
+		// 3. Sheet-Content
+		Map<String, Content<?>> conMap = keySheetValConts.get(sheetContent.getKey());
+		if (conMap == null) {
+			conMap = new HashMap<>();
+			keySheetValConts.put(sheetContent.getKey(), conMap);
+		}
+		conMap.put(definitionKey, content);
+
+		if (content instanceof TableContent) {
+			// tableの場合は配下のcellを個別に登録
+			for (Content<?> cellContent : ((TableContent) content).getCells()) {
+				register(sheetContent, cellContent);
+			}
+		}
+	}
+
+	/**
+	 * Contentの属するシートを取得します
+	 * @param keyContent
+	 * @return
+	 */
+	public WorksheetContent getSheet(Content<?> keyContent) {
+		return keyConValSheet.get(keyContent.getKey());
+	}
+
+	/**
+	 * contentの属するシートを対象に、definitionの示すcontentを取得します
+	 * @param keyContent
+	 * @param targetDefinition
+	 * @return
+	 */
+	public Content<?> getSameSheetContent(Content<?> keyContent, Definition<?> targetDefinition) {
+		// 指定のコンテンツの属するシート
+		WorksheetContent sheetContent = this.keyConValSheet.get(keyContent.getKey());
+		Map<String, Content<?>> contents = this.keySheetValConts.get(sheetContent.getKey());
+		return contents.get(targetDefinition.getKey());
+	}
+
+	/**
+	 * 全シートを対象に、definitionの示すcontentのリストを取得します
+	 * @param targetDefinition
+	 * @return
+	 */
+	public List<Content<?>> getContents(Definition<?> targetDefinition) {
+		return getContents(targetDefinition, null);
+	}
+
+	/**
+	 * 全シートを対象に、definitionの示すcontentのリストからignoreContentを除いて取得します
+	 * @param targetDefinition
+	 * @param ignoreContent
+	 * @return
+	 */
+	public List<Content<?>> getContents(Definition<?> targetDefinition, Content<?> ignoreContent) {
+		List<Content<?>> results = new ArrayList<>();
+		List<Content<?>> contents = keyDefValConts.get(targetDefinition.getKey());
+		if (CollectionUtils.isEmpty(contents)) {
+			return results;
+		}
 		for (Content<?> content : contents) {
-			if (!register(sheetId, sheetName, content)) {
-				result = false;
+			if (content != ignoreContent) {
+				results.add(content);
 			}
 		}
-		return result;
+		return results;
 	}
 
-	private static Map<String, Content<?>> getSheetContents(String sheetId, String sheetName, boolean create) {
-		Map<String, Map<String, Content<?>>> sheets = contents.get(sheetId);
-		if (sheets == null) {
-			if (create) {
-				sheets = new HashMap<>();
-				contents.put(sheetId, sheets);
-			} else {
-				return null;
+	/**
+	 * 全シートを対象に、keyContentのdefinitionおよび値と一致するContentを取得します
+	 * @param keyContent
+	 * @return
+	 */
+	public List<Content<?>> getSameValueContent(Content<?> keyContent) {
+		return getSameValueContent(keyContent, keyContent.getDefinition());
+	}
+
+	/**
+	 * 全シートを対象に、keyContentの値とtargetDefinitionに一致するContentを取得します
+	 * @param keyContent
+	 * @param targetDefinition
+	 * @return
+	 */
+	public List<Content<?>> getSameValueContent(Content<?> keyContent, Definition<?> targetDefinition) {
+		// keyを除いたキーになるContentを取得
+		List<Content<?>> contents = getContents(targetDefinition, keyContent);
+		List<Content<?>> sameValueContent = new ArrayList<>();
+		for (Content<?> content : contents) {
+			Object keyValues = keyContent.getValues();
+			Object targetValues = content.getValues();
+			if (keyValues == targetValues || (keyValues != null && keyValues.equals(targetValues))) {
+				sameValueContent.add(content);
 			}
 		}
-		Map<String, Content<?>> sheetContents = sheets.get(sheetName);
-		if (sheetContents == null) {
-			if (create) {
-				sheetContents = new HashMap<>();
-				sheets.put(sheetName, sheetContents);
-			} else {
-				return null;
-			}
+		return sameValueContent;
+	}
+
+	/**
+	 * contentの属するシートのkeyDefinitionで示されたcontentの値と、
+	 * targetDefinitionで示されたcontentの値が等しいシートを取得します
+	 * @param content
+	 * @param keyDefinition
+	 * @param targetDefinition
+	 * @return
+	 */
+	public List<WorksheetContent> getSheets(Content<?> content, Definition<?> keyDefinition, Definition<?> targetDefinition) {
+		Content<?> keyContent = getSameSheetContent(content, keyDefinition);
+		return getSheets(keyContent, targetDefinition);
+	}
+
+	/**
+	 * contentの値とdefinitionがkeyContentと同じシートを取得します
+	 * @param keyContent
+	 * @return
+	 */
+	public List<WorksheetContent> getSheets(Content<?> keyContent) {
+		return getSheets(keyContent, keyContent.getDefinition());
+	}
+
+	/**
+	 * targetDefinitionで示されるcontentの値がkeyContentと同じシートを取得します
+	 * @param keyContent
+	 * @param targetDefinition
+	 * @return
+	 */
+	public List<WorksheetContent> getSheets(Content<?> keyContent, Definition<?> targetDefinition) {
+		Set<WorksheetContent> sheetContents = new HashSet<>();
+		List<Content<?>> contents = getSameValueContent(keyContent, targetDefinition);
+		for (Content<?> content : contents) {
+			sheetContents.add(getSheet(content));
 		}
-		return sheetContents;
+		return new ArrayList<>(sheetContents);
 	}
 
-	public static Content<?> get(WorksheetContent sheet, Definition<?> definition) {
-		return get(sheet, definition.getId());
-	}
-
-	public static Content<?> get(WorksheetContent sheet, String id) {
-		return get(sheet.getDefinition().getId(), sheet.getSheetName(), id);
-	}
-
-	public static Content<?> get(String sheetId, String sheetName, String id) {
-		Map<String, Content<?>> sheetContents = getSheetContents(sheetId, sheetName, false);
-		if (sheetContents == null) {
+	/**
+	 * sheetContent配下のtargetDefinitionで示されるcontentを取得します
+	 * @param sheetContent
+	 * @param targetDefinition
+	 * @return
+	 */
+	public Content<?> getContent(WorksheetContent sheetContent, Definition<?> targetDefinition) {
+		Map<String, Content<?>> map = keySheetValConts.get(sheetContent.getKey());
+		if (MapUtils.isEmpty(map)) {
 			return null;
 		}
-		return sheetContents.get(id);
+		return map.get(targetDefinition.getKey());
 	}
 
-	public static List<Content<?>> get(String sheetId, String id) {
-		Map<String, Map<String, Content<?>>> sheets = contents.get(sheetId);
-		if (sheets == null) {
-			return null;
-		}
-		List<Content<?>> c = new ArrayList<>();
-		for (Map<String, Content<?>> sheetContents : sheets.values()) {
-			Content<?> content = sheetContents.get(id);
-			if (content != null) {
-				c.add(content);
-			}
-		}
-		return c;
-	}
-
-	public static List<Content<?>> get(Definition<?> definition) {
-		return defCons.get(definition.getFullId());
-	}
-
-	public static Content<?> getSheet(Content<?> leftDef, Content<?> rightDef) {
-		return null;
+	/**
+	 * 親contentを取得します
+	 * @param content
+	 * @return
+	 */
+	public Content<?> getParentContent(Content<?> content) {
+		return getContent(getSheet(content), content.getDefinition().getParent());
 	}
 
 }

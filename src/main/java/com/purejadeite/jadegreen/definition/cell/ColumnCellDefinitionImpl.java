@@ -27,6 +27,10 @@ public class ColumnCellDefinitionImpl extends AbstractTableCellDefinition<TableD
 		super(parent, config);
 	}
 
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table != null && config.containsKey(CFG_ROW);
+	}
+
 	@Override
 	protected int toBeginRow(TableDefinition<?> parent, Map<String, Object> config) {
 		return getIntValue(config, CFG_ROW);

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -68,6 +69,10 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}
 
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table == null && config.containsKey(CFG_JOIN);
+	}
+
 	public String getSheetId() {
 		return keyId;
 	}
@@ -76,21 +81,21 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyKeyDefinition() {
-		return DefinitionManager.getSheetsDefinition(this, myKeyId);
+		return DefinitionManager.getInstance().getSheetsDefinition(this, myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getKeyDefinition() {
-		return DefinitionManager.get(sheetId, keyId);
+		return DefinitionManager.getInstance().get(sheetId, keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getValueDefinition() {
-		return DefinitionManager.get(sheetId, valueId);
+		return DefinitionManager.getInstance().get(sheetId, valueId);
 	}
 
 	/**

@@ -17,8 +17,6 @@
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
-		                {"id": "method", "column": 3, "options": [{"type": "uppercamel"}]},
-		                {"id": "static", "column": 3, "options": [{"type": "upperunderscore"}]},
 		                {"id": "type", "column": 4},
 		                {"id": "initial", "column": 5},
 		                {"id": "validation", "join": {"myKeyId": "className", "myTableKeyId": "fieldName", "sheetId": "sub", "keyId": "className", "tableKeyId": "fieldName", "valueId": "validators"}}

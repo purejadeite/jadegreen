@@ -10,9 +10,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.definition.WorkbookDefinition;
-
 /**
  * Unit test for simple App.
  */
@@ -83,7 +80,6 @@ public class SxssfMapperTest {
 	private void test(String name) throws Exception {
 		// 定義の読み込み
 		Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
-		WorkbookDefinition bookDefinition = DefinitionBuilder.build(jsonObj);
 		// excelファイルの取得
 		File excelFile = null;
 		for (String extension : EXCEL_EXTENSIONS) {
@@ -93,7 +89,7 @@ public class SxssfMapperTest {
 			}
 		}
 		// マッパーの実行
-		List<Map<String, Object>> actual = SxssfMapper.read(excelFile, bookDefinition);
+		List<Map<String, Object>> actual = SxssfMapper.read(excelFile, jsonObj);
 
 		// 結果の確認
 		List<Map<String, Object>> expected = TestHelper.toJsonList(EXPECTED_DIR, name + ".json");

@@ -3,7 +3,8 @@ package com.purejadeite.jadegreen;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,9 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-
-import com.purejadeite.util.collection.LazyTable;
-import com.purejadeite.util.collection.Table;
 
 /**
  * <pre>
@@ -42,7 +40,7 @@ public class SxssfTableMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static Map<String, Table<String>> read(String excelFilePath) throws IOException {
+	public static List<Worksheet> read(String excelFilePath) throws IOException {
 		File excelFile = new File(excelFilePath);
 		return read(excelFile);
 	}
@@ -53,7 +51,7 @@ public class SxssfTableMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static Map<String, Table<String>> read(File excelFile) throws IOException {
+	public static List<Worksheet> read(File excelFile) throws IOException {
 
 		if (!excelFile.isFile()) {
 			throw new JadegreenException("excelFile=" + excelFile.getPath() + ":ファイルが存在しません");
@@ -64,7 +62,7 @@ public class SxssfTableMapper {
 			OPCPackage pkg = OPCPackage.open(excelFile);
 			XSSFReader reader = new XSSFReader(pkg);
 			// 値の収集
-			return correctValues(reader, correctSheetIds(reader));
+			return correctValues(excelFile.getPath(), reader, correctSheetIds(reader));
 		} catch (OpenXML4JException | IOException e) {
 			throw new IOException(e);
 		}
@@ -93,23 +91,23 @@ public class SxssfTableMapper {
 	}
 
 	// 全シートのセルの値を取得
-	private static Map<String, Table<String>> correctValues(XSSFReader reader, Map<String, String> worksheetNames) throws InvalidFormatException, IOException {
+	private static List<Worksheet> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) throws InvalidFormatException, IOException {
 		// 1ファイル分の情報を集めるインスタンス
-		Map<String, Table<String>> workbookContent = new HashMap<>();
+		List<Worksheet> workbookContent = new ArrayList<>();
 
 		// ブックでシェアしている値を取得する
 		SharedStringsTable sst = reader.getSharedStringsTable();
 
 		// シートのパーサ
 		XMLReader worksheetParser = null;
-		Table<String> worksheetContent = null;
+		Worksheet worksheetContent = null;
 		SxssfTableWorksheetHandler worksheetHandler =null;
 
 		InputStream worksheetIs = null;
 		for (Entry<String, String> entry : worksheetNames.entrySet()) {
 			LOGGER.debug("対象Sheet:" + entry.getValue());
 			// シートのパーサを取得
-			worksheetContent = new LazyTable<>();
+			worksheetContent = new Worksheet(excelFilePath, entry.getValue());
 			worksheetHandler = new SxssfTableWorksheetHandler(sst, worksheetContent);
 			worksheetParser = new SAXParser();
 			worksheetParser.setContentHandler(worksheetHandler);
@@ -120,7 +118,7 @@ public class SxssfTableMapper {
 				// シートをパース
 				worksheetParser.parse(sheetSource);
 				// パース下結果をbookContentへ追加
-				workbookContent.put(entry.getValue(), worksheetContent);
+				workbookContent.add(worksheetContent);
 			} catch (InvalidFormatException | SAXException | IOException e) {
 				throw new RuntimeException(e);
 			} finally {

@@ -1,7 +1,9 @@
 package com.purejadeite.jadegreen.content;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
@@ -14,6 +16,8 @@ import com.purejadeite.jadegreen.definition.Definition;
 abstract public class AbstractContent<D extends Definition<?>> implements Content<D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
+
+	protected String uuid;
 
 	/**
 	 * 親要要素
@@ -30,6 +34,7 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 */
 	protected boolean closed;
 
+	// 出力した値のキャッシュ
 	private Object valuesCache;
 
 	/**
@@ -40,10 +45,22 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 * @param definition
 	 *            値を取得する定義
 	 */
-	public AbstractContent(Content<?> parent, D definition) {
+	public AbstractContent(String uuid, Content<?> parent, D definition) {
+		this.uuid = uuid;
 		this.parent = parent;
 		this.definition = definition;
 		this.closed = false;
+	}
+
+	public List<String> getKey() {
+		List<String> key = new ArrayList<>();
+		key.add(getFullId());
+		key.add(uuid);
+		return key;
+	}
+
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**

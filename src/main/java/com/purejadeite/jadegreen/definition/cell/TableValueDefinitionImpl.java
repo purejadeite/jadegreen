@@ -35,6 +35,10 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 		this.value = getString(config, CFG_VALUE);
 	}
 
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table != null && config.containsKey(CFG_VALUE);
+	}
+
 	@Override
 	public Object applyOptions(Object value) {
 		return super.applyOptions(this.value);

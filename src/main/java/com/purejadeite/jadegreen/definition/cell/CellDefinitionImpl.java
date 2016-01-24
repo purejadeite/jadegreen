@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 単一セルの読み込み定義です
@@ -36,6 +37,10 @@ public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefiniti
 		super(parent, config);
 		row = getIntValue(config, CFG_ROW);
 		col = getIntValue(config, CFG_COLUMN);
+	}
+
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table == null && config.containsKey(CFG_ROW) && config.containsKey(CFG_COLUMN);
 	}
 
 	/**

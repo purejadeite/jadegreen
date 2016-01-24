@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.content;
 
+import java.util.List;
+
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -7,4 +9,5 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
  * @author mitsuhiroseino
  */
 public interface TableContent extends Content<TableDefinition<?>> {
+	public List<TableCellContent<?>> getCells();
 }

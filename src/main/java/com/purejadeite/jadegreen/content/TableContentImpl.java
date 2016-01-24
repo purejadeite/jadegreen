@@ -33,17 +33,21 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>>impleme
 	/**
 	 * コンストラクタ
 	 */
-	public TableContentImpl(Content<?> parent, TableDefinition<?> definition) {
-		super(parent, definition);
+	public TableContentImpl(String uuid, Content<?> parent, TableDefinition<?> definition) {
+		super(uuid, parent, definition);
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
 				// 結合の場合
-				cells.add(new JoinedTableCellContentImpl(this, (JoinedTableCellDefinitionImpl) childDefinition));
+				cells.add(new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof TableCellDefinition) {
 				// セルの場合
-				cells.add(new TableCellContentImpl(this, (TableCellDefinition<?>) childDefinition));
+				cells.add(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			}
 		}
+	}
+
+	public List<TableCellContent<?>> getCells() {
+		return cells;
 	}
 
 	/**

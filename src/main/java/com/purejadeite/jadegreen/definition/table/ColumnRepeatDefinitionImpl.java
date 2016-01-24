@@ -42,6 +42,10 @@ public class ColumnRepeatDefinitionImpl extends AbstractTableDefinition<TableCel
 		super(parent, config);
 	}
 
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table == null && config.containsKey(CFG_COLUMN) && config.containsKey(CFG_ROWS);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

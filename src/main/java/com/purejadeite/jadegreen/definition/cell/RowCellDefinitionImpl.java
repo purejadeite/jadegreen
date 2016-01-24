@@ -26,6 +26,10 @@ public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefi
 		super(parent, config);
 	}
 
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table != null && config.containsKey(CFG_COLUMN);
+	}
+
 	@Override
 	protected int toBeginRow(TableDefinition<?> parent, Map<String, Object> config) {
 		return parent.getBegin();

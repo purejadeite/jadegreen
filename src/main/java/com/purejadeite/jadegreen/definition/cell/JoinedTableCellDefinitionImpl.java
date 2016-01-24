@@ -88,6 +88,10 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}
 
+	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+		return table != null && config.containsKey(CFG_JOIN);
+	}
+
 	public String getSheetId() {
 		return sheetId;
 	}
@@ -104,35 +108,35 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyTableKeyDefinition() {
-		return DefinitionManager.getSheetsDefinition(this, myTableKeyId);
+		return DefinitionManager.getInstance().getSheetsDefinition(this, myTableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyKeyDefinition() {
-		return DefinitionManager.getSheetsDefinition(this, myKeyId);
+		return DefinitionManager.getInstance().getSheetsDefinition(this, myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getKeyDefinition() {
-		return DefinitionManager.get(sheetId, keyId);
+		return DefinitionManager.getInstance().get(sheetId, keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getTableKeyDefinition() {
-		return DefinitionManager.get(sheetId, tableKeyId);
+		return DefinitionManager.getInstance().get(sheetId, tableKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getValueDefinition() {
-		return DefinitionManager.get(sheetId, valueId);
+		return DefinitionManager.getInstance().get(sheetId, valueId);
 	}
 
 	/**

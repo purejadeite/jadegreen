@@ -10,10 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
@@ -45,6 +43,7 @@ public class DefinitionBuilder {
 	 * @return Book読み込み定義
 	 */
 	public static WorkbookDefinition build(Map<String, Object> config) {
+		DefinitionManager.getInstance().init();
 		// bookのビルド
 		WorkbookDefinition book = new WorkbookDefinition(config);
 		List<Map<String, Object>> sheetConfigs = getList(config, WorkbookDefinition.CFG_SHEETS);
@@ -93,61 +92,45 @@ public class DefinitionBuilder {
 	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
 			TableDefinition<?> table) {
 		Definition<?> definition = null;
-		if (config.containsKey(JoinedCellDefinition.CFG_JOIN)) {
-			// 結合フィールドの場合
-			if (table != null) {
-				// 親のあるフィールドの場合
-				definition = new JoinedTableCellDefinitionImpl(sheet, table, config);
-			} else {
-				// 単独フィールドの場合
-				definition = new JoinedCellDefinitionImpl(sheet, config);
-			}
-		} else if (config.containsKey(TableValueDefinitionImpl.CFG_VALUE)) {
-			// 値フィールドの場合
-			if (table != null) {
-				// 親のあるフィールドの場合
-				definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
-			} else {
-				// 単独フィールドの場合
-				definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
-			}
-		} else if (table != null) {
-			// 親のあるフィールドの場合
-			if (!config.containsKey(RowRepeatDefinitionImpl.CFG_ROW) && !config.containsKey(ColumnCellDefinitionImpl.CFG_COLUMN)) {
-				// アドレスなし
-				definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
-			} else if (table instanceof RowRepeatDefinitionImpl) {
-				// 行方向の繰り返し内のフィールドの場合
-				definition = new RowCellDefinitionImpl(table, config);
-			} else if (table instanceof ColumnRepeatDefinitionImpl) {
-				// 列方向の繰り返し内のフィールドの場合
-				definition = new ColumnCellDefinitionImpl(table, config);
-			}
-		} else if (config.containsKey(RowRepeatDefinitionImpl.CFG_COLUMNS)) {
+
+		if (JoinedTableCellDefinitionImpl.assess(table, config)) {
+			// 親のあるJOINフィールドの場合
+			definition = new JoinedTableCellDefinitionImpl(sheet, table, config);
+		} else if (JoinedCellDefinitionImpl.assess(table, config)) {
+			// 単独のJOINフィールドの場合
+			definition = new JoinedCellDefinitionImpl(sheet, config);
+		} else if (TableValueDefinitionImpl.assess(table, config)) {
+			// 親のある値フィールドの場合
+			definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
+		} else if (ValueDefinitionImpl.assess(table, config)) {
+			// 単独の値フィールドの場合
+			definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
+		} else if (RowCellDefinitionImpl.assess(table, config)) {
+			// 親が行方向の繰り返しの場合
+			definition = new RowCellDefinitionImpl(table, config);
+		} else if (ColumnCellDefinitionImpl.assess(table, config)) {
+			// 親が列方向の繰り返しの場合
+			definition = new ColumnCellDefinitionImpl(table, config);
+		} else if (RowRepeatDefinitionImpl.assess(table, config)) {
 			// 行方向の繰り返しの場合
+			TableDefinition<?> tbl = new RowRepeatDefinitionImpl(sheet, config);
 			List<Map<String, Object>> columns = getList(config, RowRepeatDefinitionImpl.CFG_COLUMNS);
-			TableDefinition<?> rowTable = new RowRepeatDefinitionImpl(sheet, config);
-			rowTable.addChildren(createCells(columns, sheet, rowTable));
-			definition = rowTable;
-		} else if (config.containsKey(ColumnRepeatDefinitionImpl.CFG_ROWS)) {
+			tbl.addChildren(createCells(columns, sheet, tbl));
+			definition = tbl;
+		} else if (ColumnRepeatDefinitionImpl.assess(table, config)) {
 			// 列方向の繰り返しの場合
-			// TODO 現在未対応
+			TableDefinition<?> tbl = new ColumnRepeatDefinitionImpl(sheet, config);
 			List<Map<String, Object>> rows = getList(config, ColumnRepeatDefinitionImpl.CFG_ROWS);
-			TableDefinition<?> columnTable = new ColumnRepeatDefinitionImpl(sheet, config);
-			columnTable.addChildren(createCells(rows, sheet, columnTable));
-			definition = columnTable;
-		} else {
-			// 単独フィールドの場合
-			if (!config.containsKey(CellDefinition.CFG_ROW) && !config.containsKey(CellDefinition.CFG_COLUMN)) {
-				// アドレスなし
-				definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
-			} else {
-				definition = new CellDefinitionImpl(sheet, config);
-			}
+			tbl.addChildren(createCells(rows, sheet, tbl));
+			definition = tbl;
+		} else if (CellDefinitionImpl.assess(table, config)) {
+			// 単独のフィールドの場合
+			definition = new CellDefinitionImpl(sheet, config);
 		}
+
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
-			DefinitionManager.register(sheet, definition);
+			DefinitionManager.getInstance().register(sheet, definition);
 		} else {
 			String id = getString(config, Definition.CFG_ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");
@@ -158,21 +141,24 @@ public class DefinitionBuilder {
 	/**
 	 * Cell定義のListの生成
 	 *
-	 * @param cells JSONから変換したセル定義
-	 * @param sheet シート定義
-	 * @param table table定義
+	 * @param cells
+	 *            JSONから変換したセル定義
+	 * @param sheet
+	 *            シート定義
+	 * @param table
+	 *            table定義
 	 * @return セルの定義リスト
 	 */
-	private static List<TableCellDefinition<?>> createCells(List<Map<String, Object>> cells,
-			WorksheetDefinition sheet, TableDefinition<?> table) {
+	private static List<TableCellDefinition<?>> createCells(List<Map<String, Object>> cells, WorksheetDefinition sheet,
+			TableDefinition<?> table) {
 		List<TableCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
 			Definition<?> child = createCell(cell, sheet, table);
 			if (child instanceof TableCellDefinition) {
 				definitions.add((TableCellDefinition<?>) child);
 			} else {
-				throw new DefinitionException("table=" + table.getFullId() + "&illegal child=" + child.getFullId() +
-						":tableの子要素にはcellを定義してください");
+				throw new DefinitionException("table=" + table.getFullId() + "&illegal child=" + child.getFullId()
+						+ ":tableの子要素にはcellを定義してください");
 			}
 		}
 		return definitions;

@@ -2,12 +2,14 @@ package com.purejadeite.jadegreen;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.WorkbookContent;
 import com.purejadeite.jadegreen.content.WorksheetContent;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
@@ -42,6 +44,18 @@ public class SxssfMapper {
 
 	/**
 	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
+	 * @param excelFile Excelファイル
+	 * @param definitionObj ワークブックの値取得定義
+	 * @return Excelの値を設定したMap
+	 * @throws IOException ファイルの取得に失敗
+	 */
+	public static List<Map<String, Object>> read(File excelFile, Map<String, Object> definitionObj) throws IOException {
+		WorkbookDefinition definition = DefinitionBuilder.build(definitionObj);
+		return read(excelFile, definition);
+	}
+
+	/**
+	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
 	 * @param excelFilePath Excelファイルのパス
 	 * @param definition ワークブックの読み込み定義
 	 * @return Excelの値を設定したMap
@@ -60,19 +74,36 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static List<Map<String, Object>> read(File excelFile, WorkbookDefinition workbookDefinition) throws IOException {
-		Map<String, Table<String>> tables = SxssfTableMapper.read(excelFile);
-		return read(excelFile.getName(), tables, workbookDefinition);
+		ContentManager.getInstance().init();
+		List<Worksheet> worksheets = SxssfTableMapper.read(excelFile);
+		return read(worksheets, workbookDefinition);
+	}
+
+	/**
+	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
+	 * @param excelFiles Excelファイル配列
+	 * @param workbookDefinition ワークブックの読み込み定義
+	 * @return Excelの値を設定したMap
+	 * @throws IOException ファイルの取得に失敗
+	 */
+	public static List<Map<String, Object>> read(File[] excelFiles, WorkbookDefinition workbookDefinition) throws IOException {
+		ContentManager.getInstance().init();
+		List<Worksheet> worksheets =  new ArrayList<>();
+		for (File excelFile : excelFiles) {
+			worksheets.addAll(SxssfTableMapper.read(excelFile));
+		}
+		return read(worksheets, workbookDefinition);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(String bookName, Map<String, Table<String>> tables, WorkbookDefinition workbookDefinition) throws IOException {
-		WorkbookContent workbookContent = new WorkbookContent(workbookDefinition, bookName);
-		for (WorksheetDefinition worksheet : workbookDefinition.getChildren()) {
-			for (String name: tables.keySet()) {
-				Table<String> table = tables.get(name);
-				if (worksheet.match(name, table)) {
-					LOGGER.debug("[取得] sheet:" + name + ", type:" + worksheet.getId());
-					WorksheetContent sheet = toSheetContent(name, table, workbookContent, worksheet);
+	public static List<Map<String, Object>> read(List<Worksheet> worksheets, WorkbookDefinition workbookDefinition) throws IOException {
+		WorkbookContent workbookContent = new WorkbookContent(workbookDefinition);
+		for (WorksheetDefinition worksheetDefinition : workbookDefinition.getChildren()) {
+			for (Worksheet worksheet: worksheets) {
+				String name = worksheet.getName();
+				if (worksheetDefinition.match(name, worksheet)) {
+					LOGGER.debug("[取得] sheet:" + name + ", type:" + worksheetDefinition.getId());
+					WorksheetContent sheet = toSheetContent(name, worksheet, workbookContent, worksheetDefinition);
 					workbookContent.addSheet(sheet);
 				}
 			}
