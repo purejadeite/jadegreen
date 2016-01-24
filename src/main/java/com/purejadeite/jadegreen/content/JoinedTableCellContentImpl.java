@@ -17,7 +17,7 @@ import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
  * 他のセルに結合したtable配下のCellクラス
  * @author mitsuhiroseino
  */
-public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedTableCellDefinitionImpl> implements TableCellContent<JoinedTableCellDefinitionImpl>, JoinedCellContent<JoinedTableCellDefinitionImpl> {
+public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedTableCellDefinitionImpl> implements TableCellContent<JoinedTableCellDefinitionImpl>, JoinedCellContent<TableContent, JoinedTableCellDefinitionImpl> {
 
 	private static final long serialVersionUID = 7690624851647074594L;
 
@@ -31,7 +31,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public JoinedTableCellContentImpl(String uuid, Content<?> parent, JoinedTableCellDefinitionImpl definition) {
+	public JoinedTableCellContentImpl(String uuid, TableContent parent, JoinedTableCellDefinitionImpl definition) {
 		super(uuid, parent, definition);
 	}
 
@@ -78,19 +78,19 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		}
 		WorksheetContent sheetContent = sheetContents.get(0);
 		// 結合先のキーとなるレコードを取得
-		Content<?> tableKeyContent = manager.getContent(sheetContent, keyTableDefinition);
+		Content<?, ?> tableKeyContent = manager.getContent(sheetContent, keyTableDefinition);
 		if (tableKeyContent == null) {
 			return null;
 		}
 
 		// 結合先のテーブル丸ごと取得
-		Content<?> tableContent = manager.getParentContent(tableKeyContent);
+		Content<?, ?> tableContent = manager.getParentContent(tableKeyContent);
 
 		// 結合元の属するsheetを取得
 		WorksheetContent mySheetContent = manager.getSheet(this);
 
 		// 結合元のキーとなるレコードを取得
-		Content<?> myTableKeyContent = manager.getContent(mySheetContent, myTableKeyDefinition);
+		Content<?, ?> myTableKeyContent = manager.getContent(mySheetContent, myTableKeyDefinition);
 		if (myTableKeyContent == null) {
 			return null;
 		}
@@ -122,8 +122,8 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> contents = new ArrayList<>();
+	public List<Content<?, ?>> searchContents(Definition<?> key) {
+		List<Content<?, ?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}

@@ -16,7 +16,7 @@ public class ContentException extends JadegreenException {
 	/**
 	 * コンテンツ
 	 */
-	private Content<?>[] contents;
+	private Content<?, ?>[] contents;
 
 	/**
 	 * コンストラクタ
@@ -26,33 +26,33 @@ public class ContentException extends JadegreenException {
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 * @param contents
 	 *            コンテンツ
 	 */
-	public ContentException(String message, Content<?>... contents) {
+	public ContentException(String message, Content<?, ?>... contents) {
 		super(getErrorMessage(contents, message));
 		this.contents = contents;
 	}
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 * @param contents
 	 *            コンテンツ
 	 */
-	public ContentException(String message, List<Content<?>> contents) {
+	public ContentException(String message, List<Content<?, ?>> contents) {
 		super(getErrorMessage(contents, message));
-		this.contents = contents.toArray(new Content<?>[0]);
+		this.contents = contents.toArray(new Content<?, ?>[0]);
 	}
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 * @param cause
@@ -61,14 +61,14 @@ public class ContentException extends JadegreenException {
 	 *            コンテンツ
 	 */
 	public ContentException(String message, Throwable cause,
-			Content<?>... contents) {
+			Content<?, ?>... contents) {
 		super(getErrorMessage(contents, message), cause);
 		this.contents = contents;
 	}
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 * @param cause
@@ -77,14 +77,14 @@ public class ContentException extends JadegreenException {
 	 *            コンテンツ
 	 */
 	public ContentException(String message, Throwable cause,
-			List<Content<?>> contents) {
+			List<Content<?, ?>> contents) {
 		super(getErrorMessage(contents, message), cause);
-		this.contents = contents.toArray(new Content<?>[0]);
+		this.contents = contents.toArray(new Content<?, ?>[0]);
 	}
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 */
@@ -94,7 +94,7 @@ public class ContentException extends JadegreenException {
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param cause
 	 *            原因
 	 */
@@ -104,7 +104,7 @@ public class ContentException extends JadegreenException {
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 * @param cause
@@ -116,7 +116,7 @@ public class ContentException extends JadegreenException {
 
 	/**
 	 * コンストラクタ
-	 * 
+	 *
 	 * @param message
 	 *            詳細
 	 * @param cause
@@ -133,32 +133,32 @@ public class ContentException extends JadegreenException {
 
 	/**
 	 * エラーメッセージを構築します
-	 * 
+	 *
 	 * @param contents
 	 *            コンテンツ
 	 * @param baseMessage
 	 *            元になるメッセージ
 	 * @return エラーメッセージ
 	 */
-	private static String getErrorMessage(List<Content<?>> contents,
+	private static String getErrorMessage(List<Content<?, ?>> contents,
 			String baseMessage) {
-		return getErrorMessage(contents.toArray(new Content<?>[0]), baseMessage);
+		return getErrorMessage(contents.toArray(new Content<?, ?>[0]), baseMessage);
 	}
 
 	/**
 	 * エラーメッセージを構築します
-	 * 
+	 *
 	 * @param contents
 	 *            コンテンツ
 	 * @param baseMessage
 	 *            元になるメッセージ
 	 * @return エラーメッセージ
 	 */
-	private static String getErrorMessage(Content<?>[] contents,
+	private static String getErrorMessage(Content<?, ?>[] contents,
 			String baseMessage) {
 		String message = "[";
 		int size = 0;
-		for (Content<?> content : contents) {
+		for (Content<?, ?> content : contents) {
 			if (0 < size) {
 				message += ",";
 			}
@@ -171,10 +171,10 @@ public class ContentException extends JadegreenException {
 
 	/**
 	 * コンテンツを取得します
-	 * 
+	 *
 	 * @return コンテンツ
 	 */
-	public Content<?>[] getContents() {
+	public Content<?, ?>[] getContents() {
 		return contents;
 	}
 

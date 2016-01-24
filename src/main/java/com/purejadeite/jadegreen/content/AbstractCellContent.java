@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * セルの値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellContent<D extends CellDefinition<?>> extends AbstractContent<D> implements CellContent<D> {
+abstract public class AbstractCellContent<D extends CellDefinition<?>> extends AbstractContent<WorksheetContent, D> implements CellContent<WorksheetContent, D> {
 
 	private static final long serialVersionUID = 8565694667933995117L;
 
@@ -25,7 +25,7 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public AbstractCellContent(String uuid, Content<?> parent, D definition) {
+	public AbstractCellContent(String uuid, WorksheetContent parent, D definition) {
 		super(uuid, parent, definition);
 	}
 
@@ -49,8 +49,8 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> contents = new ArrayList<>();
+	public List<Content<?, ?>> searchContents(Definition<?> key) {
+		List<Content<?, ?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}

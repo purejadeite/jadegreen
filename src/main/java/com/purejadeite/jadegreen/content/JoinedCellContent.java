@@ -6,5 +6,5 @@ import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
  * 他のセルしたCellのインターフェイス
  * @author mitsuhiroseino
  */
-public interface JoinedCellContent<D extends JoinedCellDefinition<?>> extends CellContent<D> {
+public interface JoinedCellContent<P extends Content<?, ?>, D extends JoinedCellDefinition<?>> extends CellContent<P, D> {
 }

@@ -16,7 +16,7 @@ import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
  * Table配下のCellのコンテンツ
  * @author mitsuhiroseino
  */
-public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends AbstractContent<D> implements TableCellContent<D> {
+public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends AbstractContent<TableContent, D> implements TableCellContent<D> {
 
 	private static final long serialVersionUID = 1420210546938530625L;
 
@@ -30,7 +30,7 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractTableCellContent(String uuid, Content<?> parent, D definition) {
+	public AbstractTableCellContent(String uuid, TableContent parent, D definition) {
 		super(uuid, parent, definition);
 	}
 
@@ -99,8 +99,8 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	}
 
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> contents = new ArrayList<>();
+	public List<Content<?, ?>> searchContents(Definition<?> key) {
+		List<Content<?, ?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}

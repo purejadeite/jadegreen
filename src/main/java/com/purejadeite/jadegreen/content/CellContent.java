@@ -6,5 +6,5 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * Cellの値取得インターフェイス
  * @author mitsuhiroseino
  */
-public interface CellContent<D extends CellDefinition<?>> extends Content<D> {
+public interface CellContent<P extends Content<?, ?>, D extends CellDefinition<?>> extends Content<P, D> {
 }

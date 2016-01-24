@@ -9,7 +9,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  * Excelファイルから取得した値
  * @author mitsuhiroseino
  */
-public interface Content<D extends Definition<?>> {
+public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 
 	public List<String> getKey();
 
@@ -70,14 +70,14 @@ public interface Content<D extends Definition<?>> {
 	 * @param key 取得する子要素の定義
 	 * @return 対象のContent
 	 */
-	public List<Content<?>> searchContents(Definition<?> key);
+	public List<Content<?, ?>> searchContents(Definition<?> key);
 
 	/**
 	 * 自身より上位にある指定のクラスのContentを取得します
 	 * @param contentClazz Contentのクラス
 	 * @return 対象のContent
 	 */
-	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz);
+	public <C extends Content<?, ?>> C getUpperContent(Class<C> contentClazz);
 
 	/**
 	 * コンテンツをMap形式で取得します

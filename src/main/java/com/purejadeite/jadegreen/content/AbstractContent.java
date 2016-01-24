@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<D extends Definition<?>> implements Content<D>, Serializable {
+abstract public class AbstractContent<P extends Content<?, ?>, D extends Definition<?>> implements Content<P, D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
 
@@ -22,7 +22,7 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	/**
 	 * 親要要素
 	 */
-	protected Content<?> parent;
+	protected P parent;
 
 	/**
 	 * 値を取得する定義
@@ -45,7 +45,7 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 * @param definition
 	 *            値を取得する定義
 	 */
-	public AbstractContent(String uuid, Content<?> parent, D definition) {
+	public AbstractContent(String uuid, P parent, D definition) {
 		this.uuid = uuid;
 		this.parent = parent;
 		this.definition = definition;
@@ -128,7 +128,7 @@ abstract public class AbstractContent<D extends Definition<?>> implements Conten
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz) {
+	public <C extends Content<?, ?>> C getUpperContent(Class<C> contentClazz) {
 		if (parent == null) {
 			return null;
 		}

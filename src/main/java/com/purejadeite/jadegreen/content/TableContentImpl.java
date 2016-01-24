@@ -10,6 +10,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -17,7 +18,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
  *
  * @author mitsuhiroseino
  */
-public class TableContentImpl extends AbstractContent<TableDefinition<?>>implements TableContent {
+public class TableContentImpl extends AbstractContent<WorksheetContent, TableDefinition<?>>implements TableContent {
 
 	private static final long serialVersionUID = 2393648151533807595L;
 
@@ -33,12 +34,15 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>>impleme
 	/**
 	 * コンストラクタ
 	 */
-	public TableContentImpl(String uuid, Content<?> parent, TableDefinition<?> definition) {
+	public TableContentImpl(String uuid, WorksheetContent parent, TableDefinition<?> definition) {
 		super(uuid, parent, definition);
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
 				// 結合の場合
 				cells.add(new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
+			} else if (childDefinition instanceof TableValueDefinitionImpl) {
+				// 固定値の場合
+				cells.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof TableCellDefinition) {
 				// セルの場合
 				cells.add(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
@@ -199,8 +203,8 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>>impleme
 	}
 
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> contents = new ArrayList<>();
+	public List<Content<?, ?>> searchContents(Definition<?> key) {
+		List<Content<?, ?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}
@@ -217,11 +221,16 @@ public class TableContentImpl extends AbstractContent<TableDefinition<?>>impleme
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for (Content<?> cell : cells) {
+		for (Content<?, ?> cell : cells) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);
 		map.put("begin", begin);
 		return map;
+	}
+
+	@Override
+	public int size() {
+		return size;
 	}
 }

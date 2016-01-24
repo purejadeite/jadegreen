@@ -6,7 +6,7 @@ import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
  * 一覧形式子要素のセル読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface TableCellContent<D extends TableCellDefinition<?>> extends CellContent<D> {
+public interface TableCellContent<D extends TableCellDefinition<?>> extends CellContent<TableContent, D> {
 
 	/**
 	 * 指定件数でクローズします

@@ -17,14 +17,14 @@ import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
  *
  * @author mitsuhiroseino
  */
-public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionImpl>
-		implements JoinedCellContent<JoinedCellDefinitionImpl> {
+public class JoinedCellContentImpl extends AbstractContent<WorksheetContent, JoinedCellDefinitionImpl>
+		implements JoinedCellContent<WorksheetContent, JoinedCellDefinitionImpl> {
 
 	private static final long serialVersionUID = 3474501722301631948L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JoinedCellContentImpl.class);
 
-	public JoinedCellContentImpl(String uuid, Content<?> parent, JoinedCellDefinitionImpl definition) {
+	public JoinedCellContentImpl(String uuid, WorksheetContent parent, JoinedCellDefinitionImpl definition) {
 		super(uuid, parent, definition);
 	}
 
@@ -68,7 +68,7 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 		WorksheetContent sheetContent = sheetContents.get(0);
 
 		// 相手から取得する値を取得
-		Content<?> valueContent = manager.getContent(sheetContent, valueDefinition);
+		Content<?, ?> valueContent = manager.getContent(sheetContent, valueDefinition);
 		if (valueContent != null) {
 			return valueContent.getValues();
 		} else {
@@ -89,8 +89,8 @@ public class JoinedCellContentImpl extends AbstractContent<JoinedCellDefinitionI
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> contents = new ArrayList<>();
+	public List<Content<?, ?>> searchContents(Definition<?> key) {
+		List<Content<?, ?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}

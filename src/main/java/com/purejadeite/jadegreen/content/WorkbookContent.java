@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.WorkbookDefinition;
  * Workbookのコンテンツ
  * @author mitsuhiroseino
  */
-public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
+public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefinition> {
 
 	private static final long serialVersionUID = -1677962020788016225L;
 
@@ -96,8 +96,8 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?>> searchContents(Definition<?> key) {
-		List<Content<?>> contents = new ArrayList<>();
+	public List<Content<?, ?>> searchContents(Definition<?> key) {
+		List<Content<?, ?>> contents = new ArrayList<>();
 		if (definition == key) {
 			contents.add(this);
 		}
@@ -111,7 +111,7 @@ public class WorkbookContent extends AbstractContent<WorkbookDefinition> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <C extends Content<?>> C getUpperContent(Class<C> contentClazz) {
+	public <C extends Content<?, ?>> C getUpperContent(Class<C> contentClazz) {
 		return null;
 	}
 
