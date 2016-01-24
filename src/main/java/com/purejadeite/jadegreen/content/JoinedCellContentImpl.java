@@ -2,7 +2,6 @@ package com.purejadeite.jadegreen.content;
 
 import static com.purejadeite.jadegreen.content.Status.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -83,18 +82,6 @@ public class JoinedCellContentImpl extends AbstractContent<WorksheetContent, Joi
 	@Override
 	public boolean isClosed() {
 		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		return contents;
 	}
 
 }

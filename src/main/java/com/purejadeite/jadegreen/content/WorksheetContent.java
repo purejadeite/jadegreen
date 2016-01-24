@@ -175,21 +175,6 @@ public class WorksheetContent extends AbstractContent<WorkbookContent, Worksheet
 		return values;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> cntnts = new ArrayList<>();
-		if (definition == key) {
-			cntnts.add(this);
-		}
-		for (Content<?, ?> content : contents) {
-			cntnts.addAll(content.searchContents(key));
-		}
-		return cntnts;
-	}
-
 	public String getSheetName() {
 		return sheetName;
 	}

@@ -122,18 +122,6 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		return contents;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean isClosed() {
 		return true;
 	}

@@ -1,10 +1,7 @@
 package com.purejadeite.jadegreen.content;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
@@ -43,18 +40,6 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	@Override
 	public Object getValuesImpl() {
 		return definition.applyOptions(values);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		return contents;
 	}
 
 	/**

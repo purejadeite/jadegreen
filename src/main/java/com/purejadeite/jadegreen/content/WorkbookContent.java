@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.WorkbookDefinition;
 
 /**
@@ -90,29 +89,6 @@ public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefiniti
 			}
 		}
 		return values;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		for (WorksheetContent sheet : sheets) {
-			contents.addAll(sheet.searchContents(key));
-		}
-		return contents;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public <C extends Content<?, ?>> C getUpperContent(Class<C> contentClazz) {
-		return null;
 	}
 
 	/**

@@ -127,21 +127,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
-	public <C extends Content<?, ?>> C getUpperContent(Class<C> contentClazz) {
-		if (parent == null) {
-			return null;
-		}
-		if (parent.getClass() == contentClazz) {
-			return (C) parent;
-		}
-		return parent.getUpperContent(contentClazz);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean isClosed() {
 		return closed;
 	}

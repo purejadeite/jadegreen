@@ -9,7 +9,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 
 /**
@@ -96,15 +95,6 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 		while(size < values.size()){
 			values.remove(values.size() - 1);
 		}
-	}
-
-	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		return contents;
 	}
 
 	/**

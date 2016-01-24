@@ -66,20 +66,6 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public Object getValues();
 
 	/**
-	 * 指定の定義を持ったContentを取得します
-	 * @param key 取得する子要素の定義
-	 * @return 対象のContent
-	 */
-	public List<Content<?, ?>> searchContents(Definition<?> key);
-
-	/**
-	 * 自身より上位にある指定のクラスのContentを取得します
-	 * @param contentClazz Contentのクラス
-	 * @return 対象のContent
-	 */
-	public <C extends Content<?, ?>> C getUpperContent(Class<C> contentClazz);
-
-	/**
 	 * コンテンツをMap形式で取得します
 	 * @return コンテンツ
 	 */

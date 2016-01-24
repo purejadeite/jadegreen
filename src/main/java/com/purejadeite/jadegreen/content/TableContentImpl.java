@@ -202,18 +202,6 @@ public class TableContentImpl extends AbstractContent<WorksheetContent, TableDef
 		public Object get(TableCellContent<?> cell);
 	}
 
-	@Override
-	public List<Content<?, ?>> searchContents(Definition<?> key) {
-		List<Content<?, ?>> contents = new ArrayList<>();
-		if (definition == key) {
-			contents.add(this);
-		}
-		for (TableCellContent<?> cell : cells) {
-			contents.addAll(cell.searchContents(key));
-		}
-		return contents;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
