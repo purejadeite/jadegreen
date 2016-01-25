@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 public class Options extends AbstractOption {
 
 	private static final long serialVersionUID = 5483808061976653682L;
@@ -17,8 +19,8 @@ public class Options extends AbstractOption {
 	 * コンストラクタ
 	 * @param options オプションリスト
 	 */
-	public Options (String id, List<Option> options) {
-		super(id);
+	public Options (Definition<?> definition, List<Option> options) {
+		super(definition);
 		this.options = options;
 	}
 

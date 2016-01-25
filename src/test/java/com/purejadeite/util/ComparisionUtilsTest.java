@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.AbstractTest;
 
@@ -14,8 +12,6 @@ import com.purejadeite.jadegreen.AbstractTest;
  * Unit test for simple App.
  */
 public class ComparisionUtilsTest extends AbstractTest {
-
-	private static Logger LOGGER = LoggerFactory.getLogger(ComparisionUtilsTest.class);
 
 	@Test
 	public void equalTo() throws IOException {

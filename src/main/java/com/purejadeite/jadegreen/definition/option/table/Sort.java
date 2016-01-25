@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -41,8 +42,8 @@ public class Sort extends AbstractTableOption {
 	 * コンストラクタ
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Sort(String id, Map<String, Object> config) {
-		super(id);
+	public Sort(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.desc = getBooleanValue(config, CFG_DESC);

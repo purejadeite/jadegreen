@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -41,8 +42,8 @@ public class KeyValue extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public KeyValue(String id, Map<String, Object> config) {
-		super(id);
+	public KeyValue(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.valueId = getString(config, CFG_VALUE_ID);

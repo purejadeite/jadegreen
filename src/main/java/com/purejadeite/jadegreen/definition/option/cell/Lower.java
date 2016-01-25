@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
 *
 * <pre>
@@ -22,8 +24,8 @@ public class Lower extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Lower(String id, Map<String, Object> config) {
-		super(id);
+	public Lower(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 	}
 
 	/**

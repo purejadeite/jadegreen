@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -36,8 +37,8 @@ public class Replace extends AbstractStringCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Replace(String id, Map<String, Object> config) {
-		super(id);
+	public Replace(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.map = getMap(config, CFG_MAP);
 	}

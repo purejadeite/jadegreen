@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 文字列の長さを取得するクラス
  * @author mitsuhiroseino
@@ -16,8 +18,8 @@ public class Length extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Length(String id, Map<String, Object> config) {
-		super(id);
+	public Length(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 	}
 
 	/**

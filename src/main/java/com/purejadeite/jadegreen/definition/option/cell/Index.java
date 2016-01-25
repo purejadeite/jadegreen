@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * Indexを生成するクラス
  * @author mitsuhiroseino
@@ -28,8 +30,8 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Index(String id, Map<String, Object> config) {
-		super(id);
+	public Index(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		from = getIntValue(config, CFG_FROM, 0);
 		Integer increment = getInteger(config, CFG_INCREMENT, 1);
 		this.increment = increment.intValue();

@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.CaseFormat;
 
 /**
@@ -26,8 +27,8 @@ abstract public class AbstractCaseFormatCellOption extends AbstractStringCellOpt
 	 * コンストラクタ
 	 * @param cell Cell読み込み定義
 	 */
-	public AbstractCaseFormatCellOption(String id) {
-		super(id);
+	public AbstractCaseFormatCellOption(Definition<?> definition) {
+		super(definition);
 	}
 
 	/**

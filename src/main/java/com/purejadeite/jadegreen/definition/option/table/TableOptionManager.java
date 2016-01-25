@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.table;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.Option;
 import com.purejadeite.jadegreen.definition.option.OptionManager;
 import com.purejadeite.jadegreen.definition.option.Options;
@@ -31,12 +32,12 @@ public class TableOptionManager {
 		manager.register(clazz);
 	}
 
-	public static Options build(String id, List<Map<String, Object>> opts) {
-		return manager.build(id, opts);
+	public static Options build(Definition<?> definition, List<Map<String, Object>> opts) {
+		return manager.build(definition, opts);
 	}
 
-	public static Option build(String id, String type, Map<String, Object> config) {
-		return manager.build(id, type, config);
+	public static Option build(Definition<?> definition, String type, Map<String, Object> config) {
+		return manager.build(definition, type, config);
 	}
 
 }

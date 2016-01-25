@@ -5,6 +5,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 削除コンバーター
  * @author mitsuhiroseino
@@ -18,8 +20,8 @@ public class Unique extends AbstractTableOption {
 	 * コンストラクタ
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Unique(String id, Map<String, Object> config) {
-		super(id);
+	public Unique(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 	}
 
 	/**

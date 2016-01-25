@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -45,8 +46,8 @@ public class Group extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Group(String id, Map<String, Object> config) {
-		super(id);
+	public Group(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		List<String> groupId = getList(config, CFG_GROUPS_GROUP_ID);
 		if (groupId == null) {

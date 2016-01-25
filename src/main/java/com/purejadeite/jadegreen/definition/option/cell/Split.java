@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -39,8 +40,8 @@ public class Split extends AbstractStringCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Split(String id, Map<String, Object> config) {
-		super(id);
+	public Split(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.splitter = getString(config, CFG_SPLITTER, "\n");
 	}

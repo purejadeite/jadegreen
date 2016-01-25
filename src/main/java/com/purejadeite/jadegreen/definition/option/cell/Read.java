@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -48,8 +49,8 @@ public class Read extends AbstractCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Read(String id, Map<String, Object> config) {
-		super(id);
+	public Read(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.file = getString(config, CFG_DEFAULT);
 		this.map = getMap(config, CFG_MAP);

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 文字列の前後に文字列を追加するクラス
  * @author mitsuhiroseino
@@ -41,8 +43,8 @@ public class AddText extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public AddText(String id, Map<String, Object> config) {
-		super(id);
+	public AddText(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		this.prefix = getString(config, CFG_PREFIX);
 		this.suffix = getString(config, CFG_SUFFIX);
 		this.ignoreEmpty = getBooleanValue(config, CFG_IGNORE_EMPTY);

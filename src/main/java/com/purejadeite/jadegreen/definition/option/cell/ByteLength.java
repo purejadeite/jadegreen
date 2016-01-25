@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 文字列のバイト長を取得するクラス
  * @author mitsuhiroseino
@@ -25,8 +27,8 @@ public class ByteLength extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ByteLength(String id, Map<String, Object> config) {
-		super(id);
+	public ByteLength(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		this.encode = getString(config, CFG_ENCODE);
 	}
 

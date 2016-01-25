@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
 /**
@@ -18,8 +19,8 @@ abstract public class AbstractTableOption extends AbstractOption implements Tabl
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractTableOption(String id) {
-		super(id);
+	public AbstractTableOption(Definition<?> definition) {
+		super(definition);
 	}
 
 	@SuppressWarnings("unchecked")

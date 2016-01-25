@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.JadegreenException;
+import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * コンバーターインスタンスを生成するクラスです
@@ -34,7 +35,7 @@ public class OptionManager<O extends Option> {
 		OPTIONS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-	public Options build(String id, List<Map<String, Object>> opts) {
+	public Options build(Definition<?> definition, List<Map<String, Object>> opts) {
 		if (opts == null || opts.size() == 0) {
 			return null;
 		}
@@ -42,14 +43,14 @@ public class OptionManager<O extends Option> {
 		Option option = null;
 		for (Map<String, Object> opt : opts) {
 			String type = getString(opt, Option.CFG_TYPE);
-			option = build(id, type, opt);
+			option = build(definition, type, opt);
 			if (option == null) {
 				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");
 			} else {
 				options.add(option);
 			}
 		}
-		return new Options(id, options);
+		return new Options(definition, options);
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class OptionManager<O extends Option> {
 	 * @param config コンバーターのコンフィグ
 	 * @return コンバーター
 	 */
-	public Option build(String id, String type, Map<String, Object> config) {
+	public Option build(Definition<?> definition, String type, Map<String, Object> config) {
 		// クラスを取得
 		Class<? extends O> clazz = OPTIONS.get(type.toLowerCase());
 		if (clazz == null) {
@@ -66,17 +67,17 @@ public class OptionManager<O extends Option> {
 		// コンストラクタを取得
 		Constructor<? extends O> constructor;
 		try {
-			constructor = clazz.getConstructor(String.class, Map.class);
+			constructor = clazz.getConstructor(Definition.class, Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
-			throw new JadegreenException("option id=" + id + ",type = " + type + ":optionsのclassからコンストラクターを取得できません", e);
+			throw new JadegreenException("option id=" + definition + ",type = " + type + ":optionsのclassからコンストラクターを取得できません", e);
 		}
 
 		// インスタンスを取得
 		O option = null;
 		try {
-			option = constructor.newInstance(id, config);
+			option = constructor.newInstance(definition, config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			throw new JadegreenException("option id=" + id + ",type = " + type + ": " + e.getCause().getMessage() ,e);
+			throw new JadegreenException("option id=" + definition + ",type = " + type + ": " + e.getCause().getMessage() ,e);
 		}
 		return option;
 	}

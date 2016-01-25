@@ -3,6 +3,8 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.util.Date;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 現在時刻を生成するクラス
  * @author mitsuhiroseino
@@ -17,8 +19,8 @@ public class Now extends AbstractUnrelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Now(String id, Map<String, Object> config) {
-		super(id);
+	public Now(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 	}
 
 	/**

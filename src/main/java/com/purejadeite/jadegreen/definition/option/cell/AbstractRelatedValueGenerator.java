@@ -3,6 +3,8 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.io.Serializable;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 値を生成する抽象クラス
  *
@@ -19,8 +21,8 @@ abstract public class AbstractRelatedValueGenerator extends AbstractCellOption i
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractRelatedValueGenerator(String id) {
-		super(id);
+	public AbstractRelatedValueGenerator(Definition<?> definition) {
+		super(definition);
 	}
 
 	@Override

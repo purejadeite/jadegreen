@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 文字列を変換する抽象クラスです
  * @author mitsuhiroseino
@@ -13,8 +15,8 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractStringCellOption(String id) {
-		super(id);
+	public AbstractStringCellOption(Definition<?> definition) {
+		super(definition);
 	}
 
 	/**

@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.SpecificValue;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.EvaluationUtils;
 
 /**
@@ -33,8 +34,8 @@ public class Remove extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Remove(String id, Map<String, Object> config) {
-		super(id);
+	public Remove(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		this.operator = getString(config, CFG_OPERATOR, "==");
 		this.value = getString(config, CFG_VALUE, null);
 	}

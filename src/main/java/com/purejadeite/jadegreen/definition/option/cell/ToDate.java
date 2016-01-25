@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.SxssfUtils;
+import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * 文字列を Date へ変換するクラス
@@ -24,8 +25,8 @@ public class ToDate extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToDate(String id, Map<String, Object> config) {
-		super(id);
+	public ToDate(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		use1904windowing = getBooleanValue(config, CFG_USE1904);
 	}
 

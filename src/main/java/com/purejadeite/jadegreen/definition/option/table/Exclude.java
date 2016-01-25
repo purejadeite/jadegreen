@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.EvaluationUtils;
 import com.purejadeite.util.SimpleValidator;
 
@@ -51,8 +52,8 @@ public class Exclude extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Exclude(String id, Map<String, Object> config) {
-		super(id);
+	public Exclude(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.operator = getString(config, CFG_OPERATOR, "==");

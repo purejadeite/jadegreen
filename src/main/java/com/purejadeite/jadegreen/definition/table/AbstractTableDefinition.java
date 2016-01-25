@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.WorksheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.option.table.TableOptionManager;
@@ -87,8 +88,8 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(String id, List<Map<String, Object>> options) {
-		this.options = TableOptionManager.build(id, options);
+	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+		this.options = TableOptionManager.build(definition, options);
 	}
 
 	/**

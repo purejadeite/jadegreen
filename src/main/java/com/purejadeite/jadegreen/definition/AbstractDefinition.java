@@ -66,7 +66,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 				opts.add(opt);
 			}
 		}
-		buildOptions(id, opts);
+		buildOptions(this, opts);
 	}
 
 	/**
@@ -136,7 +136,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 		return options;
 	}
 
-	abstract protected void buildOptions(String id, List<Map<String, Object>> options);
+	abstract protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options);
 
 	@Override
 	public Object applyOptions(Object value) {

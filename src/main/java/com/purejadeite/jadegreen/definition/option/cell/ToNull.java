@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 文字列が空文字の場合nullへ変換するクラス
  * @author mitsuhiroseino
@@ -18,8 +20,8 @@ public class ToNull extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToNull(String id, Map<String, Object> config) {
-		super(id);
+	public ToNull(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 	}
 
 	/**

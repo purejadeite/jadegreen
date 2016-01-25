@@ -316,8 +316,8 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(String id, List<Map<String, Object>> options) {
-		this.options = WorksheetOptionManager.build(id, options);
+	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+		this.options = WorksheetOptionManager.build(definition, options);
 	}
 
 	/**

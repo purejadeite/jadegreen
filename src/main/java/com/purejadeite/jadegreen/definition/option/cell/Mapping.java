@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -43,8 +44,8 @@ public class Mapping extends AbstractCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Mapping(String id, Map<String, Object> config) {
-		super(id);
+	public Mapping(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.map = getMap(config, CFG_MAP);
 		this.lazy = getBooleanValue(config, CFG_LAZY);

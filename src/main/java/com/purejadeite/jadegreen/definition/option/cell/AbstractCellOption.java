@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
 /**
@@ -23,8 +24,8 @@ abstract public class AbstractCellOption extends AbstractOption implements CellO
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractCellOption(String id) {
-		super(id);
+	public AbstractCellOption(Definition<?> definition) {
+		super(definition);
 	}
 
 	public Object apply(Object value) {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
 /**
@@ -16,8 +17,8 @@ abstract public class AbstractWorkbookOption extends AbstractOption implements W
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractWorkbookOption(String id) {
-		super(id);
+	public AbstractWorkbookOption(Definition<?> definition) {
+		super(definition);
 	}
 
 	@SuppressWarnings("unchecked")

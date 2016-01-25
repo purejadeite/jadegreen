@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * Cellの値を変換する抽象クラス
  *
@@ -12,7 +14,7 @@ import java.util.Map;
  */
 abstract public class AbstractOption implements Option, Serializable {
 
-	private String id;
+	private Definition<?> definition;
 
 	/**
 	 * コンストラクタ
@@ -20,13 +22,13 @@ abstract public class AbstractOption implements Option, Serializable {
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractOption(String id) {
-		this.id = id;
+	public AbstractOption(Definition<?> definition) {
+		this.definition = definition;
 	}
 
 	@Override
-	public String getId() {
-		return id;
+	public Definition<?> getDefinition() {
+		return definition;
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
 
@@ -35,8 +36,8 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(String id, List<Map<String, Object>> options) {
-		this.options = CellOptionManager.build(id, options);
+	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+		this.options = CellOptionManager.build(definition, options);
 	}
 
 	/**

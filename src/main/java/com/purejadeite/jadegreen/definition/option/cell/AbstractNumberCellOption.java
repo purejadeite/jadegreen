@@ -4,6 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.Definition;
+
 /**
  * 文字列を変換する抽象クラスです
  * @author mitsuhiroseino
@@ -25,8 +27,8 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractNumberCellOption(String id, Map<String, Object> config) {
-		super(id);
+	public AbstractNumberCellOption(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
 		this.nullToZero = getBooleanValue(config, CFG_NULL_TO_ZERO, true);
 		this.emptyToZero = getBooleanValue(config, CFG_EMPTY_TO_ZERO, true);
 	}
