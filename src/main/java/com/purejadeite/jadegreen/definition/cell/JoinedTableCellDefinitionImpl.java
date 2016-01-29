@@ -8,7 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -70,7 +70,7 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 	 * @param config
 	 *            コンフィグ
 	 */
-	public JoinedTableCellDefinitionImpl(WorksheetDefinition sheet, TableDefinition<?> parent, Map<String, Object> config) {
+	public JoinedTableCellDefinitionImpl(SheetDefinition sheet, TableDefinition<?> parent, Map<String, Object> config) {
 		super(parent, config);
 		Map<String, String> joinConfig = getMap(config, CFG_JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);

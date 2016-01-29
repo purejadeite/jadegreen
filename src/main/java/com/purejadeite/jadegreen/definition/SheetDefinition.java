@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.option.worksheet.WorksheetOptionManager;
+import com.purejadeite.jadegreen.definition.option.sheet.SheetOptionManager;
 import com.purejadeite.util.SimpleComparison;
 import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.StringKeyNestedMap;
@@ -20,7 +20,7 @@ import com.purejadeite.util.collection.Table;
  * @author mitsuhiroseino
  *
  */
-public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefinition, Definition<?>> {
+public class SheetDefinition extends AbstractParentDefinition<BookDefinition, Definition<?>> {
 
 	private static final long serialVersionUID = -1303967958765873003L;
 	/**
@@ -160,7 +160,7 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 * @param config
 	 *            コンフィグ
 	 */
-	public WorksheetDefinition(WorkbookDefinition parent, Map<String, Object> config) {
+	public SheetDefinition(BookDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		SimpleValidator.containsKey(config, CONFIG);
 		Map<String, Object> cfg = new StringKeyNestedMap(config);
@@ -317,7 +317,7 @@ public class WorksheetDefinition extends AbstractParentDefinition<WorkbookDefini
 	 */
 	@Override
 	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
-		this.options = WorksheetOptionManager.build(definition, options);
+		this.options = SheetOptionManager.build(definition, options);
 	}
 
 	/**

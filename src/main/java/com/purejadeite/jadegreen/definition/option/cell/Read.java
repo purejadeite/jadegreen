@@ -22,9 +22,9 @@ public class Read extends AbstractCellOption {
 
 	private static final long serialVersionUID = 6328364128215865166L;
 
-	private static final String CFG_DEFAULT = "default";
+	protected static final String CFG_DEFAULT = "default";
 
-	private static final String CFG_MAP = "map";
+	protected static final String CFG_MAP = "map";
 
 	/**
 	 * 必須項目名称
@@ -34,12 +34,12 @@ public class Read extends AbstractCellOption {
 	/**
 	 * デフォルトの読み込みファイル
 	 */
-	private String file;
+	protected String file;
 
 	/**
 	 * 読み込みファイルマップ
 	 */
-	private Map<String, String> map;
+	protected Map<String, String> map;
 
 	/**
 	 * コンストラクタ

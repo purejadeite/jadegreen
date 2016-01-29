@@ -17,9 +17,9 @@ import com.purejadeite.util.SimpleValidator;
  */
 public class KeyValue extends AbstractTableOption {
 
-	private static final String CFG_KEY_ID = "keyId";
+	protected static final String CFG_KEY_ID = "keyId";
 
-	private static final String CFG_VALUE_ID = "valueId";
+	protected static final String CFG_VALUE_ID = "valueId";
 
 	/**
 	 * 必須項目名称
@@ -29,12 +29,12 @@ public class KeyValue extends AbstractTableOption {
 	/**
 	 * キーとなる項目の定義ID
 	 */
-	private String keyId;
+	protected String keyId;
 
 	/**
 	 * 値となる項目の定義ID
 	 */
-	private String valueId;
+	protected String valueId;
 
 	/**
 	 * コンストラクタ

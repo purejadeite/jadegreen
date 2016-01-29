@@ -17,13 +17,13 @@ public class Index extends AbstractRelatedValueGenerator {
 
 	private static final long serialVersionUID = -9188313601218449958L;
 
-	private static final String CFG_FROM = "from";
+	protected static final String CFG_FROM = "from";
 
-	private static final String CFG_INCREMENT = "increment";
+	protected static final String CFG_INCREMENT = "increment";
 
-	private int from = 0;
+	protected int from = 0;
 
-	private int increment = 1;
+	protected int increment = 1;
 
 	/**
 	 * コンストラクタ

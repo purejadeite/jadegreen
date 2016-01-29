@@ -18,9 +18,9 @@ import com.purejadeite.util.SimpleValidator;
  */
 public class ReplaceId extends AbstractTableOption {
 
-	private static final String CFG_KEY_ID = "keyId";
+	protected static final String CFG_KEY_ID = "keyId";
 
-	private static final String CFG_NEW_IDS = "newIds";
+	protected static final String CFG_NEW_IDS = "newIds";
 
 	/**
 	 * 必須項目名称
@@ -30,12 +30,12 @@ public class ReplaceId extends AbstractTableOption {
 	/**
 	 * キーとなる項目の定義ID
 	 */
-	private String keyId;
+	protected String keyId;
 
 	/**
 	 * キーとなる項目の値と変換後の定義IDを紐付けた定義
 	 */
-	private Map<String, Object> newIds;
+	protected Map<String, Object> newIds;
 
 	/**
 	 * コンストラクタ

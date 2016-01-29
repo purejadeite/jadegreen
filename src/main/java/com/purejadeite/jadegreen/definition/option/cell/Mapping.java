@@ -16,9 +16,9 @@ public class Mapping extends AbstractCellOption {
 
 	private static final long serialVersionUID = -2189657683860067037L;
 
-	private static final String CFG_MAP = "map";
+	protected static final String CFG_MAP = "map";
 
-	private static final String CFG_LAZY = "lazy";
+	protected static final String CFG_LAZY = "lazy";
 
 	/**
 	 * 必須項目名称
@@ -28,7 +28,7 @@ public class Mapping extends AbstractCellOption {
 	/**
 	 * 値変換マップ
 	 */
-	private Map<String, String> map;
+	protected Map<String, String> map;
 
 	/**
 	 * <pre>
@@ -37,7 +37,7 @@ public class Mapping extends AbstractCellOption {
 	 * false: nullを返す
 	 * </pre>
 	 */
-	private boolean lazy;
+	protected boolean lazy;
 
 	/**
 	 * コンストラクタ

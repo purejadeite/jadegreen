@@ -16,14 +16,14 @@ import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
  *
  * @author mitsuhiroseino
  */
-public class JoinedCellContentImpl extends AbstractContent<WorksheetContent, JoinedCellDefinitionImpl>
-		implements JoinedCellContent<WorksheetContent, JoinedCellDefinitionImpl> {
+public class JoinedCellContentImpl extends AbstractContent<SheetContent, JoinedCellDefinitionImpl>
+		implements JoinedCellContent<SheetContent, JoinedCellDefinitionImpl> {
 
 	private static final long serialVersionUID = 3474501722301631948L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JoinedCellContentImpl.class);
 
-	public JoinedCellContentImpl(String uuid, WorksheetContent parent, JoinedCellDefinitionImpl definition) {
+	public JoinedCellContentImpl(String uuid, SheetContent parent, JoinedCellDefinitionImpl definition) {
 		super(uuid, parent, definition);
 	}
 
@@ -56,7 +56,7 @@ public class JoinedCellContentImpl extends AbstractContent<WorksheetContent, Joi
 		Definition<?> valueDefinition = definition.getValueDefinition();
 
 		// 相手シートを取得
-		List<WorksheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
+		List<SheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
 		if (sheetContents.isEmpty()) {
 			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
 			return null;
@@ -64,7 +64,7 @@ public class JoinedCellContentImpl extends AbstractContent<WorksheetContent, Joi
 		if (sheetContents.size() != 1) {
 			throw new ContentException("結合先シートを特定できません：" + keyDefinition.getFullId());
 		}
-		WorksheetContent sheetContent = sheetContents.get(0);
+		SheetContent sheetContent = sheetContents.get(0);
 
 		// 相手から取得する値を取得
 		Content<?, ?> valueContent = manager.getContent(sheetContent, valueDefinition);

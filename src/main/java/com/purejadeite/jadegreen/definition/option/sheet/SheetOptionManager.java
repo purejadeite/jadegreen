@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.workbook;
+package com.purejadeite.jadegreen.definition.option.sheet;
 
 import java.util.List;
 import java.util.Map;
@@ -9,20 +9,20 @@ import com.purejadeite.jadegreen.definition.option.OptionManager;
 import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
- * Workbookの変換を行うコンバーターインスタンスを生成するクラスです
+ * Worksheetの変換を行うコンバーターインスタンスを生成するクラスです
  * @author mitsuhiroseino
  *
  */
-public class WorkbookOptionManager {
+public class SheetOptionManager {
 
-	private static OptionManager<WorkbookOption> manager;
+	private static OptionManager<SheetOption> manager;
 
 	static {
 		// マネージャーの初期化処理
 		manager = new OptionManager<>();
 	}
 
-	public static void register(Class<WorkbookOption> clazz) {
+	public static void register(Class<? extends SheetOption> clazz) {
 		manager.register(clazz);
 	}
 

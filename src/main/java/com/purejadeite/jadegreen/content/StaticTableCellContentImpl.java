@@ -13,8 +13,6 @@ import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
  */
 public class StaticTableCellContentImpl extends AbstractTableCellContent<TableCellDefinition<?>> {
 
-	private static final long serialVersionUID = -6172471723011313228L;
-
 	/**
 	 * コンストラクタ
 	 * @param parent 親コンテンツ
@@ -37,7 +35,6 @@ public class StaticTableCellContentImpl extends AbstractTableCellContent<TableCe
 	 */
 	@Override
 	public Object getValuesImpl() {
-		// 親のtableからsizeを取得してその数分だけvaluesを返すように実装する
 		int size = parent.size();
 		List<Object> newValues = new ArrayList<>(size);
 		for (int i = 0; i < size; i++) {

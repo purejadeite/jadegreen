@@ -20,7 +20,7 @@ public class ByteLength extends AbstractStringCellOption {
 	/**
 	 * エンコード
 	 */
-	private String encode;
+	protected String encode;
 
 	/**
 	 * コンストラクタ

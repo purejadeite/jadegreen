@@ -21,12 +21,12 @@ public class DefinitionManager {
 	/**
 	 * idからシートのdefinitionを取得するMap
 	 */
-	private Map<String, WorksheetDefinition> keyIdValSheet;
+	private Map<String, SheetDefinition> keyIdValSheet;
 
 	/**
 	 * definitionからシートを取得するMap
 	 */
-	private Map<String, WorksheetDefinition> keyDefValSheet;
+	private Map<String, SheetDefinition> keyDefValSheet;
 
 	private DefinitionManager() {
 	}
@@ -54,7 +54,7 @@ public class DefinitionManager {
 		return dm;
 	}
 
-	public boolean register(WorksheetDefinition sheet, Definition<?> definition) {
+	public boolean register(SheetDefinition sheet, Definition<?> definition) {
 		keyDefValSheet.put(definition.getKey(), sheet);
 		String sheetId = sheet.getId();
 		keyIdValSheet.put(sheetId, sheet);
@@ -71,7 +71,7 @@ public class DefinitionManager {
 		return defs;
 	}
 
-	public Definition<?> get(WorksheetDefinition sheet, String id) {
+	public Definition<?> get(SheetDefinition sheet, String id) {
 		return get(sheet.getId(), id);
 	}
 
@@ -83,16 +83,16 @@ public class DefinitionManager {
 		return defs.get(id);
 	}
 
-	public WorksheetDefinition get(String sheetId) {
+	public SheetDefinition get(String sheetId) {
 		return keyIdValSheet.get(sheetId);
 	}
 
-	public WorksheetDefinition getSheet(Definition<?> definition) {
+	public SheetDefinition getSheet(Definition<?> definition) {
 		return keyDefValSheet.get(definition.getKey());
 	}
 
 	public Definition<?> getSheetsDefinition(Definition<?> definition, String id) {
-		WorksheetDefinition sheet = getSheet(definition);
+		SheetDefinition sheet = getSheet(definition);
 		if (sheet == null) {
 			return null;
 		}

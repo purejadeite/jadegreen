@@ -8,7 +8,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * セルの値を保持する抽象クラス
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellContent<D extends CellDefinition<?>> extends AbstractContent<WorksheetContent, D> implements CellContent<WorksheetContent, D> {
+abstract public class AbstractCellContent<D extends CellDefinition<?>> extends AbstractContent<SheetContent, D> implements CellContent<SheetContent, D> {
 
 	private static final long serialVersionUID = 8565694667933995117L;
 
@@ -22,7 +22,7 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public AbstractCellContent(String uuid, WorksheetContent parent, D definition) {
+	public AbstractCellContent(String uuid, SheetContent parent, D definition) {
 		super(uuid, parent, definition);
 	}
 

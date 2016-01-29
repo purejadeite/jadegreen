@@ -28,7 +28,7 @@ public class TableOptionManager {
 		manager.register(KeyValue.class);
 	}
 
-	public static void register(Class<TableOption> clazz) {
+	public static void register(Class<? extends TableOption> clazz) {
 		manager.register(clazz);
 	}
 

@@ -68,7 +68,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		Definition<?> keyTableDefinition = definition.getTableKeyDefinition();
 
 		// 相手シートを取得
-		List<WorksheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
+		List<SheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
 		if (sheetContents.isEmpty()) {
 			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
 			return null;
@@ -76,7 +76,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		if (sheetContents.size() != 1) {
 			throw new ContentException("結合先シートを特定できません：" + keyDefinition.getFullId());
 		}
-		WorksheetContent sheetContent = sheetContents.get(0);
+		SheetContent sheetContent = sheetContents.get(0);
 		// 結合先のキーとなるレコードを取得
 		Content<?, ?> tableKeyContent = manager.getContent(sheetContent, keyTableDefinition);
 		if (tableKeyContent == null) {
@@ -87,7 +87,7 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		Content<?, ?> tableContent = manager.getParentContent(tableKeyContent);
 
 		// 結合元の属するsheetを取得
-		WorksheetContent mySheetContent = manager.getSheet(this);
+		SheetContent mySheetContent = manager.getSheet(this);
 
 		// 結合元のキーとなるレコードを取得
 		Content<?, ?> myTableKeyContent = manager.getContent(mySheetContent, myTableKeyDefinition);

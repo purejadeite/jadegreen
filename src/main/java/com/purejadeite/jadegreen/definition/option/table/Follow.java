@@ -18,17 +18,17 @@ import com.purejadeite.util.SimpleValidator;
  */
 public class Follow extends AbstractTableOption {
 
-	private static final String CFG_KEY_ID = "keyId";
+	protected static final String CFG_FOLLOW_ID = "followId";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_KEY_ID };
+	private static final String[] CONFIG = { CFG_FOLLOW_ID };
 
 	/**
-	 * キーとなる項目の定義ID
+	 * フォローする項目の定義ID
 	 */
-	private String keyId;
+	protected String followId;
 
 	/**
 	 * コンストラクタ
@@ -39,7 +39,7 @@ public class Follow extends AbstractTableOption {
 	public Follow(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = getString(config, CFG_KEY_ID);
+		this.followId = getString(config, CFG_FOLLOW_ID);
 	}
 
 	/**
@@ -52,9 +52,9 @@ public class Follow extends AbstractTableOption {
 		Object prev = null;
 		for (Map<String, Object> line : values) {
 			Map<String, Object> newLine = new LinkedHashMap<>(line);
-			Object key = newLine.get(keyId);
+			Object key = newLine.get(followId);
 			if (key == null || key.toString().equals("")) {
-				newLine.put(keyId, prev);
+				newLine.put(followId, prev);
 			}
 			newValues.add(newLine);
 			prev = key;
@@ -68,7 +68,7 @@ public class Follow extends AbstractTableOption {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("keyId", keyId);
+		map.put("followId", followId);
 		return map;
 	}
 }

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -17,8 +17,8 @@ import com.purejadeite.util.SimpleValidator;
  *
  * @author mitsuhiroseino
  */
-public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<WorksheetDefinition>
-		implements JoinedCellDefinition<WorksheetDefinition> {
+public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<SheetDefinition>
+		implements JoinedCellDefinition<SheetDefinition> {
 
 	private static final long serialVersionUID = -6688614988181481927L;
 
@@ -55,7 +55,7 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<Wor
 	 * @param config
 	 *            コンフィグ
 	 */
-	public JoinedCellDefinitionImpl(WorksheetDefinition parent, Map<String, Object> config) {
+	public JoinedCellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		Map<String, String> joinConfig = getMap(config, CFG_JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);

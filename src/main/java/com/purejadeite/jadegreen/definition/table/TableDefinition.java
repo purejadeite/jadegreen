@@ -3,14 +3,14 @@ package com.purejadeite.jadegreen.definition.table;
 import java.util.List;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
  * @author mitsuhiroseino
  */
-public interface TableDefinition<C extends TableCellDefinition<?>> extends ParentDefinition<WorksheetDefinition, C> {
+public interface TableDefinition<C extends TableCellDefinition<?>> extends ParentDefinition<SheetDefinition, C> {
 
 	/**
 	 * 繰り返し項目の取得開始判定項目

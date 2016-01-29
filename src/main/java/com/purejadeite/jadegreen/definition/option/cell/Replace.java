@@ -19,7 +19,7 @@ public class Replace extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 4151445349235116032L;
 
-	private static final String CFG_MAP = "map";
+	protected static final String CFG_MAP = "map";
 
 	/**
 	 * 必須項目名称
@@ -29,7 +29,7 @@ public class Replace extends AbstractStringCellOption {
 	/**
 	 * 文字列置換マップ
 	 */
-	private Map<String, String> map;
+	protected Map<String, String> map;
 
 	/**
 	 * コンストラクタ

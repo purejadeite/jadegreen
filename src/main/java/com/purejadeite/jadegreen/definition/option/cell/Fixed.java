@@ -17,7 +17,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 
 	private static final long serialVersionUID = 2129167612190837570L;
 
-	private static final String CFG_VALUE = "value";
+	protected static final String CFG_VALUE = "value";
 
 	/**
 	 * 必須項目名称
@@ -27,7 +27,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	/**
 	 * 固定値
 	 */
-	private String value;
+	protected String value;
 
 	/**
 	 * コンストラクタ

@@ -19,7 +19,7 @@ import com.purejadeite.util.collection.StringKeyNestedMap;
  */
 public class Tree extends AbstractTableOption {
 
-	private static final String CFG_SEPARATOR = "separator";
+	protected static final String CFG_SEPARATOR = "separator";
 
 	/**
 	 * 必須項目名称
@@ -29,7 +29,7 @@ public class Tree extends AbstractTableOption {
 	/**
 	 * キーを分割する文字列
 	 */
-	private String separator;
+	protected String separator;
 
 	/**
 	 * コンストラクタ

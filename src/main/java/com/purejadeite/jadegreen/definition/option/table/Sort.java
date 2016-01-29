@@ -19,9 +19,9 @@ public class Sort extends AbstractTableOption {
 
 	private static final long serialVersionUID = 491868476272944525L;
 
-	private static final String CFG_KEY_ID = "keyId";
+	protected static final String CFG_KEY_ID = "keyId";
 
-	private static final String CFG_DESC = "desc";
+	protected static final String CFG_DESC = "desc";
 
 	/**
 	 * 必須項目名称

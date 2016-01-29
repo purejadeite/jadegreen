@@ -16,9 +16,9 @@ public class ToDate extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = 247396559988860716L;
 
-	private static final String CFG_USE1904 = "use1904";
+	protected static final String CFG_USE1904 = "use1904";
 
-	private boolean use1904windowing;
+	protected boolean use1904windowing;
 
 	/**
 	 * コンストラクタ

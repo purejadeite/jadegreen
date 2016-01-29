@@ -11,6 +11,7 @@ import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.TargetTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -18,7 +19,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
  *
  * @author mitsuhiroseino
  */
-public class TableContentImpl extends AbstractContent<WorksheetContent, TableDefinition<?>>implements TableContent {
+public class TableContentImpl extends AbstractContent<SheetContent, TableDefinition<?>>implements TableContent {
 
 	private static final long serialVersionUID = 2393648151533807595L;
 
@@ -34,7 +35,7 @@ public class TableContentImpl extends AbstractContent<WorksheetContent, TableDef
 	/**
 	 * コンストラクタ
 	 */
-	public TableContentImpl(String uuid, WorksheetContent parent, TableDefinition<?> definition) {
+	public TableContentImpl(String uuid, SheetContent parent, TableDefinition<?> definition) {
 		super(uuid, parent, definition);
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
@@ -42,6 +43,9 @@ public class TableContentImpl extends AbstractContent<WorksheetContent, TableDef
 				cells.add(new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof TableValueDefinitionImpl) {
 				// 固定値の場合
+				cells.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+			} else if (childDefinition instanceof TargetTableCellDefinitionImpl) {
+				// ターゲットの場合
 				cells.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof TableCellDefinition) {
 				// セルの場合

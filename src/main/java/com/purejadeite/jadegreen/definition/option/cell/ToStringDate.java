@@ -18,7 +18,7 @@ public class ToStringDate extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = -6876337386509102177L;
 
-	private static final String CFG_DATE_FORMAT = "dateFormat";
+	protected static final String CFG_DATE_FORMAT = "dateFormat";
 
 	/**
 	 * 必須項目名称
@@ -28,7 +28,7 @@ public class ToStringDate extends AbstractStringCellOption {
 	/**
 	 * 日付フォーマット
 	 */
-	private String dateFormat;
+	protected String dateFormat;
 
 	/**
 	 * コンストラクタ

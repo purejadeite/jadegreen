@@ -46,7 +46,7 @@ public class CellOptionManager {
 		manager.register(Remove.class);
 	}
 
-	public static void register(Class<CellOption> clazz) {
+	public static void register(Class<? extends CellOption> clazz) {
 		manager.register(clazz);
 	}
 

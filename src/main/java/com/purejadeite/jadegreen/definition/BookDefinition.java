@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.option.workbook.WorkbookOptionManager;
+import com.purejadeite.jadegreen.definition.option.book.BookOptionManager;
 
 /**
  * Bookの読み込み定義です
  * @author mitsuhiroseino
  *
  */
-public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, WorksheetDefinition> {
+public class BookDefinition extends AbstractParentDefinition<NoDefinition, SheetDefinition> {
 
 	private static final long serialVersionUID = 1118031049839086924L;
 
@@ -24,7 +24,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 * コンストラクタ
 	 * @param config コンフィグ
 	 */
-	public WorkbookDefinition(Map<String, Object> config) {
+	public BookDefinition(Map<String, Object> config) {
 		super(config);
 	}
 
@@ -33,8 +33,8 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 * @param config コンフィグ
 	 * @return インスタンス
 	 */
-	public static WorkbookDefinition newInstance(Map<String, Object> config) {
-		return new WorkbookDefinition(config);
+	public static BookDefinition newInstance(Map<String, Object> config) {
+		return new BookDefinition(config);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(WorksheetDefinition sheet: getChildren()) {
+		for(SheetDefinition sheet: getChildren()) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);
@@ -64,7 +64,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 */
 	@Override
 	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
-		this.options = WorkbookOptionManager.build(definition, options);
+		this.options = BookOptionManager.build(definition, options);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class WorkbookDefinition extends AbstractParentDefinition<NoDefinition, W
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(WorksheetDefinition child) {
+	public void addChild(SheetDefinition child) {
 		super.addChild(child);
 	}
 

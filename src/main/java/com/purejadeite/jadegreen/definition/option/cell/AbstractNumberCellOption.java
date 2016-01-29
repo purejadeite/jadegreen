@@ -15,13 +15,13 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 
 	private static final long serialVersionUID = 698720974407694707L;
 
-	private static final String CFG_NULL_TO_ZERO = "nullToZero";
+	protected static final String CFG_NULL_TO_ZERO = "nullToZero";
 
-	private static final String CFG_EMPTY_TO_ZERO = "emptyToZero";
+	protected static final String CFG_EMPTY_TO_ZERO = "emptyToZero";
 
-	private boolean nullToZero;
+	protected boolean nullToZero;
 
-	private boolean emptyToZero;
+	protected boolean emptyToZero;
 
 	/**
 	 * コンストラクタ

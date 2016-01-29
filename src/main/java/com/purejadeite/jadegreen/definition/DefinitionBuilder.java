@@ -42,15 +42,15 @@ public class DefinitionBuilder {
 	 *            JSONから変換されたMAPのLIST形式の定義
 	 * @return Book読み込み定義
 	 */
-	public static WorkbookDefinition build(Map<String, Object> config) {
+	public static BookDefinition build(Map<String, Object> config) {
 		// bookのビルド
-		WorkbookDefinition book = new WorkbookDefinition(config);
-		List<Map<String, Object>> sheetConfigs = getList(config, WorkbookDefinition.CFG_SHEETS);
+		BookDefinition book = new BookDefinition(config);
+		List<Map<String, Object>> sheetConfigs = getList(config, BookDefinition.CFG_SHEETS);
 		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド
-			WorksheetDefinition sheet = new WorksheetDefinition(book, sheetConfig);
+			SheetDefinition sheet = new SheetDefinition(book, sheetConfig);
 			// cellのビルド
-			List<Map<String, Object>> cellConfigs = getList(sheetConfig, WorksheetDefinition.CFG_CELLS);
+			List<Map<String, Object>> cellConfigs = getList(sheetConfig, SheetDefinition.CFG_CELLS);
 			for (Map<String, Object> cellConfig : cellConfigs) {
 				sheet.addChild(createCell(cellConfig, sheet));
 			}
@@ -73,7 +73,7 @@ public class DefinitionBuilder {
 	 *            シート読み込み定義
 	 * @return Cell読み込み定義
 	 */
-	private static Definition<?> createCell(Map<String, Object> cellDef, WorksheetDefinition sheet) {
+	private static Definition<?> createCell(Map<String, Object> cellDef, SheetDefinition sheet) {
 		return createCell(cellDef, sheet, null);
 	}
 
@@ -88,7 +88,7 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
-	private static Definition<?> createCell(Map<String, Object> config, WorksheetDefinition sheet,
+	private static Definition<?> createCell(Map<String, Object> config, SheetDefinition sheet,
 			TableDefinition<?> table) {
 		Definition<?> definition = null;
 
@@ -103,7 +103,7 @@ public class DefinitionBuilder {
 			definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
 		} else if (ValueDefinitionImpl.assess(table, config)) {
 			// 単独の値フィールドの場合
-			definition = new ValueDefinitionImpl<WorksheetDefinition>(sheet, config);
+			definition = new ValueDefinitionImpl<SheetDefinition>(sheet, config);
 		} else if (RowCellDefinitionImpl.assess(table, config)) {
 			// 親が行方向の繰り返しの場合
 			definition = new RowCellDefinitionImpl(table, config);
@@ -148,7 +148,7 @@ public class DefinitionBuilder {
 	 *            table定義
 	 * @return セルの定義リスト
 	 */
-	private static List<TableCellDefinition<?>> createCells(List<Map<String, Object>> cells, WorksheetDefinition sheet,
+	private static List<TableCellDefinition<?>> createCells(List<Map<String, Object>> cells, SheetDefinition sheet,
 			TableDefinition<?> table) {
 		List<TableCellDefinition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {

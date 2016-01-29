@@ -25,7 +25,7 @@ public class ContentManager {
 	/**
 	 * ContentからWorksheetContentを取得するためのMap
 	 */
-	private Map<List<String>, WorksheetContent> keyConValSheet;
+	private Map<List<String>, SheetContent> keyConValSheet;
 
 	/**
 	 * DefinitionからContentのリストを取得するためのMap
@@ -72,7 +72,7 @@ public class ContentManager {
 	 * @param sheetContent シート
 	 * @param content シート配下のコンテンツ
 	 */
-	public void register(WorksheetContent sheetContent, Content<?, ?> content) {
+	public void register(SheetContent sheetContent, Content<?, ?> content) {
 		String definitionKey = content.getDefinition().getKey();
 
 		// 1. Content-SheetContent
@@ -107,7 +107,7 @@ public class ContentManager {
 	 * @param keyContent
 	 * @return
 	 */
-	public WorksheetContent getSheet(Content<?, ?> keyContent) {
+	public SheetContent getSheet(Content<?, ?> keyContent) {
 		return keyConValSheet.get(keyContent.getKey());
 	}
 
@@ -119,7 +119,7 @@ public class ContentManager {
 	 */
 	public Content<?, ?> getSameSheetContent(Content<?, ?> keyContent, Definition<?> targetDefinition) {
 		// 指定のコンテンツの属するシート
-		WorksheetContent sheetContent = this.keyConValSheet.get(keyContent.getKey());
+		SheetContent sheetContent = this.keyConValSheet.get(keyContent.getKey());
 		Map<String, Content<?, ?>> contents = this.keySheetValConts.get(sheetContent.getKey());
 		return contents.get(targetDefinition.getKey());
 	}
@@ -190,7 +190,7 @@ public class ContentManager {
 	 * @param targetDefinition
 	 * @return
 	 */
-	public List<WorksheetContent> getSheets(Content<?, ?> content, Definition<?> keyDefinition, Definition<?> targetDefinition) {
+	public List<SheetContent> getSheets(Content<?, ?> content, Definition<?> keyDefinition, Definition<?> targetDefinition) {
 		Content<?, ?> keyContent = getSameSheetContent(content, keyDefinition);
 		return getSheets(keyContent, targetDefinition);
 	}
@@ -200,7 +200,7 @@ public class ContentManager {
 	 * @param keyContent
 	 * @return
 	 */
-	public List<WorksheetContent> getSheets(Content<?, ?> keyContent) {
+	public List<SheetContent> getSheets(Content<?, ?> keyContent) {
 		return getSheets(keyContent, keyContent.getDefinition());
 	}
 
@@ -210,8 +210,8 @@ public class ContentManager {
 	 * @param targetDefinition
 	 * @return
 	 */
-	public List<WorksheetContent> getSheets(Content<?, ?> keyContent, Definition<?> targetDefinition) {
-		Set<WorksheetContent> sheetContents = new HashSet<>();
+	public List<SheetContent> getSheets(Content<?, ?> keyContent, Definition<?> targetDefinition) {
+		Set<SheetContent> sheetContents = new HashSet<>();
 		List<Content<?, ?>> contents = getSameValueContent(keyContent, targetDefinition);
 		for (Content<?, ?> content : contents) {
 			sheetContents.add(getSheet(content));
@@ -225,7 +225,7 @@ public class ContentManager {
 	 * @param targetDefinition
 	 * @return
 	 */
-	public Content<?, ?> getContent(WorksheetContent sheetContent, Definition<?> targetDefinition) {
+	public Content<?, ?> getContent(SheetContent sheetContent, Definition<?> targetDefinition) {
 		Map<String, Content<?, ?>> map = keySheetValConts.get(sheetContent.getKey());
 		if (MapUtils.isEmpty(map)) {
 			return null;

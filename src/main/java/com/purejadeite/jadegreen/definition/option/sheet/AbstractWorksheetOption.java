@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.worksheet;
+package com.purejadeite.jadegreen.definition.option.sheet;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.definition.option.AbstractOption;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractWorksheetOption extends AbstractOption implements WorksheetOption, Serializable {
+abstract public class AbstractWorksheetOption extends AbstractOption implements SheetOption, Serializable {
 
 	/**
 	 * コンストラクタ

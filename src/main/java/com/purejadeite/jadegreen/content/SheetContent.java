@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
@@ -24,22 +24,22 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
  *
  * @author mitsuhiroseino
  */
-public class WorksheetContent extends AbstractContent<WorkbookContent, WorksheetDefinition> {
+public class SheetContent extends AbstractContent<BookContent, SheetDefinition> {
 
 	private static final long serialVersionUID = -6579860061499426256L;
 
 	/**
 	 * ロガー
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(WorksheetContent.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SheetContent.class);
 
 	/**
-	 * worksheet名
+	 * sheet名
 	 */
 	private String sheetName;
 
 	/**
-	 * worksheet配下のコンテンツ
+	 * sheet配下のコンテンツ
 	 */
 	private List<Content<?, ?>> contents = new ArrayList<>();
 
@@ -51,9 +51,9 @@ public class WorksheetContent extends AbstractContent<WorkbookContent, Worksheet
 	 * @param definition
 	 *            定義
 	 * @param sheetName
-	 *            worksheet名
+	 *            sheet名
 	 */
-	public WorksheetContent(WorkbookContent parent, WorksheetDefinition definition, String sheetName) {
+	public SheetContent(BookContent parent, SheetDefinition definition, String sheetName) {
 		super(UUID.randomUUID().toString(), parent, definition);
 		this.sheetName = sheetName;
 		Content<?, ?> content = null;

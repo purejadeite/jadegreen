@@ -21,9 +21,9 @@ public class Group extends AbstractTableOption {
 
 	private static final long serialVersionUID = -7712482157745974514L;
 
-	private static final String CFG_GROUPS_GROUP_ID = "groupId";
+	protected static final String CFG_GROUPS_GROUP_ID = "groupId";
 
-	private static final String CFG_GROUPS_VALUE_ID = "valueId";
+	protected static final String CFG_GROUPS_VALUE_ID = "valueId";
 
 	/**
 	 * 必須項目名称
@@ -33,12 +33,12 @@ public class Group extends AbstractTableOption {
 	/**
 	 * グループ化キーとなる項目の定義ID
 	 */
-	private List<String> groupIds;
+	protected List<String> groupIds;
 
 	/**
 	 * グループ化された値を保存する項目の定義ID
 	 */
-	private String valueId;
+	protected String valueId;
 
 	/**
 	 * コンストラクタ

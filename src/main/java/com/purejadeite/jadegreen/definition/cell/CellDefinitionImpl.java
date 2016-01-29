@@ -4,14 +4,14 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 単一セルの読み込み定義です
  * @author mitsuhiroseino
  */
-public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefinition> {
+public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> {
 
 	private static final long serialVersionUID = -6196528307255166352L;
 
@@ -33,7 +33,7 @@ public class CellDefinitionImpl extends AbstractCellDefinition<WorksheetDefiniti
 	 * @param config
 	 *            コンフィグ
 	 */
-	public CellDefinitionImpl(WorksheetDefinition parent, Map<String, Object> config) {
+	public CellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		row = getIntValue(config, CFG_ROW);
 		col = getIntValue(config, CFG_COLUMN);

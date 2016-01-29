@@ -4,35 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.WorkbookDefinition;
+import com.purejadeite.jadegreen.definition.BookDefinition;
 
 /**
- * Workbookのコンテンツ
+ * bookのコンテンツ
  * @author mitsuhiroseino
  */
-public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefinition> {
+public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 
 	private static final long serialVersionUID = -1677962020788016225L;
 
 	/**
-	 * worksheetのコンテンツリスト
+	 * sheetのコンテンツリスト
 	 */
-	private List<WorksheetContent> sheets = new ArrayList<>();
+	private List<SheetContent> sheets = new ArrayList<>();
 
 	/**
 	 * コンストラクタ
 	 * @param definition 定義
-	 * @param name workbook名
+	 * @param name book名
 	 */
-	public WorkbookContent(WorkbookDefinition definition) {
+	public BookContent(BookDefinition definition) {
 		super(null, null, definition);
 	}
 
 	/**
-	 * worksheetを追加します
+	 * sheetを追加します
 	 * @param sheet
 	 */
-	public void addSheet(WorksheetContent sheet) {
+	public void addSheet(SheetContent sheet) {
 		sheets.add(sheet);
 	}
 
@@ -50,7 +50,7 @@ public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefiniti
 	@Override
 	public Object getRawValuesImpl() {
 		List<Object> values = new ArrayList<>();
-		for (WorksheetContent sheet : sheets) {
+		for (SheetContent sheet : sheets) {
 			Object vals = sheet.getRawValues();
 			if (vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
@@ -67,7 +67,7 @@ public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefiniti
 		if (closed) {
 			return true;
 		}
-		for (WorksheetContent sheet : sheets) {
+		for (SheetContent sheet : sheets) {
 			if (!sheet.isClosed()) {
 				return false;
 			}
@@ -82,7 +82,7 @@ public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefiniti
 	@Override
 	public Object getValuesImpl() {
 		List<Object> values = new ArrayList<>();
-		for (WorksheetContent sheet : sheets) {
+		for (SheetContent sheet : sheets) {
 			Object vals = sheet.getValues();
 			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
@@ -98,7 +98,7 @@ public class WorkbookContent extends AbstractContent<NoContent, WorkbookDefiniti
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(WorksheetContent sheet: sheets) {
+		for(SheetContent sheet: sheets) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.worksheet;
+package com.purejadeite.jadegreen.definition.option.sheet;
 
 import com.purejadeite.jadegreen.definition.option.Option;
 
@@ -7,6 +7,6 @@ import com.purejadeite.jadegreen.definition.option.Option;
  * @author mitsuhiroseino
  *
  */
-public interface WorksheetOption extends Option {
+public interface SheetOption extends Option {
 
 }

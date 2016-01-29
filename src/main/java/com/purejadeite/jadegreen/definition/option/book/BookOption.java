@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.option.workbook;
+package com.purejadeite.jadegreen.definition.option.book;
 
 import com.purejadeite.jadegreen.definition.option.Option;
 
@@ -7,6 +7,6 @@ import com.purejadeite.jadegreen.definition.option.Option;
  * @author mitsuhiroseino
  *
  */
-public interface WorkbookOption extends Option {
+public interface BookOption extends Option {
 
 }

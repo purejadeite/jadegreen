@@ -15,9 +15,9 @@ import com.purejadeite.util.EvaluationUtils;
  */
 public class Remove extends AbstractStringCellOption {
 
-	private static final String CFG_OPERATOR = "operator";
+	protected static final String CFG_OPERATOR = "operator";
 
-	private static final String CFG_VALUE = "value";
+	protected static final String CFG_VALUE = "value";
 
 	/**
 	 * 比較演算子

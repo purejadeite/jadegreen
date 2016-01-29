@@ -17,26 +17,26 @@ public class AddText extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = -9117326686130712272L;
 
-	private static final String CFG_PREFIX = "prefix";
+	protected static final String CFG_PREFIX = "prefix";
 
-	private static final String CFG_SUFFIX = "suffix";
+	protected static final String CFG_SUFFIX = "suffix";
 
-	private static final String CFG_IGNORE_EMPTY = "ignoreEmpty";
+	protected static final String CFG_IGNORE_EMPTY = "ignoreEmpty";
 
 	/**
 	 * 接頭語
 	 */
-	private String prefix;
+	protected String prefix;
 
 	/**
 	 * 接尾語
 	 */
-	private String suffix;
+	protected String suffix;
 
 	/**
 	 * NULL,空文字の場合は処理対象外
 	 */
-	private boolean ignoreEmpty;
+	protected boolean ignoreEmpty;
 
 	/**
 	 * コンストラクタ

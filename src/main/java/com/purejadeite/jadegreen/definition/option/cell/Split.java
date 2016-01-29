@@ -20,7 +20,7 @@ public class Split extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = -7086955680521212723L;
 
-	private static final String CFG_SPLITTER = "splitter";
+	protected static final String CFG_SPLITTER = "splitter";
 
 	/**
 	 * 必須項目名称
@@ -30,7 +30,7 @@ public class Split extends AbstractStringCellOption {
 	/**
 	 * 区切り文字
 	 */
-	private String splitter;
+	protected String splitter;
 
 	/**
 	 * コンストラクタ

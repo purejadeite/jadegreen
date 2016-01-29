@@ -20,11 +20,11 @@ public class Exclude extends AbstractTableOption {
 
 	private static final long serialVersionUID = -7665794968023216952L;
 
-	private static final String CFG_KEY_ID = "keyId";
+	protected static final String CFG_KEY_ID = "keyId";
 
-	private static final String CFG_OPERATOR = "operator";
+	protected static final String CFG_OPERATOR = "operator";
 
-	private static final String CFG_VALUE = "value";
+	protected static final String CFG_VALUE = "value";
 
 	/**
 	 * 必須項目名称

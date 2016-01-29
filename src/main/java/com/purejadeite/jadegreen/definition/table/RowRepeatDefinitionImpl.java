@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.table;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.WorksheetDefinition;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 
 /**
@@ -38,7 +38,7 @@ public class RowRepeatDefinitionImpl extends AbstractTableDefinition<TableCellDe
 	 * @param endValue 終了キー値
 	 * @param options オプション
 	 */
-	public RowRepeatDefinitionImpl(WorksheetDefinition parent, Map<String, Object> config) {
+	public RowRepeatDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 
