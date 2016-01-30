@@ -40,7 +40,7 @@ public class SxssfTableMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Worksheet> read(String excelFilePath) throws IOException {
+	public static List<Sheet> read(String excelFilePath) throws IOException {
 		File excelFile = new File(excelFilePath);
 		return read(excelFile);
 	}
@@ -51,7 +51,7 @@ public class SxssfTableMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Worksheet> read(File excelFile) throws IOException {
+	public static List<Sheet> read(File excelFile) throws IOException {
 
 		if (!excelFile.isFile()) {
 			throw new JadegreenException("excelFile=" + excelFile.getPath() + ":ファイルが存在しません");
@@ -91,23 +91,23 @@ public class SxssfTableMapper {
 	}
 
 	// 全シートのセルの値を取得
-	private static List<Worksheet> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) throws InvalidFormatException, IOException {
+	private static List<Sheet> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) throws InvalidFormatException, IOException {
 		// 1ファイル分の情報を集めるインスタンス
-		List<Worksheet> workbookContent = new ArrayList<>();
+		List<Sheet> workbookContent = new ArrayList<>();
 
 		// ブックでシェアしている値を取得する
 		SharedStringsTable sst = reader.getSharedStringsTable();
 
 		// シートのパーサ
 		XMLReader worksheetParser = null;
-		Worksheet worksheetContent = null;
+		Sheet worksheetContent = null;
 		SxssfTableWorksheetHandler worksheetHandler =null;
 
 		InputStream worksheetIs = null;
 		for (Entry<String, String> entry : worksheetNames.entrySet()) {
 			LOGGER.debug("対象Sheet:" + entry.getValue());
 			// シートのパーサを取得
-			worksheetContent = new Worksheet(excelFilePath, entry.getValue());
+			worksheetContent = new Sheet(excelFilePath, entry.getValue());
 			worksheetHandler = new SxssfTableWorksheetHandler(sst, worksheetContent);
 			worksheetParser = new SAXParser();
 			worksheetParser.setContentHandler(worksheetHandler);

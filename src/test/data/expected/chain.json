@@ -1,0 +1,47 @@
+[
+    {
+        "sheetName": "chain",
+        "values": [
+            {
+                "key": "file1",
+                "value": "ファイル1",
+                "chain": [
+                    {
+                        "key": "file2a",
+                        "value": "ファイル2Ａ",
+                        "chain": {
+                            "key": "file3",
+                            "value": "ファイル3",
+                            "chain": {
+                                "key": "file4",
+                                "value": "ファイル4"
+                            }
+                        }
+                    },
+                    {
+                        "key": "file2b",
+                        "value": "ファイル2Ｂ",
+                        "chain": "file3"
+                    }
+                ]
+            },
+            {
+                "key": "file5",
+                "value": "ファイル5",
+                "chain": {
+                    "key": "file6",
+                    "value": "ファイル6"
+                }
+            },
+            {
+                "key": "file7",
+                "value": "ファイル7"
+            },
+            {
+                "chain": "file8",
+                "key": "file8",
+                "value": "ファイル8"
+            }
+        ]
+    }
+]

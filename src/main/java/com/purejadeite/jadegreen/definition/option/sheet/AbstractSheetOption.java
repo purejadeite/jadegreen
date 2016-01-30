@@ -1,30 +1,33 @@
 package com.purejadeite.jadegreen.definition.option.sheet;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
 /**
- * Worksheetの値を変換する抽象クラス
+ * Sheetの値を変換する抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractWorksheetOption extends AbstractOption implements SheetOption, Serializable {
+abstract public class AbstractSheetOption extends AbstractOption implements SheetOption, Serializable {
 
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractWorksheetOption(Definition<?> definition) {
+	public AbstractSheetOption(Definition<?> definition) {
 		super(definition);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object apply(Object values) {
-		return applyImpl((List<Map<String, Object>>) values);
+		if (values == SpecificValue.UNDEFINED) {
+			return values;
+		}
+		return applyImpl((Map<String, Object>) values);
 	}
 
 	/**
@@ -34,7 +37,7 @@ abstract public class AbstractWorksheetOption extends AbstractOption implements 
 	 *            変換前のテーブル
 	 * @return 変換後のテーブル
 	 */
-	abstract protected Object applyImpl(List<Map<String, Object>> values);
+	abstract protected Object applyImpl(Map<String, Object> values);
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();

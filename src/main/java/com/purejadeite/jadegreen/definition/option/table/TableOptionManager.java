@@ -26,6 +26,7 @@ public class TableOptionManager {
 		manager.register(Exclude.class);
 		manager.register(ReplaceId.class);
 		manager.register(KeyValue.class);
+		manager.register(Chain.class);
 	}
 
 	public static void register(Class<? extends TableOption> clazz) {

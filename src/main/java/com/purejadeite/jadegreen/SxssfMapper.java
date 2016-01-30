@@ -78,7 +78,7 @@ public class SxssfMapper {
 	 */
 	public static List<Map<String, Object>> read(File excelFile, BookDefinition workbookDefinition) throws IOException {
 		ContentManager.getInstance().init();
-		List<Worksheet> worksheets = SxssfTableMapper.read(excelFile);
+		List<Sheet> worksheets = SxssfTableMapper.read(excelFile);
 		return read(worksheets, workbookDefinition);
 	}
 
@@ -91,7 +91,7 @@ public class SxssfMapper {
 	 */
 	public static List<Map<String, Object>> read(File[] excelFiles, BookDefinition workbookDefinition) throws IOException {
 		ContentManager.getInstance().init();
-		List<Worksheet> worksheets =  new ArrayList<>();
+		List<Sheet> worksheets =  new ArrayList<>();
 		for (File excelFile : excelFiles) {
 			worksheets.addAll(SxssfTableMapper.read(excelFile));
 		}
@@ -99,10 +99,10 @@ public class SxssfMapper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(List<Worksheet> worksheets, BookDefinition workbookDefinition) throws IOException {
+	public static List<Map<String, Object>> read(List<Sheet> worksheets, BookDefinition workbookDefinition) throws IOException {
 		BookContent workbookContent = new BookContent(workbookDefinition);
 		for (SheetDefinition worksheetDefinition : workbookDefinition.getChildren()) {
-			for (Worksheet worksheet: worksheets) {
+			for (Sheet worksheet: worksheets) {
 				String name = worksheet.getName();
 				if (worksheetDefinition.match(name, worksheet)) {
 					LOGGER.debug("[取得] sheet:" + name + ", type:" + worksheetDefinition.getId());

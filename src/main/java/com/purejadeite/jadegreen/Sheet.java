@@ -3,12 +3,12 @@ package com.purejadeite.jadegreen;
 import com.purejadeite.util.collection.LazyTable;
 import com.purejadeite.util.collection.Table;
 
-public class Worksheet extends LazyTable<String> {
+public class Sheet extends LazyTable<String> {
 
 	/**
 	 * ブック名
 	 */
-	public String workbookName;
+	public String bookName;
 
 	/**
 	 * シート名
@@ -19,8 +19,8 @@ public class Worksheet extends LazyTable<String> {
 	 * ブック名を取得します
 	 * @return ブック名
 	 */
-	public String getWorkbookName() {
-		return workbookName;
+	public String getBookName() {
+		return bookName;
 	}
 
 	/**
@@ -34,18 +34,18 @@ public class Worksheet extends LazyTable<String> {
 	/**
 	 * コンストラクタ
 	 */
-	public Worksheet(String workbookName, String name) {
+	public Sheet(String bookName, String name) {
 		super();
-		this.workbookName = workbookName;
+		this.bookName = bookName;
 		this.name = name;
 	}
 
 	/**
 	 * コンストラクタ
 	 */
-	public Worksheet(String workbookName, String name, Table<String> table) {
+	public Sheet(String bookName, String name, Table<String> table) {
 		super(table);
-		this.workbookName = workbookName;
+		this.bookName = bookName;
 		this.name = name;
 	}
 
@@ -53,9 +53,9 @@ public class Worksheet extends LazyTable<String> {
 	/**
 	 * コンストラクタ
 	 */
-	public Worksheet(String workbookName, String name, String[][] table) {
+	public Sheet(String bookName, String name, String[][] table) {
 		super(table);
-		this.workbookName = workbookName;
+		this.bookName = bookName;
 		this.name = name;
 	}
 

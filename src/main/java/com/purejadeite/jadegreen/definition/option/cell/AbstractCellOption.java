@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
 
@@ -29,7 +30,9 @@ abstract public class AbstractCellOption extends AbstractOption implements CellO
 	}
 
 	public Object apply(Object value) {
-		if (value instanceof Iterable) {
+		if (value == SpecificValue.UNDEFINED) {
+			return value;
+		} else if (value instanceof Iterable) {
 			@SuppressWarnings("unchecked")
 			Iterable<Object> values = (Iterable<Object>) value;
 			List<Object> vals = new ArrayList<>();

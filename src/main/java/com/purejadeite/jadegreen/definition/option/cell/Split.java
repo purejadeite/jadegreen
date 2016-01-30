@@ -22,6 +22,8 @@ public class Split extends AbstractStringCellOption {
 
 	protected static final String CFG_SPLITTER = "splitter";
 
+	protected static final String CFG_ALWAYS = "always";
+
 	/**
 	 * 必須項目名称
 	 */
@@ -31,6 +33,11 @@ public class Split extends AbstractStringCellOption {
 	 * 区切り文字
 	 */
 	protected String splitter;
+
+	/**
+	 * 分割を常に行うか
+	 */
+	protected boolean always;
 
 	/**
 	 * コンストラクタ
@@ -44,6 +51,7 @@ public class Split extends AbstractStringCellOption {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.splitter = getString(config, CFG_SPLITTER, "\n");
+		this.always = getBooleanValue(config, CFG_ALWAYS, true);
 	}
 
 	/**
@@ -54,12 +62,17 @@ public class Split extends AbstractStringCellOption {
 			return value;
 		}
 		String[] values = StringUtils.split(value, splitter);
-		return (Object) Arrays.asList(values);
+		if (values.length == 1 && !always) {
+			return value;
+		} else {
+			return (Object) Arrays.asList(values);
+		}
 	}
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("splitter", this.splitter);
+		map.put("always", this.always);
 		return map;
 	}
 }
