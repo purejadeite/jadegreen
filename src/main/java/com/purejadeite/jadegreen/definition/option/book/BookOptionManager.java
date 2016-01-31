@@ -20,6 +20,7 @@ public class BookOptionManager {
 	static {
 		// マネージャーの初期化処理
 		manager = new OptionManager<>();
+		manager.register(Union.class);
 	}
 
 	public static void register(Class<? extends BookOption> clazz) {

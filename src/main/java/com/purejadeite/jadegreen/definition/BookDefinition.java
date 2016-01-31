@@ -71,14 +71,6 @@ public class BookDefinition extends AbstractParentDefinition<NoDefinition, Sheet
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyOptions(Object value) {
-		return value;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void addChild(SheetDefinition child) {
 		super.addChild(child);
 	}

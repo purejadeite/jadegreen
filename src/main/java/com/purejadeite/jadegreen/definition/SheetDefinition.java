@@ -320,14 +320,6 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		this.options = SheetOptionManager.build(definition, options);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Object applyOptions(Object value) {
-		return value;
-	}
-
 	public boolean match(String name, Table<String> table) {
 		if (targetName != null) {
 			if (!SimpleComparison.compare(targetName, name)) {

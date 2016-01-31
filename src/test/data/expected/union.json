@@ -1,0 +1,135 @@
+[
+    {
+        "className": [
+            "Sample1",
+            "Sample2",
+            "Sample3"
+        ],
+        "fields": [
+            {
+                "fieldName": "fileExistFlag1",
+                "initial": "Boolean.TRUE1",
+                "logicalFieldName": "ファイル有無フラグ1",
+                "type": "Boolean1"
+            },
+            {
+                "fieldName": "fileName1",
+                "initial": "null1",
+                "logicalFieldName": "ファイル名1",
+                "type": "String1"
+            },
+            {
+                "fieldName": "fileNameJp1",
+                "initial": "null1",
+                "logicalFieldName": "ファイル名日本語1",
+                "type": "String1"
+            },
+            {
+                "fieldName": "filePath1",
+                "initial": null,
+                "logicalFieldName": "ファイルパス1",
+                "type": "String1"
+            },
+            {
+                "fieldName": "lines1",
+                "initial": "new ArrayList<>()1",
+                "logicalFieldName": "行情報1",
+                "type": "List<LineBean>1"
+            },
+            {
+                "fieldName": "fileExistFlag2",
+                "initial": "Boolean.TRUE2",
+                "logicalFieldName": "ファイル有無フラグ2",
+                "type": "Boolean2"
+            },
+            {
+                "fieldName": "fileName2",
+                "initial": "null2",
+                "logicalFieldName": "ファイル名2",
+                "type": "String2"
+            },
+            {
+                "fieldName": "fileNameJp2",
+                "initial": "null2",
+                "logicalFieldName": "ファイル名日本語2",
+                "type": "String2"
+            },
+            {
+                "fieldName": "filePath2",
+                "initial": null,
+                "logicalFieldName": "ファイルパス2",
+                "type": "String2"
+            },
+            {
+                "fieldName": "lines2",
+                "initial": "new ArrayList<>()2",
+                "logicalFieldName": "行情報2",
+                "type": "List<LineBean>2"
+            },
+            {
+                "fieldName": "fileExistFlag3",
+                "initial": "Boolean.TRUE3",
+                "logicalFieldName": "ファイル有無フラグ3",
+                "type": "Boolean3"
+            },
+            {
+                "fieldName": "fileName3",
+                "initial": "null3",
+                "logicalFieldName": "ファイル名3",
+                "type": "String3"
+            },
+            {
+                "fieldName": "fileNameJp3",
+                "initial": "null3",
+                "logicalFieldName": "ファイル名日本語3",
+                "type": "String3"
+            },
+            {
+                "fieldName": "filePath3",
+                "initial": null,
+                "logicalFieldName": "ファイルパス3",
+                "type": "String3"
+            },
+            {
+                "fieldName": "lines3",
+                "initial": "new ArrayList<>()3",
+                "logicalFieldName": "行情報3",
+                "type": "List<LineBean>3"
+            }
+        ],
+        "imports": [
+            "java.io.Serializable1",
+            "java.util.List1",
+            "java.util.ArrayList1",
+            "com.purejadeite.generated.LineBean1",
+            "java.io.Serializable2",
+            "java.util.List2",
+            "java.util.ArrayList2",
+            "com.purejadeite.generated.LineBean2",
+            "java.io.Serializable3",
+            "java.util.List3",
+            "java.util.ArrayList3",
+            "com.purejadeite.generated.LineBean3"
+        ],
+        "lang": [
+            "ja",
+            "ja",
+            "ja"
+        ],
+        "logicalClassName": [
+            "シート間の結合1",
+            "シート間の結合2",
+            "シート間の結合3"
+        ],
+        "package": [
+            "com.purejadeite.generated1",
+            "com.purejadeite.generated2",
+            "com.purejadeite.generated3"
+        ],
+        "sheetName": [
+            "bean1",
+            "bean2",
+            "bean3"
+        ]
+    }
+]
