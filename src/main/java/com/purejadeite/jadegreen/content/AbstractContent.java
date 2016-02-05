@@ -115,6 +115,11 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 		return valuesCache;
 	}
 
+	@Override
+	public boolean isAquired() {
+		return valuesCache != null;
+	}
+
 	/**
 	 * 編集した値を取得する実装です
 	 *

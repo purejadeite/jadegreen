@@ -1,10 +1,8 @@
 package com.purejadeite.jadegreen.definition;
 
-import static com.purejadeite.util.RoughlyConverter.*;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,14 +56,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 			id = UUID.randomUUID().toString();
 		}
 		// オプションの元になる値は親が取得して、子がOptionsのインスタンスを作る
-		List<Map<String, Object>> opts = intoList(get(config, CFG_OPTIONS));
-		if (opts == null) {
-			Map<String, Object> opt = intoMap(get(config, CFG_OPTIONS));
-			if (opt != null) {
-				opts = new ArrayList<>();
-				opts.add(opt);
-			}
-		}
+		List<Map<String, Object>> opts = getAsList(config, CFG_OPTIONS);
 		buildOptions(this, opts);
 	}
 

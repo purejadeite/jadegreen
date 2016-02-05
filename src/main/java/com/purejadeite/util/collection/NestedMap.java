@@ -111,15 +111,7 @@ public class NestedMap<K> implements Map<K, Object> {
 	}
 
 	@Override
-	public Object put(K key, Object value) {
-		return put(getKeys(key), value);
-	}
-
-	public Object put(Iterable<K> keys, Object value) {
-		return put(getKeys(keys), value);
-	}
-
-	public Object put(K[] keys, Object value) {
+	public Object put(Object keys, Object value) {
 		return put(getKeys(keys), value);
 	}
 
@@ -236,31 +228,33 @@ public class NestedMap<K> implements Map<K, Object> {
 	}
 
 	protected List<K> getKeys(Object key) {
+		List<K> keys = null;
 		if (key instanceof List) {
-			return intoList(key);
+			keys = intoList(key);
 		} else {
-			List<K> keys = new ArrayList<>();
 			if (key instanceof Iterable) {
 				// Iterableの場合はListに変換
 				Iterable<K> keyIte = intoIterable(key);
+				keys = new ArrayList<>();
 				for (K k : keyIte) {
 					keys.add(k);
 				}
 			} else if (key instanceof Object[]) {
 				// 配列の場合はListに変換
 				K[] keyArray = intoArray(key);
+				keys = new ArrayList<>();
 				for (K k : keyArray) {
 					keys.add(k);
 				}
 			} else if (key == null) {
-				// nullの場合は要素がnullのみの配列に変換
+				// nullの場合は要素がnullのみのListに変換
+				keys = new ArrayList<>();
 				keys.add(null);
 			} else {
 				// 上記以外はnull
-				return null;
 			}
-			return keys;
 		}
+		return keys;
 	}
 
 	private List<K> getParentKeys(List<K> keys) {

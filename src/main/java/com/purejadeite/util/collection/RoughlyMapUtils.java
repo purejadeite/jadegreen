@@ -292,17 +292,32 @@ public class RoughlyMapUtils {
 		return null;
 	}
 
-	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K key, Getter<E> getter) {
-		List<E> values = getList(map, key);
-		if (values == null) {
-			values = new ArrayList<>();
-			values.add(getter.get(map, key));
+	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K keys[]) {
+		List<E> values = null;
+		for (K key : keys) {
+			values = getAsList(map, key);
+			if (values != null) {
+				return values;
+			}
 		}
-		return values;
+		return null;
 	}
 
-	public static interface Getter<E> {
-		public <K> E get(Map<K, ? extends Object> map, K key);
+	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K key) {
+		List<E> values = getList(map, key);
+		if (values == null) {
+			try {
+				@SuppressWarnings("unchecked")
+				E value = (E) map.get(key);
+				if (value != null) {
+					values = new ArrayList<>();
+					values.add(value);
+				}
+			} catch(ClassCastException e){
+				return null;
+			}
+		}
+		return values;
 	}
 
 }

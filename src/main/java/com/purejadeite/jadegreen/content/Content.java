@@ -40,6 +40,12 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public boolean isClosed();
 
 	/**
+	 * 取得が完了しているか判定します
+	 * @return true:取得完了, false:未取得
+	 */
+	public boolean isAquired();
+
+	/**
 	 * 値の取得を終了します
 	 */
 	public void close();
