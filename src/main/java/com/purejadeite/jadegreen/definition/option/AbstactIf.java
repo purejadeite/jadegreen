@@ -16,7 +16,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstactCondition extends AbstractOption {
+abstract public class AbstactIf extends AbstractOption {
 
 	protected static final String CFG_OPERATOR = "operator";
 
@@ -24,10 +24,9 @@ abstract public class AbstactCondition extends AbstractOption {
 
 	protected static final String CFG_CONDITIONS = "conditions";
 
-	/**
-	 * オプション
-	 */
-	public static final String[] CFG_OPTIONS = { "options", "option" };
+	protected static final String CFG_THEN = "then";
+
+	protected static final String CFG_ELSE = "else";
 
 	/**
 	 * 必須項目名称
@@ -39,7 +38,9 @@ abstract public class AbstactCondition extends AbstractOption {
 	 */
 	protected List<ConditionEvaluation> conditions;
 
-	protected Options options;
+	protected Options thenOptions;
+
+	protected Options elseOptions;
 
 	/**
 	 * コンストラクタ
@@ -47,7 +48,7 @@ abstract public class AbstactCondition extends AbstractOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public AbstactCondition(Definition<?> definition, Map<String, Object> config) {
+	public AbstactIf(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 
@@ -62,8 +63,12 @@ abstract public class AbstactCondition extends AbstractOption {
 			this.conditions.add(
 					new ConditionEvaluation(getString(config, CFG_OPERATOR, "=="), getString(config, CFG_VALUE, null)));
 		}
-		List<Map<String, Object>> opts = getAsList(config, CFG_OPTIONS);
-		options = buildOptions(definition, opts);
+		List<Map<String, Object>> cfgThen = getAsList(config, CFG_THEN);
+		thenOptions = buildOptions(definition, cfgThen);
+		List<Map<String, Object>> cfgElse = getAsList(config, CFG_ELSE);
+		if (cfgElse != null) {
+			elseOptions = buildOptions(definition, cfgElse);
+		}
 	}
 
 	abstract protected Options buildOptions(Definition<?> definition, List<Map<String, Object>> options);
@@ -84,7 +89,8 @@ abstract public class AbstactCondition extends AbstractOption {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("conditons", conditions);
-		map.put("options", options);
+		map.put("thenOptions", thenOptions);
+		map.put("elseOptions", elseOptions);
 		return map;
 	}
 

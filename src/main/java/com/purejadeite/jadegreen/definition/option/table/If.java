@@ -9,9 +9,8 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.option.AbstactCondition;
+import com.purejadeite.jadegreen.definition.option.AbstactIf;
 import com.purejadeite.jadegreen.definition.option.Options;
-import com.purejadeite.util.ConditionEvaluation;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -20,7 +19,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class Condition extends AbstactCondition implements TableOption, Serializable {
+public class If extends AbstactIf implements TableOption, Serializable {
 
 	protected static final String CFG_KEY_ID = "keyId";
 
@@ -40,7 +39,7 @@ public class Condition extends AbstactCondition implements TableOption, Serializ
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Condition(Definition<?> definition, Map<String, Object> config) {
+	public If(Definition<?> definition, Map<String, Object> config) {
 		super(definition, config);
 		SimpleValidator.containsKey(config, CONFIG);
 
@@ -57,31 +56,34 @@ public class Condition extends AbstactCondition implements TableOption, Serializ
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object values) {
-		if (values == SpecificValue.UNDEFINED) {
-			return values;
+	public Object apply(Object tableValues) {
+		if (tableValues == SpecificValue.UNDEFINED) {
+			return tableValues;
 		}
-		return applyImpl((List<Map<String, Object>>) values);
+		return applyImpl((List<Map<String, Object>>) tableValues);
 	}
 
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> tableValues) {
 		List<Object> rows = new ArrayList<>();
-		for (Map<String, Object> row : values) {
+		for (Map<String, Object> row : tableValues) {
 			boolean result = true;
 			// 全ての条件にあてはまる場合にのみオプションを適用
 			for (int i = 0; i < keyIds.size(); i++) {
 				String keyId = keyIds.get(i);
-				ConditionEvaluation condition = conditions.get(i);
 				Object value = row.get(keyId);
-				if (!condition.evaluate(value)) {
+				if (!evaluate(value)) {
 					result = false;
 					break;
 				}
 			}
 			if (result) {
-				rows.add(options.apply(row));
+				rows.add(thenOptions.apply(row));
 			} else {
-				rows.add(row);
+				if (thenOptions == null) {
+					rows.add(row);
+				} else {
+					rows.add(elseOptions.apply(row));
+				}
 			}
 		}
 		return rows;

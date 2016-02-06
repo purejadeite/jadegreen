@@ -7,9 +7,8 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.option.AbstactCondition;
+import com.purejadeite.jadegreen.definition.option.AbstactIf;
 import com.purejadeite.jadegreen.definition.option.Options;
-import com.purejadeite.util.ConditionEvaluation;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -18,7 +17,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class Condition extends AbstactCondition implements CellOption, Serializable {
+public class If extends AbstactIf implements CellOption, Serializable {
 
 	/**
 	 * 必須項目名称
@@ -31,35 +30,38 @@ public class Condition extends AbstactCondition implements CellOption, Serializa
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Condition(Definition<?> definition, Map<String, Object> config) {
+	public If(Definition<?> definition, Map<String, Object> config) {
 		super(definition, config);
 		SimpleValidator.containsKey(config, CONFIG);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object value) {
-		if (value == SpecificValue.UNDEFINED) {
-			return value;
-		} else if (value instanceof Iterable) {
-			Iterable<Object> values = (Iterable<Object>) value;
+	public Object apply(Object cellValue) {
+		if (cellValue == SpecificValue.UNDEFINED) {
+			return cellValue;
+		} else if (cellValue instanceof Iterable) {
+			Iterable<Object> values = (Iterable<Object>) cellValue;
 			List<Object> vals = new ArrayList<>();
 			for (Object v : values) {
 				vals.add(this.apply(v));
 			}
 			return vals;
 		} else {
-			return applyImpl(value);
+			return applyImpl(cellValue);
 		}
 	}
 
-	protected Object applyImpl(Object values) {
-		for (ConditionEvaluation condition : conditions) {
-			if (!condition.evaluate(values)) {
-				return values;
+	protected Object applyImpl(Object cellValue) {
+		if (evaluate(cellValue)) {
+			return thenOptions.apply(cellValue);
+		} else {
+			if (thenOptions == null) {
+				return cellValue;
+			} else {
+				return elseOptions.apply(cellValue);
 			}
 		}
-		return options.apply(values);
 	}
 
 	/**
