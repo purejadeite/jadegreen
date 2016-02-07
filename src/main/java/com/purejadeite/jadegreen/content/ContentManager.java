@@ -11,6 +11,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionManager;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 
 /**
  * コンテンツを管理するクラスです
@@ -21,6 +23,11 @@ import com.purejadeite.jadegreen.definition.Definition;
 public class ContentManager {
 
 	private static ThreadLocal<ContentManager> tl = new ThreadLocal<>();
+
+	/**
+	 * BookContent
+	 */
+	private BookContent bookContent;
 
 	/**
 	 * ContentからWorksheetContentを取得するためのMap
@@ -37,6 +44,11 @@ public class ContentManager {
 	 */
 	private Map<List<String>, Map<String, Content<?, ?>>> keySheetValConts;
 
+	/**
+	 * DefinitionからSheetContentを取得するためのMap
+	 */
+	private Map<String, Set<SheetContent>> keyDefValSheet;
+
 	private ContentManager() {
 		super();
 	}
@@ -48,6 +60,7 @@ public class ContentManager {
 		keyConValSheet = new HashMap<>();
 		keyDefValConts = new HashMap<>();
 		keySheetValConts = new HashMap<>();
+		keyDefValSheet = new HashMap<>();
 	}
 
 	public static ContentManager getInstance() {
@@ -67,8 +80,21 @@ public class ContentManager {
 		return cm;
 	}
 
+	public void register(BookContent bookContent) {
+		this.bookContent = bookContent;
+	}
+
+	public void register(SheetContent sheetContent) {
+		Set<SheetContent> sheetSet = keyDefValSheet.get(sheetContent.getFullId());
+		if (sheetSet == null) {
+			sheetSet = new HashSet<>();
+			keyDefValSheet.put(sheetContent.getFullId(), sheetSet);
+		}
+		sheetSet.add(sheetContent);
+	}
+
 	/**
-	 * WorksheetContentとContentの紐付けを登録します
+	 * SheetContentとContentの紐付けを登録します
 	 * @param sheetContent シート
 	 * @param content シート配下のコンテンツ
 	 */
@@ -100,6 +126,10 @@ public class ContentManager {
 				register(sheetContent, cellContent);
 			}
 		}
+	}
+
+	public BookContent getBook() {
+		return bookContent;
 	}
 
 	/**
@@ -180,6 +210,21 @@ public class ContentManager {
 			}
 		}
 		return sameValueContent;
+	}
+
+	/**
+	 * 指定のDefinitionに関連するシートコンテンツを全て取得します。
+	 * @param definition
+	 * @return
+	 */
+	public Set<SheetContent> getSheets(Definition<?> definition) {
+		SheetDefinition sheetDef = null;
+		if (definition instanceof SheetDefinition) {
+			sheetDef = (SheetDefinition) definition;
+		} else {
+			sheetDef = DefinitionManager.getInstance().getSheet(definition);
+		}
+		return keyDefValSheet.get(sheetDef.getFullId());
 	}
 
 	/**

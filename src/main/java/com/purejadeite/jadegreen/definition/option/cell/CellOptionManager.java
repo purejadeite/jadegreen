@@ -14,6 +14,7 @@ public class CellOptionManager {
 
 	static {
 		manager = new OptionManager<>();
+		manager.register(If.class);
 		// generator
 		manager.register(Fixed.class);
 		manager.register(Index.class);

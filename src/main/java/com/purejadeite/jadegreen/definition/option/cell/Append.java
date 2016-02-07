@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  * @author mitsuhiroseino
  *
  */
-public class AddText extends AbstractStringCellOption {
+public class Append extends AbstractStringCellOption {
 
 	private static final long serialVersionUID = -9117326686130712272L;
 
@@ -43,7 +43,7 @@ public class AddText extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public AddText(Definition<?> definition, Map<String, Object> config) {
+	public Append(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		this.prefix = getString(config, CFG_PREFIX);
 		this.suffix = getString(config, CFG_SUFFIX);

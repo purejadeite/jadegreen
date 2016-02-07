@@ -5,16 +5,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.BookContent;
+import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.SheetContent;
+import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
-import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.collection.Table;
 
@@ -99,24 +100,39 @@ public class SxssfMapper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(List<Sheet> worksheets, BookDefinition workbookDefinition) throws IOException {
-		BookContent workbookContent = new BookContent(workbookDefinition);
-		for (SheetDefinition worksheetDefinition : workbookDefinition.getChildren()) {
-			for (Sheet worksheet: worksheets) {
-				String name = worksheet.getName();
-				if (worksheetDefinition.match(name, worksheet)) {
-					LOGGER.debug("[取得] sheet:" + name + ", type:" + worksheetDefinition.getId());
-					SheetContent sheet = toSheetContent(name, worksheet, workbookContent, worksheetDefinition);
-					workbookContent.addSheet(sheet);
+	public static List<Map<String, Object>> read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
+		BookContent bookContent = new BookContent(bookDefinition);
+		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
+			for (Sheet sheet: sheets) {
+				String name = sheet.getName();
+				if (sheetDefinition.match(name, sheet)) {
+					LOGGER.debug("[取得] sheet:" + name + ", type:" + sheetDefinition.getId());
+					SheetContent sheetContent;
+					sheetContent = toSheetContent(name, sheet, bookContent, sheetDefinition);
+					bookContent.addSheet(sheetContent);
 				}
 			}
 		}
-		return (List<Map<String, Object>>) workbookContent.getValues();
+		return (List<Map<String, Object>>) bookContent.getValues();
 	}
 
 	// tableの値をWorksheetContentにマッピングします
 	public static SheetContent toSheetContent(String sheetName, Table<String> table, BookContent book, SheetDefinition definition) {
-		SheetContent sheet = new SheetContent(book, definition, sheetName);
+		SheetContent sheet = null;
+		if (definition.isUnion()) {
+			// 複数のシートの内容を1シートに集約する場合
+			Set<SheetContent> lastSheets = ContentManager.getInstance().getSheets(definition);
+			if (lastSheets == null || lastSheets.isEmpty()) {
+				// 対象のシートがまだ無いならば新規作成
+				sheet = new SheetContent(book, definition, sheetName);
+			} else {
+				// 既にあるならばそれを使う
+				sheet = lastSheets.iterator().next();
+				sheet.open();
+			}
+		} else {
+			sheet = new SheetContent(book, definition, sheetName);
+		}
 		List<List<String>> rows = table.getAdjustedTable(definition.getMaxRow(), definition.getMaxCol());
 		int rowSize = rows.size();
 		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {

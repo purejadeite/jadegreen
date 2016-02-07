@@ -63,7 +63,13 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 				content = new JoinedCellContentImpl(uuid, this, (JoinedCellDefinitionImpl) childDefinition);
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
-				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
+				if (this.definition.isUnion()) {
+					// 集約する場合
+					content = new ListCellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
+				} else {
+					// 集約しない場合
+					content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
+				}
 			} else if (childDefinition instanceof ValueDefinitionImpl) {
 				// 単独固定値の場合
 				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
@@ -76,6 +82,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 			contents.add(content);
 			ContentManager.getInstance().register(this, content);
 		}
+		ContentManager.getInstance().register(this);
 		LOGGER.debug("create: " + sheetName);
 	}
 
@@ -122,6 +129,21 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void setRawValues(Object rawValues) {
+		if (rawValues == null) {
+			return;
+		}
+		@SuppressWarnings("unchecked")
+		Map<String, Object> contentValues = (Map<String, Object>) rawValues;
+		for(Content<?, ?> content : contents) {
+			content.setRawValues(contentValues.get(content.getId()));
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean isClosed() {
 		if (closed) {
 			return true;
@@ -142,6 +164,14 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	public void close() {
 		super.close();
 		LOGGER.debug("close: " + sheetName);
+	}
+
+	@Override
+	public void open() {
+		super.open();
+		for (Content<?, ?> content : contents) {
+			content.open();
+		}
 	}
 
 	/**

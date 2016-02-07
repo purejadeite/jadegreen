@@ -106,6 +106,29 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 		return status;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setRawValues(Object rawValues) {
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> cellValues = (List<Map<String, Object>>) rawValues;
+		Map<String, List<Object>> rawCellValues = new HashMap<>();
+		for (Map<String, Object> cellValue : cellValues) {
+			for (String cellId : cellValue.keySet()) {
+				List<Object> values = rawCellValues.get(cellId);
+				if (values == null) {
+					values = new ArrayList<>();
+					rawCellValues.put(cellId, values);
+				}
+				values.add(cellValue.get(cellId));
+			}
+		}
+		for (TableCellContent<?> cell : cells) {
+			cell.setRawValues(rawCellValues.get(cell.getId()));
+		}
+	}
+
 	@Override
 	public void close() {
 		super.close();
@@ -125,6 +148,15 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 		// 一番取得数が少ないところに切りそろえる
 		for (TableCellContent<?> cell : cells) {
 			cell.close(size);
+		}
+	}
+
+	@Override
+	public void open() {
+		begin = false;
+		super.open();
+		for (TableCellContent<?> cell : cells) {
+			cell.open();
 		}
 	}
 

@@ -74,6 +74,11 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	private static final String CFG_JOIN_MY_KEY_ID = "join.myKeyId";
 
 	/**
+	 * 集約
+	 */
+	private static final String CFG_UNION = "union";
+
+	/**
 	 * 出力
 	 */
 	private static final String CFG_OUTPUT = "output";
@@ -144,6 +149,11 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	protected String joinMyKeyId;
 
 	/**
+	 * データの統合を行うか
+	 */
+	protected boolean union;
+
+	/**
 	 * <pre>
 	 * データの出力を行うか
 	 * true: 行う
@@ -171,6 +181,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		this.joinSheetId = getString(cfg, CFG_JOIN_SHEET_ID);
 		this.joinKeyId = getString(cfg, CFG_JOIN_KEY_ID);
 		this.joinMyKeyId = getString(cfg, CFG_JOIN_MY_KEY_ID);
+		this.union = getBooleanValue(cfg, CFG_UNION);
 		this.output = getBooleanValue(cfg, CFG_OUTPUT);
 	}
 
@@ -184,6 +195,13 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 
 	public String getJoinMyKeyId() {
 		return joinMyKeyId;
+	}
+
+	/**
+	 * UNIONを行うか
+	 */
+	public boolean isUnion() {
+		return union;
 	}
 
 	/**

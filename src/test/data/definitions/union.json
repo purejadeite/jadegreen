@@ -5,6 +5,7 @@
 			"target": {
 			    "name": "bean*"
 			},
+			"union": true,
 		    "cells": [
 		        {"id": "lang", "value": "ja"},
 		        {"id": "logicalClassName", "row": 1, "column": 3},
@@ -22,6 +23,5 @@
 		        }
 		    ]
 		}
-	],
-	"options": [{"type": "union"}]
+	]
 }

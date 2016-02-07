@@ -51,6 +51,11 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public void close();
 
 	/**
+	 * 値の取得を開始します
+	 */
+	public void open();
+
+	/**
 	 * 値を追加します
 	 * @param row 行番号
 	 * @param col 列番号
@@ -58,6 +63,11 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	 * @return 取得状況
 	 */
 	public Status addValue(int row, int col, Object value);
+
+	/**
+	 * 値を纏めて設定し状態をクローズします
+	 */
+	public void setRawValues(Object rawValues);
 
 	/**
 	 * 編集していない値を取得します

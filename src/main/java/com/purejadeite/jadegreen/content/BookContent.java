@@ -26,6 +26,7 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 	 */
 	public BookContent(BookDefinition definition) {
 		super(null, null, definition);
+		ContentManager.getInstance().register(this);
 	}
 
 	/**
@@ -33,7 +34,32 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 	 * @param sheet
 	 */
 	public void addSheet(SheetContent sheet) {
-		sheets.add(sheet);
+		if (!sheets.contains(sheet)) {
+			sheets.add(sheet);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setRawValues(Object rawValues) {
+		if (rawValues == null) {
+			return;
+		}
+		@SuppressWarnings("unchecked")
+		List<Object> sheetValues = (List<Object>) rawValues;
+		for (int i = 0; i < sheetValues.size(); i++) {
+			sheets.get(i).setRawValues(sheetValues.get(i));
+		}
+	}
+
+	/**
+	 * sheetを削除します
+	 * @param sheet
+	 */
+	public void removeSheet(SheetContent sheet) {
+		sheets.remove(sheet);
 	}
 
 	/**

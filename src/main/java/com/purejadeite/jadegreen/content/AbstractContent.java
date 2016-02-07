@@ -148,6 +148,14 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void open() {
+		closed = false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("definition", definition.getFullId());

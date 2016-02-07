@@ -20,6 +20,7 @@ public class TableOptionManager {
 	static {
 		// マネージャーの初期化処理
 		manager = new OptionManager<>();
+		manager.register(If.class);
 		manager.register(Group.class);
 		manager.register(Sort.class);
 		manager.register(Unique.class);

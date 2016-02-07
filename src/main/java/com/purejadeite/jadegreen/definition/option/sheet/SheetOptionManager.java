@@ -7,6 +7,7 @@ import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.Option;
 import com.purejadeite.jadegreen.definition.option.OptionManager;
 import com.purejadeite.jadegreen.definition.option.Options;
+import com.purejadeite.jadegreen.definition.option.sheet.If;
 
 /**
  * Worksheetの変換を行うコンバーターインスタンスを生成するクラスです
@@ -20,6 +21,7 @@ public class SheetOptionManager {
 	static {
 		// マネージャーの初期化処理
 		manager = new OptionManager<>();
+		manager.register(If.class);
 	}
 
 	public static void register(Class<? extends SheetOption> clazz) {

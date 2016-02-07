@@ -37,6 +37,13 @@ public class JoinedCellContentImpl extends AbstractContent<SheetContent, JoinedC
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setRawValues(Object rawValues) {
+	}
+
+	/**
 	 * {@inheritDoc} 結合している単一セルは取得した値がないため無視をする対象とします。
 	 */
 	@Override
