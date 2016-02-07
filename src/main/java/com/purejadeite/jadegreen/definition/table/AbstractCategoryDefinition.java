@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.range;
+package com.purejadeite.jadegreen.definition.table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.option.table.TableOptionManager;
 
 /**
- * 範囲の情報を保持するクラスの抽象クラスです
+ * 任意の集まりを表わすクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractRangeDefinition<C extends CellDefinition<?>> extends AbstractParentDefinition<SheetDefinition, C> implements RangeDefinition<C> {
+abstract public class AbstractCategoryDefinition<C extends CellDefinition<?>> extends AbstractParentDefinition<SheetDefinition, C> implements CategoryDefinition<C> {
 
 	/**
 	 * 配下のセル読み込み情報
@@ -29,7 +29,7 @@ abstract public class AbstractRangeDefinition<C extends CellDefinition<?>> exten
 	 * @param config
 	 *            コンフィグ
 	 */
-	protected AbstractRangeDefinition(SheetDefinition parent, Map<String, Object> config) {
+	protected AbstractCategoryDefinition(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 

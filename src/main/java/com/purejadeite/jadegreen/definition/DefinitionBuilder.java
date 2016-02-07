@@ -18,6 +18,7 @@ import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.ColumnRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.RowRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -110,6 +111,9 @@ public class DefinitionBuilder {
 		} else if (ColumnCellDefinitionImpl.assess(table, config)) {
 			// 親が列方向の繰り返しの場合
 			definition = new ColumnCellDefinitionImpl(table, config);
+		} else if (CategoryDefinitionImpl.assess(table, config)) {
+			// 配下に単独のセルを持っているの場合
+			definition = new CategoryDefinitionImpl(sheet, config);
 		} else if (RowRepeatDefinitionImpl.assess(table, config)) {
 			// 行方向の繰り返しの場合
 			TableDefinition<?> tbl = new RowRepeatDefinitionImpl(sheet, config);

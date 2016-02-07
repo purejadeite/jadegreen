@@ -17,6 +17,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -73,6 +74,9 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 			} else if (childDefinition instanceof ValueDefinitionImpl) {
 				// 単独固定値の場合
 				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
+			} else if (childDefinition instanceof CategoryDefinitionImpl) {
+				// 範囲の場合
+
 			} else if (childDefinition instanceof TableDefinition) {
 				// テーブルの場合
 				content = new TableContentImpl(uuid, this, (TableDefinition<?>) childDefinition);

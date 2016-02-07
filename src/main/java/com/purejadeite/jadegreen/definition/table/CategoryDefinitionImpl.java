@@ -1,23 +1,22 @@
-package com.purejadeite.jadegreen.definition.range;
+package com.purejadeite.jadegreen.definition.table;
 
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
- * 範囲の情報を保持するクラスの抽象クラスです
+ * 任意の集まりを保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-public class RangeDefinitionImpl extends AbstractRangeDefinition<CellDefinition<?>> {
+public class CategoryDefinitionImpl extends AbstractCategoryDefinition<CellDefinition<?>> {
 
 	/**
 	 * コンストラクタ
 	 * @param parent 親の読み込み情報
 	 * @param config コンフィグ
 	 */
-	public RangeDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
+	public CategoryDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 
