@@ -7,9 +7,11 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * Tableの構成要素となるCell読み込み定義
+ *
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> extends AbstractCellDefinition<P> implements TableCellDefinition<P> {
+abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> extends AbstractCellDefinition<P>
+		implements TableCellDefinition<P> {
 
 	private static final long serialVersionUID = -7367543678923800631L;
 
@@ -34,14 +36,12 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	protected int endCol = 0;
 
 	/**
-	 * 開始キー項目
-	 * ※現在未使用
+	 * 開始キー項目 ※現在未使用
 	 */
 	protected boolean beginKeyId = false;
 
 	/**
-	 * 開始キー値
-	 * ※現在未使用
+	 * 開始キー値 ※現在未使用
 	 */
 	protected String beginValue = null;
 

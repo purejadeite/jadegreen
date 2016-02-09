@@ -199,7 +199,6 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 			return SpecificValue.NO_OUTPUT;
 		}
 		Map<String, Object> values = new HashMap<>();
-		values.put("sheetName", sheetName);
 		for (Content<?, ?> content : contents) {
 			Object vals = content.getValues();
 			if (vals != SpecificValue.NO_OUTPUT) {

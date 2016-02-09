@@ -49,13 +49,7 @@ public class Group extends AbstractTableOption {
 	public Group(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
-		List<String> groupId = getList(config, CFG_GROUPS_GROUP_ID);
-		if (groupId == null) {
-			this.groupIds = new ArrayList<>();
-			this.groupIds.add(getString(config, CFG_GROUPS_GROUP_ID));
-		} else {
-			this.groupIds = groupId;
-		}
+		groupIds = getAsList(config, CFG_GROUPS_GROUP_ID);
 		this.valueId = getString(config, CFG_GROUPS_VALUE_ID);
 	}
 

@@ -12,12 +12,12 @@ import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.StringKeyNestedMap;
 
 /**
- * Treeテーブルコンバーター
+ * Branchテーブルコンバーター
  *
  * @author mitsuhiroseino
  *
  */
-public class Tree extends AbstractTableOption {
+public class Branch extends AbstractTableOption {
 
 	protected static final String CFG_SEPARATOR = "separator";
 
@@ -37,7 +37,7 @@ public class Tree extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Tree(Definition<?> definition, Map<String, Object> config) {
+	public Branch(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.separator = getString(config, CFG_SEPARATOR, ".");
