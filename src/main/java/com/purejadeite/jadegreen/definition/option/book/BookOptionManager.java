@@ -21,6 +21,7 @@ public class BookOptionManager {
 		// マネージャーの初期化処理
 		manager = new OptionManager<>();
 		manager.register(If.class);
+		manager.register(From.class);
 	}
 
 	public static void register(Class<? extends BookOption> clazz) {

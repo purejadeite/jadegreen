@@ -292,7 +292,7 @@ public class RoughlyMapUtils {
 		return null;
 	}
 
-	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K keys[]) {
+	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K[] keys) {
 		List<E> values = null;
 		for (K key : keys) {
 			values = getAsList(map, key);

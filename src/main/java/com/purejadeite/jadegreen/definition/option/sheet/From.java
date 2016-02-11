@@ -8,24 +8,24 @@ import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
- * 指定したidの値をsheetとして扱う
+ * 指定したセルの値をsheetとして扱う
  *
  * @author mitsuhiroseino
  *
  */
 public class From extends AbstractSheetOption {
 
-	protected static final String CFG_KEY_ID = "keyId";
+	protected static final String CFG_CELL_ID = "cellId";
 
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_KEY_ID };
+	private static final String[] CONFIG = { CFG_CELL_ID };
 
 	/**
 	 * Sheetの出力値として扱う項目
 	 */
-	protected String keyId;
+	protected String cellId;
 
 	/**
 	 * コンストラクタ
@@ -36,7 +36,7 @@ public class From extends AbstractSheetOption {
 	public From(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = getString(config, CFG_KEY_ID);
+		this.cellId = getString(config, CFG_CELL_ID);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class From extends AbstractSheetOption {
 	 */
 	@Override
 	protected Object applyImpl(Map<String, Object> values) {
-		return values.get(keyId);
+		return values.get(cellId);
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class From extends AbstractSheetOption {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("keyId", keyId);
+		map.put("cellId", cellId);
 		return map;
 	}
 }

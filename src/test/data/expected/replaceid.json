@@ -1,6 +1,5 @@
 [
 	{
-		"sheetName": "validation",
 		"fields": [
 			{
 				"fieldName": "fileExistFlag",

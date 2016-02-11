@@ -31,6 +31,25 @@ abstract public class AbstractOption implements Option, Serializable {
 		return definition;
 	}
 
+//	@SuppressWarnings("unchecked")
+//	public Object apply(Object value) {
+//		if (value == SpecificValue.UNDEFINED) {
+//			return value;
+//		} else if (value instanceof List) {
+//			return applyImpl((List<Object>) value);
+//		} else if (value instanceof Map) {
+//			return applyImpl((Map<String, Object>) value);
+//		} else {
+//			return applyImpl(value);
+//		}
+//	}
+//
+//	abstract protected Object applyImpl(List<Object> value);
+//
+//	abstract protected Object applyImpl(Map<String, Object> value);
+//
+//	abstract protected Object applyImpl(Object value);
+
 	/**
 	 * {@inheritDoc}
 	 */

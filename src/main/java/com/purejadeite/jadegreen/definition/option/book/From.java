@@ -1,33 +1,28 @@
 package com.purejadeite.jadegreen.definition.option.book;
 
-import static com.purejadeite.util.collection.RoughlyMapUtils.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.ContentManager;
+import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionManager;
+import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
- * 指定したidの値をbookとして扱う
+ * 指定したシートの値をbookとして扱う
  *
  * @author mitsuhiroseino
  *
  */
 public class From extends AbstractBookOption {
 
-	protected static final String CFG_KEY_ID = "keyId";
-
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_KEY_ID };
-
-	/**
-	 * Sheetの出力値として扱う項目
-	 */
-	protected String keyId;
+	private static final String[] CONFIG = { };
 
 	/**
 	 * コンストラクタ
@@ -38,7 +33,6 @@ public class From extends AbstractBookOption {
 	public From(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
-		this.keyId = getString(config, CFG_KEY_ID);
 	}
 
 	/**
@@ -46,20 +40,18 @@ public class From extends AbstractBookOption {
 	 */
 	@Override
 	protected Object applyImpl(List<Map<String, Object>> values) {
+		SheetDefinition outputSheet = DefinitionManager.getInstance().getOutputSheet();
+		List<SheetContent> sheetContents = ContentManager.getInstance().getSheets(outputSheet);
 		List<Object> newBookValues = new ArrayList<>();
-		for (Map<String, Object> sheetValues : values) {
-			Object sv = sheetValues.get(keyId);
-			if (sv instanceof List) {
-				@SuppressWarnings("unchecked")
-				List<Object> listSv = (List<Object>) sv;
-				if (listSv != null) {
-					newBookValues.addAll(listSv);
-				}
-			} else {
-				newBookValues.add(sv);
-			}
+		for (SheetContent sheetContent : sheetContents) {
+			Object sheetValues = sheetContent.getValues();
+			newBookValues.add(sheetValues);
 		}
-		return newBookValues;
+		if (newBookValues.size() == 1) {
+			return newBookValues.get(0);
+		} else {
+			return newBookValues;
+		}
 	}
 
 	/**
@@ -68,7 +60,6 @@ public class From extends AbstractBookOption {
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("keyId", keyId);
 		return map;
 	}
 }

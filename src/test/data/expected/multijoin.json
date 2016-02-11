@@ -1,6 +1,5 @@
 [
 	{
-		"sheetName": "bean-sample1",
 		"logicalClassName": "シート間の結合",
 		"logicalClassNameValid": "シート間の結合(結合先)",
 		"className": "Sample1",
@@ -120,7 +119,6 @@
 		]
 	},
 	{
-		"sheetName": "bean-sample2",
 		"logicalClassName": "シート間の結合",
 		"logicalClassNameValid": "シート間の結合(結合先)",
 		"className": "Sample2",
@@ -240,7 +238,6 @@
 		]
 	},
 	{
-		"sheetName": "bean-sample3",
 		"logicalClassName": "シート間の結合",
 		"logicalClassNameValid": null,
 		"className": "Sample3",

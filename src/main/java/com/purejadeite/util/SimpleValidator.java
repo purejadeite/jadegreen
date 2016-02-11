@@ -22,13 +22,24 @@ public class SimpleValidator {
 	 * @param persistence
 	 *            必須項目名称
 	 */
-	public static <K> void containsKey(Map<K, ?> map, K[] keys) {
+	public static void containsKey(Map<?, ?> map, Object[] keys) {
 		List<String> errors = new ArrayList<>();
-		for (K key : keys) {
-			if (!map.containsKey(key)) {
-				if (key == null) {
-					errors.add(null);
-				} else {
+		for (Object key : keys) {
+			if (key instanceof Object[]) {
+				// or条件
+				Object[] keyArray = (Object[]) key;
+				String error = null;
+				for (Object k : keyArray) {
+					if (map.containsKey(k)) {
+						error = k.toString();
+						break;
+					}
+				}
+				if (error != null) {
+					errors.add(error);
+				}
+			} else {
+				if (!map.containsKey(key)) {
 					errors.add(key.toString());
 				}
 			}

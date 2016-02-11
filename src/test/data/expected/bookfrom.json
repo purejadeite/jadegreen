@@ -1,0 +1,49 @@
+{
+	"logicalClassName": "単一定義・単一コンテンツ",
+	"className": "Sample",
+	"package": "com.purejadeite.generated",
+	"lang": "ja",
+	"imports": [
+		"java.io.Serializable",
+		"java.util.List",
+		"java.util.ArrayList",
+		"com.purejadeite.generated.LineBean"
+    ],
+	"fields": [
+		{
+			"type": "line",
+			"logicalFieldName": "ファイル有無フラグ",
+			"fieldName": "fileExistFlag",
+			"type": "Boolean",
+			"initial": "Boolean.TRUE"
+		},
+		{
+			"type": "line",
+			"logicalFieldName": "ファイル名",
+			"fieldName": "fileName",
+			"type": "String",
+			"initial": "null"
+		},
+		{
+			"type": "line",
+			"logicalFieldName": "ファイル名日本語",
+			"fieldName": "fileNameJp",
+			"type": "String",
+			"initial": "null"
+		},
+		{
+			"type": "line",
+			"logicalFieldName": "ファイルパス",
+			"fieldName": "filePath",
+			"type": "String",
+			"initial": null
+		},
+		{
+			"type": "line",
+			"logicalFieldName": "行情報",
+			"fieldName": "lines",
+			"type": "List<LineBean>",
+			"initial": "new ArrayList<>()"
+		}
+	]
+}

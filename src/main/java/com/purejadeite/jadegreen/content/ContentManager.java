@@ -47,7 +47,7 @@ public class ContentManager {
 	/**
 	 * DefinitionからSheetContentを取得するためのMap
 	 */
-	private Map<String, Set<SheetContent>> keyDefValSheet;
+	private Map<String, List<SheetContent>> keyDefValSheet;
 
 	private ContentManager() {
 		super();
@@ -85,9 +85,9 @@ public class ContentManager {
 	}
 
 	public void register(SheetContent sheetContent) {
-		Set<SheetContent> sheetSet = keyDefValSheet.get(sheetContent.getFullId());
+		List<SheetContent> sheetSet = keyDefValSheet.get(sheetContent.getFullId());
 		if (sheetSet == null) {
-			sheetSet = new HashSet<>();
+			sheetSet = new ArrayList<>();
 			keyDefValSheet.put(sheetContent.getFullId(), sheetSet);
 		}
 		sheetSet.add(sheetContent);
@@ -217,7 +217,7 @@ public class ContentManager {
 	 * @param definition
 	 * @return
 	 */
-	public Set<SheetContent> getSheets(Definition<?> definition) {
+	public List<SheetContent> getSheets(Definition<?> definition) {
 		SheetDefinition sheetDef = null;
 		if (definition instanceof SheetDefinition) {
 			sheetDef = (SheetDefinition) definition;

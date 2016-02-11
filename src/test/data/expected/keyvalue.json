@@ -1,6 +1,5 @@
 [
 	{
-		"sheetName": "keyvalue",
 		"values": {
 			"fileExistFlag": "ファイル有無フラグ",
 			"fileName": "ファイル名",

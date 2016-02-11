@@ -3,7 +3,6 @@ package com.purejadeite.jadegreen;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -87,6 +86,16 @@ public class SxssfMapperTest {
 		test("union");
 	}
 
+	@Test
+	public void sheetfrom() throws Exception {
+		test("sheetfrom");
+	}
+
+	@Test
+	public void bookfrom() throws Exception {
+		test("bookfrom");
+	}
+
 	private void test(String name) throws Exception {
 		// 定義の読み込み
 		Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");
@@ -99,10 +108,10 @@ public class SxssfMapperTest {
 			}
 		}
 		// マッパーの実行
-		List<Map<String, Object>> actual = SxssfMapper.read(excelFile, jsonObj);
+		Object actual = SxssfMapper.read(excelFile, jsonObj);
 
 		// 結果の確認
-		List<Map<String, Object>> expected = TestHelper.toJsonList(EXPECTED_DIR, name + ".json");
+		Object expected = TestHelper.toJsonObject(EXPECTED_DIR, name + ".json");
 		LOGGER.info("actual: " + TestHelper.toJsonString(actual));
 		LOGGER.info("expected: " + TestHelper.toJsonString(expected));
 		assertEquals(expected, actual);

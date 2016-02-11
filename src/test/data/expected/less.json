@@ -1,6 +1,5 @@
 [
 	{
-		"sheetName": "bean",
 		"logicalClassName": "単一定義・単一コンテンツ",
 		"className": "Sample",
 		"package": "com.purejadeite.generated",

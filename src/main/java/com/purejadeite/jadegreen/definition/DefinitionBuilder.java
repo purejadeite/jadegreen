@@ -46,6 +46,7 @@ public class DefinitionBuilder {
 	public static BookDefinition build(Map<String, Object> config) {
 		// bookのビルド
 		BookDefinition book = new BookDefinition(config);
+		DefinitionManager.getInstance().register(book);
 		List<Map<String, Object>> sheetConfigs = getList(config, BookDefinition.CFG_SHEETS);
 		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド

@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.definition;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,6 +13,11 @@ import java.util.Map;
 public class DefinitionManager {
 
 	private static ThreadLocal<DefinitionManager> tl = new ThreadLocal<>();
+
+	/**
+	 * ブック
+	 */
+	private BookDefinition book;
 
 	/**
 	 * シートから配下のdefinitionを全て取得するMap
@@ -52,6 +58,10 @@ public class DefinitionManager {
 			tl.set(dm);
 		}
 		return dm;
+	}
+
+	public void register(BookDefinition book) {
+		this.book = book;
 	}
 
 	public boolean register(SheetDefinition sheet, Definition<?> definition) {
@@ -97,6 +107,24 @@ public class DefinitionManager {
 			return null;
 		}
 		return get(sheet, id);
+	}
+
+	public BookDefinition getBook() {
+		return book;
+	}
+
+	public List<SheetDefinition> getSheets() {
+		return book.getChildren();
+	}
+
+	public SheetDefinition getOutputSheet() {
+		List<SheetDefinition> sheets = getSheets();
+		for (SheetDefinition sheet : sheets) {
+			if (sheet.isOutput()) {
+				return sheet;
+			}
+		}
+		return null;
 	}
 
 }

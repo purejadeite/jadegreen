@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +38,7 @@ public class SxssfMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(String excelFilePath, Map<String, Object> definitionObj) throws IOException {
+	public static Object read(String excelFilePath, Map<String, Object> definitionObj) throws IOException {
 		DefinitionManager.getInstance().init();
 		BookDefinition definition = DefinitionBuilder.build(definitionObj);
 		return read(excelFilePath, definition);
@@ -52,7 +51,7 @@ public class SxssfMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(File excelFile, Map<String, Object> definitionObj) throws IOException {
+	public static Object read(File excelFile, Map<String, Object> definitionObj) throws IOException {
 		DefinitionManager.getInstance().init();
 		BookDefinition definition = DefinitionBuilder.build(definitionObj);
 		return read(excelFile, definition);
@@ -65,7 +64,7 @@ public class SxssfMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(String excelFilePath, BookDefinition definition) throws IOException {
+	public static Object read(String excelFilePath, BookDefinition definition) throws IOException {
 		File excelFile = new File(excelFilePath);
 		return read(excelFile, definition);
 	}
@@ -77,7 +76,7 @@ public class SxssfMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(File excelFile, BookDefinition workbookDefinition) throws IOException {
+	public static Object read(File excelFile, BookDefinition workbookDefinition) throws IOException {
 		ContentManager.getInstance().init();
 		List<Sheet> worksheets = SxssfTableMapper.read(excelFile);
 		return read(worksheets, workbookDefinition);
@@ -90,7 +89,7 @@ public class SxssfMapper {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Map<String, Object>> read(File[] excelFiles, BookDefinition workbookDefinition) throws IOException {
+	public static Object read(File[] excelFiles, BookDefinition workbookDefinition) throws IOException {
 		ContentManager.getInstance().init();
 		List<Sheet> worksheets =  new ArrayList<>();
 		for (File excelFile : excelFiles) {
@@ -100,7 +99,7 @@ public class SxssfMapper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Map<String, Object>> read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
+	public static Object read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
 		BookContent bookContent = new BookContent(bookDefinition);
 		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
 			for (Sheet sheet: sheets) {
@@ -113,7 +112,7 @@ public class SxssfMapper {
 				}
 			}
 		}
-		return (List<Map<String, Object>>) bookContent.getValues();
+		return bookContent.getValues();
 	}
 
 	// tableの値をWorksheetContentにマッピングします
@@ -121,7 +120,7 @@ public class SxssfMapper {
 		SheetContent sheet = null;
 		if (definition.isUnion()) {
 			// 複数のシートの内容を1シートに集約する場合
-			Set<SheetContent> lastSheets = ContentManager.getInstance().getSheets(definition);
+			List<SheetContent> lastSheets = ContentManager.getInstance().getSheets(definition);
 			if (lastSheets == null || lastSheets.isEmpty()) {
 				// 対象のシートがまだ無いならば新規作成
 				sheet = new SheetContent(book, definition, sheetName);

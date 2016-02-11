@@ -14,12 +14,8 @@ public class TestHelper {
 
 	private static ObjectMapper MAPPER = new ObjectMapper();
 
-	public static String toJsonString(List<?> list) throws IOException {
-		return MAPPER.writeValueAsString(list);
-	}
-
-	public static String toJsonString(Map<?, ?> map) throws IOException {
-		return MAPPER.writeValueAsString(map);
+	public static String toJsonString(Object obj) throws IOException {
+		return MAPPER.writeValueAsString(obj);
 	}
 
 	public static String toJsonString(String jsonFilePath) throws IOException {
@@ -73,10 +69,12 @@ public class TestHelper {
 		String json = toJsonString(jsonFile);
 		List<Map<String, Object>> list = null;
 		String trimedJson = StringUtils.trim(json);
-		if (!StringUtils.startsWith(trimedJson, "[") && !StringUtils.endsWith(trimedJson, "]")) {
-			json = "[" + json + "]";
-		}
-		list = MAPPER.readValue(json, new TypeReference<List<Map<String, Object>>>() {
+//		if (!StringUtils.startsWith(trimedJson, "[") && !StringUtils.endsWith(trimedJson, "]")) {
+//			json = "[" + json + "]";
+//		}
+//		list = MAPPER.readValue(json, new TypeReference<List<Map<String, Object>>>() {
+//		list = MAPPER.readValue(json, new TypeReference<List<Object>>() {
+		list = MAPPER.readValue(json, new TypeReference<Object>() {
 		});
 		return list;
 	}
