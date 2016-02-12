@@ -28,15 +28,15 @@ public class SimpleValidator {
 			if (key instanceof Object[]) {
 				// or条件
 				Object[] keyArray = (Object[]) key;
-				String error = null;
+				boolean result = false;
 				for (Object k : keyArray) {
 					if (map.containsKey(k)) {
-						error = k.toString();
+						result = true;
 						break;
 					}
 				}
-				if (error != null) {
-					errors.add(error);
+				if (!result) {
+					errors.add(keyArray[0].toString());
 				}
 			} else {
 				if (!map.containsKey(key)) {

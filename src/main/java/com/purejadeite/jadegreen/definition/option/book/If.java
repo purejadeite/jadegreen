@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstactIf;
@@ -49,22 +50,22 @@ public class If extends AbstactIf implements BookOption, Serializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object bookValues) {
+	public Object apply(Object bookValues, Content<?, ?> content) {
 		if (bookValues == SpecificValue.UNDEFINED) {
 			return bookValues;
 		}
-		return applyImpl((List<Map<String, Object>>) bookValues);
+		return applyImpl((List<Map<String, Object>>) bookValues, content);
 	}
 
-	protected Object applyImpl(List<Map<String, Object>> bookValues) {
+	protected Object applyImpl(List<Map<String, Object>> bookValues, Content<?, ?> content) {
 		// 仮
 		if (evaluate(bookValues)) {
-			return thenOptions.apply(bookValues);
+			return thenOptions.apply(bookValues, content);
 		} else {
 			if (thenOptions == null) {
 				return bookValues;
 			} else {
-				return elseOptions.apply(bookValues);
+				return elseOptions.apply(bookValues, content);
 			}
 		}
 	}

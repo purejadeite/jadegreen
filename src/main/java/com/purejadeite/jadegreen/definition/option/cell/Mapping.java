@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -55,7 +56,7 @@ public class Mapping extends AbstractCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
+	public Object applyImpl(Object value, Content<?, ?> content) {
 		Object mappedValue = null;
 		if (map.containsKey(value)) {
 			mappedValue = map.get(value);

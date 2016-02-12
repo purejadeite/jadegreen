@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.StringKeyNestedMap;
@@ -47,7 +48,7 @@ public class Branch extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
 		// フラットなMapを階層構造に変換する
 		List<Map<String, Object>> newValues = new ArrayList<>();
 		for (Map<String, Object> line : values) {

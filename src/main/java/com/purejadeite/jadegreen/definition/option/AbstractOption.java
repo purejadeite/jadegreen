@@ -14,7 +14,7 @@ import com.purejadeite.jadegreen.definition.Definition;
  */
 abstract public class AbstractOption implements Option, Serializable {
 
-	private Definition<?> definition;
+	protected Definition<?> definition;
 
 	/**
 	 * コンストラクタ

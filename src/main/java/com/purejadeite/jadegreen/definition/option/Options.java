@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 
@@ -29,10 +30,10 @@ public class Options extends AbstractOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object apply(Object values) {
+	public Object apply(Object values, Content<?, ?> content) {
 		Object vals = values;
 		for (Option option:options) {
-			vals = option.apply(vals);
+			vals = option.apply(vals, content);
 			if (vals == SpecificValue.UNDEFINED) {
 				break;
 			}

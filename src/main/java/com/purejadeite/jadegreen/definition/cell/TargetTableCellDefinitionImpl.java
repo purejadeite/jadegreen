@@ -27,11 +27,6 @@ public class TargetTableCellDefinitionImpl<P extends TableDefinition<?>> extends
 		return false;
 	}
 
-	@Override
-	public Object applyOptions(Object value) {
-		return super.applyOptions(value);
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */

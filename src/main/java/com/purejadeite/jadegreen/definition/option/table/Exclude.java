@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.EvaluationUtils;
 import com.purejadeite.util.SimpleValidator;
@@ -64,7 +65,7 @@ public class Exclude extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map<String, Object> row : values) {
 			Object value = row.get(keyId);

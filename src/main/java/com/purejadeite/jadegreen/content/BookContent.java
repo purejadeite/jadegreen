@@ -114,7 +114,7 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 				values.add(vals);
 			}
 		}
-		return definition.applyOptions(values);
+		return definition.applyOptions(values, this);
 	}
 
 	/**

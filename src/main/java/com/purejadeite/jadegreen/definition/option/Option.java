@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.option;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -21,7 +22,7 @@ public interface Option {
 	 * 値に変更を適用します
 	 * @return
 	 */
-	public Object apply(Object values);
+	public Object apply(Object values, Content<?, ?> content);
 
 	/**
 	 * オプションが付与されている定義を取得します

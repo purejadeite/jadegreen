@@ -84,7 +84,7 @@ public class CategoryContentImpl extends AbstractContent<SheetContent, CategoryD
 		for (CellContent<?, ?> cell : cells) {
 			values.put(cell.getId(), cell.getValues());
 		}
-		return definition.applyOptions(values);
+		return definition.applyOptions(values, this);
 	}
 
 	/**

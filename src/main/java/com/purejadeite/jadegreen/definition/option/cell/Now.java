@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.util.Date;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -27,7 +28,7 @@ public class Now extends AbstractUnrelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
+	public Object applyImpl(Object value, Content<?, ?> content) {
 		return new Date();
 	}
 }

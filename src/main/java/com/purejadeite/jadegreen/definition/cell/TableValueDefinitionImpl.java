@@ -39,11 +39,6 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 		return table != null && config.containsKey(CFG_VALUE);
 	}
 
-	@Override
-	public Object applyOptions(Object value) {
-		return super.applyOptions(this.value);
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */

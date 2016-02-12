@@ -184,7 +184,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 				return cell.getValues();
 			}
 		});
-		return definition.applyOptions(values);
+		return definition.applyOptions(values, this);
 	}
 
 	/**

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -57,7 +58,7 @@ public class Split extends AbstractStringCellOption {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected Object applyToString(String value) {
+	protected Object applyToString(String value, Content<?, ?> content) {
 		if (StringUtils.isEmpty(value)) {
 			return value;
 		}

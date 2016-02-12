@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -47,7 +48,7 @@ public class Replace extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		// 10000件くらいまでは総当たりの方が早い?
 		String val = value;
 		for (Map.Entry<String, String> entry : map.entrySet()) {

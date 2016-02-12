@@ -15,6 +15,7 @@ public class CellOptionManager {
 	static {
 		manager = new OptionManager<>();
 		manager.register(If.class);
+		manager.register(Switch.class);
 		// generator
 		manager.register(Fixed.class);
 		manager.register(Index.class);
@@ -45,6 +46,7 @@ public class CellOptionManager {
 		manager.register(Length.class);
 		manager.register(ByteLength.class);
 		manager.register(Remove.class);
+		manager.register(AddValue.class);
 	}
 
 	public static void register(Class<? extends CellOption> clazz) {

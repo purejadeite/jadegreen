@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
@@ -26,11 +27,11 @@ abstract public class AbstractTableOption extends AbstractOption implements Tabl
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object values) {
+	public Object apply(Object values, Content<?, ?> content) {
 		if (values == SpecificValue.UNDEFINED) {
 			return values;
 		}
-		return applyImpl((List<Map<String, Object>>) values);
+		return applyImpl((List<Map<String, Object>>) values, content);
 	}
 
 	/**
@@ -40,7 +41,7 @@ abstract public class AbstractTableOption extends AbstractOption implements Tabl
 	 *            変換前のテーブル
 	 * @return 変換後のテーブル
 	 */
-	abstract protected Object applyImpl(List<Map<String, Object>> values);
+	abstract protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content);
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();

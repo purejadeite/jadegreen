@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -43,7 +44,7 @@ public class From extends AbstractSheetOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(Map<String, Object> values) {
+	protected Object applyImpl(Map<String, Object> values, Content<?, ?> content) {
 		return values.get(cellId);
 	}
 

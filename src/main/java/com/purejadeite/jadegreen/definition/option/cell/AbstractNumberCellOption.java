@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -36,7 +37,7 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	/**
 	 * {@inheritDoc}
 	 */
-	protected Object applyToString(String value) {
+	protected Object applyToString(String value, Content<?, ?> content) {
 		if (value == null) {
 			if (nullToZero) {
 				return getZero();
@@ -46,7 +47,7 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 				return getZero();
 			}
 		}
-		return toNumber(value);
+		return toNumber(value, content);
 	}
 
 	/**
@@ -54,7 +55,7 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	 * @param value 数値
 	 * @return 変換された数値
 	 */
-	abstract protected N toNumber(String value);
+	abstract protected N toNumber(String value, Content<?, ?> content);
 
 	abstract protected N getZero();
 

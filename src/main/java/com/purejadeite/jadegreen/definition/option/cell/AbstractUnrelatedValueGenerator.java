@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -29,20 +30,20 @@ abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedVal
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object apply(Object value) {
+	public Object apply(Object value, Content<?, ?> content) {
 		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
 			Collection<Object> vals = new ArrayList<>();
 			for (Object v : values) {
-				vals.add(this.apply(v));
+				vals.add(this.apply(v, content));
 			}
 			return vals;
 		} else {
-			return applyImpl(value);
+			return applyImpl(value, content);
 		}
 	}
 
-	abstract protected Object applyImpl(Object value);
+	abstract protected Object applyImpl(Object value, Content<?, ?> content);
 
 }

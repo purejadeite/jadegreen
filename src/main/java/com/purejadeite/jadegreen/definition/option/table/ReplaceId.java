@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -54,7 +55,7 @@ public class ReplaceId extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
 		// グループ化された配列を保持するMapに変換
 		List<Map<String, Object>> converted = new ArrayList<>();
 		for (Map<String, Object> line : values) {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstactIf;
@@ -56,14 +57,14 @@ public class If extends AbstactIf implements TableOption, Serializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object tableValues) {
+	public Object apply(Object tableValues, Content<?, ?> content) {
 		if (tableValues == SpecificValue.UNDEFINED) {
 			return tableValues;
 		}
-		return applyImpl((List<Map<String, Object>>) tableValues);
+		return applyImpl((List<Map<String, Object>>) tableValues, content);
 	}
 
-	protected Object applyImpl(List<Map<String, Object>> tableValues) {
+	protected Object applyImpl(List<Map<String, Object>> tableValues, Content<?, ?> content) {
 		List<Object> rows = new ArrayList<>();
 		for (Map<String, Object> row : tableValues) {
 			boolean result = true;
@@ -77,12 +78,12 @@ public class If extends AbstactIf implements TableOption, Serializable {
 				}
 			}
 			if (result) {
-				rows.add(thenOptions.apply(row));
+				rows.add(thenOptions.apply(row, content));
 			} else {
 				if (thenOptions == null) {
 					rows.add(row);
 				} else {
-					rows.add(elseOptions.apply(row));
+					rows.add(elseOptions.apply(row, content));
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.EvaluationUtils;
@@ -44,7 +45,7 @@ public class Remove extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		if (EvaluationUtils.evaluate(value, operator, this.value)) {
 			return SpecificValue.UNDEFINED;
 		}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstactIf;
@@ -37,29 +38,29 @@ public class If extends AbstactIf implements CellOption, Serializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object cellValue) {
+	public Object apply(Object cellValue, Content<?, ?> content) {
 		if (cellValue == SpecificValue.UNDEFINED) {
 			return cellValue;
 		} else if (cellValue instanceof Iterable) {
 			Iterable<Object> values = (Iterable<Object>) cellValue;
 			List<Object> vals = new ArrayList<>();
 			for (Object v : values) {
-				vals.add(this.apply(v));
+				vals.add(this.apply(v, content));
 			}
 			return vals;
 		} else {
-			return applyImpl(cellValue);
+			return applyImpl(cellValue, content);
 		}
 	}
 
-	protected Object applyImpl(Object cellValue) {
+	protected Object applyImpl(Object cellValue, Content<?, ?> content) {
 		if (evaluate(cellValue)) {
-			return thenOptions.apply(cellValue);
+			return thenOptions.apply(cellValue, content);
 		} else {
 			if (thenOptions == null) {
 				return cellValue;
 			} else {
-				return elseOptions.apply(cellValue);
+				return elseOptions.apply(cellValue, content);
 			}
 		}
 	}

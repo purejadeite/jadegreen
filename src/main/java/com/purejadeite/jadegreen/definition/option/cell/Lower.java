@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -32,7 +33,7 @@ public class Lower extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		return StringUtils.lowerCase(value);
 	}
 }

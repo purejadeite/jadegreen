@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -53,7 +54,7 @@ public class Sort extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
 		Collections.sort(values, new Comparator<Map<String, Object>>() {
 			@SuppressWarnings("unchecked")
 			@Override

@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import java.util.Map;
 import java.util.UUID;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -27,7 +28,7 @@ public class Uuid extends AbstractUnrelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
+	public Object applyImpl(Object value, Content<?, ?> content) {
 		return UUID.randomUUID();
 	}
 }

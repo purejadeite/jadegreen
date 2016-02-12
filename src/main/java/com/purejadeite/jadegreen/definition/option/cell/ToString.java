@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -26,7 +27,7 @@ public class ToString extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		return value == null ? null : value;
 	}
 

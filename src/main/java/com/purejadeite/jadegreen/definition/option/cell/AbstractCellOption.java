@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.option.AbstractOption;
@@ -29,7 +30,7 @@ abstract public class AbstractCellOption extends AbstractOption implements CellO
 		super(definition);
 	}
 
-	public Object apply(Object value) {
+	public Object apply(Object value, Content<?, ?> content) {
 		if (value == SpecificValue.UNDEFINED) {
 			return value;
 		} else if (value instanceof Iterable) {
@@ -37,15 +38,15 @@ abstract public class AbstractCellOption extends AbstractOption implements CellO
 			Iterable<Object> values = (Iterable<Object>) value;
 			List<Object> vals = new ArrayList<>();
 			for (Object v : values) {
-				vals.add(this.apply(v));
+				vals.add(this.apply(v, content));
 			}
 			return vals;
 		} else {
-			return applyImpl(value);
+			return applyImpl(value, content);
 		}
 	}
 
-	abstract protected Object applyImpl(Object value);
+	abstract protected Object applyImpl(Object value, Content<?, ?> content);
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -60,7 +61,7 @@ public class Read extends AbstractCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
+	public Object applyImpl(Object value, Content<?, ?> content) {
 		String filePath = null;
 		if (map != null) {
 			filePath = map.get(value);

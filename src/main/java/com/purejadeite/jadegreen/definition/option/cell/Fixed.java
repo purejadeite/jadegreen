@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -47,7 +48,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(Object value) {
+	protected Object applyImpl(Object value, Content<?, ?> content) {
 		return this.value;
 	}
 

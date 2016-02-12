@@ -205,7 +205,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 				values.put(content.getId(), vals);
 			}
 		}
-		return definition.applyOptions(values);
+		return definition.applyOptions(values, this);
 	}
 
 	public String getSheetName() {

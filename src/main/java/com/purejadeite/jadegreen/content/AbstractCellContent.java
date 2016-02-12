@@ -47,7 +47,7 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 */
 	@Override
 	public Object getValuesImpl() {
-		return definition.applyOptions(values);
+		return definition.applyOptions(values, this);
 	}
 
 	/**

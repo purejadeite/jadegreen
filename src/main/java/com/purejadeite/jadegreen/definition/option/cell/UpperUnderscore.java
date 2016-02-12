@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.CaseFormat;
 
@@ -31,7 +32,7 @@ public class UpperUnderscore extends AbstractCaseFormatCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		return format(value, CaseFormat.UPPER_UNDERSCORE);
 	}
 

@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 
 /**
@@ -82,7 +83,7 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 	}
 
 	@Override
-	public Object applyOptions(Object value) {
+	public Object applyOptions(Object value, Content<?, ?> content) {
 		String fileText = null;
 		try {
 			fileText = FileUtils.readFileToString(new File(filePath));
@@ -93,7 +94,7 @@ public class FileCellDefinitionImpl<P extends ParentDefinition<?, ?>> extends Ab
 		if (options == null) {
 			return fileText;
 		} else {
-			return options.apply(fileText);
+			return options.apply(fileText, content);
 		}
 	}
 

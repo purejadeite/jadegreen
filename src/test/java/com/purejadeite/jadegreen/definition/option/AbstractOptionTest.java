@@ -13,11 +13,11 @@ abstract public class AbstractOptionTest {
 	protected static final Map<String, Object> EMPTY_CONFIG = new HashMap<>();
 
 	protected void assertOption(Option option, Object source, Object expected) {
-		assertThat(option.apply(source), equalTo(expected));
+		assertThat(option.apply(source, null), equalTo(expected));
 	}
 
 	protected void assertOption(Class<?> clazz, Object source, Object expected) {
-		assertThat(getOption(clazz).apply(source), equalTo(expected));
+		assertThat(getOption(clazz).apply(source, null), equalTo(expected));
 	}
 
 	protected Option getOption(Class<?> clazz) {

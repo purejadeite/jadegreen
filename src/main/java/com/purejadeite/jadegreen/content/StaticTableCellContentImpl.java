@@ -38,7 +38,7 @@ public class StaticTableCellContentImpl extends AbstractTableCellContent<TableCe
 		int size = parent.size();
 		List<Object> newValues = new ArrayList<>(size);
 		for (int i = 0; i < size; i++) {
-			newValues.add(definition.applyOptions(values));
+			newValues.add(definition.applyOptions(values, this));
 		}
 		return newValues;
 	}

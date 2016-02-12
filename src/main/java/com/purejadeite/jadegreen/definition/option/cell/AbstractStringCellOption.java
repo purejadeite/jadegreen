@@ -1,5 +1,6 @@
 package com.purejadeite.jadegreen.definition.option.cell;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -23,11 +24,11 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
+	public Object applyImpl(Object value, Content<?, ?> content) {
 		if (value == null) {
-			return applyToString((String) null);
+			return applyToString((String) null, content);
 		} else {
-			return applyToString(value.toString());
+			return applyToString(value.toString(), content);
 		}
 	}
 
@@ -36,6 +37,6 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * @param value 文字列の値
 	 * @return 変換された値
 	 */
-	abstract protected Object applyToString(String value);
+	abstract protected Object applyToString(String value, Content<?, ?> content);
 
 }

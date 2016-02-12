@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.StringUtils;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -36,7 +37,7 @@ public class ByteLength extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		return Integer.valueOf(StringUtils.getBytesUnchecked(value, encode).length);
 	}
 

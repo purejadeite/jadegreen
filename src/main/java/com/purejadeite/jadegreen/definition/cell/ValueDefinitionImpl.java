@@ -40,10 +40,6 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 		return table == null && config.containsKey(CFG_VALUE);
 	}
 
-	@Override
-	public Object applyOptions(Object value) {
-		return super.applyOptions(this.value);
-	}
 	/**
 	 * {@inheritDoc}
 	 */

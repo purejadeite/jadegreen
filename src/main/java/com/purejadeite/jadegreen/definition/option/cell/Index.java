@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -41,15 +42,15 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object apply(Object value) {
-		return applyImpl(value);
+	public Object apply(Object value, Content<?, ?> content) {
+		return applyImpl(value, content);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value) {
+	public Object applyImpl(Object value, Content<?, ?> content) {
 		if (value instanceof Collection) {
 			// table cellの場合
 			@SuppressWarnings("unchecked")

@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
@@ -61,7 +62,7 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	 * 値にオプションを適用します
 	 * @return
 	 */
-	public Object applyOptions(Object values);
+	public Object applyOptions(Object values, Content<?, ?> content);
 
 	/**
 	 * 定義をMap形式で取得します

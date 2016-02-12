@@ -100,6 +100,7 @@ public class ContentManager {
 	 */
 	public void register(SheetContent sheetContent, Content<?, ?> content) {
 		String definitionKey = content.getDefinition().getKey();
+		String definitionId = content.getDefinition().getId();
 
 		// 1. Content-SheetContent
 		keyConValSheet.put(content.getKey(), sheetContent);
@@ -118,7 +119,7 @@ public class ContentManager {
 			conMap = new HashMap<>();
 			keySheetValConts.put(sheetContent.getKey(), conMap);
 		}
-		conMap.put(definitionKey, content);
+		conMap.put(definitionId, content);
 
 		if (content instanceof TableContent) {
 			// tableの場合は配下のcellを個別に登録
@@ -271,11 +272,21 @@ public class ContentManager {
 	 * @return
 	 */
 	public Content<?, ?> getContent(SheetContent sheetContent, Definition<?> targetDefinition) {
+		return getContent(sheetContent, targetDefinition.getId());
+	}
+
+	/**
+	 * sheetContent配下のtargetDefinitionで示されるcontentを取得します
+	 * @param sheetContent
+	 * @param targetDefinition
+	 * @return
+	 */
+	public Content<?, ?> getContent(SheetContent sheetContent, String id) {
 		Map<String, Content<?, ?>> map = keySheetValConts.get(sheetContent.getKey());
 		if (MapUtils.isEmpty(map)) {
 			return null;
 		}
-		return map.get(targetDefinition.getKey());
+		return map.get(id);
 	}
 
 	/**

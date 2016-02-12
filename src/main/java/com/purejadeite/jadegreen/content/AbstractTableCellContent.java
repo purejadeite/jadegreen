@@ -46,7 +46,7 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	 */
 	@Override
 	public Object getValuesImpl() {
-		return definition.applyOptions(values);
+		return definition.applyOptions(values, this);
 	}
 
 	/**

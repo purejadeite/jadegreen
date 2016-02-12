@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.option.Options;
 
 /**
@@ -130,11 +131,11 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	abstract protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options);
 
 	@Override
-	public Object applyOptions(Object value) {
+	public Object applyOptions(Object value, Content<?, ?> content) {
 		if (options == null) {
 			return value;
 		} else {
-			return options.apply(value);
+			return options.apply(value, content);
 		}
 	}
 

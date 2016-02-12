@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -28,7 +29,7 @@ public class Unique extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
 		return new ArrayList<>(new LinkedHashSet<>(values));
 	}
 

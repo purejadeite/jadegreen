@@ -96,6 +96,11 @@ public class SxssfMapperTest {
 		test("bookfrom");
 	}
 
+	@Test
+	public void switch_() throws Exception {
+		test("switch");
+	}
+
 	private void test(String name) throws Exception {
 		// 定義の読み込み
 		Map<String, Object> jsonObj = TestHelper.toJsonMap(DEFINITIONS_DIR, name + ".json");

@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.SxssfUtils;
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 
 /**
@@ -34,7 +35,7 @@ public class ToDate extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		return SxssfUtils.getDate(value, use1904windowing);
 	}
 

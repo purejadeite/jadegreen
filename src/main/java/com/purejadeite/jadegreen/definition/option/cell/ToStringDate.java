@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.SxssfUtils;
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -48,7 +49,7 @@ public class ToStringDate extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value) {
+	public Object applyToString(String value, Content<?, ?> content) {
 		return SxssfUtils.getStringDate(value, dateFormat);
 	}
 

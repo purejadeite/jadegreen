@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.Definition;
@@ -39,7 +40,7 @@ public class From extends AbstractBookOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values) {
+	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
 		SheetDefinition outputSheet = DefinitionManager.getInstance().getOutputSheet();
 		List<SheetContent> sheetContents = ContentManager.getInstance().getSheets(outputSheet);
 		List<Object> newBookValues = new ArrayList<>();
