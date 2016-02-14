@@ -30,14 +30,6 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>> extends A
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setRawValues(Object rawValues) {
-		values = rawValues;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Object getRawValuesImpl() {
 		return values;
 	}

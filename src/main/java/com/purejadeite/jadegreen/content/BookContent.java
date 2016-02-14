@@ -40,27 +40,12 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setRawValues(Object rawValues) {
-		if (rawValues == null) {
-			return;
-		}
-		@SuppressWarnings("unchecked")
-		List<Object> sheetValues = (List<Object>) rawValues;
-		for (int i = 0; i < sheetValues.size(); i++) {
-			sheets.get(i).setRawValues(sheetValues.get(i));
-		}
-	}
-
-	/**
 	 * sheetを削除します
 	 * @param sheet
 	 */
-	public void removeSheet(SheetContent sheet) {
-		sheets.remove(sheet);
-	}
+//	public void removeSheet(SheetContent sheet) {
+//		sheets.remove(sheet);
+//	}
 
 	/**
 	 * {@inheritDoc}

@@ -78,15 +78,6 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void setRawValues(Object rawValues) {
-		values = (List<Object>) rawValues;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int size() {
 		return values.size();

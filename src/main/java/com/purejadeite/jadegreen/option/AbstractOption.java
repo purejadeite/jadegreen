@@ -36,7 +36,18 @@ abstract public class AbstractOption implements Option, Serializable {
 //		if (value == SpecificValue.UNDEFINED) {
 //			return value;
 //		} else if (value instanceof List) {
-//			return applyImpl((List<Object>) value);
+//			List<Object> listValue = (List<Object>) value;
+//			if (listValue.isEmpty()) {
+//				return applyImpl(listValue);
+//			} else {
+//				Object item = listValue.get(0);
+//				if (item instanceof Map) {
+//					return applyImpl((List<Map<String, Object>>) value);
+//
+//				} else {
+//					return applyImpl((List<Object>) value);
+//				}
+//			}
 //		} else if (value instanceof Map) {
 //			return applyImpl((Map<String, Object>) value);
 //		} else {
@@ -44,11 +55,14 @@ abstract public class AbstractOption implements Option, Serializable {
 //		}
 //	}
 //
-//	abstract protected Object applyImpl(List<Object> value);
+//	// Cell, List Cell
+//	abstract protected Object applyImpl(Object value);
 //
+//	// Sheet, Category
 //	abstract protected Object applyImpl(Map<String, Object> value);
 //
-//	abstract protected Object applyImpl(Object value);
+//	// Book, Table
+//	abstract protected Object applyImpl(List<Map<String, Object>> value);
 
 	/**
 	 * {@inheritDoc}

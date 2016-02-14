@@ -137,21 +137,6 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setRawValues(Object rawValues) {
-		if (rawValues == null) {
-			return;
-		}
-		@SuppressWarnings("unchecked")
-		Map<String, Object> contentValues = (Map<String, Object>) rawValues;
-		for(Content<?, ?> content : contents) {
-			content.setRawValues(contentValues.get(content.getId()));
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public boolean isClosed() {
 		if (closed) {
 			return true;

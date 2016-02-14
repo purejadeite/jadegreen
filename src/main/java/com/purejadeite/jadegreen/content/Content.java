@@ -65,11 +65,6 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public Status addValue(int row, int col, Object value);
 
 	/**
-	 * 値を纏めて設定し状態をクローズします
-	 */
-	public void setRawValues(Object rawValues);
-
-	/**
 	 * 編集していない値を取得します
 	 * @return 値
 	 */

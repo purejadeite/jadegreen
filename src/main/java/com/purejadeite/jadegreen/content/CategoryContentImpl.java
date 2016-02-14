@@ -101,9 +101,4 @@ public class CategoryContentImpl extends AbstractContent<SheetContent, CategoryD
 		return map;
 	}
 
-	@Override
-	public void setRawValues(Object rawValues) {
-		// TODO 自動生成されたメソッド・スタブ
-
-	}
 }

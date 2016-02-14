@@ -98,7 +98,6 @@ public class SxssfMapper {
 		return read(worksheets, workbookDefinition);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static Object read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
 		BookContent bookContent = new BookContent(bookDefinition);
 		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {

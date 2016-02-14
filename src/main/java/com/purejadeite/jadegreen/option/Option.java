@@ -14,7 +14,7 @@ import com.purejadeite.jadegreen.definition.Definition;
 public interface Option {
 
 	/**
-	 * コンバータークラス
+	 * オプション種別
 	 */
 	public static final String CFG_TYPE = "type";
 
