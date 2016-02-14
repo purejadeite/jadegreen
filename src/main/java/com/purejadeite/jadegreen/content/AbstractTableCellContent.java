@@ -9,7 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
 /**
  * Table配下のCellのコンテンツ

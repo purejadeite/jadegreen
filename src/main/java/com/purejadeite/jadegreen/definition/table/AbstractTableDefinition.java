@@ -9,7 +9,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.cell;
+package com.purejadeite.jadegreen.definition.table.cell;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 

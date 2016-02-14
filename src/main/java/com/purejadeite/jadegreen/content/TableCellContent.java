@@ -1,6 +1,6 @@
 package com.purejadeite.jadegreen.content;
 
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
 /**
  * 一覧形式子要素のセル読み込み定義のインターフェイス

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen.definition.cell;
+package com.purejadeite.jadegreen.definition.table.cell;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
@@ -9,6 +9,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
+import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
 

@@ -1,8 +1,9 @@
-package com.purejadeite.jadegreen.definition.cell;
+package com.purejadeite.jadegreen.definition.table.cell;
 
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.cell.AbstractCellDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**

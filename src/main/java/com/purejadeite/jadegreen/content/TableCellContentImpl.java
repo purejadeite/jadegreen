@@ -1,6 +1,6 @@
 package com.purejadeite.jadegreen.content;
 
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
 /**
  * Tableの構成要素となるCell読み込み定義

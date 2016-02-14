@@ -5,7 +5,7 @@ import static com.purejadeite.jadegreen.content.Status.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
 /**
  * Tableの構成要素となるCell読み込み定義

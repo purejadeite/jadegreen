@@ -11,17 +11,17 @@ import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ColumnCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.RowCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.CategoryDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.ColumnRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.RowRepeatDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.ColumnCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.RowCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinitionImpl;
 
 /**
  * 定義情報を生成するクラスです

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.cell.TableValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.TargetTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.TargetTableCellDefinitionImpl;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです

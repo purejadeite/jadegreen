@@ -3,7 +3,7 @@ package com.purejadeite.jadegreen.definition.table;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.SheetDefinition;
-import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
 /**
  * 列方向の繰り返し範囲の情報を保持するクラスの抽象クラスです

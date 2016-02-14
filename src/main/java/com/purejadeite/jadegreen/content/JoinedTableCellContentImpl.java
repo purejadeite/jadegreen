@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.ContentException;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.cell.JoinedTableCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
 
 /**
  * 他のセルに結合したtable配下のCellクラス
