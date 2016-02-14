@@ -40,7 +40,7 @@ public class CellContentImpl extends AbstractCellContent<CellDefinition<?>> {
 		}
 		if (definition.isIncluded(row, col)) {
 			// 行列番号が取得範囲内の場合
-			this.values = value;
+			this.values = definition.applyValue(value, this.values);
 			close();
 			LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 			// 取得

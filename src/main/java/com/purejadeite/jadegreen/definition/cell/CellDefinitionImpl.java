@@ -9,6 +9,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 単一セルの読み込み定義です
+ *
  * @author mitsuhiroseino
  */
 public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> {
@@ -36,11 +37,18 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 	public CellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		row = getIntValue(config, CFG_ROW);
+		if (row == 0) {
+			row = getIntValue(config, CFG_X) + 1;
+		}
 		col = getIntValue(config, CFG_COLUMN);
+		if (col == 0) {
+			col = getIntValue(config, CFG_Y) + 1;
+		}
 	}
 
 	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
-		return table == null && config.containsKey(CFG_ROW) && config.containsKey(CFG_COLUMN);
+		return table == null && ((config.containsKey(CFG_ROW) && config.containsKey(CFG_COLUMN))
+				|| (config.containsKey(CFG_X) && config.containsKey(CFG_Y)));
 	}
 
 	/**

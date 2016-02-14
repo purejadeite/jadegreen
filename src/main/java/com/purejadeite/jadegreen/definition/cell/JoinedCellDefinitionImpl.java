@@ -111,8 +111,4 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<She
 		return map;
 	}
 
-	public Object applyOptions(Object value) {
-		return value;
-	}
-
 }

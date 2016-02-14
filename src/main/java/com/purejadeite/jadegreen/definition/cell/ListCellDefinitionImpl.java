@@ -2,7 +2,11 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -39,6 +43,27 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 
 	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
 		return CellDefinitionImpl.assess(table, config) && config.containsKey(CFG_SPLITTER);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Object applyValue(Object value, Object appliedValues) {
+		// 行列番号が取得範囲内の場合
+		List<Object> vals = null;
+		if (appliedValues == null) {
+			vals = new ArrayList<Object>();
+		} else {
+			vals = (List<Object>) appliedValues;
+		}
+		if (value instanceof String) {
+			String strValue = (String) value;
+			String[] strArray = StringUtils.split(strValue, getSplitter());
+			for (String str : strArray) {
+				vals.add(str);
+			}
+		} else {
+			vals.add(value);
+		}
+		return vals;
 	}
 
 	/**

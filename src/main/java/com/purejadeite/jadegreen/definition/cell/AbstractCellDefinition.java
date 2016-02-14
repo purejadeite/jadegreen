@@ -40,6 +40,10 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 		this.options = CellOptionManager.build(definition, options);
 	}
 
+	public Object applyValue(Object value, Object appliedValues) {
+		return value;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

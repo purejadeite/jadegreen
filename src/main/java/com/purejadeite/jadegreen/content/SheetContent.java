@@ -65,7 +65,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 				content = new JoinedCellContentImpl(uuid, this, (JoinedCellDefinitionImpl) childDefinition);
 			} else if (childDefinition instanceof ListCellDefinitionImpl) {
 				// リスト形式の単独セルの場合
-				content = new ListCellContentImpl(uuid, this, (ListCellDefinitionImpl) childDefinition);
+				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
 				if (this.definition.isUnion()) {

@@ -1,5 +1,6 @@
 package com.purejadeite.jadegreen.definition.table.cell;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -152,6 +153,18 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 			return true;
 		}
 		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Object applyValue(Object value, Object appliedValues) {
+		List<Object> vals = null;
+		if (appliedValues == null) {
+			vals = new ArrayList<Object>();
+		} else {
+			vals = (List<Object>) appliedValues;
+		}
+		vals.add(value);
+		return vals;
 	}
 
 	/**

@@ -168,4 +168,55 @@ public class DefinitionBuilder {
 		return definitions;
 	}
 
+	/**
+	 * Cell定義の生成
+	 *
+	 * @param config
+	 *            Cellひとつ分の定義
+	 * @param sheet
+	 *            シート読み込み定義
+	 * @param table
+	 *            複数Cell定義
+	 * @return Cellまたは複数Cell読み込み定義
+	 */
+	private static Definition<?> createTableCell(Map<String, Object> config, SheetDefinition sheet,
+			TableDefinition<?> table) {
+		Definition<?> definition = null;
+
+		if (JoinedTableCellDefinitionImpl.assess(table, config)) {
+			// 親のあるJOINフィールドの場合
+			definition = new JoinedTableCellDefinitionImpl(sheet, table, config);
+		} else if (TableValueDefinitionImpl.assess(table, config)) {
+			// 親のある値フィールドの場合
+			definition = new TableValueDefinitionImpl<TableDefinition<?>>(table, config);
+		} else if (RowCellDefinitionImpl.assess(table, config)) {
+			// 親が行方向の繰り返しの場合
+			definition = new RowCellDefinitionImpl(table, config);
+		} else if (ColumnCellDefinitionImpl.assess(table, config)) {
+			// 親が列方向の繰り返しの場合
+			definition = new ColumnCellDefinitionImpl(table, config);
+		} else if (RowRepeatDefinitionImpl.assess(table, config)) {
+			// 行方向の繰り返しの場合
+			TableDefinition<?> tbl = new RowRepeatDefinitionImpl(sheet, config);
+			List<Map<String, Object>> columns = getList(config, RowRepeatDefinitionImpl.CFG_COLUMNS);
+			tbl.addChildren(createCells(columns, sheet, tbl));
+			definition = tbl;
+		} else if (ColumnRepeatDefinitionImpl.assess(table, config)) {
+			// 列方向の繰り返しの場合
+			TableDefinition<?> tbl = new ColumnRepeatDefinitionImpl(sheet, config);
+			List<Map<String, Object>> rows = getList(config, ColumnRepeatDefinitionImpl.CFG_ROWS);
+			tbl.addChildren(createCells(rows, sheet, tbl));
+			definition = tbl;
+		}
+
+		if (definition != null) {
+			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
+			DefinitionManager.getInstance().register(sheet, definition);
+		} else {
+			String id = getString(config, Definition.CFG_ID);
+			throw new DefinitionException("id=" + id + ":定義が不正です");
+		}
+		return definition;
+	}
+
 }
