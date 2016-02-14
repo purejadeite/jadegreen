@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.option.Options;
+import com.purejadeite.jadegreen.option.Options;
 
 /**
 *

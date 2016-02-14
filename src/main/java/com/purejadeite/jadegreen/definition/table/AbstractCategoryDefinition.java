@@ -8,7 +8,7 @@ import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.option.table.TableOptionManager;
+import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**
  * 任意の集まりを表わすクラスの抽象クラスです

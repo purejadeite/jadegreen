@@ -1,51 +1,54 @@
 [
-	{
-		"logicalClassName": "単一定義・単一コンテンツ",
-		"className": "Sample",
-		"package": "com.purejadeite.generated",
-		"lang": "ja",
-		"imports": [
-			"java.io.Serializable",
-			"java.util.List",
-			"java.util.ArrayList",
-			"com.purejadeite.generated.LineBean"
+    {
+        "className": "Sample",
+        "imports": [
+            "java.io.Serializable",
+            "java.util.ArrayList",
+            "java.util.List",
+            "com.purejadeite.generated.LineBean",
+            "java.util.HashMap",
+            "java.util.Map"
         ],
-		"fields": [
-			{
-				"type": "line",
-				"logicalFieldName": "ファイル有無フラグ",
-				"fieldName": "fileExistFlag",
-				"type": "Boolean",
-				"initial": "Boolean.TRUE"
-			},
-			{
-				"type": "line",
-				"logicalFieldName": "ファイル名",
-				"fieldName": "fileName",
-				"type": "String",
-				"initial": "null"
-			},
-			{
-				"type": "line",
-				"logicalFieldName": "ファイル名日本語",
-				"fieldName": "fileNameJp",
-				"type": "String",
-				"initial": "null"
-			},
-			{
-				"type": "line",
-				"logicalFieldName": "ファイルパス",
-				"fieldName": "filePath",
-				"type": "String",
-				"initial": null
-			},
-			{
-				"type": "line",
-				"logicalFieldName": "行情報",
-				"fieldName": "lines",
-				"type": "List<LineBean>",
-				"initial": "new ArrayList<>()"
-			}
-		]
-	}
+        "lang": "ja",
+        "logicalClassName": "単一定義・単一コンテンツ",
+        "package": "com.purejadeite.generated",
+        "fields": [
+            {
+                "fieldName": "fileExistFlag",
+                "initial": "Boolean.TRUE",
+                "logicalFieldName": "ファイル有無フラグ",
+                "type": "Boolean"
+            },
+            {
+                "fieldName": "fileName",
+                "initial": "null",
+                "logicalFieldName": "ファイル名",
+                "type": "String"
+            },
+            {
+                "fieldName": "fileNameJp",
+                "initial": "null",
+                "logicalFieldName": "ファイル名日本語",
+                "type": "String"
+            },
+            {
+                "fieldName": "filePath",
+                "initial": null,
+                "logicalFieldName": "ファイルパス",
+                "type": "String"
+            },
+            {
+                "fieldName": "lines",
+                "initial": "new ArrayList<>()",
+                "logicalFieldName": "行情報",
+                "type": "List<LineBean>"
+            },
+            {
+                "fieldName": "map",
+                "initial": "new HashMap<>()",
+                "logicalFieldName": "行情報マップ",
+                "type": "Map<String, LineBean>"
+            }
+        ]
+    }
 ]

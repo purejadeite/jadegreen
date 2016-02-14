@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.option.book.BookOptionManager;
+import com.purejadeite.jadegreen.option.book.BookOptionManager;
 
 /**
  * Bookの読み込み定義です

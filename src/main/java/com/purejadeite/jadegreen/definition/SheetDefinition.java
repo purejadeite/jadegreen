@@ -8,7 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.option.sheet.SheetOptionManager;
+import com.purejadeite.jadegreen.option.sheet.SheetOptionManager;
 import com.purejadeite.util.SimpleComparison;
 import com.purejadeite.util.SimpleValidator;
 import com.purejadeite.util.collection.StringKeyNestedMap;

@@ -152,7 +152,7 @@ public class ContentManager {
 		// 指定のコンテンツの属するシート
 		SheetContent sheetContent = this.keyConValSheet.get(keyContent.getKey());
 		Map<String, Content<?, ?>> contents = this.keySheetValConts.get(sheetContent.getKey());
-		return contents.get(targetDefinition.getKey());
+		return contents.get(targetDefinition.getId());
 	}
 
 	/**

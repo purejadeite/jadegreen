@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import org.junit.Test;
 
 import com.purejadeite.jadegreen.definition.option.AbstractOptionTest;
+import com.purejadeite.jadegreen.option.cell.LowerHyphen;
 
 public class LowerHyphenTest extends AbstractOptionTest {
 

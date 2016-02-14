@@ -1,0 +1,39 @@
+package com.purejadeite.jadegreen.option.cell;
+
+import java.util.Map;
+
+import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.util.CaseFormat;
+
+/**
+*
+* <pre>
+* ロウアーハイフン形式の文字列へ変換を行うクラス
+* 例: "abcDef" -> "abc-def"
+* </pre>
+* @author mitsuhiroseino
+*
+*/
+public class LowerHyphen extends AbstractCaseFormatCellOption {
+
+	private static final long serialVersionUID = 1942276560388833496L;
+
+	/**
+	 * コンストラクタ
+	 * @param cell 値の取得元Cell読み込み定義
+	 * @param config コンバーターのコンフィグ
+	 */
+	public LowerHyphen(Definition<?> definition, Map<String, Object> config) {
+		super(definition);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object applyToString(String value, Content<?, ?> content) {
+		return format(value, CaseFormat.LOWER_HYPHEN);
+	}
+
+}

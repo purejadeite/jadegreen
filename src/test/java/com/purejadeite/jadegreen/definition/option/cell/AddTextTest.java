@@ -6,6 +6,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.purejadeite.jadegreen.definition.option.AbstractOptionTest;
+import com.purejadeite.jadegreen.option.cell.Append;
 
 public class AddTextTest extends AbstractOptionTest {
 

@@ -12,7 +12,8 @@
 		        {"id": "lang", "value": "ja"},
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
-		        {"id": "package", "row": 3, "column": 3, "options": [
+		        {"id": "package", "row": 3, "column": 3},
+		        {"id": "imports", "row": 4, "column": 3, "splitter": "\n", "options": [
 		            {"type": "switch", "cellId": "type", "cases": [
 		                {"value": "List<LineBean>", "options": [
 		                    {"type": "addvalue", "value": "java.util.ArrayList", "unique": true},
@@ -26,7 +27,6 @@
 		                ]}
 		            ]}
 		        ]},
-		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
 		        {"id": "fields", "row": 8, "breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
         		        {"id": "type", "value": "line"},

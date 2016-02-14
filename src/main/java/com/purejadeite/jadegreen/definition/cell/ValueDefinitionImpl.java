@@ -1,9 +1,8 @@
 package com.purejadeite.jadegreen.definition.cell;
 
-import static com.purejadeite.util.collection.RoughlyMapUtils.*;
-
 import java.util.Map;
 
+import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
@@ -16,7 +15,7 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 
 	private static final long serialVersionUID = 7280801241651790531L;
 
-	private String value;
+	private Object value;
 
 	/**
 	 * 値
@@ -33,11 +32,16 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 */
 	public ValueDefinitionImpl(P parent, Map<String, Object> config) {
 		super(parent, config);
-		this.value = getString(config, CFG_VALUE);
+		this.value = config.get(CFG_VALUE);
 	}
 
 	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
 		return table == null && config.containsKey(CFG_VALUE);
+	}
+
+	@Override
+	public Object applyOptions(Object value, Content<?, ?> content) {
+		return super.applyOptions(this.value, content);
 	}
 
 	/**

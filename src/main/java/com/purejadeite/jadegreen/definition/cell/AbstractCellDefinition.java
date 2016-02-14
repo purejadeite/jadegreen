@@ -6,7 +6,7 @@ import java.util.Map;
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
+import com.purejadeite.jadegreen.option.cell.CellOptionManager;
 
 /**
  * <pre>

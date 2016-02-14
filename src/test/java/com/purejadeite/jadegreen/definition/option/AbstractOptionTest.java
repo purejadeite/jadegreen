@@ -6,7 +6,8 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.option.cell.CellOptionManager;
+import com.purejadeite.jadegreen.option.Option;
+import com.purejadeite.jadegreen.option.cell.CellOptionManager;
 
 abstract public class AbstractOptionTest {
 

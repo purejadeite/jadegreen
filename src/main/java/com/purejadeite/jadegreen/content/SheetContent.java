@@ -16,6 +16,7 @@ import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.CategoryDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -62,11 +63,14 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 			if (childDefinition instanceof JoinedCellDefinitionImpl) {
 				// 単独セルの結合の場合
 				content = new JoinedCellContentImpl(uuid, this, (JoinedCellDefinitionImpl) childDefinition);
+			} else if (childDefinition instanceof ListCellDefinitionImpl) {
+				// リスト形式の単独セルの場合
+				content = new ListCellContentImpl(uuid, this, (ListCellDefinitionImpl) childDefinition);
 			} else if (childDefinition instanceof CellDefinitionImpl) {
 				// 単独セルの場合
 				if (this.definition.isUnion()) {
 					// 集約する場合
-					content = new ListCellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
+					content = new UnionCellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
 				} else {
 					// 集約しない場合
 					content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);

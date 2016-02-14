@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.option.cell;
 import org.junit.Test;
 
 import com.purejadeite.jadegreen.definition.option.AbstractOptionTest;
+import com.purejadeite.jadegreen.option.cell.LowerCamel;
 
 public class LowerCamelTest extends AbstractOptionTest {
 

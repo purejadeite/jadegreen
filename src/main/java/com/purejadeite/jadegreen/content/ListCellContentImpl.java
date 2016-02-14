@@ -5,28 +5,30 @@ import static com.purejadeite.jadegreen.content.Status.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 
 /**
  * セルの値をList形式で保持するクラス
  * @author mitsuhiroseino
  */
-public class ListCellContentImpl extends CellContentImpl {
+public class ListCellContentImpl extends AbstractCellContent<ListCellDefinitionImpl> {
 
 	/**
 	 * ロガー
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ListCellContentImpl.class);
 
+
 	/**
 	 * コンストラクタ
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public ListCellContentImpl(String uuid, SheetContent parent, CellDefinition<?> definition) {
+	public ListCellContentImpl(String uuid, SheetContent parent, ListCellDefinitionImpl definition) {
 		super(uuid, parent, definition);
 	}
 
@@ -49,7 +51,15 @@ public class ListCellContentImpl extends CellContentImpl {
 			} else {
 				vals = (List<Object>) values;
 			}
-			vals.add(value);
+			if (value instanceof String) {
+				String strValue = (String) value;
+				String[] strArray = StringUtils.split(strValue, definition.getSplitter());
+				for (String str : strArray) {
+					vals.add(str);
+				}
+			} else {
+				vals.add(value);
+			}
 			close();
 			LOGGER.debug("success:id=" + this.getId() + ",row=" + row + ",col=" + col +",value=" + value);
 			// 取得

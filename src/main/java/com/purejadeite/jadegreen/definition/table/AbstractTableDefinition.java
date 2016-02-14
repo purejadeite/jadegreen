@@ -10,7 +10,7 @@ import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.option.table.TableOptionManager;
+import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです

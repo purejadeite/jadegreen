@@ -3,7 +3,7 @@ package com.purejadeite.jadegreen.definition;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.option.Options;
+import com.purejadeite.jadegreen.option.Options;
 
 /**
  *
