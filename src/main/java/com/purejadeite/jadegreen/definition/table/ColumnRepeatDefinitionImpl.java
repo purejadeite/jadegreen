@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.table;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
@@ -42,8 +43,8 @@ public class ColumnRepeatDefinitionImpl extends AbstractTableDefinition<TableCel
 		super(parent, config);
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
-		return table == null && config.containsKey(CFG_COLUMN) && config.containsKey(CFG_ROWS);
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
+		return config.containsKey(CFG_COLUMN) && config.containsKey(CFG_ROWS);
 	}
 
 	/**

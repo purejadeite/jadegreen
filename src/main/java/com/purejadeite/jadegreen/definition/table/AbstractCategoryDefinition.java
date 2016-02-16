@@ -17,11 +17,6 @@ import com.purejadeite.jadegreen.option.table.TableOptionManager;
 abstract public class AbstractCategoryDefinition<C extends CellDefinition<?>> extends AbstractParentDefinition<SheetDefinition, C> implements CategoryDefinition<C> {
 
 	/**
-	 * 配下のセル読み込み情報
-	 */
-	protected List<C> cells = new ArrayList<>();
-
-	/**
 	 * コンストラクタ
 	 *
 	 * @param parent
@@ -45,37 +40,11 @@ abstract public class AbstractCategoryDefinition<C extends CellDefinition<?>> ex
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<C> getChildren() {
-		return this.cells;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addChild(C child) {
-		cells.add(child);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addChildren(List<C> children) {
-		for (C child : children) {
-			addChild(child);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(C cell: cells) {
-			cellMaps.add(cell.toMap());
+		for(C child: children) {
+			cellMaps.add(child.toMap());
 		}
 		map.put("cells", cellMaps);
 		return map;

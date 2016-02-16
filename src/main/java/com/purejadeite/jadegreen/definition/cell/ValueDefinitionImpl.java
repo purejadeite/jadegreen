@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 固定値の定義です
@@ -35,8 +34,8 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 		this.value = config.get(CFG_VALUE);
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
-		return table == null && config.containsKey(CFG_VALUE);
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
+		return config.containsKey(CFG_VALUE);
 	}
 
 	@Override

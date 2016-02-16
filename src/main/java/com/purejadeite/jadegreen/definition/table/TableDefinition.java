@@ -75,10 +75,4 @@ public interface TableDefinition<C extends TableCellDefinition<?>> extends Paren
 	 * @return
 	 */
 	public boolean isIncluded(int row, int col);
-
-	/**
-	 * 子要素を追加します
-	 * @param children 子要素
-	 */
-	public void addChildren(List<C> children);
 }

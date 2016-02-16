@@ -20,7 +20,7 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	/**
 	 * 配下の要素定義
 	 */
-	private List<C> children = new ArrayList<>();
+	protected List<C> children = new ArrayList<>();
 
 	/**
 	 * デフォルトコンストラクタ
@@ -77,6 +77,16 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	@Override
 	public void addChild(C child) {
 		children.add(child);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addChildren(List<C> children) {
+		for (C child : children) {
+			addChild(child);
+		}
 	}
 
 	/**

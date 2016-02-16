@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -26,7 +27,7 @@ public class RowCellDefinitionImpl extends AbstractTableCellDefinition<TableDefi
 		super(parent, config);
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
 		return table != null && config.containsKey(CFG_COLUMN);
 	}
 

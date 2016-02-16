@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 単一セルの読み込み定義です
@@ -46,9 +46,9 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 		}
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
-		return table == null && ((config.containsKey(CFG_ROW) && config.containsKey(CFG_COLUMN))
-				|| (config.containsKey(CFG_X) && config.containsKey(CFG_Y)));
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
+		return (config.containsKey(CFG_ROW) && config.containsKey(CFG_COLUMN))
+				|| (config.containsKey(CFG_X) && config.containsKey(CFG_Y));
 	}
 
 	/**

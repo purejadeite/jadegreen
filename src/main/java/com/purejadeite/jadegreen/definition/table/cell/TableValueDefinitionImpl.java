@@ -4,6 +4,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -35,7 +36,7 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 		this.value = getString(config, CFG_VALUE);
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
 		return table != null && config.containsKey(CFG_VALUE);
 	}
 

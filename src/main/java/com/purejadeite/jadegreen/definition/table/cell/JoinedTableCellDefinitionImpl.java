@@ -8,6 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.DefinitionManager;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
@@ -89,7 +90,7 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
 		return table != null && config.containsKey(CFG_JOIN);
 	}
 

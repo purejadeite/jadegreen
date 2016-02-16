@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.table;
 
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
@@ -10,6 +11,8 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinition;
  * @author mitsuhiroseino
  */
 public class CategoryDefinitionImpl extends AbstractCategoryDefinition<CellDefinition<?>> {
+
+	public static final String CFG_CELLS = "cells";
 
 	/**
 	 * コンストラクタ
@@ -20,8 +23,8 @@ public class CategoryDefinitionImpl extends AbstractCategoryDefinition<CellDefin
 		super(parent, config);
 	}
 
-	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
-		return table == null && !config.containsKey("row") && !config.containsKey("column");
+	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
+		return config.containsKey(CFG_CELLS);
 	}
 
 	/**
@@ -29,8 +32,8 @@ public class CategoryDefinitionImpl extends AbstractCategoryDefinition<CellDefin
 	 */
 	@Override
 	public boolean isIncluded(int row, int col) {
-		for (CellDefinition<?> cell : cells) {
-			if (cell.isIncluded(row, col)) {
+		for (CellDefinition<?> child : children) {
+			if (child.isIncluded(row, col)) {
 				return true;
 			}
 		}

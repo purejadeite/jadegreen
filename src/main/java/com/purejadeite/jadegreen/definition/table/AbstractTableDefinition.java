@@ -156,14 +156,6 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<C> getChildren() {
-		return this.cells;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void addChild(C child) {
 		if (child.getId().equals(breakId)) {
 			// 終了条件に指定されている場合
@@ -178,17 +170,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 				child.setBreakValues(breakValues);
 			}
 		}
-		cells.add(child);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addChildren(List<C> children) {
-		for (C child : children) {
-			addChild(child);
-		}
+		super.addChild(child);
 	}
 
 	/**

@@ -33,4 +33,10 @@ public interface ParentDefinition<P extends ParentDefinition<?, ?>, C extends De
 	 */
 	public void addChild(C child);
 
+	/**
+	 * 子要素を追加します
+	 * @param children 子要素
+	 */
+	public void addChildren(List<C> children);
+
 }

@@ -42,7 +42,7 @@ public class ListCellDefinitionImpl extends CellDefinitionImpl {
 	}
 
 	public static boolean assess(TableDefinition<?> table, Map<String, Object> config) {
-		return CellDefinitionImpl.assess(table, config) && config.containsKey(CFG_SPLITTER);
+		return CellDefinitionImpl.assess(config, table) && config.containsKey(CFG_SPLITTER);
 	}
 
 	@SuppressWarnings("unchecked")
