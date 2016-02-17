@@ -12,35 +12,35 @@
         ],
 		"fields": [
 			{
-				"type": "line",
+				"type1": "line",
 				"logicalFieldName": "ファイル有無フラグ",
 				"fieldName": "fileExistFlag",
 				"type": "Boolean",
 				"initial": "Boolean.TRUE"
 			},
 			{
-				"type": "line",
+				"type1": "line",
 				"logicalFieldName": "ファイル名",
 				"fieldName": "fileName",
 				"type": "String",
 				"initial": "null"
 			},
 			{
-				"type": "line",
+				"type1": "line",
 				"logicalFieldName": "ファイル名日本語",
 				"fieldName": "fileNameJp",
 				"type": "String",
 				"initial": "null"
 			},
 			{
-				"type": "line",
+				"type1": "line",
 				"logicalFieldName": "ファイルパス",
 				"fieldName": "filePath",
 				"type": "String",
 				"initial": null
 			},
 			{
-				"type": "line",
+				"type1": "line",
 				"logicalFieldName": "行情報",
 				"fieldName": "lines",
 				"type": "List<LineBean>",

@@ -40,6 +40,8 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 	 */
 	private String sheetName;
 
+	protected Map<String, Content<?, ?>> contents = new HashMap<>();
+
 	/**
 	 * コンストラクタ
 	 *

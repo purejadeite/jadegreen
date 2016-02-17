@@ -29,7 +29,6 @@
 		        ]},
 		        {"id": "fields", "row": 8, "breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
-        		        {"id": "type", "value": "line"},
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
 		                {"id": "type", "column": 4},

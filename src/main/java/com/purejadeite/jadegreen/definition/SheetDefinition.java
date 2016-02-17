@@ -2,11 +2,13 @@ package com.purejadeite.jadegreen.definition;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.option.sheet.SheetOptionManager;
 import com.purejadeite.util.SimpleComparison;
@@ -162,6 +164,8 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 */
 	protected boolean output = false;
 
+	protected Map<String, Definition<?>> definitions = new HashMap<>();
+
 	/**
 	 * コンストラクタ
 	 *
@@ -232,6 +236,9 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 */
 	private void addCell(Definition<?> child) {
 		if (child != null) {
+			if (definitions.put(child.getId(), child) != null) {
+				throw new DefinitionException("idはsheet配下で一意になるように設定してください:" + child.getFullId());
+			}
 			if (child instanceof CellDefinition) {
 				// 単独Cellの場合
 				CellDefinition<?> cell = (CellDefinition<?>) child;
@@ -261,9 +268,9 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 					maxCol = Math.max(i, maxCol);
 				}
 			} else if (child instanceof ParentDefinition) {
-				// Tableの場合は子要素のCellをばらして追加
-				ParentDefinition<?, ?> pmd = (ParentDefinition<?, ?>) child;
-				for (Definition<?> c : pmd.getChildren()) {
+				// 親の場合は子要素をばらして追加
+				ParentDefinition<?, ?> parent = (ParentDefinition<?, ?>) child;
+				for (Definition<?> c : parent.getChildren()) {
 					addCell(c);
 				}
 			}
