@@ -18,7 +18,7 @@ import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.CategoryDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
@@ -26,7 +26,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
  *
  * @author mitsuhiroseino
  */
-public class SheetContent extends AbstractContent<BookContent, SheetDefinition> {
+public class SheetContent extends AbstractParentContent<BookContent, Content<?, ?>, SheetDefinition> {
 
 	private static final long serialVersionUID = -6579860061499426256L;
 
@@ -39,11 +39,6 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	 * sheet名
 	 */
 	private String sheetName;
-
-	/**
-	 * sheet配下のコンテンツ
-	 */
-	private List<Content<?, ?>> contents = new ArrayList<>();
 
 	/**
 	 * コンストラクタ
@@ -78,16 +73,16 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 			} else if (childDefinition instanceof ValueDefinitionImpl) {
 				// 単独固定値の場合
 				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof CategoryDefinitionImpl) {
+			} else if (childDefinition instanceof CategoryDefinition) {
 				// 範囲の場合
-
+				content = new CategoryContentImpl(uuid, this, (CategoryDefinition<?>) childDefinition);
 			} else if (childDefinition instanceof TableDefinition) {
 				// テーブルの場合
 				content = new TableContentImpl(uuid, this, (TableDefinition<?>) childDefinition);
 			} else {
 				continue;
 			}
-			contents.add(content);
+			children.add(content);
 			ContentManager.getInstance().register(this, content);
 		}
 		ContentManager.getInstance().register(this);
@@ -124,7 +119,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	private Status addValueImpl(int row, int col, Object value) {
 		Status status = END;
 		LOGGER.trace("cell(" + row + "," + col + ").value=" + value);
-		for (Content<?, ?> content : contents) {
+		for (Content<?, ?> content : children) {
 			Status addStatus = content.addValue(row, col, value);
 			if (0 < addStatus.compareTo(status)) {
 				status = addStatus;
@@ -141,7 +136,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 		if (closed) {
 			return true;
 		}
-		for (Content<?, ?> content : contents) {
+		for (Content<?, ?> content : children) {
 			if (!content.isClosed()) {
 				return false;
 			}
@@ -162,7 +157,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	@Override
 	public void open() {
 		super.open();
-		for (Content<?, ?> content : contents) {
+		for (Content<?, ?> content : children) {
 			content.open();
 		}
 	}
@@ -173,7 +168,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 	@Override
 	public Object getRawValuesImpl() {
 		Map<String, Object> values = new HashMap<>();
-		for (Content<?, ?> content : contents) {
+		for (Content<?, ?> content : children) {
 			values.put(content.getId(), content.getRawValues());
 		}
 		return values;
@@ -188,7 +183,7 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 			return SpecificValue.NO_OUTPUT;
 		}
 		Map<String, Object> values = new HashMap<>();
-		for (Content<?, ?> content : contents) {
+		for (Content<?, ?> content : children) {
 			Object vals = content.getValues();
 			if (vals != SpecificValue.NO_OUTPUT) {
 				values.put(content.getId(), vals);
@@ -209,11 +204,16 @@ public class SheetContent extends AbstractContent<BookContent, SheetDefinition> 
 		Map<String, Object> map = super.toMap();
 		map.put("sheetName", sheetName);
 		List<Map<String, Object>> contentMaps = new ArrayList<>();
-		for (Content<?, ?> content : contents) {
+		for (Content<?, ?> content : children) {
 			contentMaps.add(content.toMap());
 		}
 		map.put("contents", contentMaps);
 		return map;
+	}
+
+	@Override
+	public SheetContent getSheet() {
+		return this;
 	}
 
 }

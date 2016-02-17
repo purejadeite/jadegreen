@@ -1,14 +1,11 @@
 package com.purejadeite.jadegreen.content;
 
-import java.util.List;
-
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスのインターフェイスです
  * @author mitsuhiroseino
  */
-public interface TableContent extends Content<SheetContent, TableDefinition<?>> {
-	public List<TableCellContent<?>> getCells();
+public interface TableContent extends ParentContent<ParentContent<?, ?, ?>, TableCellContent<?>, TableDefinition<?>> {
 	public int size();
 }

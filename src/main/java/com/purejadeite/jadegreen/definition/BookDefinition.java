@@ -52,7 +52,7 @@ public class BookDefinition extends AbstractParentDefinition<NoDefinition, Sheet
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(SheetDefinition sheet: getChildren()) {
+		for(SheetDefinition sheet: children) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);
@@ -71,8 +71,8 @@ public class BookDefinition extends AbstractParentDefinition<NoDefinition, Sheet
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(SheetDefinition child) {
-		super.addChild(child);
+	public BookDefinition getBook() {
+		return this;
 	}
 
 }

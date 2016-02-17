@@ -19,11 +19,10 @@ import com.purejadeite.jadegreen.definition.table.cell.TargetTableCellDefinition
  *
  * @author mitsuhiroseino
  */
-public class TableContentImpl extends AbstractContent<SheetContent, TableDefinition<?>>implements TableContent {
+public class TableContentImpl extends
+		AbstractParentContent<ParentContent<?, ?, ?>, TableCellContent<?>, TableDefinition<?>>implements TableContent {
 
 	private static final long serialVersionUID = 2393648151533807595L;
-
-	protected List<TableCellContent<?>> cells = new ArrayList<>();
 
 	/**
 	 * レコード数
@@ -35,27 +34,24 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 	/**
 	 * コンストラクタ
 	 */
-	public TableContentImpl(String uuid, SheetContent parent, TableDefinition<?> definition) {
+	public TableContentImpl(String uuid, ParentContent<?, ?, ?> parent, TableDefinition<?> definition) {
 		super(uuid, parent, definition);
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
 				// 結合の場合
-				cells.add(new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
+				children.add(
+						new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof TableValueDefinitionImpl) {
 				// 固定値の場合
-				cells.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+				children.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof TargetTableCellDefinitionImpl) {
 				// ターゲットの場合
-				cells.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+				children.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof TableCellDefinition) {
 				// セルの場合
-				cells.add(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+				children.add(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			}
 		}
-	}
-
-	public List<TableCellContent<?>> getCells() {
-		return cells;
 	}
 
 	/**
@@ -82,7 +78,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 		// 取得対象範囲
 		begin = true;
 		Status status = NO;
-		for (TableCellContent<?> cell : cells) {
+		for (TableCellContent<?> cell : children) {
 			Status cellStatus = cell.addValue(row, col, value);
 			// このtableにおける値の取得状況
 			// 何れかのCellが終わりに達したら、このTableは処理を終わるので下記の順に優先される
@@ -115,7 +111,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 	private void closeChildren() {
 		// 最少のサイズを取得
 		int minSize = Integer.MAX_VALUE;
-		for (TableCellContent<?> cell : cells) {
+		for (TableCellContent<?> cell : children) {
 			int cellSize = cell.size();
 			if (-1 < cellSize && cellSize < minSize) {
 				minSize = cellSize;
@@ -123,7 +119,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 		}
 		size = minSize;
 		// 一番取得数が少ないところに切りそろえる
-		for (TableCellContent<?> cell : cells) {
+		for (TableCellContent<?> cell : children) {
 			cell.close(size);
 		}
 	}
@@ -132,7 +128,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 	public void open() {
 		begin = false;
 		super.open();
-		for (TableCellContent<?> cell : cells) {
+		for (TableCellContent<?> cell : children) {
 			cell.open();
 		}
 	}
@@ -176,7 +172,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 	private Object getCellValues(CellValueGetter getter) {
 		List<Map<String, Object>> values = new ArrayList<>(size);
 
-		for (TableCellContent<?> cell : cells) {
+		for (TableCellContent<?> cell : children) {
 			@SuppressWarnings("unchecked")
 			List<Object> vals = (List<Object>) getter.get(cell);
 			if (vals == null || SpecificValue.NO_OUTPUT.equals(vals)) {
@@ -222,7 +218,7 @@ public class TableContentImpl extends AbstractContent<SheetContent, TableDefinit
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for (Content<?, ?> cell : cells) {
+		for (Content<?, ?> cell : children) {
 			cellMaps.add(cell.toMap());
 		}
 		map.put("cells", cellMaps);

@@ -2,15 +2,15 @@ package com.purejadeite.jadegreen.definition.table;
 
 import java.util.List;
 
+import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
  * 任意の集まりを保持するクラスのインターフェイスです
  * @author mitsuhiroseino
  */
-public interface CategoryDefinition<C extends CellDefinition<?>> extends ParentDefinition<SheetDefinition, C> {
+public interface CategoryDefinition<C extends Definition<?>> extends ParentDefinition<SheetDefinition, C> {
 
 	/**
 	 * 指定の行番号、列番号が当セルの範囲内か判定します

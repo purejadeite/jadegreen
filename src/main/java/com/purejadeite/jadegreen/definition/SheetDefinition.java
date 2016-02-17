@@ -319,6 +319,14 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 * {@inheritDoc}
 	 */
 	@Override
+	public SheetDefinition getSheet() {
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("name", name);

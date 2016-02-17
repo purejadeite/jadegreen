@@ -70,4 +70,9 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	 */
 	public Map<String,Object> toMap();
 
+	public BookDefinition getBook();
+
+	public SheetDefinition getSheet();
+
+
 }

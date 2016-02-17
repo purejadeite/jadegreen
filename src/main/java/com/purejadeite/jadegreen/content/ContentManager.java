@@ -121,9 +121,9 @@ public class ContentManager {
 		}
 		conMap.put(definitionId, content);
 
-		if (content instanceof TableContent) {
+		if (content instanceof ParentContent) {
 			// tableの場合は配下のcellを個別に登録
-			for (Content<?, ?> cellContent : ((TableContent) content).getCells()) {
+			for (Content<?, ?> cellContent : ((ParentContent<?, ?, ?>) content).getChildren()) {
 				register(sheetContent, cellContent);
 			}
 		}

@@ -143,6 +143,28 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
+	public BookDefinition getBook() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getBook();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SheetDefinition getSheet() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getSheet();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("id", id);

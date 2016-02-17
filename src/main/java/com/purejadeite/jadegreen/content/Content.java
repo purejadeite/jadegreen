@@ -82,4 +82,8 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	 */
 	public Map<String,Object> toMap();
 
+	public BookContent getBook();
+
+	public SheetContent getSheet();
+
 }

@@ -8,21 +8,20 @@ import com.purejadeite.jadegreen.definition.BookDefinition;
 
 /**
  * bookのコンテンツ
+ *
  * @author mitsuhiroseino
  */
-public class BookContent extends AbstractContent<NoContent, BookDefinition> {
+public class BookContent extends AbstractParentContent<NoContent<?>, SheetContent, BookDefinition> {
 
 	private static final long serialVersionUID = -1677962020788016225L;
 
 	/**
-	 * sheetのコンテンツリスト
-	 */
-	private List<SheetContent> sheets = new ArrayList<>();
-
-	/**
 	 * コンストラクタ
-	 * @param definition 定義
-	 * @param name book名
+	 *
+	 * @param definition
+	 *            定義
+	 * @param name
+	 *            book名
 	 */
 	public BookContent(BookDefinition definition) {
 		super(null, null, definition);
@@ -31,21 +30,23 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 
 	/**
 	 * sheetを追加します
+	 *
 	 * @param sheet
 	 */
 	public void addSheet(SheetContent sheet) {
-		if (!sheets.contains(sheet)) {
-			sheets.add(sheet);
+		if (!children.contains(sheet)) {
+			children.add(sheet);
 		}
 	}
 
 	/**
 	 * sheetを削除します
+	 *
 	 * @param sheet
 	 */
-//	public void removeSheet(SheetContent sheet) {
-//		sheets.remove(sheet);
-//	}
+	// public void removeSheet(SheetContent sheet) {
+	// sheets.remove(sheet);
+	// }
 
 	/**
 	 * {@inheritDoc}
@@ -61,7 +62,7 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 	@Override
 	public Object getRawValuesImpl() {
 		List<Object> values = new ArrayList<>();
-		for (SheetContent sheet : sheets) {
+		for (SheetContent sheet : children) {
 			Object vals = sheet.getRawValues();
 			if (vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
@@ -78,7 +79,7 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 		if (closed) {
 			return true;
 		}
-		for (SheetContent sheet : sheets) {
+		for (SheetContent sheet : children) {
 			if (!sheet.isClosed()) {
 				return false;
 			}
@@ -93,7 +94,7 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 	@Override
 	public Object getValuesImpl() {
 		List<Object> values = new ArrayList<>();
-		for (SheetContent sheet : sheets) {
+		for (SheetContent sheet : children) {
 			Object vals = sheet.getValues();
 			if (vals != SpecificValue.NO_OUTPUT && vals != SpecificValue.UNDEFINED) {
 				values.add(vals);
@@ -109,7 +110,7 @@ public class BookContent extends AbstractContent<NoContent, BookDefinition> {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> sheetMaps = new ArrayList<>();
-		for(SheetContent sheet: sheets) {
+		for (SheetContent sheet : children) {
 			sheetMaps.add(sheet.toMap());
 		}
 		map.put("sheets", sheetMaps);

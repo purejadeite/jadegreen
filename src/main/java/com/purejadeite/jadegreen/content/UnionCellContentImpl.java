@@ -26,7 +26,7 @@ public class UnionCellContentImpl extends CellContentImpl {
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public UnionCellContentImpl(String uuid, SheetContent parent, CellDefinition<?> definition) {
+	public UnionCellContentImpl(String uuid, ParentContent<?, ?, ?> parent, CellDefinition<?> definition) {
 		super(uuid, parent, definition);
 	}
 

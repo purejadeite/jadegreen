@@ -31,11 +31,6 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	protected int end = 0;
 
 	/**
-	 * 配下のセル読み込み情報
-	 */
-	protected List<C> cells = new ArrayList<>();
-
-	/**
 	 * 開始キー項目
 	 * ※現在未使用
 	 */
@@ -161,7 +156,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 			// 終了条件に指定されている場合
 			child.setBreakId(true);
 			child.setBreakValues(breakValues);
-		} else if (cells.isEmpty()) {
+		} else if (children.isEmpty()) {
 			// 先頭セルの場合
 			if (end == Integer.MAX_VALUE && breakId == null) {
 				// 終了条件が設定されていない場合に、項目がnullになった時に終了
@@ -187,10 +182,6 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		map.put("endValue", breakValues);
 		map.put("size", size);
 		List<Map<String, Object>> cellMaps = new ArrayList<>();
-		for(C cell: cells) {
-			cellMaps.add(cell.toMap());
-		}
-		map.put("cells", cellMaps);
 		return map;
 	}
 }

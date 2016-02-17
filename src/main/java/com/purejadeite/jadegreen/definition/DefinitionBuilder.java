@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
@@ -146,17 +145,12 @@ public class DefinitionBuilder {
 	 *            table定義
 	 * @return セルの定義リスト
 	 */
-	private static List<CellDefinition<?>> createCells(List<Map<String, Object>> cells, SheetDefinition sheet,
+	private static List<Definition<?>> createCells(List<Map<String, Object>> cells, SheetDefinition sheet,
 			ParentDefinition<?, ?> table) {
-		List<CellDefinition<?>> definitions = new ArrayList<>();
+		List<Definition<?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
 			Definition<?> child = createCell(cell, sheet, table);
-			if (child instanceof CellDefinition) {
-				definitions.add((CellDefinition<?>) child);
-			} else {
-				throw new DefinitionException("table=" + table.getFullId() + "&illegal child=" + child.getFullId()
-						+ ":tableの子要素にはcellを定義してください");
-			}
+			definitions.add(child);
 		}
 		return definitions;
 	}

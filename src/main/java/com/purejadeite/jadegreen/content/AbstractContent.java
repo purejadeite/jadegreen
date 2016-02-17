@@ -156,6 +156,28 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
+	public BookContent getBook() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getBook();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SheetContent getSheet() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getSheet();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("definition", definition.getFullId());

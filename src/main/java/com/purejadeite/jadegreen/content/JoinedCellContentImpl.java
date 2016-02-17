@@ -16,14 +16,14 @@ import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
  *
  * @author mitsuhiroseino
  */
-public class JoinedCellContentImpl extends AbstractContent<SheetContent, JoinedCellDefinitionImpl>
-		implements JoinedCellContent<SheetContent, JoinedCellDefinitionImpl> {
+public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?>, JoinedCellDefinitionImpl>
+		implements JoinedCellContent<ParentContent<?, ?, ?>, JoinedCellDefinitionImpl> {
 
 	private static final long serialVersionUID = 3474501722301631948L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JoinedCellContentImpl.class);
 
-	public JoinedCellContentImpl(String uuid, SheetContent parent, JoinedCellDefinitionImpl definition) {
+	public JoinedCellContentImpl(String uuid, ParentContent<?, ?, ?> parent, JoinedCellDefinitionImpl definition) {
 		super(uuid, parent, definition);
 	}
 
