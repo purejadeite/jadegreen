@@ -14,7 +14,6 @@ import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.collection.Table;
 
@@ -39,7 +38,6 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(String excelFilePath, Map<String, Object> definitionObj) throws IOException {
-		DefinitionManager.getInstance().init();
 		BookDefinition definition = DefinitionBuilder.build(definitionObj);
 		return read(excelFilePath, definition);
 	}
@@ -52,7 +50,6 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(File excelFile, Map<String, Object> definitionObj) throws IOException {
-		DefinitionManager.getInstance().init();
 		BookDefinition definition = DefinitionBuilder.build(definitionObj);
 		return read(excelFile, definition);
 	}

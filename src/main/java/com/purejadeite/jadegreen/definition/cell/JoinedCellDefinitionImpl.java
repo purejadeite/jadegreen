@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.SimpleValidator;
@@ -81,21 +80,21 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<She
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getMyKeyDefinition() {
-		return DefinitionManager.getInstance().getSheetsDefinition(this, myKeyId);
+		return this.getCell(myKeyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getKeyDefinition() {
-		return DefinitionManager.getInstance().get(sheetId, keyId);
+		return this.getCell(sheetId, keyId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Definition<?> getValueDefinition() {
-		return DefinitionManager.getInstance().get(sheetId, valueId);
+		return this.getCell(sheetId, valueId);
 	}
 
 	/**

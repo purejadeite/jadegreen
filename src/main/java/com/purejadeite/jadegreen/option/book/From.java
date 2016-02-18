@@ -8,7 +8,6 @@ import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -41,7 +40,7 @@ public class From extends AbstractBookOption {
 	 */
 	@Override
 	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
-		SheetDefinition outputSheet = DefinitionManager.getInstance().getOutputSheet();
+		SheetDefinition outputSheet = content.getDefinition().getOutputSheet();
 		List<SheetContent> sheetContents = ContentManager.getInstance().getSheets(outputSheet);
 		List<Object> newBookValues = new ArrayList<>();
 		for (SheetContent sheetContent : sheetContents) {

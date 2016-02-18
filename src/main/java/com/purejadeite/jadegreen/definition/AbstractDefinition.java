@@ -165,6 +165,50 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
+	public SheetDefinition getOutputSheet() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getOutputSheet();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SheetDefinition getSheet(String sheetId) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getSheet(sheetId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Definition<?> getCell(String cellId) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getCell(cellId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Definition<?> getCell(String sheetId, String cellId) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getCell(sheetId, cellId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("id", id);

@@ -11,7 +11,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.DefinitionManager;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 
 /**
@@ -219,12 +218,7 @@ public class ContentManager {
 	 * @return
 	 */
 	public List<SheetContent> getSheets(Definition<?> definition) {
-		SheetDefinition sheetDef = null;
-		if (definition instanceof SheetDefinition) {
-			sheetDef = (SheetDefinition) definition;
-		} else {
-			sheetDef = DefinitionManager.getInstance().getSheet(definition);
-		}
+		SheetDefinition sheetDef = definition.getSheet();
 		return keyDefValSheet.get(sheetDef.getFullId());
 	}
 

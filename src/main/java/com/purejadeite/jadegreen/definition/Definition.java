@@ -70,9 +70,45 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	 */
 	public Map<String,Object> toMap();
 
+	/**
+	 * ブック定義を取得します。
+	 * @return ブック定義
+	 */
 	public BookDefinition getBook();
 
+	/**
+	 * シート定義を取得します。
+	 * @return シート定義
+	 */
 	public SheetDefinition getSheet();
+
+	/**
+	 * 指定のIDのシート定義を出力します
+	 * @param sheetId シートのID
+	 * @return シート定義
+	 */
+	public SheetDefinition getSheet(String sheetId);
+
+	/**
+	 * 出力対象のシート定義を取得します。
+	 * @return 出力対象のシート定義
+	 */
+	public SheetDefinition getOutputSheet();
+
+	/**
+	 * 同じシート内のセル定義を取得します。
+	 * @param cellId セルのID
+	 * @return 同一シート配下のセル定義
+	 */
+	public Definition<?> getCell(String cellId);
+
+	/**
+	 * 指定のシート内のセル定義を取得します。
+	 * @param sheetId シートのID
+	 * @param cellId セルのID
+	 * @return 指定シート配下のセル定義
+	 */
+	public Definition<?> getCell(String sheetId, String cellId);
 
 
 }

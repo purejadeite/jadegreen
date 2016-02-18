@@ -61,6 +61,11 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	private static final String CFG_TARGET_CELL_VALUE = "target.cell.value";
 
 	/**
+	 * コンフィグ：シートの主キー
+	 */
+	private static final String[] CFG_KEY_IDS = { "keyId", "keyIds" };
+
+	/**
 	 * コンフィグ：join・相手先シートID
 	 */
 	private static final String CFG_JOIN_SHEET_ID = "join.sheetId";
@@ -136,6 +141,11 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	private int maxCol = 0;
 
 	/**
+	 * シートの主キー
+	 */
+	protected List<String> keyIds;
+
+	/**
 	 * 結合先のシートのID
 	 */
 	protected String joinSheetId;
@@ -164,7 +174,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 */
 	protected boolean output = false;
 
-	protected Map<String, Definition<?>> definitions = new HashMap<>();
+	protected Map<String, Definition<?>> cells = new HashMap<>();
 
 	/**
 	 * コンストラクタ
@@ -187,6 +197,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		this.joinMyKeyId = getString(cfg, CFG_JOIN_MY_KEY_ID);
 		this.union = getBooleanValue(cfg, CFG_UNION);
 		this.output = getBooleanValue(cfg, CFG_OUTPUT);
+		this.keyIds = getAsList(cfg, CFG_KEY_IDS);
 	}
 
 	public String getJoinSheetId() {
@@ -236,7 +247,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 */
 	private void addCell(Definition<?> child) {
 		if (child != null) {
-			if (definitions.put(child.getId(), child) != null) {
+			if (cells.put(child.getId(), child) != null) {
 				throw new DefinitionException("idはsheet配下で一意になるように設定してください:" + child.getFullId());
 			}
 			if (child instanceof CellDefinition) {
@@ -357,7 +368,8 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		if (targetName != null) {
 			if (!SimpleComparison.compare(targetName, name)) {
 				return false;
-			};
+			}
+			;
 		}
 		if (targetCellRow != -1 && targetCellColumn != -1) {
 			String value = table.get(targetCellRow, targetCellColumn);
@@ -366,6 +378,18 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 			}
 		}
 		return true;
+	}
+
+	public Map<String, Definition<?>> getCells() {
+		return cells;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Definition<?> getCell(String id) {
+		return cells.get(id);
 	}
 
 }

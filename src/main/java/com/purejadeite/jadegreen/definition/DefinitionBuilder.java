@@ -47,7 +47,6 @@ public class DefinitionBuilder {
 	public static BookDefinition build(Map<String, Object> config) {
 		// bookのビルド
 		BookDefinition book = new BookDefinition(config);
-		DefinitionManager.getInstance().register(book);
 		List<Map<String, Object>> sheetConfigs = getList(config, BookDefinition.CFG_SHEETS);
 		for (Map<String, Object> sheetConfig : sheetConfigs) {
 			// sheetのビルド
@@ -126,7 +125,6 @@ public class DefinitionBuilder {
 
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
-			DefinitionManager.getInstance().register(sheet, definition);
 		} else {
 			String id = getString(config, Definition.CFG_ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");
@@ -224,7 +222,6 @@ public class DefinitionBuilder {
 
 		if (definition != null) {
 			LOGGER.debug(definition.getClass().getSimpleName() + ":" + definition.getId());
-			DefinitionManager.getInstance().register(sheet, definition);
 		} else {
 			String id = getString(config, Definition.CFG_ID);
 			throw new DefinitionException("id=" + id + ":定義が不正です");

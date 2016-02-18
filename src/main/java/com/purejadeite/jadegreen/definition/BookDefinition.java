@@ -75,4 +75,42 @@ public class BookDefinition extends AbstractParentDefinition<NoDefinition, Sheet
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SheetDefinition getOutputSheet() {
+		for (SheetDefinition child : this.children) {
+			if (child.isOutput()) {
+				return child;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SheetDefinition getSheet(String id) {
+		for (SheetDefinition child : this.children) {
+			if (child.getId().equals(id)) {
+				return child;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Definition<?> getCell(String sheetId, String cellId) {
+		SheetDefinition sheet = getSheet(sheetId);
+		if (sheet == null) {
+			return null;
+		}
+		return sheet.getCell(cellId);
+	}
+
 }
