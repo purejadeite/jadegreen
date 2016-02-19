@@ -39,17 +39,17 @@ public class TableContentImpl extends
 		for (Definition<?> childDefinition : definition.getChildren()) {
 			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
 				// 結合の場合
-				children.add(
+				addChild(
 						new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
 			} else if (childDefinition instanceof TableValueDefinitionImpl) {
 				// 固定値の場合
-				children.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+				addChild(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof TargetTableCellDefinitionImpl) {
 				// ターゲットの場合
-				children.add(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+				addChild(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			} else if (childDefinition instanceof TableCellDefinition) {
 				// セルの場合
-				children.add(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
+				addChild(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
 			}
 		}
 	}

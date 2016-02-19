@@ -13,7 +13,8 @@ import com.purejadeite.jadegreen.definition.Definition;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<P extends Content<?, ?>, D extends Definition<?>> implements Content<P, D>, Serializable {
+abstract public class AbstractContent<P extends Content<?, ?>, D extends Definition<?>>
+		implements Content<P, D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
 
@@ -156,6 +157,14 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
+	public P getParent() {
+		return parent;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public BookContent getBook() {
 		if (parent == null) {
 			return null;
@@ -172,6 +181,84 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 			return null;
 		}
 		return parent.getSheet();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<SheetContent> getSheets(Definition<?> sheetDefinition) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getSheets(sheetDefinition);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<SheetContent> getSheets(Definition<?> myKeyDefinition, Definition<?> keyDefinition) {
+		Content<?, ?> myKeyContent = this.getSheet().getCell(myKeyDefinition);
+		return getSheets(myKeyContent, keyDefinition);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<SheetContent> getSheets(Content<?, ?> myKeyContent, Definition<?> keyDefinition) {
+		List<SheetContent> sheets = new ArrayList<>();
+		List<Content<?, ?>> contents = getContents(keyDefinition);
+		for (Content<?, ?> content : contents) {
+			if (myKeyContent == content) {
+				// 自身は対象外
+				continue;
+			}
+			Object myValues = myKeyContent.getValues();
+			Object values = content.getValues();
+			if (myValues == values || (myValues != null && myValues.equals(values))) {
+				sheets.add(content.getSheet());
+			}
+		}
+		return sheets;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Content<?, ?> getCell(Definition<?> cellDefinition) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getCell(cellDefinition);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Content<?, ?> getCell(String id) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getCell(id);
+	}
+
+	/**
+	 * 定義に一致するコンテンツを取得します
+	 *
+	 * @param definition
+	 *            定義
+	 * @return コンテンツのリスト
+	 */
+	@Override
+	public List<Content<?, ?>> getContents(Definition<?> definition) {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getContents(definition);
 	}
 
 	/**

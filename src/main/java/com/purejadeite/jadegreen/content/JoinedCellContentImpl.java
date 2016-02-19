@@ -50,13 +50,12 @@ public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?
 	 */
 	@Override
 	public Object getValuesImpl() {
-		ContentManager manager = ContentManager.getInstance();
 		Definition<?> myKeyDefinition = definition.getMyKeyDefinition();
 		Definition<?> keyDefinition = definition.getKeyDefinition();
 		Definition<?> valueDefinition = definition.getValueDefinition();
 
 		// 相手シートを取得
-		List<SheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
+		List<SheetContent> sheetContents = this.getSheets(myKeyDefinition, keyDefinition);
 		if (sheetContents.isEmpty()) {
 			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
 			return null;
@@ -67,7 +66,7 @@ public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?
 		SheetContent sheetContent = sheetContents.get(0);
 
 		// 相手から取得する値を取得
-		Content<?, ?> valueContent = manager.getContent(sheetContent, valueDefinition);
+		Content<?, ?> valueContent = sheetContent.getCell(valueDefinition);
 		if (valueContent != null) {
 			return valueContent.getValues();
 		} else {

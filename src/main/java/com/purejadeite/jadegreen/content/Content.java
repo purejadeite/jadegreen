@@ -82,8 +82,66 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	 */
 	public Map<String,Object> toMap();
 
+	/**
+	 * ブックコンテンツを取得します
+	 * @return ブックコンテンツ
+	 */
 	public BookContent getBook();
 
+	/**
+	 * シートコンテンツを取得します
+	 * @return シートコンテンツ
+	 */
 	public SheetContent getSheet();
+
+	/**
+	 * keyDefinitionのシートを取得します
+	 * @param sheetDefinition シートの定義
+	 * @return シートのリスト
+	 */
+	public List<SheetContent> getSheets(Definition<?> sheetDefinition);
+
+	/**
+	 * myKeyDefinitionの示すコンテンツと等しい値を持つ、keyDefinitionの示すコンテンツのシートを取得します
+	 * @param myKeyContent キーとなるコンテンツの定義
+	 * @param keyDefinition 比較対象のコンテンツの定義
+	 * @return キーの一致するシートのリスト
+	 */
+	public List<SheetContent> getSheets(Definition<?> myKeyDefinition, Definition<?> keyDefinition);
+
+	/**
+	 * myKeyContentと等しい値を持つ、keyDefinitionの示すコンテンツのシートを取得します
+	 * @param myKeyContent キーとなる値を持ったコンテンツ
+	 * @param keyDefinition 比較対象のコンテンツの定義
+	 * @return キーの一致するシートのリスト
+	 */
+	public List<SheetContent> getSheets(Content<?, ?> myKeyContent, Definition<?> keyDefinition);
+
+	/**
+	 * セルコンテンツを取得します
+	 * @param cellDefinition セル定義
+	 * @return セルコンテンツ
+	 */
+	public Content<?, ?> getCell(Definition<?> cellDefinition);
+
+	/**
+	 * セルコンテンツを取得します
+	 * @param id 定義ID
+	 * @return セルコンテンツ
+	 */
+	public Content<?, ?> getCell(String id);
+
+	/**
+	 * 任意のコンテンツを取得します
+	 * @param definition 定義
+	 * @return 指定の定義のコンテンツリスト
+	 */
+	public List<Content<?, ?>> getContents(Definition<?> definition);
+
+	/**
+	 * 親を取得します
+	 * @return 親コンテンツ
+	 */
+	public P getParent();
 
 }

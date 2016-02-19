@@ -61,14 +61,13 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 */
 	@Override
 	public Object getValuesImpl() {
-		ContentManager manager = ContentManager.getInstance();
 		Definition<?> myKeyDefinition = definition.getMyKeyDefinition();
 		Definition<?> keyDefinition = definition.getKeyDefinition();
 		Definition<?> myTableKeyDefinition = definition.getMyTableKeyDefinition();
 		Definition<?> keyTableDefinition = definition.getTableKeyDefinition();
 
 		// 相手シートを取得
-		List<SheetContent> sheetContents = manager.getSheets(this, myKeyDefinition, keyDefinition);
+		List<SheetContent> sheetContents = this.getSheets(myKeyDefinition, keyDefinition);
 		if (sheetContents.isEmpty()) {
 			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
 			return null;
@@ -78,19 +77,19 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 		}
 		SheetContent sheetContent = sheetContents.get(0);
 		// 結合先のキーとなるレコードを取得
-		Content<?, ?> tableKeyContent = manager.getContent(sheetContent, keyTableDefinition);
+		Content<?, ?> tableKeyContent = sheetContent.getCell(keyTableDefinition);
 		if (tableKeyContent == null) {
 			return null;
 		}
 
 		// 結合先のテーブル丸ごと取得
-		Content<?, ?> tableContent = manager.getParentContent(tableKeyContent);
+		Content<?, ?> tableContent = tableKeyContent.getParent();
 
 		// 結合元の属するsheetを取得
-		SheetContent mySheetContent = manager.getSheet(this);
+		SheetContent mySheetContent = this.getSheet();
 
 		// 結合元のキーとなるレコードを取得
-		Content<?, ?> myTableKeyContent = manager.getContent(mySheetContent, myTableKeyDefinition);
+		Content<?, ?> myTableKeyContent = mySheetContent.getCell(myTableKeyDefinition);
 		if (myTableKeyContent == null) {
 			return null;
 		}

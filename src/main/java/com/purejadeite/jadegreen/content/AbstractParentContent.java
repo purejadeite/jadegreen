@@ -2,7 +2,9 @@ package com.purejadeite.jadegreen.content;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
 
@@ -15,6 +17,8 @@ abstract public class AbstractParentContent<P extends ParentContent<?, ?, ?>, C 
 		extends AbstractContent<P, D>implements ParentContent<P, C, D>, Serializable {
 
 	protected List<C> children;
+
+	protected Map<String, Content<?, ?>> cells = new HashMap<>();
 
 	public AbstractParentContent(String uuid, P parent, D definition) {
 		super(uuid, parent, definition);
@@ -31,9 +35,37 @@ abstract public class AbstractParentContent<P extends ParentContent<?, ?, ?>, C 
 		return children;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addChild(C child) {
-		this.children.add(child);
+		children.add(child);
+		cells.put(child.getId(), child);
+		if (child instanceof ParentContent) {
+			cells.putAll(((ParentContent<?, ?, ?>) child).getCells());
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Content<?, ?> getCell(Definition<?> cellDefinition) {
+		return cells.get(cellDefinition.getId());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Content<?, ?> getCell(String id) {
+		return cells.get(id);
+	}
+
+	@Override
+	public Map<String, Content<?, ?>> getCells() {
+		return cells;
 	}
 
 }

@@ -40,8 +40,6 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 	 */
 	private String sheetName;
 
-	protected Map<String, Content<?, ?>> contents = new HashMap<>();
-
 	/**
 	 * コンストラクタ
 	 *
@@ -84,10 +82,8 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 			} else {
 				continue;
 			}
-			children.add(content);
-			ContentManager.getInstance().register(this, content);
+			addChild(content);
 		}
-		ContentManager.getInstance().register(this);
 		LOGGER.debug("create: " + sheetName);
 	}
 
@@ -213,6 +209,9 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 		return map;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public SheetContent getSheet() {
 		return this;

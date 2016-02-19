@@ -68,7 +68,7 @@ public class TestHelper {
 	public static List<Map<String, Object>> toJsonList(File jsonFile) throws IOException {
 		String json = toJsonString(jsonFile);
 		List<Map<String, Object>> list = null;
-		String trimedJson = StringUtils.trim(json);
+//		String trimedJson = StringUtils.trim(json);
 //		if (!StringUtils.startsWith(trimedJson, "[") && !StringUtils.endsWith(trimedJson, "]")) {
 //			json = "[" + json + "]";
 //		}

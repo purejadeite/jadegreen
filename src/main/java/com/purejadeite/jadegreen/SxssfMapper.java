@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.content.BookContent;
-import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
@@ -74,7 +73,6 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(File excelFile, BookDefinition workbookDefinition) throws IOException {
-		ContentManager.getInstance().init();
 		List<Sheet> worksheets = SxssfTableMapper.read(excelFile);
 		return read(worksheets, workbookDefinition);
 	}
@@ -87,7 +85,6 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(File[] excelFiles, BookDefinition workbookDefinition) throws IOException {
-		ContentManager.getInstance().init();
 		List<Sheet> worksheets =  new ArrayList<>();
 		for (File excelFile : excelFiles) {
 			worksheets.addAll(SxssfTableMapper.read(excelFile));
@@ -116,7 +113,7 @@ public class SxssfMapper {
 		SheetContent sheet = null;
 		if (definition.isUnion()) {
 			// 複数のシートの内容を1シートに集約する場合
-			List<SheetContent> lastSheets = ContentManager.getInstance().getSheets(definition);
+			List<SheetContent> lastSheets = book.getSheets(definition);
 			if (lastSheets == null || lastSheets.isEmpty()) {
 				// 対象のシートがまだ無いならば新規作成
 				sheet = new SheetContent(book, definition, sheetName);

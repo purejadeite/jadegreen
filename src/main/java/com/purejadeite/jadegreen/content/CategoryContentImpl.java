@@ -51,8 +51,7 @@ public class CategoryContentImpl extends AbstractParentContent<ParentContent<?, 
 			} else {
 				continue;
 			}
-			children.add(content);
-			ContentManager.getInstance().register(this.getSheet(), content);
+			addChild(content);
 		}
 	}
 

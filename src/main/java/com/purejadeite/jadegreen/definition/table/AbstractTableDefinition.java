@@ -181,7 +181,6 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		map.put("endKeyId", breakId);
 		map.put("endValue", breakValues);
 		map.put("size", size);
-		List<Map<String, Object>> cellMaps = new ArrayList<>();
 		return map;
 	}
 }

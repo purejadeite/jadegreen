@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.BookDefinition;
+import com.purejadeite.jadegreen.definition.Definition;
 
 /**
  * bookのコンテンツ
@@ -25,7 +26,6 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 	 */
 	public BookContent(BookDefinition definition) {
 		super(null, null, definition);
-		ContentManager.getInstance().register(this);
 	}
 
 	/**
@@ -38,15 +38,6 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 			children.add(sheet);
 		}
 	}
-
-	/**
-	 * sheetを削除します
-	 *
-	 * @param sheet
-	 */
-	// public void removeSheet(SheetContent sheet) {
-	// sheets.remove(sheet);
-	// }
 
 	/**
 	 * {@inheritDoc}
@@ -101,6 +92,52 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 			}
 		}
 		return definition.applyOptions(values, this);
+	}
+
+	/**
+	 * シートコンテンツを取得します
+	 * @param sheetDefinition シート定義
+	 * @return シートコンテンツリスト
+	 */
+	public List<SheetContent> getSheets(Definition<?> sheetDefinition) {
+		List<SheetContent> sheets = new ArrayList<>();
+		for (SheetContent sheet : children) {
+			if (sheet.getDefinition() == sheetDefinition) {
+				sheets.add(sheet);
+			}
+		}
+		return sheets;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Content<?, ?>> getContents(Definition<?> definition) {
+		List<Content<?, ?>> contents = new ArrayList<>();
+		if (this.getDefinition() == definition) {
+			// 対象が自分だった場合
+			contents.add(this);
+			return contents;
+		}
+		for (SheetContent sheet : children) {
+			if (sheet.getDefinition() == definition) {
+				// 対象がsheetだった場合
+				contents.add(sheet);
+			} else {
+				// 対象がsheet配下のcellだった場合
+				Content<?, ?> content = sheet.getCell(definition);
+				if (content != null) {
+					contents.add(content);
+				}
+			}
+		}
+		return contents;
+	}
+
+	@Override
+	public void addChild(SheetContent child) {
+		children.add(child);
 	}
 
 	/**

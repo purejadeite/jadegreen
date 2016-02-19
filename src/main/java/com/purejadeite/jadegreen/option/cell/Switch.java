@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.content.ContentManager;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.Definition;
@@ -69,8 +68,8 @@ public class Switch extends AbstactSwitch implements CellOption, Serializable {
 			value = cellValue;
 		} else {
 			// 判定対象の値を自シート内から取得
-			SheetContent sheet = ContentManager.getInstance().getSheet(content);
-			Content<?, ?> cellContent = ContentManager.getInstance().getContent(sheet, cellId);
+			SheetContent sheet = content.getSheet();
+			Content<?, ?> cellContent = sheet.getCell(cellId);
 			value = cellContent.getValues();
 		}
 		if (value instanceof List) {

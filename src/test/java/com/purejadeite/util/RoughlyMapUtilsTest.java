@@ -1,10 +1,6 @@
 package com.purejadeite.util;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +18,7 @@ public class RoughlyMapUtilsTest extends AbstractTest {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(RoughlyMapUtilsTest.class);
 
-	private static Map<String, Object> TEST_DATA;
+//	private static Map<String, Object> TEST_DATA;
 
 	private static String KEY_MAP = "MAP";
 	private static Map<String, String> VALUE_MAP = new HashMap<>();
@@ -33,8 +29,8 @@ public class RoughlyMapUtilsTest extends AbstractTest {
 	private static String KEY_STRING = "STRING";
 	private static String VALUE_STRING = "";
 
-	private static String KEY_BOOLEAN = "BOOLEAN";
-	private static Boolean VALUE_BOOLEAN = Boolean.TRUE;
+//	private static String KEY_BOOLEAN = "BOOLEAN";
+//	private static Boolean VALUE_BOOLEAN = Boolean.TRUE;
 
 	private static String KEY_BYTE = "BYTE";
 	private static Byte VALUE_BYTE = Byte.MAX_VALUE;
@@ -54,20 +50,20 @@ public class RoughlyMapUtilsTest extends AbstractTest {
 	private static String KEY_DOUBLE = "DOUBLE";
 	private static Double VALUE_DOUBLE = Double.MAX_VALUE;
 
-	private static String KEY_BIG_DECIMAL = "BIG_DECIMAL";
-	private static BigDecimal VALUE_BIG_DECIMAL = BigDecimal.ZERO;
-
-	private static String KEY_BIG_INTEGER = "BIG_INTEGER";
-	private static BigInteger VALUE_BIG_INTEGER = BigInteger.ZERO;
-
-	private static String KEY_DATE = "DATE";
-	private static Date VALUE_DATE = new Date();
-
-	private static String KEY_SQL_DATE = "SQL_DATE";
-	private static java.sql.Date VALUE_SQL_DATE = new java.sql.Date(System.currentTimeMillis());
-
-	private static String KEY_TIMESTAMP = "TIMESTAMP";
-	private static Timestamp VALUE_TIMESTAMP = new Timestamp(System.currentTimeMillis());
+//	private static String KEY_BIG_DECIMAL = "BIG_DECIMAL";
+//	private static BigDecimal VALUE_BIG_DECIMAL = BigDecimal.ZERO;
+//
+//	private static String KEY_BIG_INTEGER = "BIG_INTEGER";
+//	private static BigInteger VALUE_BIG_INTEGER = BigInteger.ZERO;
+//
+//	private static String KEY_DATE = "DATE";
+//	private static Date VALUE_DATE = new Date();
+//
+//	private static String KEY_SQL_DATE = "SQL_DATE";
+//	private static java.sql.Date VALUE_SQL_DATE = new java.sql.Date(System.currentTimeMillis());
+//
+//	private static String KEY_TIMESTAMP = "TIMESTAMP";
+//	private static Timestamp VALUE_TIMESTAMP = new Timestamp(System.currentTimeMillis());
 
 	{
 		VALUE_LIST.add("LIST_VALUE");
