@@ -15,8 +15,8 @@ public class StaticContentImpl extends AbstractCellContent<CellDefinition<?>> {
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public StaticContentImpl(String uuid, SheetContent parent, CellDefinition<?> definition) {
-		super(uuid, parent, definition);
+	public StaticContentImpl(SheetContent parent, CellDefinition<?> definition) {
+		super(parent, definition);
 	}
 
 	/**

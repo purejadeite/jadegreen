@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.content.BookContent;
+import com.purejadeite.jadegreen.content.ContentBuilder;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
@@ -100,14 +101,13 @@ public class SxssfMapper {
 	 * @throws IOException ファイル読み込み例外
 	 */
 	public static Object read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
-		BookContent bookContent = new BookContent(bookDefinition);
+		BookContent bookContent = ContentBuilder.build(bookDefinition);
 		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
 			for (Sheet sheet: sheets) {
 				String name = sheet.getName();
 				if (sheetDefinition.match(name, sheet)) {
 					LOGGER.debug("[取得] sheet:" + name + ", type:" + sheetDefinition.getId());
-					SheetContent sheetContent;
-					sheetContent = toSheetContent(name, sheet, bookContent, sheetDefinition);
+					SheetContent sheetContent = toSheetContent(name, sheet, bookContent, sheetDefinition);
 					bookContent.addSheet(sheetContent);
 				}
 			}
@@ -124,21 +124,7 @@ public class SxssfMapper {
 	 * @return シートコンテンツ
 	 */
 	public static SheetContent toSheetContent(String sheetName, Table<String> table, BookContent book, SheetDefinition definition) {
-		SheetContent sheet = null;
-		if (definition.isUnion()) {
-			// 複数のシートの内容を1シートに集約する場合
-			List<SheetContent> lastSheets = book.getSheets(definition);
-			if (lastSheets == null || lastSheets.isEmpty()) {
-				// 対象のシートがまだ無いならば新規作成
-				sheet = new SheetContent(book, definition, sheetName);
-			} else {
-				// 既にあるならばそれを使う
-				sheet = lastSheets.iterator().next();
-				sheet.open();
-			}
-		} else {
-			sheet = new SheetContent(book, definition, sheetName);
-		}
+		SheetContent sheet = ContentBuilder.build(book, definition, sheetName);
 		List<List<String>> rows = table.getAdjustedTable(definition.getMaxRow(), definition.getMaxCol());
 		int rowSize = rows.size();
 		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {

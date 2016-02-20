@@ -11,15 +11,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * Worksheetのコンテンツ
@@ -53,38 +45,6 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 	public SheetContent(BookContent parent, SheetDefinition definition, String sheetName) {
 		super(UUID.randomUUID().toString(), parent, definition);
 		this.sheetName = sheetName;
-		Content<?, ?> content = null;
-		for (Definition<?> childDefinition : definition.getChildren()) {
-			if (childDefinition instanceof JoinedCellDefinitionImpl) {
-				// 単独セルの結合の場合
-				content = new JoinedCellContentImpl(uuid, this, (JoinedCellDefinitionImpl) childDefinition);
-			} else if (childDefinition instanceof ListCellDefinitionImpl) {
-				// リスト形式の単独セルの場合
-				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof CellDefinitionImpl) {
-				// 単独セルの場合
-				if (this.definition.isUnion()) {
-					// 集約する場合
-					content = new UnionCellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-				} else {
-					// 集約しない場合
-					content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-				}
-			} else if (childDefinition instanceof ValueDefinitionImpl) {
-				// 単独固定値の場合
-				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof CategoryDefinition) {
-				// 範囲の場合
-				content = new CategoryContentImpl(uuid, this, (CategoryDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof TableDefinition) {
-				// テーブルの場合
-				content = new TableContentImpl(uuid, this, (TableDefinition<?>) childDefinition);
-			} else {
-				continue;
-			}
-			addChild(content);
-		}
-		LOGGER.debug("create: " + sheetName);
 	}
 
 	/**

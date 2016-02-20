@@ -23,8 +23,8 @@ public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JoinedCellContentImpl.class);
 
-	public JoinedCellContentImpl(String uuid, ParentContent<?, ?, ?> parent, JoinedCellDefinitionImpl definition) {
-		super(uuid, parent, definition);
+	public JoinedCellContentImpl(ParentContent<?, ?, ?> parent, JoinedCellDefinitionImpl definition) {
+		super(parent, definition);
 	}
 
 	/**

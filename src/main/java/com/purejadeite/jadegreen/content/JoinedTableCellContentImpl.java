@@ -31,8 +31,8 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public JoinedTableCellContentImpl(String uuid, TableContent parent, JoinedTableCellDefinitionImpl definition) {
-		super(uuid, parent, definition);
+	public JoinedTableCellContentImpl(TableContent parent, JoinedTableCellDefinitionImpl definition) {
+		super(parent, definition);
 	}
 
 	/**

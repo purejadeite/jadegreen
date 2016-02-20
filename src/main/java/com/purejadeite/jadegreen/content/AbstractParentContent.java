@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 
 /**
  * 親の抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractParentContent<P extends ParentContent<?, ?, ?>, C extends Content<?, ?>, D extends Definition<?>>
+abstract public class AbstractParentContent<P extends ParentContent<?, ?, ?>, C extends Content<?, ?>, D extends ParentDefinition<?, ?>>
 		extends AbstractContent<P, D>implements ParentContent<P, C, D>, Serializable {
 
 	protected List<C> children;
@@ -25,8 +26,13 @@ abstract public class AbstractParentContent<P extends ParentContent<?, ?, ?>, C 
 		children = new ArrayList<>();
 	}
 
-	public AbstractParentContent(String uuid, P parent, List<C> children, D definition) {
-		super(uuid, parent, definition);
+	public AbstractParentContent(P parent, D definition) {
+		super(parent, definition);
+		children = new ArrayList<>();
+	}
+
+	public AbstractParentContent(P parent, List<C> children, D definition) {
+		super(parent, definition);
 		this.children = children;
 	}
 

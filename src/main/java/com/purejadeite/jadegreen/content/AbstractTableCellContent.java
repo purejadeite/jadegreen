@@ -29,8 +29,8 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractTableCellContent(String uuid, TableContent parent, D definition) {
-		super(uuid, parent, definition);
+	public AbstractTableCellContent(TableContent parent, D definition) {
+		super(parent, definition);
 	}
 
 	/**

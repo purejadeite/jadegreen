@@ -15,8 +15,8 @@ public class TableCellContentImpl extends AbstractTableCellContent<TableCellDefi
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public TableCellContentImpl(String uuid, TableContent parent, TableCellDefinition<?> definition) {
-		super(uuid, parent, definition);
+	public TableCellContentImpl(TableContent parent, TableCellDefinition<?> definition) {
+		super(parent, definition);
 	}
 
 }

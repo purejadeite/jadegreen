@@ -25,7 +25,7 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 	 *            book名
 	 */
 	public BookContent(BookDefinition definition) {
-		super(null, null, definition);
+		super(null, definition);
 	}
 
 	/**
@@ -135,6 +135,9 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 		return contents;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addChild(SheetContent child) {
 		children.add(child);

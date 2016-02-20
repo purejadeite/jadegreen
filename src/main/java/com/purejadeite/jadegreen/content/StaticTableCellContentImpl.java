@@ -18,8 +18,8 @@ public class StaticTableCellContentImpl extends AbstractTableCellContent<TableCe
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public StaticTableCellContentImpl(String uuid, TableContent parent, TableCellDefinition<?> definition) {
-		super(uuid, parent, definition);
+	public StaticTableCellContentImpl(TableContent parent, TableCellDefinition<?> definition) {
+		super(parent, definition);
 	}
 
 	/**

@@ -83,21 +83,21 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public Map<String,Object> toMap();
 
 	/**
-	 * ブックコンテンツを取得します
+	 * 自身の属するブックコンテンツを取得します
 	 * @return ブックコンテンツ
 	 */
 	public BookContent getBook();
 
 	/**
-	 * シートコンテンツを取得します
+	 * 自身の属するシートコンテンツを取得します
 	 * @return シートコンテンツ
 	 */
 	public SheetContent getSheet();
 
 	/**
-	 * keyDefinitionのシートを取得します
+	 * 指定のシート定義のシートコンテンツを全て取得します
 	 * @param sheetDefinition シートの定義
-	 * @return シートのリスト
+	 * @return シートコンテンツのリスト
 	 */
 	public List<SheetContent> getSheets(Definition<?> sheetDefinition);
 
@@ -118,14 +118,26 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public List<SheetContent> getSheets(Content<?, ?> myKeyContent, Definition<?> keyDefinition);
 
 	/**
-	 * セルコンテンツを取得します
+	 * 自身の属するテーブルコンテンツを取得します
+	 * @return テーブルコンテンツ
+	 */
+	public TableContent getTable();
+
+	/**
+	 * 自身の属するカテゴリコンテンツを取得します
+	 * @return カテゴリコンテンツ
+	 */
+	public CategoryContent getCategory();
+
+	/**
+	 * 自身の配下にある指定のセル定義のセルコンテンツを取得します
 	 * @param cellDefinition セル定義
 	 * @return セルコンテンツ
 	 */
 	public Content<?, ?> getCell(Definition<?> cellDefinition);
 
 	/**
-	 * セルコンテンツを取得します
+	 * 自身の配下にある指定のIDのセルコンテンツを取得します
 	 * @param id 定義ID
 	 * @return セルコンテンツ
 	 */

@@ -7,12 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
-import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.cell.TargetTableCellDefinitionImpl;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
@@ -34,24 +29,8 @@ public class TableContentImpl extends
 	/**
 	 * コンストラクタ
 	 */
-	public TableContentImpl(String uuid, ParentContent<?, ?, ?> parent, TableDefinition<?> definition) {
-		super(uuid, parent, definition);
-		for (Definition<?> childDefinition : definition.getChildren()) {
-			if (childDefinition instanceof JoinedTableCellDefinitionImpl) {
-				// 結合の場合
-				addChild(
-						new JoinedTableCellContentImpl(uuid, this, (JoinedTableCellDefinitionImpl) childDefinition));
-			} else if (childDefinition instanceof TableValueDefinitionImpl) {
-				// 固定値の場合
-				addChild(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
-			} else if (childDefinition instanceof TargetTableCellDefinitionImpl) {
-				// ターゲットの場合
-				addChild(new StaticTableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
-			} else if (childDefinition instanceof TableCellDefinition) {
-				// セルの場合
-				addChild(new TableCellContentImpl(uuid, this, (TableCellDefinition<?>) childDefinition));
-			}
-		}
+	public TableContentImpl(ParentContent<?, ?, ?> parent, TableDefinition<?> definition) {
+		super(parent, definition);
 	}
 
 	/**
@@ -230,4 +209,13 @@ public class TableContentImpl extends
 	public int size() {
 		return size;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public TableContent getTable() {
+		return this;
+	}
+
 }

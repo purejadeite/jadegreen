@@ -7,14 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
 
 /**
  * 任意の集まりの情報を保持するクラスの抽象クラスです
@@ -26,33 +19,8 @@ public class CategoryContentImpl extends AbstractParentContent<ParentContent<?, 
 	/**
 	 * コンストラクタ
 	 */
-	public CategoryContentImpl(String uuid, ParentContent<?, ?, ?> parent, CategoryDefinition<?> definition) {
-		super(uuid, parent, definition);
-		Content<?, ?> content = null;
-		for (Definition<?> childDefinition : definition.getChildren()) {
-			if (childDefinition instanceof JoinedCellDefinitionImpl) {
-				// 単独セルの結合の場合
-				content = new JoinedCellContentImpl(uuid, this, (JoinedCellDefinitionImpl) childDefinition);
-			} else if (childDefinition instanceof ListCellDefinitionImpl) {
-				// リスト形式の単独セルの場合
-				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof CellDefinitionImpl) {
-				// 単独セルの場合
-				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof ValueDefinitionImpl) {
-				// 単独固定値の場合
-				content = new CellContentImpl(uuid, this, (CellDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof CategoryDefinition) {
-				// 範囲の場合
-				content = new CategoryContentImpl(uuid, this, (CategoryDefinition<?>) childDefinition);
-			} else if (childDefinition instanceof TableDefinition) {
-				// テーブルの場合
-				content = new TableContentImpl(uuid, this, (TableDefinition<?>) childDefinition);
-			} else {
-				continue;
-			}
-			addChild(content);
-		}
+	public CategoryContentImpl(ParentContent<?, ?, ?> parent, CategoryDefinition<?> definition) {
+		super(parent, definition);
 	}
 
 	/**
@@ -129,6 +97,14 @@ public class CategoryContentImpl extends AbstractParentContent<ParentContent<?, 
 		}
 		map.put("cells", cellMaps);
 		return map;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public CategoryContent getCategory() {
+		return this;
 	}
 
 }

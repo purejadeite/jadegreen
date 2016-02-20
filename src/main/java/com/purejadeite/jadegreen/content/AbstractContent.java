@@ -53,6 +53,23 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 		this.closed = false;
 	}
 
+	/**
+	 * コンストラクター
+	 *
+	 * @param parent
+	 *            親要素
+	 * @param definition
+	 *            値を取得する定義
+	 */
+	public AbstractContent(P parent, D definition) {
+		if (parent != null) {
+			this.uuid = parent.getUuid();
+			this.parent = parent;
+		}
+		this.definition = definition;
+		this.closed = false;
+	}
+
 	public List<String> getKey() {
 		List<String> key = new ArrayList<>();
 		key.add(getFullId());
@@ -222,6 +239,28 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 			}
 		}
 		return sheets;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public TableContent getTable() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getTable();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public CategoryContent getCategory() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getCategory();
 	}
 
 	/**

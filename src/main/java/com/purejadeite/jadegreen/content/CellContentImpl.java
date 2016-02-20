@@ -25,8 +25,8 @@ public class CellContentImpl extends AbstractCellContent<CellDefinition<?>> {
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public CellContentImpl(String uuid, ParentContent<?, ?, ?> parent, CellDefinition<?> definition) {
-		super(uuid, parent, definition);
+	public CellContentImpl(ParentContent<?, ?, ?> parent, CellDefinition<?> definition) {
+		super(parent, definition);
 	}
 
 	/**
