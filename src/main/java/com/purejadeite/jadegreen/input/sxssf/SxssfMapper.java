@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.jadegreen.input.sxssf;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +73,7 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(File excelFile, BookDefinition workbookDefinition) throws IOException {
-		List<Sheet> worksheets = SxssfTableMapper.read(excelFile);
+		List<Sheet> worksheets = SxssfValueReader.read(excelFile);
 		return read(worksheets, workbookDefinition);
 	}
 
@@ -87,11 +87,18 @@ public class SxssfMapper {
 	public static Object read(File[] excelFiles, BookDefinition workbookDefinition) throws IOException {
 		List<Sheet> worksheets =  new ArrayList<>();
 		for (File excelFile : excelFiles) {
-			worksheets.addAll(SxssfTableMapper.read(excelFile));
+			worksheets.addAll(SxssfValueReader.read(excelFile));
 		}
 		return read(worksheets, workbookDefinition);
 	}
 
+	/**
+	 * Sheetから値を取得します
+	 * @param sheets 値のみを持ったシートのリスト
+	 * @param bookDefinition ブック定義
+	 * @return ブック単位の値
+	 * @throws IOException ファイル読み込み例外
+	 */
 	public static Object read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
 		BookContent bookContent = new BookContent(bookDefinition);
 		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
@@ -108,7 +115,14 @@ public class SxssfMapper {
 		return bookContent.getValues();
 	}
 
-	// tableの値をWorksheetContentにマッピングします
+	/**
+	 * シートの値をシートコンテンツに取得します
+	 * @param sheetName 対象シート名
+	 * @param table シートの値
+	 * @param book ブックコンテンツ
+	 * @param definition シート定義
+	 * @return シートコンテンツ
+	 */
 	public static SheetContent toSheetContent(String sheetName, Table<String> table, BookContent book, SheetDefinition definition) {
 		SheetContent sheet = null;
 		if (definition.isUnion()) {

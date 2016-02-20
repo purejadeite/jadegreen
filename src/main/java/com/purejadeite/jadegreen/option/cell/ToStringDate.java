@@ -4,9 +4,9 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.SxssfUtils;
 import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.input.sxssf.SxssfUtils;
 import com.purejadeite.util.SimpleValidator;
 
 /**

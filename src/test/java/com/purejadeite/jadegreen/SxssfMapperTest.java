@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.purejadeite.jadegreen.input.sxssf.SxssfMapper;
+
 /**
  * Unit test for simple App.
  */

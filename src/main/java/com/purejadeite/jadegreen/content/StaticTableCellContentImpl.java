@@ -8,7 +8,7 @@ import java.util.List;
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 
 /**
- * Tableの構成要素となるCell読み込み定義
+ * Tableの構成要素となるCellコンテンツ
  * @author mitsuhiroseino
  */
 public class StaticTableCellContentImpl extends AbstractTableCellContent<TableCellDefinition<?>> {

@@ -364,12 +364,17 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		this.options = SheetOptionManager.build(definition, options);
 	}
 
+	/**
+	 * テーブルが取得対象か判定します
+	 * @param name シート名
+	 * @param table
+	 * @return
+	 */
 	public boolean match(String name, Table<String> table) {
 		if (targetName != null) {
 			if (!SimpleComparison.compare(targetName, name)) {
 				return false;
 			}
-			;
 		}
 		if (targetCellRow != -1 && targetCellColumn != -1) {
 			String value = table.get(targetCellRow, targetCellColumn);
@@ -380,6 +385,10 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		return true;
 	}
 
+	/**
+	 * 配下のセルを全て取得します
+	 * @return 配下のセル
+	 */
 	public Map<String, Definition<?>> getCells() {
 		return cells;
 	}

@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.jadegreen.input.sxssf;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,18 +20,20 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import com.purejadeite.jadegreen.JadegreenException;
+
 /**
  * <pre>
- * ExcelファイルからSxssf方式で値を読み込み、Mapへマッピングするクラスです。
+ * ExcelファイルからSxssf方式で値を読み込み、値のみを取得するクラスです。
  * </pre>
  * @author mitsuhiroseino
  */
-public class SxssfTableMapper {
+public class SxssfValueReader {
 
 	/**
 	 * ロガー
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfTableMapper.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfValueReader.class);
 
 	/**
 	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
@@ -69,12 +71,16 @@ public class SxssfTableMapper {
 
 	}
 
-	// 全シートのr:id&シート名を取得
-	private static Map<String, String> correctSheetIds(XSSFReader reader) throws IOException {
+	/**
+	 * 全シートのr:id&シート名を取得します
+	 * @param reader リーダー
+	 * @return r:idとシート名を紐付けたMap
+	 */
+	private static Map<String, String> correctSheetIds(XSSFReader reader) {
 		// ブックのパーサーを取得
 		XMLReader workbookParser = new SAXParser();
 		// ハンドラで対象シートのrIdを収集する
-		SxssfTableWorkbookHandler workbookHandler = new SxssfTableWorkbookHandler();
+		SxssfWorkbookValueHandler workbookHandler = new SxssfWorkbookValueHandler();
 		workbookParser.setContentHandler(workbookHandler);
 
 		InputSource workbookSource = null;
@@ -83,7 +89,7 @@ public class SxssfTableMapper {
 			// パース
 			workbookParser.parse(workbookSource);
 		} catch (InvalidFormatException | SAXException | IOException e) {
-			throw new RuntimeException(e);
+			throw new JadegreenException(e);
 		}
 		// ハンドラが収集したrIdを取得
 		Map<String, String> worksheetNames = workbookHandler.getSheetNames();
@@ -91,24 +97,36 @@ public class SxssfTableMapper {
 	}
 
 	// 全シートのセルの値を取得
-	private static List<Sheet> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) throws InvalidFormatException, IOException {
+	/**
+	 * 全シートのセルの値を取得します
+	 * @param excelFilePath Excelファイルのパス
+	 * @param reader リーダー
+	 * @param worksheetNames ワークシート名
+	 * @return 全シートの値を持つリスト
+	 */
+	private static List<Sheet> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) {
 		// 1ファイル分の情報を集めるインスタンス
 		List<Sheet> workbookContent = new ArrayList<>();
 
 		// ブックでシェアしている値を取得する
-		SharedStringsTable sst = reader.getSharedStringsTable();
+		SharedStringsTable sst = null;
+		try {
+			sst = reader.getSharedStringsTable();
+		} catch (InvalidFormatException | IOException e) {
+			throw new JadegreenException(e);
+		}
 
 		// シートのパーサ
 		XMLReader worksheetParser = null;
 		Sheet worksheetContent = null;
-		SxssfTableWorksheetHandler worksheetHandler =null;
+		SxssfWorksheetValueHandler worksheetHandler =null;
 
 		InputStream worksheetIs = null;
 		for (Entry<String, String> entry : worksheetNames.entrySet()) {
 			LOGGER.debug("対象Sheet:" + entry.getValue());
 			// シートのパーサを取得
 			worksheetContent = new Sheet(excelFilePath, entry.getValue());
-			worksheetHandler = new SxssfTableWorksheetHandler(sst, worksheetContent);
+			worksheetHandler = new SxssfWorksheetValueHandler(sst, worksheetContent);
 			worksheetParser = new SAXParser();
 			worksheetParser.setContentHandler(worksheetHandler);
 			try {
@@ -120,7 +138,7 @@ public class SxssfTableMapper {
 				// パース下結果をbookContentへ追加
 				workbookContent.add(worksheetContent);
 			} catch (InvalidFormatException | SAXException | IOException e) {
-				throw new RuntimeException(e);
+				throw new JadegreenException(e);
 			} finally {
 				try {
 					worksheetIs.close();

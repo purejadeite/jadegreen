@@ -2,9 +2,9 @@ package com.purejadeite.jadegreen.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.SxssfUtils;
 import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.input.sxssf.SxssfUtils;
 
 /**
  * 文字列を Boolean へ変換するクラス

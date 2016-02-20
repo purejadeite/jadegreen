@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.jadegreen.input.sxssf;
 
 import java.math.BigDecimal;
 import java.util.Date;

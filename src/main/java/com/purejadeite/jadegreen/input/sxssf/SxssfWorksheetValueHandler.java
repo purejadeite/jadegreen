@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.jadegreen.input.sxssf;
 
 import org.apache.poi.xssf.model.SharedStringsTable;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
@@ -9,10 +9,10 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.purejadeite.util.collection.Table;
 
 /**
- * セルを走査するハンドラ
+ * セルの値を取得するハンドラ
  * @author mitsuhiroseino
  */
-public class SxssfTableWorksheetHandler extends DefaultHandler {
+public class SxssfWorksheetValueHandler extends DefaultHandler {
 
 	/**
 	 * 行を表わすタグ名
@@ -84,7 +84,7 @@ public class SxssfTableWorksheetHandler extends DefaultHandler {
 	 * @param sharedStrings ブックで共有されている文字列テーブル
 	 * @param sheetContent シートの値
 	 */
-	public SxssfTableWorksheetHandler(SharedStringsTable sharedStrings, Table<String> table) {
+	public SxssfWorksheetValueHandler(SharedStringsTable sharedStrings, Table<String> table) {
 		this.sharedStrings = sharedStrings;
 		this.table = table;
 	}

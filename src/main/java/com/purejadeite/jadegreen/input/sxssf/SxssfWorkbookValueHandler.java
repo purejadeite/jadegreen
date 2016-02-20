@@ -1,4 +1,4 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.jadegreen.input.sxssf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,11 +8,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * ワークブック用ハンドラ
+ * ワークブックの値を取得するハンドラ
  *
  * @author mitsuhiroseino
  */
-public class SxssfTableWorkbookHandler extends DefaultHandler {
+public class SxssfWorkbookValueHandler extends DefaultHandler {
 
 	/**
 	 * シートの開始終了を表わすタグ名
@@ -37,7 +37,7 @@ public class SxssfTableWorkbookHandler extends DefaultHandler {
 	/**
 	 * コンストラクタ
 	 */
-	public SxssfTableWorkbookHandler() {
+	public SxssfWorkbookValueHandler() {
 	}
 
 	/**

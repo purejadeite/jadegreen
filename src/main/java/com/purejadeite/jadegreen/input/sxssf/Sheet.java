@@ -1,8 +1,12 @@
-package com.purejadeite.jadegreen;
+package com.purejadeite.jadegreen.input.sxssf;
 
 import com.purejadeite.util.collection.LazyTable;
 import com.purejadeite.util.collection.Table;
 
+/**
+ * Excelから読み込んだシートの値のみを持つクラス
+ * @author mitsuhiroseino
+ */
 public class Sheet extends LazyTable<String> {
 
 	/**
