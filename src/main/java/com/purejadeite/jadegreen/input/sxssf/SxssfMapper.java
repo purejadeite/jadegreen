@@ -125,17 +125,18 @@ public class SxssfMapper {
 	 */
 	public static SheetContent toSheetContent(String sheetName, Table<String> table, BookContent book, SheetDefinition definition) {
 		SheetContent sheet = ContentBuilder.build(book, definition, sheetName);
-		List<List<String>> rows = table.getAdjustedTable(definition.getMaxRow(), definition.getMaxCol());
-		int rowSize = rows.size();
-		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {
-			List<String> row = rows.get(rowIndex);
-			int colSize = row.size();
-			for (int colIndex = 0; colIndex < colSize; colIndex++) {
-				String value = row.get(colIndex);
-				sheet.addValue(rowIndex + 1, colIndex + 1, value);
-			}
-		}
-		sheet.close();
+		sheet.capture(table);
+//		List<List<String>> rows = table.getAdjustedTable(definition.getMaxRow(), definition.getMaxCol());
+//		int rowSize = rows.size();
+//		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {
+//			List<String> row = rows.get(rowIndex);
+//			int colSize = row.size();
+//			for (int colIndex = 0; colIndex < colSize; colIndex++) {
+//				String value = row.get(colIndex);
+//				sheet.addValue(rowIndex + 1, colIndex + 1, value);
+//			}
+//		}
+//		sheet.close();
 		return sheet;
 	}
 }

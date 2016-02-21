@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * Cell読み込み定義のインターフェイス
@@ -12,25 +13,27 @@ public interface CellDefinition<P extends ParentDefinition<?, ?>> extends Defini
 	public static final int NO_ADDRESS = 0;
 
 	/**
-	 * 行番号
-	 */
-	public static final String CFG_ROW = "row";
-
-	/**
 	 * 列番号
 	 */
 	public static final String CFG_COLUMN = "column";
 
 	/**
-	 * 行番号(0始まり)
+	 * 行番号
 	 */
-	public static final String CFG_X = "x";
+	public static final String CFG_ROW = "row";
 
 	/**
 	 * 列番号(0始まり)
 	 */
+	public static final String CFG_X = "x";
+
+	/**
+	 * 行番号(0始まり)
+	 */
 	public static final String CFG_Y = "y";
 
+	public int getX();
+	public int getY();
 
 	/**
 	 * 最少行番号を取得します
@@ -67,5 +70,7 @@ public interface CellDefinition<P extends ParentDefinition<?, ?>> extends Defini
 	 * @return 取得した値、または取得した値を追加した取得済みの値
 	 */
 	public Object applyValue(Object value, Object appliedValues);
+
+	public Object capture(Table<String> table);
 
 }

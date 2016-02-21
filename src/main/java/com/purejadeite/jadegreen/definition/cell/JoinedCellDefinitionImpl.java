@@ -10,6 +10,7 @@ import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.SimpleValidator;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 単一セルの結合定義です
@@ -108,6 +109,11 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<She
 		map.put("keyId", keyId);
 		map.put("valueId", valueId);
 		return map;
+	}
+
+	@Override
+	public Object capture(Table<String> table) {
+		return null;
 	}
 
 }

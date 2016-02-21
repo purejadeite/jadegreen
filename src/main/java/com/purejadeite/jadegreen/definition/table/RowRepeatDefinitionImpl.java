@@ -50,14 +50,14 @@ public class RowRepeatDefinitionImpl extends AbstractTableDefinition<TableCellDe
 	/**
 	 * {@inheritDoc}
 	 */
-	protected String getBeginDefinitionKey() {
+	protected String getBeginId() {
 		return CFG_ROW;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected String getEndConfigDefinitionKey() {
+	protected String getEndId() {
 		return CFG_END_ROW;
 	}
 

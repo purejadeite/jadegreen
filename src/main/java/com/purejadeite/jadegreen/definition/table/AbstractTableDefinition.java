@@ -67,8 +67,8 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 */
 	protected AbstractTableDefinition(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
-		this.begin = getIntValue(config, getBeginDefinitionKey());
-		this.end = getIntValue(config, getEndConfigDefinitionKey(), Integer.MAX_VALUE);
+		this.begin = getIntValue(config, getBeginId());
+		this.end = getIntValue(config, getEndId(), TableDefinition.UNLIMITED);
 		this.breakId = getString(config, CFG_BREAK_ID);
 		List<String> breakValue = getList(config, CFG_BREAK_VALUE);
 		if (breakValue == null) {
@@ -91,13 +91,13 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * 開始定義のキー名を取得します
 	 * @return 開始定義のキー
 	 */
-	abstract protected String getBeginDefinitionKey();
+	abstract protected String getBeginId();
 
 	/**
 	 * 終了定義のキー名を取得します
 	 * @return 終了定義のキー
 	 */
-	abstract protected String getEndConfigDefinitionKey();
+	abstract protected String getEndId();
 
 	/**
 	 * {@inheritDoc}
@@ -154,18 +154,26 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	public void addChild(C child) {
 		if (child.getId().equals(breakId)) {
 			// 終了条件に指定されている場合
-			child.setBreakId(true);
+			child.setBreakKey(true);
 			child.setBreakValues(breakValues);
 		} else if (children.isEmpty()) {
 			// 先頭セルの場合
-			if (end == Integer.MAX_VALUE && breakId == null) {
+			if (end == TableDefinition.UNLIMITED && breakId == null) {
 				// 終了条件が設定されていない場合に、項目がnullになった時に終了
 				breakId = child.getId();
-				child.setBreakId(true);
+				child.setBreakKey(true);
 				child.setBreakValues(breakValues);
 			}
 		}
 		super.addChild(child);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public TableDefinition<?> getTable() {
+		return this;
 	}
 
 	/**

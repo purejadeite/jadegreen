@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
@@ -216,6 +217,27 @@ public class TableContentImpl extends
 	@Override
 	public TableContent getTable() {
 		return this;
+	}
+
+	@Override
+	public int capture(Table<String> table) {
+		int size = 0;
+		int keySize = -1;
+		for (TableCellContent<?> child : getChildren()) {
+			if (child.getDefinition().isBreakKey()) {
+				// キーのみ先に処理
+				keySize = child.capture(table);
+				size = keySize;
+			}
+		}
+		for (TableCellContent<?> child : getChildren()) {
+			if (child.getDefinition().isBreakKey()) {
+				// キーは処理済み
+				continue;
+			}
+			size += child.capture(table, keySize);
+		}
+		return size;
 	}
 
 }

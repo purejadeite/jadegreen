@@ -11,6 +11,8 @@ import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.jadegreen.option.Options;
 
 /**
@@ -181,6 +183,28 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 			return null;
 		}
 		return parent.getSheet(sheetId);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public TableDefinition<?> getTable() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getTable();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public CategoryDefinition<?> getCategory() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.getCategory();
 	}
 
 	/**

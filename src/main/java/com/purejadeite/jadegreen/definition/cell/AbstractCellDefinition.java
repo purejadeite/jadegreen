@@ -44,13 +44,4 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 		return value;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<String, Object> toMap() {
-		Map<String, Object> map = super.toMap();
-		return map;
-	}
-
 }

@@ -12,6 +12,7 @@ import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.util.SimpleValidator;
+import com.purejadeite.util.collection.Table;
 
 /**
  * Tableの構成要素となるCell結合定義
@@ -153,6 +154,16 @@ public class JoinedTableCellDefinitionImpl extends AbstractNoAdressTableCellDefi
 		map.put("tableKeyId", tableKeyId);
 		map.put("valueId", valueId);
 		return map;
+	}
+
+	@Override
+	public Object capture(Table<String> table) {
+		return null;
+	}
+
+	@Override
+	public Object capture(Table<String> table, int size) {
+		return null;
 	}
 
 }

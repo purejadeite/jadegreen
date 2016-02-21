@@ -40,6 +40,14 @@ abstract public class AbstractCategoryDefinition<C extends CellDefinition<?>> ex
 	 * {@inheritDoc}
 	 */
 	@Override
+	public CategoryDefinition<?> getCategory() {
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> cellMaps = new ArrayList<>();

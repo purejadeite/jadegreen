@@ -35,11 +35,51 @@ abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinit
 	}
 
 	@Override
-	public void setBreakId(boolean breakId) {
+	public void setBreakKey(boolean breakId) {
 	}
 
 	@Override
 	public void setBreakValues(List<String> breakValues) {
+	}
+
+	@Override
+	public int getX() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public int getY() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public int getBeginX() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public int getEndX() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public int getBeginY() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public int getEndY() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public boolean isBreakKey() {
+		return false;
+	}
+
+	@Override
+	public List<String> getBreakValues() {
+		return null;
 	}
 
 }

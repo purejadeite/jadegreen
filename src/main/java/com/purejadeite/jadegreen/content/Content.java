@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * Excelファイルから取得した値
@@ -155,5 +156,7 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	 * @return 親コンテンツ
 	 */
 	public P getParent();
+
+	public int capture(Table<String> table);
 
 }

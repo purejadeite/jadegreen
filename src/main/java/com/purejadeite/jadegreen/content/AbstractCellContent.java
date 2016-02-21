@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.content;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * セルの値を保持する抽象クラス
@@ -56,4 +57,11 @@ abstract public class AbstractCellContent<D extends CellDefinition<?>>
 		map.put("values", values);
 		return map;
 	}
+
+	@Override
+	public int capture(Table<String> table) {
+		values = getDefinition().capture(table);
+		return 1;
+	}
+
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 固定値の定義です
@@ -51,6 +52,11 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 		Map<String, Object> map = super.toMap();
 		map.put("value", value);
 		return map;
+	}
+
+	@Override
+	public Object capture(Table<String> table) {
+		return value;
 	}
 
 }

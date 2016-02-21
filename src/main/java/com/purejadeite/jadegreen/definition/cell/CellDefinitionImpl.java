@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 単一セルの読み込み定義です
@@ -36,18 +37,18 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 	 */
 	public CellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
-		row = getIntValue(config, CFG_ROW);
-		if (row == 0) {
-			row = getIntValue(config, CFG_X) + 1;
-		}
 		col = getIntValue(config, CFG_COLUMN);
 		if (col == 0) {
-			col = getIntValue(config, CFG_Y) + 1;
+			col = getIntValue(config, CFG_X) + 1;
+		}
+		row = getIntValue(config, CFG_ROW);
+		if (row == 0) {
+			row = getIntValue(config, CFG_Y) + 1;
 		}
 	}
 
 	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
-		return (config.containsKey(CFG_ROW) && config.containsKey(CFG_COLUMN))
+		return (config.containsKey(CFG_COLUMN) && config.containsKey(CFG_ROW))
 				|| (config.containsKey(CFG_X) && config.containsKey(CFG_Y));
 	}
 
@@ -103,6 +104,21 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 		map.put("row", row);
 		map.put("col", col);
 		return map;
+	}
+
+	@Override
+	public int getX() {
+		return col - 1;
+	}
+
+	@Override
+	public int getY() {
+		return row - 1;
+	}
+
+	@Override
+	public Object capture(Table<String> table) {
+		return table.get(getY(), getX());
 	}
 
 }

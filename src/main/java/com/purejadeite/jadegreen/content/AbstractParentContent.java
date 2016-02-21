@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 親の抽象クラス
@@ -72,6 +73,15 @@ abstract public class AbstractParentContent<P extends ParentContent<?, ?, ?>, C 
 	@Override
 	public Map<String, Content<?, ?>> getCells() {
 		return cells;
+	}
+
+	@Override
+	public int capture(Table<String> table) {
+		int size = 0;
+		for (C child : children) {
+			size += child.capture(table);
+		}
+		return size;
 	}
 
 }

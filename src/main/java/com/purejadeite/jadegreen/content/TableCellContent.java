@@ -1,6 +1,7 @@
 package com.purejadeite.jadegreen.content;
 
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 一覧形式子要素のセル読み込み定義のインターフェイス
@@ -19,5 +20,13 @@ public interface TableCellContent<D extends TableCellDefinition<?>> extends Cell
 	 * @return 取得した値の件数
 	 */
 	public int size();
+
+	/**
+	 * 指定されたサイズ分、値を取得します
+	 * @param table
+	 * @param size
+	 * @return
+	 */
+	public int capture(Table<String> table, int size);
 
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.purejadeite.jadegreen.ContentException;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 他のセルに結合したCellクラス
@@ -81,6 +82,14 @@ public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?
 	@Override
 	public boolean isClosed() {
 		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int capture(Table<String> table) {
+		return 0;
 	}
 
 }

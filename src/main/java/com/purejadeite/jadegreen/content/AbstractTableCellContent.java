@@ -10,12 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * Table配下のCellのコンテンツ
+ *
  * @author mitsuhiroseino
  */
-public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends AbstractContent<TableContent, D> implements TableCellContent<D> {
+abstract public class AbstractTableCellContent<D extends TableCellDefinition<?>>
+		extends AbstractContent<TableContent, D>implements TableCellContent<D> {
 
 	private static final long serialVersionUID = 1420210546938530625L;
 
@@ -62,12 +65,12 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 			if (definition.isEndValue(value)) {
 				// 今回の値でクローズし
 				close();
-				LOGGER.debug("break:id=" + this.getId() + ",cell(" + row + "," + col +").value=" + value);
+				LOGGER.debug("break:id=" + this.getId() + ",cell(" + row + "," + col + ").value=" + value);
 				return END;
 			} else {
 				// 値を取得
 				this.values.add(value);
-				LOGGER.debug("success:id=" + this.getId() + ",cell(" + row + "," + col +").value=" + value);
+				LOGGER.debug("success:id=" + this.getId() + ",cell(" + row + "," + col + ").value=" + value);
 				return SUCCESS;
 			}
 		}
@@ -89,10 +92,10 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 	@Override
 	public void close(int size) {
 		close();
-		while(values.size() < size) {
+		while (values.size() < size) {
 			values.add(null);
 		}
-		while(size < values.size()){
+		while (size < values.size()) {
 			values.remove(values.size() - 1);
 		}
 	}
@@ -106,4 +109,24 @@ public class AbstractTableCellContent<D extends TableCellDefinition<?>> extends 
 		map.put("values", values);
 		return map;
 	}
+
+	/**
+	 * キー項目の値を取得
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public int capture(Table<String> table) {
+		List<Object> vals = (List<Object>) getDefinition().capture(table);
+		values.addAll(vals);
+		return vals.size();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int capture(Table<String> table, int size) {
+		List<Object> vals = (List<Object>) getDefinition().capture(table, size);
+		values.addAll(vals);
+		return vals.size();
+	}
+
 }

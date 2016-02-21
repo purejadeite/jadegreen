@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.purejadeite.jadegreen.ContentException;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 他のセルに結合したtable配下のCellクラス
@@ -138,6 +139,22 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	@Override
 	public int size() {
 		return -1;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int capture(Table<String> table) {
+		return 0;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int capture(Table<String> table, int size) {
+		return 0;
 	}
 
 }

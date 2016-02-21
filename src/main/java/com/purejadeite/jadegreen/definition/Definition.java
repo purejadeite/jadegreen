@@ -3,6 +3,8 @@ package com.purejadeite.jadegreen.definition;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.jadegreen.option.Options;
 
 /**
@@ -71,13 +73,13 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	public Map<String,Object> toMap();
 
 	/**
-	 * ブック定義を取得します。
+	 * 自身の属するブック定義を取得します。
 	 * @return ブック定義
 	 */
 	public BookDefinition getBook();
 
 	/**
-	 * シート定義を取得します。
+	 * 自身の属するシート定義を取得します。
 	 * @return シート定義
 	 */
 	public SheetDefinition getSheet();
@@ -96,6 +98,18 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	public SheetDefinition getOutputSheet();
 
 	/**
+	 * 自身の属するテーブル定義を取得します。
+	 * @return テーブル定義
+	 */
+	public TableDefinition<?> getTable();
+
+	/**
+	 * 自身の属するカテゴリ定義を取得します。
+	 * @return カテゴリ定義
+	 */
+	public CategoryDefinition<?> getCategory();
+
+	/**
 	 * 同じシート内のセル定義を取得します。
 	 * @param cellId セルのID
 	 * @return 同一シート配下のセル定義
@@ -109,6 +123,4 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	 * @return 指定シート配下のセル定義
 	 */
 	public Definition<?> getCell(String sheetId, String cellId);
-
-
 }

@@ -2,11 +2,14 @@ package com.purejadeite.jadegreen.definition.table.cell;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * 固定値の定義です
@@ -54,6 +57,20 @@ public class TableValueDefinitionImpl<P extends TableDefinition<?>> extends Abst
 		Map<String, Object> map = super.toMap();
 		map.put("value", value);
 		return map;
+	}
+
+	@Override
+	public Object capture(Table<String> table) {
+		return null;
+	}
+
+	@Override
+	public Object capture(Table<String> table, int size) {
+		List<Object> values = new ArrayList<>();
+		while(values.size() < size) {
+			values.add(value);
+		}
+		return values;
 	}
 
 }

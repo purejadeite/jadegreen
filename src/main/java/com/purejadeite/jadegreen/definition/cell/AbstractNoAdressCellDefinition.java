@@ -52,4 +52,14 @@ abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinition<
 		return false;
 	}
 
+	@Override
+	public int getX() {
+		return NO_ADDRESS - 1;
+	}
+
+	@Override
+	public int getY() {
+		return NO_ADDRESS - 1;
+	}
+
 }

@@ -13,6 +13,11 @@ import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 public interface TableDefinition<C extends TableCellDefinition<?>> extends ParentDefinition<SheetDefinition, C> {
 
 	/**
+	 * 列数/行数の上限なし
+	 */
+	public static final int UNLIMITED = Integer.MAX_VALUE;
+
+	/**
 	 * 繰り返し項目の取得開始判定項目
 	 */
 	public static final String CFG_BEGIN_ID = "beginId";

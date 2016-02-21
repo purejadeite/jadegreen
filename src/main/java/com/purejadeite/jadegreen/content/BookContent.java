@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * bookのコンテンツ
@@ -155,6 +156,11 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 		}
 		map.put("sheets", sheetMaps);
 		return map;
+	}
+
+	@Override
+	public int capture(Table<String> table) {
+		return 0;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
  * セルの値をList形式で保持するクラス
@@ -57,6 +58,21 @@ public class UnionCellContentImpl extends CellContentImpl {
 		}
 		// 未取得
 		return NO;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public int capture(Table<String> table) {
+		// 行列番号が取得範囲内の場合
+		List<Object> vals = null;
+		if (this.values == null) {
+			vals = new ArrayList<Object>();
+			this.values = vals;
+		} else {
+			vals = (List<Object>) values;
+		}
+		vals.add(getDefinition().capture(table));
+		return 1;
 	}
 
 }
