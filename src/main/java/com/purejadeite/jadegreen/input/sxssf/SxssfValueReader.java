@@ -21,6 +21,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.purejadeite.jadegreen.JadegreenException;
+import com.purejadeite.util.collection.LazyTable;
+import com.purejadeite.util.collection.Table;
 
 /**
  * <pre>
@@ -42,7 +44,7 @@ public class SxssfValueReader {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Sheet> read(String excelFilePath) throws IOException {
+	public static List<Table<String>> read(String excelFilePath) throws IOException {
 		File excelFile = new File(excelFilePath);
 		return read(excelFile);
 	}
@@ -53,7 +55,7 @@ public class SxssfValueReader {
 	 * @return Excelの値を設定したMap
 	 * @throws IOException ファイルの取得に失敗
 	 */
-	public static List<Sheet> read(File excelFile) throws IOException {
+	public static List<Table<String>> read(File excelFile) throws IOException {
 
 		if (!excelFile.isFile()) {
 			throw new JadegreenException("excelFile=" + excelFile.getPath() + ":ファイルが存在しません");
@@ -104,9 +106,9 @@ public class SxssfValueReader {
 	 * @param worksheetNames ワークシート名
 	 * @return 全シートの値を持つリスト
 	 */
-	private static List<Sheet> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) {
+	private static List<Table<String>> correctValues(String excelFilePath, XSSFReader reader, Map<String, String> worksheetNames) {
 		// 1ファイル分の情報を集めるインスタンス
-		List<Sheet> workbookContent = new ArrayList<>();
+		List<Table<String>> workbookContent = new ArrayList<>();
 
 		// ブックでシェアしている値を取得する
 		SharedStringsTable sst = null;
@@ -118,14 +120,16 @@ public class SxssfValueReader {
 
 		// シートのパーサ
 		XMLReader worksheetParser = null;
-		Sheet worksheetContent = null;
+		Table<String> worksheetContent = null;
 		SxssfWorksheetValueHandler worksheetHandler =null;
 
 		InputStream worksheetIs = null;
 		for (Entry<String, String> entry : worksheetNames.entrySet()) {
 			LOGGER.debug("対象Sheet:" + entry.getValue());
 			// シートのパーサを取得
-			worksheetContent = new Sheet(excelFilePath, entry.getValue());
+			worksheetContent = new LazyTable<>();
+			worksheetContent.setOption("bookName", excelFilePath);
+			worksheetContent.setOption("sheetName", entry.getValue());
 			worksheetHandler = new SxssfWorksheetValueHandler(sst, worksheetContent);
 			worksheetParser = new SAXParser();
 			worksheetParser.setContentHandler(worksheetHandler);

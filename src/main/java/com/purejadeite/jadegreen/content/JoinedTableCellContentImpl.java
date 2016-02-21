@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,17 +32,6 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 	 */
 	public JoinedTableCellContentImpl(TableContent parent, JoinedTableCellDefinitionImpl definition) {
 		super(parent, definition);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * 結合しているテーブルのセルは、同テーブルの他のセルや上限数によって完了状態になるので、
-	 * 値の追加が完了していないとして扱います。
-	 */
-	@Override
-	public Status addValue(int row, int col, Object value) {
-		// 値を取得しない
-		return NO;
 	}
 
 	/**
@@ -116,21 +103,6 @@ public class JoinedTableCellContentImpl extends AbstractTableCellContent<JoinedT
 			}
 		}
 		return myValues;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isClosed() {
-		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void close(int size) {
 	}
 
 	/**

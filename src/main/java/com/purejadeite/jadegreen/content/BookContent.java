@@ -44,14 +44,6 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Status addValue(int row, int col, Object value) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Object getRawValuesImpl() {
 		List<Object> values = new ArrayList<>();
 		for (SheetContent sheet : children) {
@@ -61,23 +53,6 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 			}
 		}
 		return values;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isClosed() {
-		if (closed) {
-			return true;
-		}
-		for (SheetContent sheet : children) {
-			if (!sheet.isClosed()) {
-				return false;
-			}
-		}
-		close();
-		return true;
 	}
 
 	/**

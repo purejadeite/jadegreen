@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +18,6 @@ public class StaticTableCellContentImpl extends AbstractTableCellContent<TableCe
 	 */
 	public StaticTableCellContentImpl(TableContent parent, TableCellDefinition<?> definition) {
 		super(parent, definition);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Status addValue(int row, int col, Object value) {
-		return NO;
 	}
 
 	/**

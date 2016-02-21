@@ -35,37 +35,6 @@ public interface Content<P extends Content<?, ?>, D extends Definition<?>> {
 	public D getDefinition();
 
 	/**
-	 * 取得可能な状態か判定します
-	 * @return true:取得可能, false:取得不可
-	 */
-	public boolean isClosed();
-
-	/**
-	 * 取得が完了しているか判定します
-	 * @return true:取得完了, false:未取得
-	 */
-	public boolean isAquired();
-
-	/**
-	 * 値の取得を終了します
-	 */
-	public void close();
-
-	/**
-	 * 値の取得を開始します
-	 */
-	public void open();
-
-	/**
-	 * 値を追加します
-	 * @param row 行番号
-	 * @param col 列番号
-	 * @param value 値
-	 * @return 取得状況
-	 */
-	public Status addValue(int row, int col, Object value);
-
-	/**
 	 * 編集していない値を取得します
 	 * @return 値
 	 */

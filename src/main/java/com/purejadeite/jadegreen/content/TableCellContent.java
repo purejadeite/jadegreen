@@ -10,12 +10,6 @@ import com.purejadeite.util.collection.Table;
 public interface TableCellContent<D extends TableCellDefinition<?>> extends CellContent<TableContent, D> {
 
 	/**
-	 * 指定件数でクローズします
-	 * @param size 有効な取得件数
-	 */
-	public void close(int size);
-
-	/**
 	 * 取得した件数を得します
 	 * @return 取得した値の件数
 	 */

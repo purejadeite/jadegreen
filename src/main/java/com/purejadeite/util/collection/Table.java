@@ -1,6 +1,7 @@
 package com.purejadeite.util.collection;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 2次元リストのインターフェイス
@@ -97,5 +98,26 @@ public interface Table<E> extends List<List<E>> {
 	 * @return 追加した行のインデックス
 	 */
 	public int addRow();
+
+	/**
+	 * オプション値を設定します
+	 * @param key オプション名
+	 * @param value オプション値
+	 */
+	public void setOption(String key, Object value);
+
+	/**
+	 * オプション値を取得します
+	 * @param key オプション名
+	 * @return オプション値
+	 */
+	public Object getOption(String key);
+
+	/**
+	 * オプション情報を全てします
+	 * @param key オプション名
+	 * @return オプション情報
+	 */
+	public Map<String, Object> getOptions();
 
 }

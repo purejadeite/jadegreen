@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,44 +19,6 @@ public class CategoryContentImpl extends AbstractParentContent<ParentContent<?, 
 	 */
 	public CategoryContentImpl(ParentContent<?, ?, ?> parent, CategoryDefinition<?> definition) {
 		super(parent, definition);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Status addValue(int row, int col, Object value) {
-		if (closed) {
-			return END;
-		}
-		// 取得対象範囲
-		boolean closedAll = true;
-		Status status = NO;
-		for (Content<?, ?> child : children) {
-			Status cellStatus = child.addValue(row, col, value);
-			if (cellStatus == SUCCESS) {
-				status = SUCCESS;
-				if (child instanceof TableContent) {
-					// TableはENDが来たら終わり
-					closedAll = false;
-				}
-			} else if (cellStatus == NO) {
-				// SUCCESS,END以外のものがあるということは、配下のセルでまだ値を取得していないものがあるということ
-				closedAll = false;
-			}
-		}
-		if (closedAll) {
-			close();
-		}
-		return closedAll ? END : status;
-	}
-
-	@Override
-	public void open() {
-		super.open();
-		for (Content<?, ?> cell : children) {
-			cell.open();
-		}
 	}
 
 	/**

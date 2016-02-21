@@ -133,11 +133,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 		return valuesCache;
 	}
 
-	@Override
-	public boolean isAquired() {
-		return valuesCache != null;
-	}
-
 	/**
 	 * 編集した値を取得する実装です
 	 *
@@ -145,30 +140,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * @return
 	 */
 	abstract public Object getValuesImpl();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isClosed() {
-		return closed;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void close() {
-		closed = true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void open() {
-		closed = false;
-	}
 
 	/**
 	 * {@inheritDoc}

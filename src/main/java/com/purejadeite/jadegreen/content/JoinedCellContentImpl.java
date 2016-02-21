@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -26,15 +24,6 @@ public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?
 
 	public JoinedCellContentImpl(ParentContent<?, ?, ?> parent, JoinedCellDefinitionImpl definition) {
 		super(parent, definition);
-	}
-
-	/**
-	 * {@inheritDoc} 結合している単一セルは値の追加が完了しているとして扱います。
-	 */
-	@Override
-	public Status addValue(int row, int col, Object value) {
-		// 値を取得しない
-		return END;
 	}
 
 	/**
@@ -74,14 +63,6 @@ public class JoinedCellContentImpl extends AbstractContent<ParentContent<?, ?, ?
 			// ない場合もある
 			return null;
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isClosed() {
-		return true;
 	}
 
 	/**

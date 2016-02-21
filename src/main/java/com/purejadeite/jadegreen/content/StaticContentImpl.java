@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
-
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 
 /**
@@ -17,14 +15,6 @@ public class StaticContentImpl extends AbstractCellContent<CellDefinition<?>> {
 	 */
 	public StaticContentImpl(SheetContent parent, CellDefinition<?> definition) {
 		super(parent, definition);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Status addValue(int row, int col, Object value) {
-		return END;
 	}
 
 }

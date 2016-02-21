@@ -1,7 +1,5 @@
 package com.purejadeite.jadegreen.content;
 
-import static com.purejadeite.jadegreen.content.Status.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,85 +30,6 @@ public class TableContentImpl extends
 	 */
 	public TableContentImpl(ParentContent<?, ?, ?> parent, TableDefinition<?> definition) {
 		super(parent, definition);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Status addValue(int row, int col, Object value) {
-		if (closed) {
-			return END;
-		}
-		if (!definition.isIncluded(row, col)) {
-			// 対象範囲ではない場合
-			// TODO 値の取得が左上から右下に向かうので、列方向の繰り返しの場合の終わりはどう判断するか
-			if (begin) {
-				// 取得が始まっているのに対象範囲外ということは
-				// 取得範囲を超えたと判断し終わり
-				close();
-				return END;
-			} else {
-				// まだ始まってない
-				return NO;
-			}
-		}
-		// 取得対象範囲
-		begin = true;
-		Status status = NO;
-		for (TableCellContent<?> cell : children) {
-			Status cellStatus = cell.addValue(row, col, value);
-			// このtableにおける値の取得状況
-			// 何れかのCellが終わりに達したら、このTableは処理を終わるので下記の順に優先される
-			// NO < SUCCESS < END
-			if (cellStatus == END) {
-				status = END;
-			} else if (0 < cellStatus.compareTo(status)) {
-				status = cellStatus;
-			}
-			if (cellStatus == END) {
-				// トリガーとなる項目に終わりを示す値があった
-				break;
-			} else if (cellStatus == SUCCESS) {
-				// 値を取得した
-				size = cell.size();
-			}
-		}
-		if (status == END) {
-			close();
-		}
-		return status;
-	}
-
-	@Override
-	public void close() {
-		super.close();
-		closeChildren();
-	}
-
-	private void closeChildren() {
-		// 最少のサイズを取得
-		int minSize = Integer.MAX_VALUE;
-		for (TableCellContent<?> cell : children) {
-			int cellSize = cell.size();
-			if (-1 < cellSize && cellSize < minSize) {
-				minSize = cellSize;
-			}
-		}
-		size = minSize;
-		// 一番取得数が少ないところに切りそろえる
-		for (TableCellContent<?> cell : children) {
-			cell.close(size);
-		}
-	}
-
-	@Override
-	public void open() {
-		begin = false;
-		super.open();
-		for (TableCellContent<?> cell : children) {
-			cell.open();
-		}
 	}
 
 	/**

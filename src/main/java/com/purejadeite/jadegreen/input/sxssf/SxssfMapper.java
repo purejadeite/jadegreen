@@ -15,6 +15,7 @@ import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
+import com.purejadeite.util.collection.RoughlyMapUtils;
 import com.purejadeite.util.collection.Table;
 
 /**
@@ -74,7 +75,7 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(File excelFile, BookDefinition workbookDefinition) throws IOException {
-		List<Sheet> worksheets = SxssfValueReader.read(excelFile);
+		List<Table<String>> worksheets = SxssfValueReader.read(excelFile);
 		return read(worksheets, workbookDefinition);
 	}
 
@@ -86,7 +87,7 @@ public class SxssfMapper {
 	 * @throws IOException ファイルの取得に失敗
 	 */
 	public static Object read(File[] excelFiles, BookDefinition workbookDefinition) throws IOException {
-		List<Sheet> worksheets =  new ArrayList<>();
+		List<Table<String>> worksheets =  new ArrayList<>();
 		for (File excelFile : excelFiles) {
 			worksheets.addAll(SxssfValueReader.read(excelFile));
 		}
@@ -100,11 +101,12 @@ public class SxssfMapper {
 	 * @return ブック単位の値
 	 * @throws IOException ファイル読み込み例外
 	 */
-	public static Object read(List<Sheet> sheets, BookDefinition bookDefinition) throws IOException {
+	public static Object read(List<Table<String>> sheets, BookDefinition bookDefinition) throws IOException {
 		BookContent bookContent = ContentBuilder.build(bookDefinition);
 		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
-			for (Sheet sheet: sheets) {
-				String name = sheet.getName();
+			for (Table<String> sheet: sheets) {
+				Map<String, Object> options = sheet.getOptions();
+				String name = RoughlyMapUtils.getString(options, "sheetName");
 				if (sheetDefinition.match(name, sheet)) {
 					LOGGER.debug("[取得] sheet:" + name + ", type:" + sheetDefinition.getId());
 					SheetContent sheetContent = toSheetContent(name, sheet, bookContent, sheetDefinition);

@@ -2,7 +2,9 @@ package com.purejadeite.util.collection;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 2次元リストの抽象クラス
@@ -17,6 +19,11 @@ abstract public class AbstractTable<E> implements Table<E> {
 	protected List<List<E>> table;
 
 	/**
+	 * オプション情報
+	 */
+	protected Map<String, Object> options;
+
+	/**
 	 * 列数の最大値
 	 */
 	protected int columnSize = 0;
@@ -27,6 +34,7 @@ abstract public class AbstractTable<E> implements Table<E> {
 	public AbstractTable() {
 		super();
 		table = new ArrayList<>();
+		options = new HashMap<>();
 	}
 
 	/**
@@ -41,8 +49,8 @@ abstract public class AbstractTable<E> implements Table<E> {
 			thisTable.add(thisRow);
 		}
 		this.table = thisTable;
+		options = new HashMap<>();
 	}
-
 
 	/**
 	 * コンストラクタ
@@ -59,6 +67,31 @@ abstract public class AbstractTable<E> implements Table<E> {
 			thisTable.add(thisRow);
 		}
 		this.table = thisTable;
+		options = new HashMap<>();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setOption(String key, Object value) {
+		options.put(key, value);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object getOption(String key) {
+		return options.get(key);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<String, Object> getOptions() {
+		return options;
 	}
 
 	/**

@@ -34,7 +34,6 @@ public class ContentBuilder {
 			if (lastSheets != null && !lastSheets.isEmpty()) {
 				// 既にあるならばそれを使う
 				sheetContent = lastSheets.get(0);
-				sheetContent.open();
 				return sheetContent;
 			}
 		}
