@@ -81,9 +81,13 @@ abstract public class AbstractTable<E> implements Table<E> {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	public Object getOption(String key) {
-		return options.get(key);
+	@SuppressWarnings("unchecked")
+	public <V extends Object> V getOption(String key) {
+		try {
+			return (V) options.get(key);
+		} catch (ClassCastException e) {
+			return null;
+		}
 	}
 
 	/**

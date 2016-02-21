@@ -111,7 +111,7 @@ public interface Table<E> extends List<List<E>> {
 	 * @param key オプション名
 	 * @return オプション値
 	 */
-	public Object getOption(String key);
+	public <V extends Object> V getOption(String key);
 
 	/**
 	 * オプション情報を全てします

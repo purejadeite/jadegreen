@@ -6,16 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.purejadeite.jadegreen.content.BookContent;
-import com.purejadeite.jadegreen.content.ContentBuilder;
-import com.purejadeite.jadegreen.content.SheetContent;
+import com.purejadeite.jadegreen.Jadegreen;
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionBuilder;
-import com.purejadeite.jadegreen.definition.SheetDefinition;
-import com.purejadeite.util.collection.RoughlyMapUtils;
 import com.purejadeite.util.collection.Table;
 
 /**
@@ -25,11 +18,6 @@ import com.purejadeite.util.collection.Table;
  * @author mitsuhiroseino
  */
 public class SxssfMapper {
-
-	/**
-	 * ロガー
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SxssfMapper.class);
 
 	/**
 	 * Excelファイルとワークブックの値取得定義を基に、Excelから取得した値をMapに設定し返します。
@@ -76,7 +64,8 @@ public class SxssfMapper {
 	 */
 	public static Object read(File excelFile, BookDefinition workbookDefinition) throws IOException {
 		List<Table<String>> worksheets = SxssfValueReader.read(excelFile);
-		return read(worksheets, workbookDefinition);
+		Jadegreen mapper = new Jadegreen();
+		return mapper.map(worksheets, workbookDefinition);
 	}
 
 	/**
@@ -91,54 +80,8 @@ public class SxssfMapper {
 		for (File excelFile : excelFiles) {
 			worksheets.addAll(SxssfValueReader.read(excelFile));
 		}
-		return read(worksheets, workbookDefinition);
+		Jadegreen mapper = new Jadegreen();
+		return mapper.map(worksheets, workbookDefinition);
 	}
 
-	/**
-	 * Sheetから値を取得します
-	 * @param sheets 値のみを持ったシートのリスト
-	 * @param bookDefinition ブック定義
-	 * @return ブック単位の値
-	 * @throws IOException ファイル読み込み例外
-	 */
-	public static Object read(List<Table<String>> sheets, BookDefinition bookDefinition) throws IOException {
-		BookContent bookContent = ContentBuilder.build(bookDefinition);
-		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
-			for (Table<String> sheet: sheets) {
-				Map<String, Object> options = sheet.getOptions();
-				String name = RoughlyMapUtils.getString(options, "sheetName");
-				if (sheetDefinition.match(name, sheet)) {
-					LOGGER.debug("[取得] sheet:" + name + ", type:" + sheetDefinition.getId());
-					SheetContent sheetContent = toSheetContent(name, sheet, bookContent, sheetDefinition);
-					bookContent.addSheet(sheetContent);
-				}
-			}
-		}
-		return bookContent.getValues();
-	}
-
-	/**
-	 * シートの値をシートコンテンツに取得します
-	 * @param sheetName 対象シート名
-	 * @param table シートの値
-	 * @param book ブックコンテンツ
-	 * @param definition シート定義
-	 * @return シートコンテンツ
-	 */
-	public static SheetContent toSheetContent(String sheetName, Table<String> table, BookContent book, SheetDefinition definition) {
-		SheetContent sheet = ContentBuilder.build(book, definition, sheetName);
-		sheet.capture(table);
-//		List<List<String>> rows = table.getAdjustedTable(definition.getMaxRow(), definition.getMaxCol());
-//		int rowSize = rows.size();
-//		for (int rowIndex = 0; rowIndex < rowSize; rowIndex++) {
-//			List<String> row = rows.get(rowIndex);
-//			int colSize = row.size();
-//			for (int colIndex = 0; colIndex < colSize; colIndex++) {
-//				String value = row.get(colIndex);
-//				sheet.addValue(rowIndex + 1, colIndex + 1, value);
-//			}
-//		}
-//		sheet.close();
-		return sheet;
-	}
 }
