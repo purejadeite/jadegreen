@@ -73,11 +73,4 @@ public interface TableDefinition<C extends TableCellDefinition<?>> extends Paren
 	 */
 	public int getEnd();
 
-	/**
-	 * 指定の行番号、列番号が当セルの範囲内か判定します
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	public boolean isIncluded(int row, int col);
 }

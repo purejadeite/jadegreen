@@ -38,61 +38,11 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 	public CellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		col = getIntValue(config, CFG_COLUMN);
-		if (col == 0) {
-			col = getIntValue(config, CFG_X) + 1;
-		}
 		row = getIntValue(config, CFG_ROW);
-		if (row == 0) {
-			row = getIntValue(config, CFG_Y) + 1;
-		}
 	}
 
 	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
-		return (config.containsKey(CFG_COLUMN) && config.containsKey(CFG_ROW))
-				|| (config.containsKey(CFG_X) && config.containsKey(CFG_Y));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMinRow() {
-		return row;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMaxRow() {
-		return row;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMinCol() {
-		return col;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMaxCol() {
-		return col;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isIncluded(int row, int col) {
-		if (this.row == row && this.col == col) {
-			return true;
-		}
-		return false;
+		return (config.containsKey(CFG_COLUMN) && config.containsKey(CFG_ROW));
 	}
 
 	/**
@@ -107,18 +57,8 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 	}
 
 	@Override
-	public int getX() {
-		return col - 1;
-	}
-
-	@Override
-	public int getY() {
-		return row - 1;
-	}
-
-	@Override
 	public Object capture(Table<String> table) {
-		return table.get(getY(), getX());
+		return table.get(row - 1, col - 1);
 	}
 
 }

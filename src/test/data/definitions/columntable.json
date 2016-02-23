@@ -1,0 +1,57 @@
+{
+	"id": "book",
+	"sheets": [
+		{
+			"comment": "横方向の繰り返し",
+			"id": "main",
+			"output": true,
+			"target": {
+			    "name": "bean"
+			},
+		    "join": {
+		    	"sheetId": "sub",
+		    	"keyId": "className"
+		    },
+		    "cells": [
+		        {"id": "logicalClassName", "row": 1, "column": 3},
+		        {"id": "className", "row": 2, "column": 3},
+		        {"id": "package", "row": 3, "column": 3},
+		        {"id": "imports", "row": 4, "column": 3, "options": [{"type": "split", "splitter": "\n"}]},
+		        {"id": "fields", "column": 2, "breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
+		            "rows": [
+		                {"id": "logicalFieldName", "row": 8},
+		                {"id": "fieldName", "row": 9},
+		                {"id": "method", "row": 9, "options": [{"type": "uppercamel"}]},
+		                {"id": "static", "row": 9, "options": [{"type": "upperunderscore"}]},
+		                {"id": "type", "row": 10},
+		                {"id": "initial", "row": 11},
+		                {"id": "validators", "join": {"tableKeyId": "fieldName"}}
+		            ]
+		        },
+		        {"id": "logicalClassNameValid", "join": {"valueId": "logicalClassName"}}
+		    ]
+		},
+		{
+			"comment": "結合先シート",
+			"id": "sub",
+			"target": {
+			    "name": "validation"
+			},
+		    "cells": [
+		        {"id": "logicalClassName", "row": 1, "column": 3},
+		        {"id": "className", "row": 2, "column": 3},
+		        {"id": "fields", "row": 6, "endKeyId": "fieldName", "options": [{"type": "group", "groupId": "fieldName", "valueId": "validators"}],
+		            "columns": [
+		                {"id": "logicalFieldName", "column": 2},
+		                {"id": "fieldName", "column": 3},
+		                {"id": "validationType", "column": 4, "options": [{"type": "mapping", "map": {"notnull": "NotNull"}, "lazy": true}]},
+		                {"id": "arg0", "column": 5, "options": [{"type": "tonull"}]},
+		                {"id": "arg1", "column": 6, "options": [{"type": "tonull"}]},
+		                {"id": "arg2", "column": 7, "options": [{"type": "tonull"}]},
+		                {"id": "arg3", "column": 8, "options": [{"type": "tonull"}]}
+		            ]
+		        }
+		    ]
+		}
+	]
+}

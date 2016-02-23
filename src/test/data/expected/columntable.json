@@ -1,0 +1,121 @@
+[
+	{
+		"logicalClassName": "シート間の結合",
+		"logicalClassNameValid": "シート間の結合(結合先)",
+		"className": "Sample",
+		"package": "com.purejadeite.generated",
+		"imports": [
+			"java.io.Serializable",
+			"java.util.List",
+			"java.util.ArrayList",
+			"com.purejadeite.generated.LineBean"
+        ],
+		"fields": [
+			{
+				"logicalFieldName": "ファイル有無フラグ",
+				"fieldName": "fileExistFlag",
+				"method": "FileExistFlag",
+				"static": "FILE_EXIST_FLAG",
+				"type": "Boolean",
+				"initial": "Boolean.TRUE",
+				"validators": [
+		   			{
+						"logicalFieldName": "ファイル有無フラグ",
+						"validationType": "NotNull",
+						"arg0": null,
+						"arg1": null,
+						"arg2": null,
+						"arg3": null
+					}
+				]
+			},
+			{
+				"logicalFieldName": "ファイル名",
+				"fieldName": "fileName",
+				"method": "FileName",
+				"static": "FILE_NAME",
+				"type": "String",
+				"initial": "null",
+				"validators": [
+		   			{
+		   				"logicalFieldName": "ファイル名",
+						"validationType": "NotNull",
+						"arg0": null,
+						"arg1": null,
+						"arg2": null,
+						"arg3": null
+					}
+				]
+			},
+			{
+				"logicalFieldName": "ファイル名日本語",
+				"fieldName": "fileNameJp",
+				"method": "FileNameJp",
+				"static": "FILE_NAME_JP",
+				"type": "String",
+				"initial": "null",
+				"validators": null
+			},
+			{
+				"logicalFieldName": "ファイルパス",
+				"fieldName": "filePath",
+				"method": "FilePath",
+				"static": "FILE_PATH",
+				"type": "String",
+				"initial": null,
+				"validators": [
+					{
+						"logicalFieldName": "ファイルパス",
+						"validationType": "NotNull",
+						"arg0": null,
+						"arg1": null,
+						"arg2": null,
+						"arg3": null
+					},
+		   			{
+						"logicalFieldName": "ファイルパス",
+						"validationType": "length",
+						"arg0": "2",
+						"arg1": "10",
+						"arg2": null,
+						"arg3": null
+					}
+				]
+			},
+			{
+				"logicalFieldName": "行情報",
+				"fieldName": "lines",
+				"method": "Lines",
+				"static": "LINES",
+				"type": "List<LineBean>",
+				"initial": "new ArrayList<>()",
+				"validators": [
+		   			{
+						"logicalFieldName": "行情報",
+						"validationType": "NotNull",
+						"arg0": null,
+						"arg1": null,
+						"arg2": null,
+						"arg3": null
+					},
+					{
+						"logicalFieldName": "行情報",
+						"validationType": "maxlength",
+						"arg0": "100",
+						"arg1": null,
+						"arg2": null,
+						"arg3": null
+					},
+					{
+						"logicalFieldName": "行情報",
+						"validationType": "kana",
+						"arg0": null,
+						"arg1": null,
+						"arg2": null,
+						"arg3": null
+					}
+				]
+			}
+		]
+	}
+]

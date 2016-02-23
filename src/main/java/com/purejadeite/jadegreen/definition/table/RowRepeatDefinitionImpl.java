@@ -61,11 +61,4 @@ public class RowRepeatDefinitionImpl extends AbstractTableDefinition<TableCellDe
 		return CFG_END_ROW;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isIncluded(int row, int col) {
-		return (begin <= row && row <= end);
-	}
 }

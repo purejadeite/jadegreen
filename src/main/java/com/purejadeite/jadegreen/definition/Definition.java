@@ -41,13 +41,6 @@ public interface Definition<P extends ParentDefinition<?, ?>> {
 	public String getFullId();
 
 	/**
-	 * Mapで利用可能なキーを取得します
-	 *
-	 * @return
-	 */
-	public String getKey();
-
-	/**
 	 * 親定義を取得します
 	 *
 	 * @return

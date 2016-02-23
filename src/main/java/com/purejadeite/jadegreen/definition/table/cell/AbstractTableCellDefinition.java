@@ -72,72 +72,12 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 
 	abstract protected int toEndCol(P parent, Map<String, Object> config);
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMinCol() {
-		return beginCol;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMaxCol() {
-		return endCol;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMinRow() {
-		return beginRow;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getMaxRow() {
-		return endRow;
-	}
-
 	public void setBreakKey(boolean breakKey) {
 		this.breakKey = breakKey;
 	}
 
 	public void setBreakValues(List<String> breakValues) {
 		this.breakValues = breakValues;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isEndValue(Object value) {
-		if (breakKey) {
-			// 自身にクローズ条件の値が設定されている場合
-			if (breakValues == value) {
-				return true;
-			} else if (breakValues != null && breakValues.contains(value)) {
-				return true;
-			}
-		}
-		// クローズの状態を返す
-		return false;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isIncluded(int row, int col) {
-		if (beginCol <= col && col <= endCol && beginRow <= row && row <= endRow) {
-			return true;
-		}
-		return false;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -168,36 +108,6 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	}
 
 	@Override
-	public int getX() {
-		return beginCol - 1;
-	}
-
-	@Override
-	public int getY() {
-		return beginRow - 1;
-	}
-
-	@Override
-	public int getBeginX() {
-		return beginCol - 1;
-	}
-
-	@Override
-	public int getEndX() {
-		return endCol - 1;
-	}
-
-	@Override
-	public int getBeginY() {
-		return beginRow - 1;
-	}
-
-	@Override
-	public int getEndY() {
-		return endRow - 1;
-	}
-
-	@Override
 	public boolean isBreakKey() {
 		return breakKey;
 	}
@@ -210,10 +120,10 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 	@Override
 	public Object capture(Table<String> table) {
 		List<Object> values = new ArrayList<>();
-		int beginX = getBeginX();
-		int endX = Math.min(getEndX(), table.getColumnSize() - 1);
-		int beginY = getBeginY();
-		int endY = Math.min(getEndY(), table.getRowSize() - 1);
+		int beginX = beginCol - 1;
+		int endX = Math.min(endCol - 1, table.getColumnSize() - 1);
+		int beginY = beginRow - 1;
+		int endY = Math.min(endRow - 1, table.getRowSize() - 1);
 		List<String> breakValues = getBreakValues();
 
 		for (int y = beginY; y < endY + 1; y++) {

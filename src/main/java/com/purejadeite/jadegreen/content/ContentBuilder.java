@@ -95,10 +95,10 @@ public class ContentBuilder {
 			return new JoinedTableCellContentImpl(parentContent, (JoinedTableCellDefinitionImpl) definition);
 		} else if (definition instanceof TableValueDefinitionImpl) {
 			// 固定値の場合
-			return new TableCellContentImpl(parentContent, (TableCellDefinition<?>) definition);
+			return new TableCellContentImpl(parentContent, (TableValueDefinitionImpl<?>) definition);
 		} else if (definition instanceof TargetTableCellDefinitionImpl) {
 			// ターゲットの場合
-			return new StaticTableCellContentImpl(parentContent, (TableCellDefinition<?>) definition);
+			return new StaticTableCellContentImpl(parentContent, (TargetTableCellDefinitionImpl<?>) definition);
 		} else if (definition instanceof TableCellDefinition) {
 			// セルの場合
 			return new TableCellContentImpl(parentContent, (TableCellDefinition<?>) definition);

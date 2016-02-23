@@ -75,18 +75,6 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	}
 
 	/**
-	 * コンストラクタ
-	 * @param parent 親定義
-	 * @param id 定義ID
-	 * @param noOutput 値の出力有無
-	 */
-//	protected AbstractDefinition(P parent, String id) {
-//		super();
-//		this.parent = parent;
-//		this.id = id;
-//	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -104,14 +92,6 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 			fullId = this.parent.getFullId() + "." + fullId;
 		}
 		return fullId;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getKey() {
-		return getFullId();
 	}
 
 	/**

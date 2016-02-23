@@ -27,39 +27,4 @@ abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinition<
 		super(parent, config);
 	}
 
-	@Override
-	public int getMinRow() {
-		return NO_ADDRESS;
-	}
-
-	@Override
-	public int getMaxRow() {
-		return NO_ADDRESS;
-	}
-
-	@Override
-	public int getMaxCol() {
-		return NO_ADDRESS;
-	}
-
-	@Override
-	public int getMinCol() {
-		return NO_ADDRESS;
-	}
-
-	@Override
-	public boolean isIncluded(int row, int col) {
-		return false;
-	}
-
-	@Override
-	public int getX() {
-		return NO_ADDRESS - 1;
-	}
-
-	@Override
-	public int getY() {
-		return NO_ADDRESS - 1;
-	}
-
 }

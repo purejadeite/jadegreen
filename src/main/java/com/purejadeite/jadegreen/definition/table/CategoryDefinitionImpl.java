@@ -27,16 +27,4 @@ public class CategoryDefinitionImpl extends AbstractCategoryDefinition<CellDefin
 		return config.containsKey(CFG_CELLS);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isIncluded(int row, int col) {
-		for (CellDefinition<?> child : children) {
-			if (child.isIncluded(row, col)) {
-				return true;
-			}
-		}
-		return false;
-	}
 }

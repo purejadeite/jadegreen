@@ -14,22 +14,27 @@ import com.purejadeite.util.collection.Table;
  * <pre>
  * 値をMapへマッピングするクラスです。
  * </pre>
+ *
  * @author mitsuhiroseino
  */
 public class Jadegreen {
 
 	/**
 	 * Sheetから値を取得します
-	 * @param sheets 値のみを持ったシートのリスト
-	 * @param bookDefinition ブック定義
+	 *
+	 * @param sheets
+	 *            値のみを持ったシートのリスト
+	 * @param bookDefinition
+	 *            ブック定義
 	 * @return ブック単位の値
-	 * @throws IOException ファイル読み込み例外
+	 * @throws IOException
+	 *             ファイル読み込み例外
 	 */
 	public Object map(List<Table<String>> sheets, BookDefinition bookDefinition) throws IOException {
 		BookContent bookContent = ContentBuilder.build(bookDefinition);
-		for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
-			for (Table<String> sheet: sheets) {
-				String name = sheet.getOption("sheetName");
+		for (Table<String> sheet : sheets) {
+			String name = sheet.getOption("sheetName");
+			for (SheetDefinition sheetDefinition : bookDefinition.getChildren()) {
 				if (sheetDefinition.match(name, sheet)) {
 					SheetContent sheetContent = ContentBuilder.build(bookContent, sheetDefinition, name);
 					sheetContent.capture(sheet);

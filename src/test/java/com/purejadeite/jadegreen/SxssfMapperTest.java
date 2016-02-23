@@ -44,6 +44,11 @@ public class SxssfMapperTest {
 	}
 
 	@Test
+	public void columntable() throws Exception {
+		test("columntable");
+	}
+
+	@Test
 	public void join() throws Exception {
 		test("join");
 	}

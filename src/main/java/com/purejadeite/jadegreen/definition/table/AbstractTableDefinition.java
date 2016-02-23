@@ -186,8 +186,8 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 		map.put("end", end);
 		map.put("beginKeyId", beginKeyId);
 		map.put("beginValue", beginValue);
-		map.put("endKeyId", breakId);
-		map.put("endValue", breakValues);
+		map.put("breakId", breakId);
+		map.put("breakValues", breakValues);
 		map.put("size", size);
 		return map;
 	}

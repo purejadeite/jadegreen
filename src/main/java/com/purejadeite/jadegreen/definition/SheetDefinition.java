@@ -9,7 +9,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.purejadeite.jadegreen.DefinitionException;
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.option.sheet.SheetOptionManager;
 import com.purejadeite.util.SimpleComparison;
 import com.purejadeite.util.SimpleValidator;
@@ -121,26 +120,6 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	private String targetCellValue;
 
 	/**
-	 * 定義上の最少行番号
-	 */
-	private int minRow = Integer.MAX_VALUE;
-
-	/**
-	 * 定義上の最大行番号
-	 */
-	private int maxRow = 0;
-
-	/**
-	 * 定義上の最少列番号
-	 */
-	private int minCol = Integer.MAX_VALUE;
-
-	/**
-	 * 定義上の最大列番号
-	 */
-	private int maxCol = 0;
-
-	/**
 	 * シートの主キー
 	 */
 	protected List<String> keyIds;
@@ -250,78 +229,14 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 			if (cells.put(child.getId(), child) != null) {
 				throw new DefinitionException("idはsheet配下で一意になるように設定してください:" + child.getFullId());
 			}
-			if (child instanceof CellDefinition) {
-				// 単独Cellの場合
-				CellDefinition<?> cell = (CellDefinition<?>) child;
-				int i;
-				// 最少行番号
-				i = cell.getMinRow();
-				if (i != CellDefinition.NO_ADDRESS && i != Integer.MIN_VALUE) {
-					minRow = Math.min(i, minRow);
-					maxRow = Math.max(i, maxRow);
-				}
-				// 最大行番号
-				i = cell.getMaxRow();
-				if (i != CellDefinition.NO_ADDRESS && i != Integer.MAX_VALUE) {
-					minRow = Math.min(i, minRow);
-					maxRow = Math.max(i, maxRow);
-				}
-				// 最少列番号
-				i = cell.getMinCol();
-				if (i != CellDefinition.NO_ADDRESS && i != Integer.MIN_VALUE) {
-					minCol = Math.min(i, minCol);
-					maxCol = Math.max(i, maxCol);
-				}
-				// 最大列番号
-				i = cell.getMaxCol();
-				if (i != CellDefinition.NO_ADDRESS && i != Integer.MAX_VALUE) {
-					minCol = Math.min(i, minCol);
-					maxCol = Math.max(i, maxCol);
-				}
-			} else if (child instanceof ParentDefinition) {
-				// 親の場合は子要素をばらして追加
+			if (child instanceof ParentDefinition) {
+				// 親の場合は子要素もばらして追加
 				ParentDefinition<?, ?> parent = (ParentDefinition<?, ?>) child;
 				for (Definition<?> c : parent.getChildren()) {
 					addCell(c);
 				}
 			}
 		}
-	}
-
-	/**
-	 * 定義上の最少行番号を取得します
-	 *
-	 * @return 定義上の最少行番号
-	 */
-	public int getMinRow() {
-		return minRow;
-	}
-
-	/**
-	 * 定義上の最大行番号を取得します
-	 *
-	 * @return 定義上の最大行番号
-	 */
-	public int getMaxRow() {
-		return maxRow;
-	}
-
-	/**
-	 * 定義上の最少列番号を取得します
-	 *
-	 * @return 定義上の最少列番号
-	 */
-	public int getMinCol() {
-		return minCol;
-	}
-
-	/**
-	 * 定義上の最大列番号を取得します
-	 *
-	 * @return 定義上の最大列番号
-	 */
-	public int getMaxCol() {
-		return maxCol;
 	}
 
 	/**
@@ -348,10 +263,6 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("name", name);
-		map.put("minRow", minRow);
-		map.put("maxRow", maxRow);
-		map.put("minCol", minCol);
-		map.put("maxCol", maxCol);
 		map.put("output", output);
 		return map;
 	}

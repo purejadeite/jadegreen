@@ -61,12 +61,4 @@ public class ColumnRepeatDefinitionImpl extends AbstractTableDefinition<TableCel
 		return CFG_END_COLUMN;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isIncluded(int row, int col) {
-		return (begin <= col && col <= end);
-	}
-
 }

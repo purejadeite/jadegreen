@@ -19,8 +19,9 @@
 		                {"id": "fieldLang", "value": "en"},
 		                {"id": "logicalFieldName", "column": 2},
 		                {"id": "fieldName", "column": 3},
-		                {"id": "type", "column": 4},
-		                {"id": "initial", "column": 5}
+				        {"id": "types", "column": 4,
+		                	"rows": {"id": "type", "row": 4}
+		                }
 		            ]
 		        }
 		    ]
