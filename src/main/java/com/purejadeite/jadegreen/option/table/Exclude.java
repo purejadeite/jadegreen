@@ -30,7 +30,7 @@ public class Exclude extends AbstractTableOption {
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_KEY_ID, CFG_VALUE };
+	private static final String[] CONFIG = { CFG_KEY_ID };
 
 	/**
 	 * 削除キー
@@ -56,9 +56,10 @@ public class Exclude extends AbstractTableOption {
 	public Exclude(Definition<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
+
 		this.keyId = getString(config, CFG_KEY_ID);
 		this.operator = getString(config, CFG_OPERATOR, "==");
-		this.value = getString(config, CFG_VALUE, null);
+		this.value = getString(config, CFG_VALUE);
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class Exclude extends AbstractTableOption {
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map<String, Object> row : values) {
 			Object value = row.get(keyId);
-			if (EvaluationUtils.evaluate(value, operator, this.value)) {
+			if (!EvaluationUtils.evaluate(value, operator, this.value)) {
 				rows.add(row);
 			}
 		}

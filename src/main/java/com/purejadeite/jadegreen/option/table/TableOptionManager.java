@@ -28,6 +28,7 @@ public class TableOptionManager {
 		manager.register(ReplaceId.class);
 		manager.register(KeyValue.class);
 		manager.register(Chain.class);
+		manager.register(Follow.class);
 	}
 
 	public static void register(Class<? extends TableOption> clazz) {

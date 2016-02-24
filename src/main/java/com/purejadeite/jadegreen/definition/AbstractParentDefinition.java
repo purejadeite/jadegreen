@@ -96,10 +96,12 @@ abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>,
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		List<Map<String, Object>> childMaps = new ArrayList<>();
-		for (C child : children) {
-			childMaps.add(child.toMap());
+		if (children != null) {
+			for (C child : children) {
+				childMaps.add(child.toMap());
+			}
+			map.put("children", childMaps);
 		}
-		map.put("children", childMaps);
 		return map;
 	}
 

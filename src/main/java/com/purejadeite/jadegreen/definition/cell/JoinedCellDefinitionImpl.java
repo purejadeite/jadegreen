@@ -17,8 +17,8 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<SheetDefinition>
-		implements JoinedCellDefinition<SheetDefinition> {
+public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<ParentDefinition<?,?>>
+		implements JoinedCellDefinition<ParentDefinition<?,?>> {
 
 	private static final long serialVersionUID = -6688614988181481927L;
 
@@ -55,16 +55,18 @@ public class JoinedCellDefinitionImpl extends AbstractNoAdressCellDefinition<She
 	 * @param config
 	 *            コンフィグ
 	 */
-	public JoinedCellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
+	public JoinedCellDefinitionImpl(ParentDefinition<?,?> parent, Map<String, Object> config) {
 		super(parent, config);
 		Map<String, String> joinConfig = getMap(config, CFG_JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);
+
+		SheetDefinition sheet = parent.getSheet();
 		// 相手シートのID
-		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), parent.getJoinSheetId());
+		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
 		// 相手シートのキー項目のID
-		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), parent.getJoinKeyId());
+		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getJoinKeyId());
 		// 自身のシートのキー項目のID
-		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), parent.getJoinMyKeyId(), keyId);
+		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getJoinMyKeyId(), keyId);
 		// 相手シートから取得する項目のID
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}

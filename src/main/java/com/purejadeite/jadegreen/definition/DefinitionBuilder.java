@@ -99,7 +99,7 @@ public class DefinitionBuilder {
 			definition = new JoinedCellDefinitionImpl(sheet, config);
 		} else if (ValueDefinitionImpl.assess(config, table)) {
 			// 単独の値フィールドの場合
-			definition = new ValueDefinitionImpl<SheetDefinition>(sheet, config);
+			definition = new ValueDefinitionImpl(sheet, config);
 		} else if (CategoryDefinitionImpl.assess(config, table)) {
 			// 配下に単独のセルを持っているの場合
 			CategoryDefinition<?> cate = new CategoryDefinitionImpl(sheet, config);

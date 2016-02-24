@@ -21,6 +21,8 @@ public class Mapping extends AbstractCellOption {
 
 	protected static final String CFG_LAZY = "lazy";
 
+	protected static final String CFG_DEFAULT = "default";
+
 	/**
 	 * 必須項目名称
 	 */
@@ -41,6 +43,11 @@ public class Mapping extends AbstractCellOption {
 	protected boolean lazy;
 
 	/**
+	 * 条件に一致しなかった場合の値
+	 */
+	protected String dflt;
+
+	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
@@ -50,6 +57,7 @@ public class Mapping extends AbstractCellOption {
 		SimpleValidator.containsKey(config, CONFIG);
 		this.map = getMap(config, CFG_MAP);
 		this.lazy = getBooleanValue(config, CFG_LAZY);
+		this.dflt = getString(config, CFG_DEFAULT);
 	}
 
 	/**
@@ -61,8 +69,10 @@ public class Mapping extends AbstractCellOption {
 		if (map.containsKey(value)) {
 			mappedValue = map.get(value);
 		} else {
-			if (this.lazy) {
+			if (lazy) {
 				mappedValue = value;
+			} else {
+				mappedValue = dflt;
 			}
 		}
 		return mappedValue;
@@ -72,6 +82,7 @@ public class Mapping extends AbstractCellOption {
 		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
 		map.put("lazy", this.lazy);
+		map.put("dflt", this.dflt);
 		return map;
 	}
 }

@@ -12,7 +12,7 @@ import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.util.SimpleValidator;
 
 /**
- * Key-Value型テーブルコンバーター
+ * 前の要素の引き継ぎテーブルコンバーター
  *
  * @author mitsuhiroseino
  *

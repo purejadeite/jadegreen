@@ -5,7 +5,6 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.collection.Table;
 
 /**
@@ -13,7 +12,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> {
+public class CellDefinitionImpl extends AbstractCellDefinition<ParentDefinition<?, ?>> {
 
 	private static final long serialVersionUID = -6196528307255166352L;
 
@@ -35,7 +34,7 @@ public class CellDefinitionImpl extends AbstractCellDefinition<SheetDefinition> 
 	 * @param config
 	 *            コンフィグ
 	 */
-	public CellDefinitionImpl(SheetDefinition parent, Map<String, Object> config) {
+	public CellDefinitionImpl(ParentDefinition<?, ?> parent, Map<String, Object> config) {
 		super(parent, config);
 		col = getIntValue(config, CFG_COLUMN);
 		row = getIntValue(config, CFG_ROW);

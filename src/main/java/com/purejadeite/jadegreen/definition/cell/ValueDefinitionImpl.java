@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.Content;
@@ -11,16 +13,23 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends AbstractNoAdressCellDefinition<P> {
+public class ValueDefinitionImpl extends AbstractNoAdressCellDefinition<ParentDefinition<?, ?>> {
 
 	private static final long serialVersionUID = 7280801241651790531L;
 
 	private Object value;
 
+	private boolean list;
+
 	/**
 	 * 値
 	 */
 	public static final String CFG_VALUE = "value";
+
+	/**
+	 * unionした際にリスト化するか
+	 */
+	public static final String CFG_LIST = "list";
 
 	/**
 	 * コンストラクタ
@@ -30,9 +39,10 @@ public class ValueDefinitionImpl<P extends ParentDefinition<?, ?>> extends Abstr
 	 * @param config
 	 *            コンフィグ
 	 */
-	public ValueDefinitionImpl(P parent, Map<String, Object> config) {
+	public ValueDefinitionImpl(ParentDefinition<?, ?> parent, Map<String, Object> config) {
 		super(parent, config);
 		this.value = config.get(CFG_VALUE);
+		this.list = getBooleanValue(config, CFG_LIST);
 	}
 
 	public static boolean assess(Map<String, Object> config, ParentDefinition<?, ?> table) {
