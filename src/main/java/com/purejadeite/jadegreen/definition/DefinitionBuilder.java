@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
 import com.purejadeite.jadegreen.definition.table.CategoryDefinitionImpl;
@@ -100,6 +101,9 @@ public class DefinitionBuilder {
 		} else if (ValueDefinitionImpl.assess(config, table)) {
 			// 単独の値フィールドの場合
 			definition = new ValueDefinitionImpl(sheet, config);
+		} else if (ListCellDefinitionImpl.assess(config, table)) {
+			// セルの値を分割する場合
+			definition = new ListCellDefinitionImpl(sheet, config);
 		} else if (CategoryDefinitionImpl.assess(config, table)) {
 			// 配下に単独のセルを持っているの場合
 			CategoryDefinition<?> cate = new CategoryDefinitionImpl(sheet, config);

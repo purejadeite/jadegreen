@@ -10,7 +10,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class TargetTableCellDefinitionImpl<P extends TableDefinition<?>> extends AbstractNoAdressTableCellDefinition<P> {
+public class AnchorTableCellDefinitionImpl<P extends TableDefinition<?>> extends AbstractNoAdressTableCellDefinition<P> {
 
 	/**
 	 * コンストラクタ
@@ -20,7 +20,7 @@ public class TargetTableCellDefinitionImpl<P extends TableDefinition<?>> extends
 	 * @param config
 	 *            コンフィグ
 	 */
-	public TargetTableCellDefinitionImpl(P parent, Map<String, Object> config) {
+	public AnchorTableCellDefinitionImpl(P parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 

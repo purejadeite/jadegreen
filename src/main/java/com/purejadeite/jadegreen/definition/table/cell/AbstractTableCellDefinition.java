@@ -131,7 +131,7 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 				String value = table.get(y, x);
 				if (breakValues != null && breakValues.contains(value)) {
 					// 終了条件値の場合
-					return values.size();
+					return values;
 				}
 				values.add(value);
 			}
@@ -146,7 +146,7 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 
 		if (getTable().getBreakId() == null) {
 			// 終了位置が指定されている場合(BreakIdが指定されていない場合)
-			return values.size();
+			return values;
 		}
 
 		// BreakIdが指定されている場合はsizeに合わせる

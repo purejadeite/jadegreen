@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.SheetDefinition;
+import com.purejadeite.jadegreen.definition.ParentDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
@@ -16,7 +16,7 @@ import com.purejadeite.jadegreen.option.table.TableOptionManager;
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentDefinition<SheetDefinition, C> implements TableDefinition<C> {
+abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentDefinition<ParentDefinition<?,?>, C> implements TableDefinition<C> {
 
 	private static final long serialVersionUID = -6138799003034104152L;
 
@@ -65,7 +65,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * @param config
 	 *            コンフィグ
 	 */
-	protected AbstractTableDefinition(SheetDefinition parent, Map<String, Object> config) {
+	protected AbstractTableDefinition(ParentDefinition<?,?> parent, Map<String, Object> config) {
 		super(parent, config);
 		this.begin = getIntValue(config, getBeginId());
 		this.end = getIntValue(config, getEndId(), TableDefinition.UNLIMITED);

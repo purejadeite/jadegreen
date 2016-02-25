@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.cell.TargetTableCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.AnchorTableCellDefinitionImpl;
 
 public class ContentBuilder {
 
@@ -56,7 +56,7 @@ public class ContentBuilder {
 			// 単独セルの結合の場合
 			return  new JoinedCellContentImpl(parentContent, (JoinedCellDefinitionImpl) definition);
 		} else if (definition instanceof ListCellDefinitionImpl) {
-			// リスト形式の単独セルの場合
+			// セルの値を分割する場合
 			return new CellContentImpl(parentContent, (CellDefinition<?>) definition);
 		} else if (definition instanceof CellDefinitionImpl) {
 			// 単独セルの場合
@@ -96,9 +96,9 @@ public class ContentBuilder {
 		} else if (definition instanceof TableValueDefinitionImpl) {
 			// 固定値の場合
 			return new TableCellContentImpl(parentContent, (TableValueDefinitionImpl<?>) definition);
-		} else if (definition instanceof TargetTableCellDefinitionImpl) {
+		} else if (definition instanceof AnchorTableCellDefinitionImpl) {
 			// ターゲットの場合
-			return new StaticTableCellContentImpl(parentContent, (TargetTableCellDefinitionImpl<?>) definition);
+			return new StaticTableCellContentImpl(parentContent, (AnchorTableCellDefinitionImpl<?>) definition);
 		} else if (definition instanceof TableCellDefinition) {
 			// セルの場合
 			return new TableCellContentImpl(parentContent, (TableCellDefinition<?>) definition);

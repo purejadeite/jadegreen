@@ -51,7 +51,7 @@ public class ValueDefinitionImpl extends AbstractNoAdressCellDefinition<ParentDe
 
 	@Override
 	public Object applyOptions(Object value, Content<?, ?> content) {
-		return super.applyOptions(this.value, content);
+		return super.applyOptions(value, content);
 	}
 
 	/**

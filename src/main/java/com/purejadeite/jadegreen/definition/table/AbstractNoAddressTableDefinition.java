@@ -1,19 +1,19 @@
 package com.purejadeite.jadegreen.definition.table;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
 import com.purejadeite.jadegreen.definition.Definition;
 import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
 import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**
- * 任意の集まりを表わすクラスの抽象クラスです
+ * テーブル形式のアドレスの無いクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractCategoryDefinition<C extends Definition<?>> extends AbstractParentDefinition<ParentDefinition<?, ?>, C> implements CategoryDefinition<C> {
+abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentDefinition<ParentDefinition<?, ?>, C> implements TableDefinition<C> {
 
 	/**
 	 * コンストラクタ
@@ -23,7 +23,7 @@ abstract public class AbstractCategoryDefinition<C extends Definition<?>> extend
 	 * @param config
 	 *            コンフィグ
 	 */
-	protected AbstractCategoryDefinition(ParentDefinition<?, ?> parent, Map<String, Object> config) {
+	protected AbstractNoAddressTableDefinition(ParentDefinition<?, ?> parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 
@@ -39,7 +39,14 @@ abstract public class AbstractCategoryDefinition<C extends Definition<?>> extend
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CategoryDefinition<?> getCategory() {
+	public void addChild(C child) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public TableDefinition<?> getTable() {
 		return this;
 	}
 
@@ -49,13 +56,6 @@ abstract public class AbstractCategoryDefinition<C extends Definition<?>> extend
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		if (children != null) {
-			List<Map<String, Object>> cellMaps = new ArrayList<>();
-			for(C child: children) {
-				cellMaps.add(child.toMap());
-			}
-			map.put("cells", cellMaps);
-		}
 		return map;
 	}
 }
