@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 文字列が空文字の場合nullへ変換するクラス
@@ -21,7 +21,7 @@ public class ToNull extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToNull(Definition<?> definition, Map<String, Object> config) {
+	public ToNull(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 	}
 
@@ -29,7 +29,7 @@ public class ToNull extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		return StringUtils.defaultIfEmpty(value, null);
 	}
 

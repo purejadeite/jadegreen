@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SheetContent;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.util.SimpleValidator;
 
@@ -29,7 +29,7 @@ public class From extends AbstractBookOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public From(Definition<?> definition, Map<String, Object> config) {
+	public From(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 	}
@@ -38,7 +38,7 @@ public class From extends AbstractBookOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> values, ContentInterface<?, ?> content) {
 		SheetDefinition outputSheet = content.getDefinition().getOutputSheet();
 		List<SheetContent> sheetContents = content.getSheets(outputSheet);
 		List<Object> newBookValues = new ArrayList<>();

@@ -5,8 +5,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 削除コンバーター
@@ -21,7 +21,7 @@ public class Unique extends AbstractTableOption {
 	 * コンストラクタ
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Unique(Definition<?> definition, Map<String, Object> config) {
+	public Unique(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 	}
 
@@ -29,7 +29,7 @@ public class Unique extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> values, ContentInterface<?, ?> content) {
 		return new ArrayList<>(new LinkedHashSet<>(values));
 	}
 

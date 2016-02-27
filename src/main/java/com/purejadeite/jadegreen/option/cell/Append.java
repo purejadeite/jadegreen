@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 文字列の前後に文字列を追加するクラス
@@ -44,7 +44,7 @@ public class Append extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Append(Definition<?> definition, Map<String, Object> config) {
+	public Append(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		this.prefix = getString(config, CFG_PREFIX);
 		this.suffix = getString(config, CFG_SUFFIX);
@@ -55,7 +55,7 @@ public class Append extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		String val = "";
 		if (!StringUtils.isEmpty(value)) {
 			val = value;

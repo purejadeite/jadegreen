@@ -12,11 +12,7 @@
 		        {"id": "logicalClassName", "row": 1, "column": 3},
 		        {"id": "className", "row": 2, "column": 3},
 		        {"id": "package", "row": 3, "column": 3},
-		        {"id": "imports", "row": 4, "column": 3, "options": [
-		                                                             {"type": "split", "splitter": "\n"},
-		                                                             {"type": "upper"}
-		                                                             ]
-		        },
+		        {"id": "imports", "row": 4, "column": 3, "splitter": "\n", "options": [{"type": "upper"}]},
 		        {"id": "fields", "row": 8, " breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
 		                {"id": "logicalFieldName", "column": 2},

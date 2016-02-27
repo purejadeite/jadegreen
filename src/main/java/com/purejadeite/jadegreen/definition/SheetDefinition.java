@@ -21,73 +21,73 @@ import com.purejadeite.util.collection.Table;
  * @author mitsuhiroseino
  *
  */
-public class SheetDefinition extends AbstractParentDefinition<BookDefinition, Definition<?>> {
+public class SheetDefinition extends AbstractParentDefinition<BookDefinition, DefinitionInterface<?>> {
 
 	private static final long serialVersionUID = -1303967958765873003L;
 	/**
 	 * 取得条件・シート名
 	 */
-	public static final String CFG_NAME = "name";
+	protected static final String CFG_NAME = "name";
 
 	/**
 	 * Sheet配下の全Cellの定義
 	 */
-	public static final String CFG_CELLS = "cells";
+	protected static final String CFG_CELLS = "cells";
 
 	/**
 	 * コンフィグ：target
 	 */
-	private static final String CFG_TARGET = "target";
+	protected static final String CFG_TARGET = "target";
 
 	/**
 	 * コンフィグ：target・シート名
 	 */
-	private static final String CFG_TARGET_NAME = "target.name";
+	protected static final String CFG_TARGET_NAME = "target.name";
 
 	/**
 	 * コンフィグ：target・Cell・Row
 	 */
-	private static final String CFG_TARGET_CELL_ROW = "target.cell.row";
+	protected static final String CFG_TARGET_CELL_ROW = "target.cell.row";
 
 	/**
 	 * コンフィグ：target・Cell・Column
 	 */
-	private static final String CFG_TARGET_CELL_COLUMN = "target.cell.column";
+	protected static final String CFG_TARGET_CELL_COLUMN = "target.cell.column";
 
 	/**
 	 * コンフィグ：target・Cell・Value
 	 */
-	private static final String CFG_TARGET_CELL_VALUE = "target.cell.value";
+	protected static final String CFG_TARGET_CELL_VALUE = "target.cell.value";
 
 	/**
 	 * コンフィグ：シートの主キー
 	 */
-	private static final String[] CFG_KEY_IDS = { "keyId", "keyIds" };
+	protected static final String[] CFG_KEY_IDS = { "keyId", "keyIds" };
 
 	/**
 	 * コンフィグ：join・相手先シートID
 	 */
-	private static final String CFG_JOIN_SHEET_ID = "join.sheetId";
+	protected static final String CFG_JOIN_SHEET_ID = "join.sheetId";
 
 	/**
 	 * コンフィグ：join・相手先キーID
 	 */
-	private static final String CFG_JOIN_KEY_ID = "join.keyId";
+	protected static final String CFG_JOIN_KEY_ID = "join.keyId";
 
 	/**
 	 * コンフィグ：join・自身のキーID
 	 */
-	private static final String CFG_JOIN_MY_KEY_ID = "join.myKeyId";
+	protected static final String CFG_JOIN_MY_KEY_ID = "join.myKeyId";
 
 	/**
 	 * 集約
 	 */
-	private static final String CFG_UNION = "union";
+	protected static final String CFG_UNION = "union";
 
 	/**
 	 * 出力
 	 */
-	private static final String CFG_OUTPUT = "output";
+	protected static final String CFG_OUTPUT = "output";
 
 	/**
 	 * 必須項目名称
@@ -97,27 +97,27 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	/**
 	 * 対象シート条件・シート名
 	 */
-	private String name;
+	protected String name;
 
 	/**
 	 * 対象シート条件・シート名
 	 */
-	private String targetName;
+	protected String targetName;
 
 	/**
 	 * 対象シート条件・Cell行番号
 	 */
-	private int targetCellRow;
+	protected int targetCellRow;
 
 	/**
 	 * 対象シート条件・Cell列番号
 	 */
-	private int targetCellColumn;
+	protected int targetCellColumn;
 
 	/**
 	 * 対象シート条件・Cell値
 	 */
-	private String targetCellValue;
+	protected String targetCellValue;
 
 	/**
 	 * シートの主キー
@@ -153,7 +153,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 */
 	protected boolean output = false;
 
-	protected Map<String, Definition<?>> cells = new HashMap<>();
+	protected Map<String, DefinitionInterface<?>> cells = new HashMap<>();
 
 	/**
 	 * コンストラクタ
@@ -213,7 +213,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addChild(Definition<?> child) {
+	public void addChild(DefinitionInterface<?> child) {
 		super.addChild(child);
 		this.addCell(child);
 	}
@@ -224,15 +224,15 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 * @param child
 	 *            Cell読み込み定義
 	 */
-	private void addCell(Definition<?> child) {
+	protected void addCell(DefinitionInterface<?> child) {
 		if (child != null) {
 			if (cells.put(child.getId(), child) != null) {
 				throw new DefinitionException("idはsheet配下で一意になるように設定してください:" + child.getFullId());
 			}
-			if (child instanceof ParentDefinition) {
+			if (child instanceof ParentDefinitionInterface) {
 				// 親の場合は子要素もばらして追加
-				ParentDefinition<?, ?> parent = (ParentDefinition<?, ?>) child;
-				for (Definition<?> c : parent.getChildren()) {
+				ParentDefinitionInterface<?, ?> parent = (ParentDefinitionInterface<?, ?>) child;
+				for (DefinitionInterface<?> c : parent.getChildren()) {
 					addCell(c);
 				}
 			}
@@ -271,7 +271,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		this.options = SheetOptionManager.build(definition, options);
 	}
 
@@ -300,7 +300,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 * 配下のセルを全て取得します
 	 * @return 配下のセル
 	 */
-	public Map<String, Definition<?>> getCells() {
+	public Map<String, DefinitionInterface<?>> getCells() {
 		return cells;
 	}
 
@@ -308,8 +308,12 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition<?> getCell(String id) {
+	public DefinitionInterface<?> getCell(String id) {
 		return cells.get(id);
+	}
+
+	public static boolean assess(Map<String, Object> config, ParentDefinitionInterface<?, ?> table) {
+		return config.containsKey(CFG_TARGET) && !config.containsKey(CFG_UNION);
 	}
 
 }

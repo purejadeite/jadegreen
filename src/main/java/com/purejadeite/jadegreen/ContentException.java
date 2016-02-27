@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen;
 
 import java.util.List;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 
 /**
  * コンテンツ不正時の例外
@@ -16,7 +16,7 @@ public class ContentException extends JadegreenException {
 	/**
 	 * コンテンツ
 	 */
-	private Content<?, ?>[] contents;
+	private ContentInterface<?, ?>[] contents;
 
 	/**
 	 * コンストラクタ
@@ -32,7 +32,7 @@ public class ContentException extends JadegreenException {
 	 * @param contents
 	 *            コンテンツ
 	 */
-	public ContentException(String message, Content<?, ?>... contents) {
+	public ContentException(String message, ContentInterface<?, ?>... contents) {
 		super(getErrorMessage(contents, message));
 		this.contents = contents;
 	}
@@ -45,9 +45,9 @@ public class ContentException extends JadegreenException {
 	 * @param contents
 	 *            コンテンツ
 	 */
-	public ContentException(String message, List<Content<?, ?>> contents) {
+	public ContentException(String message, List<ContentInterface<?, ?>> contents) {
 		super(getErrorMessage(contents, message));
-		this.contents = contents.toArray(new Content<?, ?>[0]);
+		this.contents = contents.toArray(new ContentInterface<?, ?>[0]);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class ContentException extends JadegreenException {
 	 *            コンテンツ
 	 */
 	public ContentException(String message, Throwable cause,
-			Content<?, ?>... contents) {
+			ContentInterface<?, ?>... contents) {
 		super(getErrorMessage(contents, message), cause);
 		this.contents = contents;
 	}
@@ -77,9 +77,9 @@ public class ContentException extends JadegreenException {
 	 *            コンテンツ
 	 */
 	public ContentException(String message, Throwable cause,
-			List<Content<?, ?>> contents) {
+			List<ContentInterface<?, ?>> contents) {
 		super(getErrorMessage(contents, message), cause);
-		this.contents = contents.toArray(new Content<?, ?>[0]);
+		this.contents = contents.toArray(new ContentInterface<?, ?>[0]);
 	}
 
 	/**
@@ -140,9 +140,9 @@ public class ContentException extends JadegreenException {
 	 *            元になるメッセージ
 	 * @return エラーメッセージ
 	 */
-	private static String getErrorMessage(List<Content<?, ?>> contents,
+	private static String getErrorMessage(List<ContentInterface<?, ?>> contents,
 			String baseMessage) {
-		return getErrorMessage(contents.toArray(new Content<?, ?>[0]), baseMessage);
+		return getErrorMessage(contents.toArray(new ContentInterface<?, ?>[0]), baseMessage);
 	}
 
 	/**
@@ -154,11 +154,11 @@ public class ContentException extends JadegreenException {
 	 *            元になるメッセージ
 	 * @return エラーメッセージ
 	 */
-	private static String getErrorMessage(Content<?, ?>[] contents,
+	private static String getErrorMessage(ContentInterface<?, ?>[] contents,
 			String baseMessage) {
 		String message = "[";
 		int size = 0;
-		for (Content<?, ?> content : contents) {
+		for (ContentInterface<?, ?> content : contents) {
 			if (0 < size) {
 				message += ",";
 			}
@@ -174,7 +174,7 @@ public class ContentException extends JadegreenException {
 	 *
 	 * @return コンテンツ
 	 */
-	public Content<?, ?>[] getContents() {
+	public ContentInterface<?, ?>[] getContents() {
 		return contents;
 	}
 

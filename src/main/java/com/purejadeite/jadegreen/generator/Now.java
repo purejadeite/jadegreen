@@ -3,8 +3,8 @@ package com.purejadeite.jadegreen.generator;
 import java.util.Date;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 現在時刻を生成するクラス
@@ -20,7 +20,7 @@ public class Now extends AbstractUnrelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Now(Definition<?> definition, Map<String, Object> config) {
+	public Now(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 	}
 
@@ -28,7 +28,7 @@ public class Now extends AbstractUnrelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value, Content<?, ?> content) {
+	public Object applyImpl(Object value, ContentInterface<?, ?> content) {
 		return new Date();
 	}
 }

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.StringUtils;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 文字列のバイト長を取得するクラス
@@ -28,7 +28,7 @@ public class ByteLength extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ByteLength(Definition<?> definition, Map<String, Object> config) {
+	public ByteLength(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		this.encode = getString(config, CFG_ENCODE);
 	}
@@ -37,7 +37,7 @@ public class ByteLength extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		return Integer.valueOf(StringUtils.getBytesUnchecked(value, encode).length);
 	}
 

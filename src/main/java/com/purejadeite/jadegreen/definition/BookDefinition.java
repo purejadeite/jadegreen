@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.option.book.BookOptionManager;
  * @author mitsuhiroseino
  *
  */
-public class BookDefinition extends AbstractParentDefinition<NoDefinition, SheetDefinition> {
+public class BookDefinition extends AbstractParentDefinition<NoDefinitionInterface, SheetDefinition> {
 
 	private static final long serialVersionUID = 1118031049839086924L;
 
@@ -63,7 +63,7 @@ public class BookDefinition extends AbstractParentDefinition<NoDefinition, Sheet
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		this.options = BookOptionManager.build(definition, options);
 	}
 
@@ -105,7 +105,7 @@ public class BookDefinition extends AbstractParentDefinition<NoDefinition, Sheet
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition<?> getCell(String sheetId, String cellId) {
+	public DefinitionInterface<?> getCell(String sheetId, String cellId) {
 		SheetDefinition sheet = getSheet(sheetId);
 		if (sheet == null) {
 			return null;

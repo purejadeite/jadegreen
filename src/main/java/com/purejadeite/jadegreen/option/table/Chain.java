@@ -8,8 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -47,7 +47,7 @@ public class Chain extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Chain(Definition<?> definition, Map<String, Object> config) {
+	public Chain(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.keyId = getString(config, CFG_KEY_ID);
@@ -58,12 +58,14 @@ public class Chain extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> values, ContentInterface<?, ?> content) {
 		// まだchainされていないlineを保持するMap
+		// キーになるIDでレコードの取得ができるMapを作る
 		Map<Object, Map<String, Object>> keyMap = new HashMap<>();
 		for (Map<String, Object> line: values) {
 			keyMap.put(line.get(keyId), line);
 		}
+		
 		Map<Object, Map<String, Object>> newValues = new LinkedHashMap<>();
 		for (int i = 0; i < values.size(); i++) {
 			Map<String, Object> line0 = values.get(i);

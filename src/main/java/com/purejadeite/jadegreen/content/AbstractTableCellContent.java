@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
 import com.purejadeite.util.collection.Table;
 
 /**
@@ -12,8 +12,8 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableCellContent<D extends TableCellDefinition<?>>
-		extends AbstractContent<TableContent, D>implements TableCellContent<D> {
+abstract public class AbstractTableCellContent<D extends TableCellDefinitionInterface<?>>
+		extends AbstractContent<TableContentInterface, D>implements TableCellContentInterface<D> {
 
 	private static final long serialVersionUID = 1420210546938530625L;
 
@@ -25,7 +25,7 @@ abstract public class AbstractTableCellContent<D extends TableCellDefinition<?>>
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractTableCellContent(TableContent parent, D definition) {
+	public AbstractTableCellContent(TableContentInterface parent, D definition) {
 		super(parent, definition);
 	}
 

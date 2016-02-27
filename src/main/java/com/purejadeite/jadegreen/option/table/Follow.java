@@ -7,8 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -37,7 +37,7 @@ public class Follow extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Follow(Definition<?> definition, Map<String, Object> config) {
+	public Follow(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.followId = getString(config, CFG_FOLLOW_ID);
@@ -47,7 +47,7 @@ public class Follow extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> values, ContentInterface<?, ?> content) {
 		// keyIdの項目の値が空だったらひとつ前の値を引き継ぐ
 		List<Map<String, Object>> newValues = new ArrayList<>();
 		Object prev = null;

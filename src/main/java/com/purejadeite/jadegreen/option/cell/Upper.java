@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
 *
@@ -25,7 +25,7 @@ public class Upper extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Upper(Definition<?> definition, Map<String, Object> config) {
+	public Upper(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 	}
 
@@ -33,7 +33,7 @@ public class Upper extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		return StringUtils.upperCase(value);
 	}
 }

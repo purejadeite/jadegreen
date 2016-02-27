@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.EvaluationUtils;
 import com.purejadeite.util.SimpleValidator;
 
@@ -53,7 +53,7 @@ public class Exclude extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Exclude(Definition<?> definition, Map<String, Object> config) {
+	public Exclude(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 
@@ -66,7 +66,7 @@ public class Exclude extends AbstractTableOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> values, ContentInterface<?, ?> content) {
 		List<Map<String, Object>> rows = new ArrayList<>();
 		for (Map<String, Object> row : values) {
 			Object value = row.get(keyId);

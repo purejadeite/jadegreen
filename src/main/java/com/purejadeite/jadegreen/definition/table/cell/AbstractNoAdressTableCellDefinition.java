@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.cell.AbstractNoAdressCellDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 
 /**
  * Tableの構成要素となるCell読み込み定義
  * @author mitsuhiroseino
  */
-abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinition<?>> extends AbstractNoAdressCellDefinition<P> implements TableCellDefinition<P> {
+abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractNoAdressCellDefinition<P> implements TableCellDefinitionInterface<P> {
 
 	private static final long serialVersionUID = -3632667088280645598L;
 

@@ -8,12 +8,9 @@
 		    "cells": [
 		        {"id": "values", "row": 2, "options": [{"type": "chain", "keyId": "key", "chainId": "chain"}],
 		            "columns": [
+		                {"id": "chain", "column": 4, "splitter": "\n", "always": false, "options": [{"type": "remove"}]},
 		                {"id": "key", "column": 2},
-		                {"id": "value", "column": 3},
-		                {"id": "chain", "column": 4, "options": [
-		                            		                    {"type": "remove"},
-		                            		                    {"type": "split", "splitter": "\n", "always": false}
-		                ]}
+		                {"id": "value", "column": 3}
 		            ]
 		        }
 		    ]

@@ -1,26 +1,22 @@
 package com.purejadeite.jadegreen.content;
 
-import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
-import com.purejadeite.util.collection.Table;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
 
 /**
- * 一覧形式子要素のセル読み込み定義のインターフェイス
+ * Tableの構成要素となるCell読み込み定義
  * @author mitsuhiroseino
  */
-public interface TableCellContent<D extends TableCellDefinition<?>> extends CellContent<TableContent, D> {
+public class TableCellContent extends AbstractTableCellContent<TableCellDefinitionInterface<?>> {
+
+	private static final long serialVersionUID = -6172471723011313228L;
 
 	/**
-	 * 取得した件数を得します
-	 * @return 取得した値の件数
+	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
 	 */
-	public int size();
-
-	/**
-	 * 指定されたサイズ分、値を取得します
-	 * @param table
-	 * @param size
-	 * @return
-	 */
-	public int capture(Table<String> table, int size);
+	public TableCellContent(TableContentInterface parent, TableCellDefinitionInterface<?> definition) {
+		super(parent, definition);
+	}
 
 }

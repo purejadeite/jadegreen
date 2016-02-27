@@ -9,15 +9,15 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.JadegreenException;
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.option.Option;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.option.OptionInterface;
 
 public class GeneratorManager {
 
 	/**
 	 * ジェネレーター
 	 */
-	protected static Map<String, Class<? extends Generator>> GENERATORS = new HashMap<>();
+	protected static Map<String, Class<? extends GeneratorInterface>> GENERATORS = new HashMap<>();
 
 	static {
 		register(Fixed.class);
@@ -26,22 +26,22 @@ public class GeneratorManager {
 		register(Uuid.class);
 	}
 
-	public static void register(Class<? extends Generator> clazz) {
+	public static void register(Class<? extends GeneratorInterface> clazz) {
 		GENERATORS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-	public static void registerAll(@SuppressWarnings("unchecked") Class<? extends Generator>... classes) {
-		for (Class<? extends Generator> clazz : classes) {
+	public static void registerAll(@SuppressWarnings("unchecked") Class<? extends GeneratorInterface>... classes) {
+		for (Class<? extends GeneratorInterface> clazz : classes) {
 			register(clazz);
 		}
 	}
 
-	public static Generator build(Definition<?> definition, Map<String, Object> generatorCfg) {
+	public static GeneratorInterface build(DefinitionInterface<?> definition, Map<String, Object> generatorCfg) {
 		if (generatorCfg == null) {
 			return null;
 		}
-		Generator generator = null;
-		String type = getString(generatorCfg, Option.CFG_TYPE);
+		GeneratorInterface generator = null;
+		String type = getString(generatorCfg, OptionInterface.CFG_TYPE);
 		generator = build(definition, type, generatorCfg);
 		if (generator == null) {
 			throw new DefinitionException("type=" + type + ":generatorのclassが取得できません");
@@ -55,22 +55,22 @@ public class GeneratorManager {
 	 * @param config コンバーターのコンフィグ
 	 * @return コンバーター
 	 */
-	public static Generator build(Definition<?> definition, String type, Map<String, Object> config) {
+	public static GeneratorInterface build(DefinitionInterface<?> definition, String type, Map<String, Object> config) {
 		// クラスを取得
-		Class<? extends Generator> clazz = GENERATORS.get(type.toLowerCase());
+		Class<? extends GeneratorInterface> clazz = GENERATORS.get(type.toLowerCase());
 		if (clazz == null) {
 			return null;
 		}
 		// コンストラクタを取得
-		Constructor<? extends Generator> constructor;
+		Constructor<? extends GeneratorInterface> constructor;
 		try {
-			constructor = clazz.getConstructor(Definition.class, Map.class);
+			constructor = clazz.getConstructor(DefinitionInterface.class, Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			throw new JadegreenException("generator id=" + definition + ",type = " + type + ":generatorのclassからコンストラクターを取得できません", e);
 		}
 
 		// インスタンスを取得
-		Generator generator = null;
+		GeneratorInterface generator = null;
 		try {
 			generator = constructor.newInstance(definition, config);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {

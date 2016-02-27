@@ -2,8 +2,8 @@ package com.purejadeite.jadegreen.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.input.sxssf.SxssfUtils;
 
 /**
@@ -20,7 +20,7 @@ public class ToShort extends AbstractStringCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public ToShort(Definition<?> definition, Map<String, Object> config) {
+	public ToShort(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 	}
 
@@ -28,7 +28,7 @@ public class ToShort extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		return SxssfUtils.getShort(value);
 	}
 

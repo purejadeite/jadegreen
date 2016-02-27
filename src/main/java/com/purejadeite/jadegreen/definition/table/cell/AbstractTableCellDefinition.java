@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.cell.AbstractCellDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 import com.purejadeite.util.collection.Table;
 
 /**
@@ -13,8 +13,8 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> extends AbstractCellDefinition<P>
-		implements TableCellDefinition<P> {
+abstract public class AbstractTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractCellDefinition<P>
+		implements TableCellDefinitionInterface<P> {
 
 	private static final long serialVersionUID = -7367543678923800631L;
 
@@ -124,16 +124,15 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 		int endX = Math.min(endCol - 1, table.getColumnSize() - 1);
 		int beginY = beginRow - 1;
 		int endY = Math.min(endRow - 1, table.getRowSize() - 1);
-		List<String> breakValues = getBreakValues();
 
 		for (int y = beginY; y < endY + 1; y++) {
 			for (int x = beginX; x < endX + 1; x++) {
 				String value = table.get(y, x);
-				if (breakValues != null && breakValues.contains(value)) {
+				if (isBreaked(value)) {
 					// 終了条件値の場合
 					return values;
 				}
-				values.add(value);
+				values.add(getValue(value));
 			}
 		}
 		return values;
@@ -156,11 +155,29 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinition<?>> 
 		} else if (values.size() < size) {
 			// 不足
 			while (values.size() < size) {
-				values.add(null);
+				values.add(getValue(null));
 			}
 		}
 
 		return values;
+	}
+
+	/**
+	 * 値の取得
+	 * @param value
+	 * @return
+	 */
+	protected Object getValue(String value) {
+		return value;
+	}
+
+	/**
+	 * 終了判定
+	 * @param value
+	 * @return
+	 */
+	protected boolean isBreaked(String value) {
+		return (breakValues != null && breakValues.contains(value));
 	}
 
 }

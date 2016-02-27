@@ -1,7 +1,7 @@
 package com.purejadeite.jadegreen.option.cell;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 文字列を変換する抽象クラスです
@@ -16,7 +16,7 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractStringCellOption(Definition<?> definition) {
+	public AbstractStringCellOption(DefinitionInterface<?> definition) {
 		super(definition);
 	}
 
@@ -24,7 +24,7 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value, Content<?, ?> content) {
+	public Object applyImpl(Object value, ContentInterface<?, ?> content) {
 		if (value == null) {
 			return applyToString((String) null, content);
 		} else {
@@ -37,6 +37,6 @@ abstract public class AbstractStringCellOption extends AbstractCellOption {
 	 * @param value 文字列の値
 	 * @return 変換された値
 	 */
-	abstract protected Object applyToString(String value, Content<?, ?> content);
+	abstract protected Object applyToString(String value, ContentInterface<?, ?> content);
 
 }

@@ -3,19 +3,20 @@ package com.purejadeite.jadegreen.content;
 import java.util.List;
 
 import com.purejadeite.jadegreen.definition.BookDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
+import com.purejadeite.jadegreen.definition.UnionSheetDefinition;
+import com.purejadeite.jadegreen.definition.cell.CellDefinitionInterface;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ListCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.cell.ValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
-import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
-import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinitionImpl;
-import com.purejadeite.jadegreen.definition.table.cell.AnchorTableCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
+import com.purejadeite.jadegreen.definition.cell.ListCellDefinition;
+import com.purejadeite.jadegreen.definition.cell.ValueDefinition;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinitionInterface;
+import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
+import com.purejadeite.jadegreen.definition.table.cell.AnchorTableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
+import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinition;
 
 public class ContentBuilder {
 
@@ -28,7 +29,7 @@ public class ContentBuilder {
 
 	public static SheetContent build(BookContent bookContent, SheetDefinition sheetDefinition, String sheetName) {
 		SheetContent sheetContent = null;
-		if (sheetDefinition.isUnion()) {
+		if (sheetDefinition instanceof UnionSheetDefinition) {
 			// 複数のシートの内容を1シートに集約する場合は既存のシートコンテンツを取得
 			List<SheetContent> lastSheets = bookContent.getSheets(sheetDefinition);
 			if (lastSheets != null && !lastSheets.isEmpty()) {
@@ -44,43 +45,43 @@ public class ContentBuilder {
 		return sheetContent;
 	}
 
-	public static void build(ParentContent<?, Content<?, ?>, ?> parentContent) {
-		for (Definition<?> definition : parentContent.getDefinition().getChildren()) {
+	public static void build(ParentContentInterface<?, ContentInterface<?, ?>, ?> parentContent) {
+		for (DefinitionInterface<?> definition : parentContent.getDefinition().getChildren()) {
 			parentContent.addChild(build(definition, parentContent));
 		}
 	}
 
 	// シートまたはカテゴリ配下のコンテンツをビルド
-	public static Content<?, ?> build(Definition<?> definition, ParentContent<?, Content<?, ?>, ?> parentContent) {
-		if (definition instanceof JoinedCellDefinitionImpl) {
+	public static ContentInterface<?, ?> build(DefinitionInterface<?> definition, ParentContentInterface<?, ContentInterface<?, ?>, ?> parentContent) {
+		if (definition instanceof JoinedCellDefinition) {
 			// 単独セルの結合の場合
-			return  new JoinedCellContentImpl(parentContent, (JoinedCellDefinitionImpl) definition);
-		} else if (definition instanceof ListCellDefinitionImpl) {
+			return  new JoinedCellContent(parentContent, (JoinedCellDefinition) definition);
+		} else if (definition instanceof ListCellDefinition) {
 			// セルの値を分割する場合
-			return new CellContentImpl(parentContent, (CellDefinition<?>) definition);
-		} else if (definition instanceof CellDefinitionImpl) {
+			return new ListCellContent(parentContent, (ListCellDefinition) definition);
+		} else if (definition instanceof CellDefinition) {
 			// 単独セルの場合
-			if (parentContent.getDefinition().getSheet().isUnion()) {
+			if (parentContent.getDefinition().getSheet() instanceof UnionSheetDefinition) {
 				// 集約する場合
-				return new UnionCellContentImpl(parentContent, (CellDefinition<?>) definition);
+				return new UnionCellContent(parentContent, (CellDefinitionInterface<?>) definition);
 			} else {
 				// 集約しない場合
-				return new CellContentImpl(parentContent, (CellDefinition<?>) definition);
+				return new CellContent(parentContent, (CellDefinitionInterface<?>) definition);
 			}
-		} else if (definition instanceof ValueDefinitionImpl) {
+		} else if (definition instanceof ValueDefinition) {
 			// 単独固定値の場合
-			return new CellContentImpl(parentContent, (CellDefinition<?>) definition);
-		} else if (definition instanceof CategoryDefinition) {
+			return new CellContent(parentContent, (CellDefinitionInterface<?>) definition);
+		} else if (definition instanceof CategoryDefinitionInterface) {
 			// 範囲の場合
-			CategoryContent categoryContent = new CategoryContentImpl(parentContent, (CategoryDefinition<?>) definition);
-			for (Definition<?> cellDefinition : categoryContent.getDefinition().getChildren()) {
+			CategoryContentInterface categoryContent = new CategoryContent(parentContent, (CategoryDefinitionInterface<?>) definition);
+			for (DefinitionInterface<?> cellDefinition : categoryContent.getDefinition().getChildren()) {
 				categoryContent.addChild(build(cellDefinition, categoryContent));
 			}
 			return categoryContent;
-		} else if (definition instanceof TableDefinition) {
+		} else if (definition instanceof TableDefinitionInterface) {
 			// テーブルの場合
-			TableContent tableContent = new TableContentImpl(parentContent, (TableDefinition<?>) definition);
-			for (Definition<?> cellDefinition : tableContent.getDefinition().getChildren()) {
+			TableContentInterface tableContent = new TableContent(parentContent, (TableDefinitionInterface<?>) definition);
+			for (DefinitionInterface<?> cellDefinition : tableContent.getDefinition().getChildren()) {
 				tableContent.addChild(build(cellDefinition, tableContent));
 			}
 			return tableContent;
@@ -89,19 +90,19 @@ public class ContentBuilder {
 	}
 
 	// テーブル配下のコンテンツをビルド
-	public static TableCellContent<?> build(Definition<?> definition, TableContent parentContent) {
-		if (definition instanceof JoinedTableCellDefinitionImpl) {
+	public static TableCellContentInterface<?> build(DefinitionInterface<?> definition, TableContentInterface parentContent) {
+		if (definition instanceof JoinedTableCellDefinition) {
 			// 結合の場合
-			return new JoinedTableCellContentImpl(parentContent, (JoinedTableCellDefinitionImpl) definition);
-		} else if (definition instanceof TableValueDefinitionImpl) {
+			return new JoinedTableCellContent(parentContent, (JoinedTableCellDefinition) definition);
+		} else if (definition instanceof TableValueDefinition) {
 			// 固定値の場合
-			return new TableCellContentImpl(parentContent, (TableValueDefinitionImpl<?>) definition);
-		} else if (definition instanceof AnchorTableCellDefinitionImpl) {
+			return new TableCellContent(parentContent, (TableValueDefinition<?>) definition);
+		} else if (definition instanceof AnchorTableCellDefinition) {
 			// ターゲットの場合
-			return new StaticTableCellContentImpl(parentContent, (AnchorTableCellDefinitionImpl<?>) definition);
-		} else if (definition instanceof TableCellDefinition) {
+			return new StaticTableCellContent(parentContent, (AnchorTableCellDefinition<?>) definition);
+		} else if (definition instanceof TableCellDefinitionInterface) {
 			// セルの場合
-			return new TableCellContentImpl(parentContent, (TableCellDefinition<?>) definition);
+			return new TableCellContent(parentContent, (TableCellDefinitionInterface<?>) definition);
 		}
 		return null;
 	}

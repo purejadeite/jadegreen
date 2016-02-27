@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
 import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**
  * テーブル形式のアドレスの無いクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentDefinition<ParentDefinition<?, ?>, C> implements TableDefinition<C> {
+abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefinitionInterface<?>> extends AbstractParentDefinition<ParentDefinitionInterface<?, ?>, C> implements TableDefinitionInterface<C> {
 
 	/**
 	 * コンストラクタ
@@ -23,7 +23,7 @@ abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefini
 	 * @param config
 	 *            コンフィグ
 	 */
-	protected AbstractNoAddressTableDefinition(ParentDefinition<?, ?> parent, Map<String, Object> config) {
+	protected AbstractNoAddressTableDefinition(ParentDefinitionInterface<?, ?> parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 
@@ -31,7 +31,7 @@ abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefini
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		this.options = TableOptionManager.build(definition, options);
 	}
 
@@ -46,7 +46,7 @@ abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefini
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TableDefinition<?> getTable() {
+	public TableDefinitionInterface<?> getTable() {
 		return this;
 	}
 

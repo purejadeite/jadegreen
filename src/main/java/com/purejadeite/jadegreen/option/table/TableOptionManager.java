@@ -3,8 +3,8 @@ package com.purejadeite.jadegreen.option.table;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.option.Option;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.option.OptionInterface;
 import com.purejadeite.jadegreen.option.OptionManager;
 import com.purejadeite.jadegreen.option.Options;
 
@@ -15,7 +15,7 @@ import com.purejadeite.jadegreen.option.Options;
  */
 public class TableOptionManager {
 
-	private static OptionManager<TableOption> manager;
+	private static OptionManager<TableOptionInterface> manager;
 
 	static {
 		// マネージャーの初期化処理
@@ -31,15 +31,15 @@ public class TableOptionManager {
 		manager.register(Follow.class);
 	}
 
-	public static void register(Class<? extends TableOption> clazz) {
+	public static void register(Class<? extends TableOptionInterface> clazz) {
 		manager.register(clazz);
 	}
 
-	public static Options build(Definition<?> definition, List<Map<String, Object>> opts) {
+	public static Options build(DefinitionInterface<?> definition, List<Map<String, Object>> opts) {
 		return manager.build(definition, opts);
 	}
 
-	public static Option build(Definition<?> definition, String type, Map<String, Object> config) {
+	public static OptionInterface build(DefinitionInterface<?> definition, String type, Map<String, Object> config) {
 		return manager.build(definition, type, config);
 	}
 

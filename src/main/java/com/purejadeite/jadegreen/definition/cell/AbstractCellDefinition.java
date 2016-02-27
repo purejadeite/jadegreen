@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
 import com.purejadeite.jadegreen.option.cell.CellOptionManager;
 
 /**
@@ -15,8 +15,8 @@ import com.purejadeite.jadegreen.option.cell.CellOptionManager;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractDefinition<P>
-		implements CellDefinition<P> {
+abstract public class AbstractCellDefinition<P extends ParentDefinitionInterface<?, ?>> extends AbstractDefinition<P>
+		implements CellDefinitionInterface<P> {
 
 	private static final long serialVersionUID = -1364121835461648806L;
 
@@ -36,7 +36,7 @@ abstract public class AbstractCellDefinition<P extends ParentDefinition<?, ?>> e
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		this.options = CellOptionManager.build(definition, options);
 	}
 

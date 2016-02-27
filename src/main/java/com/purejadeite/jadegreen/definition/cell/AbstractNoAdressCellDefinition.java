@@ -2,7 +2,7 @@ package com.purejadeite.jadegreen.definition.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
 
 /**
  * <pre>
@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.ParentDefinition;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinition<?, ?>> extends AbstractCellDefinition<P> {
+abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinitionInterface<?, ?>> extends AbstractCellDefinition<P> {
 
 	private static final long serialVersionUID = 5276446229482797364L;
 

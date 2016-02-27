@@ -6,15 +6,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 値を保持する抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractContent<P extends Content<?, ?>, D extends Definition<?>>
-		implements Content<P, D>, Serializable {
+abstract public class AbstractContent<P extends ContentInterface<?, ?>, D extends DefinitionInterface<?>>
+		implements ContentInterface<P, D>, Serializable {
 
 	private static final long serialVersionUID = 760790316639278651L;
 
@@ -29,11 +29,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * 値を取得する定義
 	 */
 	protected D definition;
-
-	/**
-	 * 値の取得完了を表わすフラグ
-	 */
-	protected boolean closed;
 
 	// 出力した値のキャッシュ
 	private Object valuesCache;
@@ -50,7 +45,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 		this.uuid = uuid;
 		this.parent = parent;
 		this.definition = definition;
-		this.closed = false;
 	}
 
 	/**
@@ -67,7 +61,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 			this.parent = parent;
 		}
 		this.definition = definition;
-		this.closed = false;
 	}
 
 	public List<String> getKey() {
@@ -175,7 +168,7 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<SheetContent> getSheets(Definition<?> sheetDefinition) {
+	public List<SheetContent> getSheets(DefinitionInterface<?> sheetDefinition) {
 		if (parent == null) {
 			return null;
 		}
@@ -186,8 +179,8 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<SheetContent> getSheets(Definition<?> myKeyDefinition, Definition<?> keyDefinition) {
-		Content<?, ?> myKeyContent = this.getSheet().getCell(myKeyDefinition);
+	public List<SheetContent> getSheets(DefinitionInterface<?> myKeyDefinition, DefinitionInterface<?> keyDefinition) {
+		ContentInterface<?, ?> myKeyContent = this.getSheet().getCell(myKeyDefinition);
 		return getSheets(myKeyContent, keyDefinition);
 	}
 
@@ -195,10 +188,10 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<SheetContent> getSheets(Content<?, ?> myKeyContent, Definition<?> keyDefinition) {
+	public List<SheetContent> getSheets(ContentInterface<?, ?> myKeyContent, DefinitionInterface<?> keyDefinition) {
 		List<SheetContent> sheets = new ArrayList<>();
-		List<Content<?, ?>> contents = getContents(keyDefinition);
-		for (Content<?, ?> content : contents) {
+		List<ContentInterface<?, ?>> contents = getContents(keyDefinition);
+		for (ContentInterface<?, ?> content : contents) {
 			if (myKeyContent == content) {
 				// 自身は対象外
 				continue;
@@ -216,7 +209,7 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TableContent getTable() {
+	public TableContentInterface getTable() {
 		if (parent == null) {
 			return null;
 		}
@@ -227,7 +220,7 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CategoryContent getCategory() {
+	public CategoryContentInterface getCategory() {
 		if (parent == null) {
 			return null;
 		}
@@ -238,7 +231,7 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Content<?, ?> getCell(Definition<?> cellDefinition) {
+	public ContentInterface<?, ?> getCell(DefinitionInterface<?> cellDefinition) {
 		if (parent == null) {
 			return null;
 		}
@@ -249,7 +242,7 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Content<?, ?> getCell(String id) {
+	public ContentInterface<?, ?> getCell(String id) {
 		if (parent == null) {
 			return null;
 		}
@@ -264,7 +257,7 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 	 * @return コンテンツのリスト
 	 */
 	@Override
-	public List<Content<?, ?>> getContents(Definition<?> definition) {
+	public List<ContentInterface<?, ?>> getContents(DefinitionInterface<?> definition) {
 		if (parent == null) {
 			return null;
 		}
@@ -283,7 +276,6 @@ abstract public class AbstractContent<P extends Content<?, ?>, D extends Definit
 		} else {
 			map.put("parent", null);
 		}
-		map.put("closed", closed);
 		return map;
 	}
 

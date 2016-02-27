@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.option.AbstactIf;
 import com.purejadeite.jadegreen.option.Options;
 import com.purejadeite.util.SimpleValidator;
@@ -17,7 +17,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class If extends AbstactIf implements BookOption, Serializable {
+public class If extends AbstactIf implements BookOptionInterface, Serializable {
 
 	protected static final String CFG_SHEET_ID = "sheetId";
 	protected static final String CFG_CELL_ID = "cellId";
@@ -43,21 +43,21 @@ public class If extends AbstactIf implements BookOption, Serializable {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public If(Definition<?> definition, Map<String, Object> config) {
+	public If(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition, config);
 		SimpleValidator.containsKey(config, CONFIG);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object bookValues, Content<?, ?> content) {
+	public Object apply(Object bookValues, ContentInterface<?, ?> content) {
 		if (bookValues == SpecificValue.UNDEFINED) {
 			return bookValues;
 		}
 		return applyImpl((List<Map<String, Object>>) bookValues, content);
 	}
 
-	protected Object applyImpl(List<Map<String, Object>> bookValues, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> bookValues, ContentInterface<?, ?> content) {
 		// 仮
 		if (evaluate(bookValues)) {
 			return thenOptions.apply(bookValues, content);
@@ -80,7 +80,7 @@ public class If extends AbstactIf implements BookOption, Serializable {
 	}
 
 	@Override
-	protected Options buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected Options buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		return BookOptionManager.build(definition, options);
 	}
 

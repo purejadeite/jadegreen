@@ -12,8 +12,8 @@ import java.util.Map;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractParentDefinition<P extends ParentDefinition<?, ?>, C extends Definition<?>>
-		extends AbstractDefinition<P>implements ParentDefinition<P, C>, Serializable {
+abstract public class AbstractParentDefinition<P extends ParentDefinitionInterface<?, ?>, C extends DefinitionInterface<?>>
+		extends AbstractDefinition<P>implements ParentDefinitionInterface<P, C>, Serializable {
 
 	private static final long serialVersionUID = -6619514528554034278L;
 

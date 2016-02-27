@@ -3,14 +3,13 @@ package com.purejadeite.jadegreen.option.cell;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SheetContent;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.option.AbstactSwitch;
 import com.purejadeite.jadegreen.option.Options;
 import com.purejadeite.util.SimpleValidator;
@@ -21,7 +20,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class Switch extends AbstactSwitch implements CellOption, Serializable {
+public class Switch extends AbstactSwitch implements CellOptionInterface, Serializable {
 
 	protected static final String CFG_CELL_ID = "cellId";
 
@@ -38,30 +37,22 @@ public class Switch extends AbstactSwitch implements CellOption, Serializable {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Switch(Definition<?> definition, Map<String, Object> config) {
+	public Switch(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition, config);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.cellId = getString(config, CFG_CELL_ID, definition.getId());
 	}
 
 	@Override
-	public Object apply(Object value, Content<?, ?> content) {
+	public Object apply(Object value, ContentInterface<?, ?> content) {
 		if (value == SpecificValue.UNDEFINED) {
 			return value;
-		} else if (value instanceof Iterable) {
-			@SuppressWarnings("unchecked")
-			Iterable<Object> values = (Iterable<Object>) value;
-			List<Object> vals = new ArrayList<>();
-			for (Object v : values) {
-				vals.add(this.apply(v, content));
-			}
-			return vals;
 		} else {
 			return applyImpl(value, content);
 		}
 	}
 
-	protected Object applyImpl(Object cellValue, Content<?, ?> content) {
+	protected Object applyImpl(Object cellValue, ContentInterface<?, ?> content) {
 		Object value = null;
 		if (cellId.equals(definition.getId())) {
 			// 判定対象の値が自分自身だった場合
@@ -69,11 +60,11 @@ public class Switch extends AbstactSwitch implements CellOption, Serializable {
 		} else {
 			// 判定対象の値を自シート内から取得
 			SheetContent sheet = content.getSheet();
-			Content<?, ?> cellContent = sheet.getCell(cellId);
+			ContentInterface<?, ?> cellContent = sheet.getCell(cellId);
 			value = cellContent.getValues();
 		}
 		if (value instanceof List) {
-			// 判定対象がTableCellの場合
+			// 判定対象がTableCellかListCellの場合
 			@SuppressWarnings("unchecked")
 			List<Object> valueList = (List<Object>) value;
 			for (Object v : valueList) {
@@ -103,7 +94,7 @@ public class Switch extends AbstactSwitch implements CellOption, Serializable {
 	}
 
 	@Override
-	protected Options buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected Options buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		return CellOptionManager.build(definition, options);
 	}
 

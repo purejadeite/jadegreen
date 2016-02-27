@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 文字列を変換する抽象クラスです
@@ -28,7 +28,7 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
 	 */
-	public AbstractNumberCellOption(Definition<?> definition, Map<String, Object> config) {
+	public AbstractNumberCellOption(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		this.nullToZero = getBooleanValue(config, CFG_NULL_TO_ZERO, true);
 		this.emptyToZero = getBooleanValue(config, CFG_EMPTY_TO_ZERO, true);
@@ -37,7 +37,7 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	/**
 	 * {@inheritDoc}
 	 */
-	protected Object applyToString(String value, Content<?, ?> content) {
+	protected Object applyToString(String value, ContentInterface<?, ?> content) {
 		if (value == null) {
 			if (nullToZero) {
 				return getZero();
@@ -55,7 +55,7 @@ abstract public class AbstractNumberCellOption<N> extends AbstractStringCellOpti
 	 * @param value 数値
 	 * @return 変換された数値
 	 */
-	abstract protected N toNumber(String value, Content<?, ?> content);
+	abstract protected N toNumber(String value, ContentInterface<?, ?> content);
 
 	abstract protected N getZero();
 

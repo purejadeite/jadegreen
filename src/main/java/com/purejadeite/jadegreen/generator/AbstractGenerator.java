@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 値を生成する抽象クラス
@@ -16,9 +16,9 @@ import com.purejadeite.jadegreen.definition.Definition;
  * @author mitsuhiroseino
  *
  */
-abstract public class AbstractGenerator implements Generator, Serializable {
+abstract public class AbstractGenerator implements GeneratorInterface, Serializable {
 
-	protected Definition<?> definition;
+	protected DefinitionInterface<?> definition;
 
 	/**
 	 * コンストラクタ
@@ -26,16 +26,16 @@ abstract public class AbstractGenerator implements Generator, Serializable {
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractGenerator(Definition<?> definition) {
+	public AbstractGenerator(DefinitionInterface<?> definition) {
 		this.definition = definition;
 	}
 
 	@Override
-	public Definition<?> getDefinition() {
+	public DefinitionInterface<?> getDefinition() {
 		return definition;
 	}
 
-	public Object generate(Object value, Content<?, ?> content) {
+	public Object generate(Object value, ContentInterface<?, ?> content) {
 		if (value == SpecificValue.UNDEFINED) {
 			return value;
 		} else if (value instanceof Iterable) {
@@ -51,7 +51,7 @@ abstract public class AbstractGenerator implements Generator, Serializable {
 		}
 	}
 
-	abstract protected Object applyImpl(Object value, Content<?, ?> content);
+	abstract protected Object applyImpl(Object value, ContentInterface<?, ?> content);
 
 	/**
 	 * {@inheritDoc}

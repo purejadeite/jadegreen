@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.option.AbstractOption;
 
 /**
@@ -18,7 +18,7 @@ import com.purejadeite.jadegreen.option.AbstractOption;
  * @author mitsuhiroseino
  *
  */
-public class AddValue extends AbstractOption implements CellOption, Serializable {
+public class AddValue extends AbstractOption implements ListCellOption, Serializable {
 
 	protected static final String CFG_UNIQUE = "unique";
 
@@ -38,14 +38,14 @@ public class AddValue extends AbstractOption implements CellOption, Serializable
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public AddValue(Definition<?> definition, Map<String, Object> config) {
+	public AddValue(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		this.unique = getBooleanValue(config, CFG_UNIQUE);
 		this.value = getString(config, CFG_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public Object apply(Object value, Content<?, ?> content) {
+	public Object apply(Object value, ContentInterface<?, ?> content) {
 		if (value == SpecificValue.UNDEFINED) {
 			return value;
 		}

@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.input.sxssf.SxssfUtils;
 import com.purejadeite.util.SimpleValidator;
 
@@ -39,7 +39,7 @@ public class ToStringDate extends AbstractStringCellOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public ToStringDate(Definition<?> definition, Map<String, Object> config) {
+	public ToStringDate(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.dateFormat = getString(config, CFG_DATE_FORMAT);
@@ -49,7 +49,7 @@ public class ToStringDate extends AbstractStringCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		return SxssfUtils.getStringDate(value, dateFormat);
 	}
 

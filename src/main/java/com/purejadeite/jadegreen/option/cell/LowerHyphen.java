@@ -2,8 +2,8 @@ package com.purejadeite.jadegreen.option.cell;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.CaseFormat;
 
 /**
@@ -24,7 +24,7 @@ public class LowerHyphen extends AbstractCaseFormatCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public LowerHyphen(Definition<?> definition, Map<String, Object> config) {
+	public LowerHyphen(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 	}
 
@@ -32,7 +32,7 @@ public class LowerHyphen extends AbstractCaseFormatCellOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyToString(String value, Content<?, ?> content) {
+	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		return format(value, CaseFormat.LOWER_HYPHEN);
 	}
 

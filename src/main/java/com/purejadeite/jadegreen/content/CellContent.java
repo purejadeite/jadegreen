@@ -1,10 +1,22 @@
 package com.purejadeite.jadegreen.content;
 
-import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.jadegreen.definition.cell.CellDefinitionInterface;
 
 /**
- * Cellの値取得インターフェイス
+ * セルの値を保持するクラス
  * @author mitsuhiroseino
  */
-public interface CellContent<P extends Content<?, ?>, D extends CellDefinition<?>> extends Content<P, D> {
+public class CellContent extends AbstractSingleValueContent<CellDefinitionInterface<?>> {
+
+	private static final long serialVersionUID = -1289731718432529281L;
+
+	/**
+	 * コンストラクタ
+	 * @param parent 親コンテンツ
+	 * @param definition 定義
+	 */
+	public CellContent(ParentContentInterface<?, ?, ?> parent, CellDefinitionInterface<?> definition) {
+		super(parent, definition);
+	}
+
 }

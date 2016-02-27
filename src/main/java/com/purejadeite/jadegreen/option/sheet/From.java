@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -34,7 +34,7 @@ public class From extends AbstractSheetOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public From(Definition<?> definition, Map<String, Object> config) {
+	public From(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.cellId = getString(config, CFG_CELL_ID);
@@ -44,7 +44,7 @@ public class From extends AbstractSheetOption {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(Map<String, Object> values, Content<?, ?> content) {
+	protected Object applyImpl(Map<String, Object> values, ContentInterface<?, ?> content) {
 		return values.get(cellId);
 	}
 

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * Indexを生成するクラス
@@ -31,7 +31,7 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Index(Definition<?> definition, Map<String, Object> config) {
+	public Index(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		from = getIntValue(config, CFG_FROM, 0);
 		Integer increment = getInteger(config, CFG_INCREMENT, 1);
@@ -42,7 +42,7 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object generate(Object value, Content<?, ?> content) {
+	public Object generate(Object value, ContentInterface<?, ?> content) {
 		return applyImpl(value, content);
 	}
 
@@ -50,7 +50,7 @@ public class Index extends AbstractRelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value, Content<?, ?> content) {
+	public Object applyImpl(Object value, ContentInterface<?, ?> content) {
 		if (value instanceof Collection) {
 			// table cellの場合
 			@SuppressWarnings("unchecked")

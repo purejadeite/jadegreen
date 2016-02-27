@@ -3,20 +3,19 @@ package com.purejadeite.jadegreen.option.cell;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.option.Option;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.option.OptionInterface;
 import com.purejadeite.jadegreen.option.OptionManager;
 import com.purejadeite.jadegreen.option.Options;
 
 public class CellOptionManager {
 
-	private static OptionManager<CellOption> manager;
+	private static OptionManager<CellOptionInterface> manager;
 
 	static {
 		manager = new OptionManager<>();
 		manager.register(If.class);
 		manager.register(Switch.class);
-		manager.register(Split.class);
 		manager.register(ToBigDecimal.class);
 		manager.register(ToBoolean.class);
 		manager.register(ToDate.class);
@@ -41,17 +40,20 @@ public class CellOptionManager {
 		manager.register(ByteLength.class);
 		manager.register(Remove.class);
 		manager.register(AddValue.class);
+		manager.register(Convert.class);
+		manager.register(First.class);
+		manager.register(Last.class);
 	}
 
-	public static void register(Class<? extends CellOption> clazz) {
+	public static void register(Class<? extends CellOptionInterface> clazz) {
 		manager.register(clazz);
 	}
 
-	public static Options build(Definition<?> definition, List<Map<String, Object>> opts) {
+	public static Options build(DefinitionInterface<?> definition, List<Map<String, Object>> opts) {
 		return manager.build(definition, opts);
 	}
 
-	public static Option build(Definition<?> definition, String type, Map<String, Object> config) {
+	public static OptionInterface build(DefinitionInterface<?> definition, String type, Map<String, Object> config) {
 		return manager.build(definition, type, config);
 	}
 

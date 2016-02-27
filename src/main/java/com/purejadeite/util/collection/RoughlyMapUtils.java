@@ -292,6 +292,14 @@ public class RoughlyMapUtils {
 		return null;
 	}
 
+	/**
+	 * 配列形式のキーのいずれかで取得できたnull以外の値が、
+	 * Listの場合はそのまま返し、List以外の値であればListに入れて返します
+	 *
+	 * @param map 取得元
+	 * @param keys キー
+	 * @return List
+	 */
 	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K[] keys) {
 		List<E> values = null;
 		for (K key : keys) {
@@ -303,6 +311,13 @@ public class RoughlyMapUtils {
 		return null;
 	}
 
+	/**
+	 * 取得できたnull以外の値が、Listの場合はそのまま返し、List以外の値であればListに入れて返します
+	 *
+	 * @param map 取得元
+	 * @param key キー
+	 * @return List
+	 */
 	public static <K, E> List<E> getAsList(Map<K, ? extends Object> map, K key) {
 		List<E> values = getList(map, key);
 		if (values == null) {

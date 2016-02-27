@@ -10,9 +10,9 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.table.CategoryDefinition;
-import com.purejadeite.jadegreen.definition.table.TableDefinition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.table.CategoryDefinitionInterface;
+import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 import com.purejadeite.jadegreen.option.Options;
 
 /**
@@ -21,7 +21,7 @@ import com.purejadeite.jadegreen.option.Options;
 * @author mitsuhiroseino
 *
 */
-abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> implements Definition<P>, Serializable {
+abstract public class AbstractDefinition<P extends ParentDefinitionInterface<?, ?>> implements DefinitionInterface<P>, Serializable {
 
 	private static final long serialVersionUID = -847224181929765049L;
 
@@ -110,10 +110,10 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 		return options;
 	}
 
-	abstract protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options);
+	abstract protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options);
 
 	@Override
-	public Object applyOptions(Object value, Content<?, ?> content) {
+	public Object applyOptions(Object value, ContentInterface<?, ?> content) {
 		if (options == null) {
 			return value;
 		} else {
@@ -169,7 +169,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TableDefinition<?> getTable() {
+	public TableDefinitionInterface<?> getTable() {
 		if (parent == null) {
 			return null;
 		}
@@ -180,7 +180,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CategoryDefinition<?> getCategory() {
+	public CategoryDefinitionInterface<?> getCategory() {
 		if (parent == null) {
 			return null;
 		}
@@ -191,7 +191,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition<?> getCell(String cellId) {
+	public DefinitionInterface<?> getCell(String cellId) {
 		if (parent == null) {
 			return null;
 		}
@@ -202,7 +202,7 @@ abstract public class AbstractDefinition<P extends ParentDefinition<?, ?>> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Definition<?> getCell(String sheetId, String cellId) {
+	public DefinitionInterface<?> getCell(String sheetId, String cellId) {
 		if (parent == null) {
 			return null;
 		}

@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
 import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**
  * 任意の集まりを表わすクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractCategoryDefinition<C extends Definition<?>> extends AbstractParentDefinition<ParentDefinition<?, ?>, C> implements CategoryDefinition<C> {
+abstract public class AbstractCategoryDefinition<C extends DefinitionInterface<?>> extends AbstractParentDefinition<ParentDefinitionInterface<?, ?>, C> implements CategoryDefinitionInterface<C> {
 
 	/**
 	 * コンストラクタ
@@ -23,7 +23,7 @@ abstract public class AbstractCategoryDefinition<C extends Definition<?>> extend
 	 * @param config
 	 *            コンフィグ
 	 */
-	protected AbstractCategoryDefinition(ParentDefinition<?, ?> parent, Map<String, Object> config) {
+	protected AbstractCategoryDefinition(ParentDefinitionInterface<?, ?> parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 
@@ -31,7 +31,7 @@ abstract public class AbstractCategoryDefinition<C extends Definition<?>> extend
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		this.options = TableOptionManager.build(definition, options);
 	}
 
@@ -39,7 +39,7 @@ abstract public class AbstractCategoryDefinition<C extends Definition<?>> extend
 	 * {@inheritDoc}
 	 */
 	@Override
-	public CategoryDefinition<?> getCategory() {
+	public CategoryDefinitionInterface<?> getCategory() {
 		return this;
 	}
 

@@ -1,10 +1,76 @@
 package com.purejadeite.jadegreen.content;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.purejadeite.jadegreen.ContentException;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
+import com.purejadeite.util.collection.Table;
 
 /**
- * 他のセルしたCellのインターフェイス
+ * 他のセルに結合したCellクラス
+ *
  * @author mitsuhiroseino
  */
-public interface JoinedCellContent<P extends Content<?, ?>, D extends JoinedCellDefinition<?>> extends CellContent<P, D> {
+public class JoinedCellContent extends AbstractContent<ParentContentInterface<?, ?, ?>, JoinedCellDefinition>
+		implements JoinedCellContentInterface<ParentContentInterface<?, ?, ?>, JoinedCellDefinition> {
+
+	private static final long serialVersionUID = 3474501722301631948L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(JoinedCellContent.class);
+
+	public JoinedCellContent(ParentContentInterface<?, ?, ?> parent, JoinedCellDefinition definition) {
+		super(parent, definition);
+	}
+
+	/**
+	 * {@inheritDoc} 結合している単一セルは取得した値がないため無視をする対象とします。
+	 */
+	@Override
+	public Object getRawValuesImpl() {
+		// 値は無視してもらう
+		return SpecificValue.UNDEFINED;
+	}
+
+	/**
+	 * {@inheritDoc} シートのキー情報でシート同士をひも付け、相手シートの値を取得します。
+	 */
+	@Override
+	public Object getValuesImpl() {
+		DefinitionInterface<?> myKeyDefinition = definition.getMyKeyDefinition();
+		DefinitionInterface<?> keyDefinition = definition.getKeyDefinition();
+		DefinitionInterface<?> valueDefinition = definition.getValueDefinition();
+
+		// 相手シートを取得
+		List<SheetContent> sheetContents = this.getSheets(myKeyDefinition, keyDefinition);
+		if (sheetContents.isEmpty()) {
+			LOGGER.warn("結合先シートが存在しないため結合しません：" + keyDefinition.getFullId());
+			return null;
+		}
+		if (sheetContents.size() != 1) {
+			throw new ContentException("結合先シートを特定できません：" + keyDefinition.getFullId());
+		}
+		SheetContent sheetContent = sheetContents.get(0);
+
+		// 相手から取得する値を取得
+		ContentInterface<?, ?> valueContent = sheetContent.getCell(valueDefinition);
+		if (valueContent != null) {
+			return valueContent.getValues();
+		} else {
+			// ない場合もある
+			return null;
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int capture(Table<String> table) {
+		return 0;
+	}
+
 }

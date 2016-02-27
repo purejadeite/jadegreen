@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.BookDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.collection.Table;
 
 /**
@@ -13,7 +13,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class BookContent extends AbstractParentContent<NoContent<?>, SheetContent, BookDefinition> {
+public class BookContent extends AbstractParentContent<NoContentInterface<?>, SheetContent, BookDefinition> {
 
 	private static final long serialVersionUID = -1677962020788016225L;
 
@@ -75,7 +75,7 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 	 * @param sheetDefinition シート定義
 	 * @return シートコンテンツリスト
 	 */
-	public List<SheetContent> getSheets(Definition<?> sheetDefinition) {
+	public List<SheetContent> getSheets(DefinitionInterface<?> sheetDefinition) {
 		List<SheetContent> sheets = new ArrayList<>();
 		for (SheetContent sheet : children) {
 			if (sheet.getDefinition() == sheetDefinition) {
@@ -89,8 +89,8 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Content<?, ?>> getContents(Definition<?> definition) {
-		List<Content<?, ?>> contents = new ArrayList<>();
+	public List<ContentInterface<?, ?>> getContents(DefinitionInterface<?> definition) {
+		List<ContentInterface<?, ?>> contents = new ArrayList<>();
 		if (this.getDefinition() == definition) {
 			// 対象が自分だった場合
 			contents.add(this);
@@ -102,7 +102,7 @@ public class BookContent extends AbstractParentContent<NoContent<?>, SheetConten
 				contents.add(sheet);
 			} else {
 				// 対象がsheet配下のcellだった場合
-				Content<?, ?> content = sheet.getCell(definition);
+				ContentInterface<?, ?> content = sheet.getCell(definition);
 				if (content != null) {
 					contents.add(content);
 				}

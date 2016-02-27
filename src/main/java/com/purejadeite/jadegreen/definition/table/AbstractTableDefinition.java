@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.AbstractParentDefinition;
-import com.purejadeite.jadegreen.definition.Definition;
-import com.purejadeite.jadegreen.definition.ParentDefinition;
-import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
+import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
 import com.purejadeite.jadegreen.option.table.TableOptionManager;
 
 /**
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> extends AbstractParentDefinition<ParentDefinition<?,?>, C> implements TableDefinition<C> {
+abstract public class AbstractTableDefinition<C extends TableCellDefinitionInterface<?>> extends AbstractParentDefinition<ParentDefinitionInterface<?,?>, C> implements TableDefinitionInterface<C> {
 
 	private static final long serialVersionUID = -6138799003034104152L;
 
@@ -65,10 +65,10 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * @param config
 	 *            コンフィグ
 	 */
-	protected AbstractTableDefinition(ParentDefinition<?,?> parent, Map<String, Object> config) {
+	protected AbstractTableDefinition(ParentDefinitionInterface<?,?> parent, Map<String, Object> config) {
 		super(parent, config);
 		this.begin = getIntValue(config, getBeginId());
-		this.end = getIntValue(config, getEndId(), TableDefinition.UNLIMITED);
+		this.end = getIntValue(config, getEndId(), TableDefinitionInterface.UNLIMITED);
 		this.breakId = getString(config, CFG_BREAK_ID);
 		List<String> breakValue = getList(config, CFG_BREAK_VALUE);
 		if (breakValue == null) {
@@ -83,7 +83,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected void buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected void buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		this.options = TableOptionManager.build(definition, options);
 	}
 
@@ -158,7 +158,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 			child.setBreakValues(breakValues);
 		} else if (children.isEmpty()) {
 			// 先頭セルの場合
-			if (end == TableDefinition.UNLIMITED && breakId == null) {
+			if (end == TableDefinitionInterface.UNLIMITED && breakId == null) {
 				// 終了条件が設定されていない場合に、項目がnullになった時に終了
 				breakId = child.getId();
 				child.setBreakKey(true);
@@ -172,7 +172,7 @@ abstract public class AbstractTableDefinition<C extends TableCellDefinition<?>> 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public TableDefinition<?> getTable() {
+	public TableDefinitionInterface<?> getTable() {
 		return this;
 	}
 

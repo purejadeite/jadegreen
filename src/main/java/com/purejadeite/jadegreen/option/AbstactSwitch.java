@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.ConditionEvaluation;
 import com.purejadeite.util.SimpleValidator;
 
@@ -59,7 +59,7 @@ abstract public class AbstactSwitch extends AbstractOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public AbstactSwitch(Definition<?> definition, Map<String, Object> config) {
+	public AbstactSwitch(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 
@@ -81,7 +81,7 @@ abstract public class AbstactSwitch extends AbstractOption {
 		}
 	}
 
-	abstract protected Options buildOptions(Definition<?> definition, List<Map<String, Object>> options);
+	abstract protected Options buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options);
 
 	protected Options getOptions(Object value) {
 		for (Case c : cases) {

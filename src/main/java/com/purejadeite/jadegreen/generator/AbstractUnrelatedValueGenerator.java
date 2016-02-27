@@ -3,8 +3,8 @@ package com.purejadeite.jadegreen.generator;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * 値を生成する抽象クラス
@@ -22,7 +22,7 @@ abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedVal
 	 * @param cell
 	 *            値の取得元Cell読み込み定義
 	 */
-	public AbstractUnrelatedValueGenerator(Definition<?> definition) {
+	public AbstractUnrelatedValueGenerator(DefinitionInterface<?> definition) {
 		super(definition);
 	}
 
@@ -30,7 +30,7 @@ abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedVal
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object generate(Object value, Content<?, ?> content) {
+	public Object generate(Object value, ContentInterface<?, ?> content) {
 		if (value instanceof Collection) {
 			@SuppressWarnings("unchecked")
 			Collection<Object> values = (Collection<Object>) value;
@@ -44,6 +44,6 @@ abstract public class AbstractUnrelatedValueGenerator extends AbstractRelatedVal
 		}
 	}
 
-	abstract protected Object applyImpl(Object value, Content<?, ?> content);
+	abstract protected Object applyImpl(Object value, ContentInterface<?, ?> content);
 
 }

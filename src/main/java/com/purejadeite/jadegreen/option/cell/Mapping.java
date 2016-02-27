@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -19,9 +19,12 @@ public class Mapping extends AbstractCellOption {
 
 	protected static final String CFG_MAP = "map";
 
-	protected static final String CFG_LAZY = "lazy";
-
 	protected static final String CFG_DEFAULT = "default";
+
+	/**
+	 * defaultが未指定であることを表わす値
+	 */
+	protected static final String VALUE_UNDEFIND = new String();
 
 	/**
 	 * 必須項目名称
@@ -34,15 +37,6 @@ public class Mapping extends AbstractCellOption {
 	protected Map<String, String> map;
 
 	/**
-	 * <pre>
-	 * 変換先が無い場合の動作
-	 * true: 元の値を返す
-	 * false: nullを返す
-	 * </pre>
-	 */
-	protected boolean lazy;
-
-	/**
 	 * 条件に一致しなかった場合の値
 	 */
 	protected String dflt;
@@ -52,24 +46,23 @@ public class Mapping extends AbstractCellOption {
 	 * @param cell 値の取得元Cell読み込み定義
 	 * @param config コンバーターのコンフィグ
 	 */
-	public Mapping(Definition<?> definition, Map<String, Object> config) {
+	public Mapping(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		this.map = getMap(config, CFG_MAP);
-		this.lazy = getBooleanValue(config, CFG_LAZY);
-		this.dflt = getString(config, CFG_DEFAULT);
+		this.dflt = getString(config, CFG_DEFAULT, VALUE_UNDEFIND);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Object applyImpl(Object value, Content<?, ?> content) {
+	public Object applyImpl(Object value, ContentInterface<?, ?> content) {
 		Object mappedValue = null;
 		if (map.containsKey(value)) {
 			mappedValue = map.get(value);
 		} else {
-			if (lazy) {
+			if (dflt == VALUE_UNDEFIND) {
 				mappedValue = value;
 			} else {
 				mappedValue = dflt;
@@ -81,7 +74,6 @@ public class Mapping extends AbstractCellOption {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("map", this.map);
-		map.put("lazy", this.lazy);
 		map.put("dflt", this.dflt);
 		return map;
 	}

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.option.AbstractOption;
 
 /**
@@ -14,18 +14,18 @@ import com.purejadeite.jadegreen.option.AbstractOption;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractBookOption extends AbstractOption implements BookOption, Serializable {
+abstract public class AbstractBookOption extends AbstractOption implements BookOptionInterface, Serializable {
 
 	/**
 	 * コンストラクタ
 	 */
-	public AbstractBookOption(Definition<?> definition) {
+	public AbstractBookOption(DefinitionInterface<?> definition) {
 		super(definition);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object values, Content<?, ?> content) {
+	public Object apply(Object values, ContentInterface<?, ?> content) {
 		if (values == SpecificValue.UNDEFINED) {
 			return values;
 		}
@@ -39,7 +39,7 @@ abstract public class AbstractBookOption extends AbstractOption implements BookO
 	 *            変換前のテーブル
 	 * @return 変換後のテーブル
 	 */
-	abstract protected Object applyImpl(List<Map<String, Object>> values, Content<?, ?> content);
+	abstract protected Object applyImpl(List<Map<String, Object>> values, ContentInterface<?, ?> content);
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();

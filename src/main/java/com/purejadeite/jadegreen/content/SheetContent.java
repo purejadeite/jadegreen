@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.definition.SheetDefinition;
  *
  * @author mitsuhiroseino
  */
-public class SheetContent extends AbstractParentContent<BookContent, Content<?, ?>, SheetDefinition> {
+public class SheetContent extends AbstractParentContent<BookContent, ContentInterface<?, ?>, SheetDefinition> {
 
 	private static final long serialVersionUID = -6579860061499426256L;
 
@@ -43,7 +43,7 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 	@Override
 	public Object getRawValuesImpl() {
 		Map<String, Object> values = new HashMap<>();
-		for (Content<?, ?> content : children) {
+		for (ContentInterface<?, ?> content : children) {
 			values.put(content.getId(), content.getRawValues());
 		}
 		return values;
@@ -58,7 +58,7 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 			return SpecificValue.NO_OUTPUT;
 		}
 		Map<String, Object> values = new HashMap<>();
-		for (Content<?, ?> content : children) {
+		for (ContentInterface<?, ?> content : children) {
 			Object vals = content.getValues();
 			if (vals != SpecificValue.NO_OUTPUT) {
 				values.put(content.getId(), vals);
@@ -79,7 +79,7 @@ public class SheetContent extends AbstractParentContent<BookContent, Content<?, 
 		Map<String, Object> map = super.toMap();
 		map.put("sheetName", sheetName);
 		List<Map<String, Object>> contentMaps = new ArrayList<>();
-		for (Content<?, ?> content : children) {
+		for (ContentInterface<?, ?> content : children) {
 			contentMaps.add(content.toMap());
 		}
 		map.put("contents", contentMaps);

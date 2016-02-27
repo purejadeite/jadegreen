@@ -11,14 +11,14 @@ import java.util.Map;
 
 import com.purejadeite.jadegreen.DefinitionException;
 import com.purejadeite.jadegreen.JadegreenException;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 
 /**
  * コンバーターインスタンスを生成するクラスです
  * @author mitsuhiroseino
  *
  */
-public class OptionManager<O extends Option> {
+public class OptionManager<O extends OptionInterface> {
 
 	/**
 	 * コンバーター
@@ -35,14 +35,14 @@ public class OptionManager<O extends Option> {
 		OPTIONS.put(clazz.getSimpleName().toLowerCase(), clazz);
 	}
 
-	public Options build(Definition<?> definition, List<Map<String, Object>> opts) {
+	public Options build(DefinitionInterface<?> definition, List<Map<String, Object>> opts) {
 		if (opts == null || opts.size() == 0) {
 			return null;
 		}
-		List<Option> options = new ArrayList<>();
-		Option option = null;
+		List<OptionInterface> options = new ArrayList<>();
+		OptionInterface option = null;
 		for (Map<String, Object> opt : opts) {
-			String type = getString(opt, Option.CFG_TYPE);
+			String type = getString(opt, OptionInterface.CFG_TYPE);
 			option = build(definition, type, opt);
 			if (option == null) {
 				throw new DefinitionException("type=" + type + ":optionsのclassが取得できません");
@@ -58,7 +58,7 @@ public class OptionManager<O extends Option> {
 	 * @param config コンバーターのコンフィグ
 	 * @return コンバーター
 	 */
-	public Option build(Definition<?> definition, String type, Map<String, Object> config) {
+	public OptionInterface build(DefinitionInterface<?> definition, String type, Map<String, Object> config) {
 		// クラスを取得
 		Class<? extends O> clazz = OPTIONS.get(type.toLowerCase());
 		if (clazz == null) {
@@ -67,7 +67,7 @@ public class OptionManager<O extends Option> {
 		// コンストラクタを取得
 		Constructor<? extends O> constructor;
 		try {
-			constructor = clazz.getConstructor(Definition.class, Map.class);
+			constructor = clazz.getConstructor(DefinitionInterface.class, Map.class);
 		} catch (NoSuchMethodException | SecurityException e) {
 			throw new JadegreenException("option id=" + definition + ",type = " + type + ":optionsのclassからコンストラクターを取得できません", e);
 		}

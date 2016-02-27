@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.content.ContentInterface;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.util.SimpleValidator;
 
 /**
@@ -38,7 +38,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Fixed(Definition<?> definition, Map<String, Object> config) {
+	public Fixed(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 		value = getString(config, CFG_VALUE);
@@ -48,7 +48,7 @@ public class Fixed extends AbstractUnrelatedValueGenerator {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object applyImpl(Object value, Content<?, ?> content) {
+	protected Object applyImpl(Object value, ContentInterface<?, ?> content) {
 		return this.value;
 	}
 

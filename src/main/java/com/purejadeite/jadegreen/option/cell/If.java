@@ -1,13 +1,12 @@
 package com.purejadeite.jadegreen.option.cell;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.option.AbstactIf;
 import com.purejadeite.jadegreen.option.Options;
 import com.purejadeite.util.SimpleValidator;
@@ -18,7 +17,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class If extends AbstactIf implements CellOption, Serializable {
+public class If extends AbstactIf implements CellOptionInterface, Serializable {
 
 	/**
 	 * 必須項目名称
@@ -31,29 +30,21 @@ public class If extends AbstactIf implements CellOption, Serializable {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public If(Definition<?> definition, Map<String, Object> config) {
+	public If(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition, config);
 		SimpleValidator.containsKey(config, CONFIG);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object cellValue, Content<?, ?> content) {
+	public Object apply(Object cellValue, ContentInterface<?, ?> content) {
 		if (cellValue == SpecificValue.UNDEFINED) {
 			return cellValue;
-		} else if (cellValue instanceof Iterable) {
-			Iterable<Object> values = (Iterable<Object>) cellValue;
-			List<Object> vals = new ArrayList<>();
-			for (Object v : values) {
-				vals.add(this.apply(v, content));
-			}
-			return vals;
 		} else {
 			return applyImpl(cellValue, content);
 		}
 	}
 
-	protected Object applyImpl(Object cellValue, Content<?, ?> content) {
+	protected Object applyImpl(Object cellValue, ContentInterface<?, ?> content) {
 		if (evaluate(cellValue)) {
 			return thenOptions.apply(cellValue, content);
 		} else {
@@ -75,7 +66,7 @@ public class If extends AbstactIf implements CellOption, Serializable {
 	}
 
 	@Override
-	protected Options buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected Options buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		return CellOptionManager.build(definition, options);
 	}
 

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.purejadeite.jadegreen.content.Content;
+import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.content.SpecificValue;
-import com.purejadeite.jadegreen.definition.Definition;
+import com.purejadeite.jadegreen.definition.DefinitionInterface;
 import com.purejadeite.jadegreen.option.AbstactIf;
 import com.purejadeite.jadegreen.option.Options;
 import com.purejadeite.util.SimpleValidator;
@@ -20,7 +20,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class If extends AbstactIf implements TableOption, Serializable {
+public class If extends AbstactIf implements TableOptionInterface, Serializable {
 
 	protected static final String CFG_KEY_ID = "keyId";
 
@@ -40,7 +40,7 @@ public class If extends AbstactIf implements TableOption, Serializable {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public If(Definition<?> definition, Map<String, Object> config) {
+	public If(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition, config);
 		SimpleValidator.containsKey(config, CONFIG);
 
@@ -57,14 +57,14 @@ public class If extends AbstactIf implements TableOption, Serializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object apply(Object tableValues, Content<?, ?> content) {
+	public Object apply(Object tableValues, ContentInterface<?, ?> content) {
 		if (tableValues == SpecificValue.UNDEFINED) {
 			return tableValues;
 		}
 		return applyImpl((List<Map<String, Object>>) tableValues, content);
 	}
 
-	protected Object applyImpl(List<Map<String, Object>> tableValues, Content<?, ?> content) {
+	protected Object applyImpl(List<Map<String, Object>> tableValues, ContentInterface<?, ?> content) {
 		List<Object> rows = new ArrayList<>();
 		for (Map<String, Object> row : tableValues) {
 			boolean result = true;
@@ -101,7 +101,7 @@ public class If extends AbstactIf implements TableOption, Serializable {
 	}
 
 	@Override
-	protected Options buildOptions(Definition<?> definition, List<Map<String, Object>> options) {
+	protected Options buildOptions(DefinitionInterface<?> definition, List<Map<String, Object>> options) {
 		return TableOptionManager.build(definition, options);
 	}
 
