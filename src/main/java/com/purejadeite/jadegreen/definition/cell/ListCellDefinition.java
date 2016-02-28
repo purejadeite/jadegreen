@@ -3,6 +3,7 @@ package com.purejadeite.jadegreen.definition.cell;
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -15,18 +16,24 @@ import com.purejadeite.util.collection.Table;
  * 値がListの単一セルの読み込み定義です
  * @author mitsuhiroseino
  */
-public class ListCellDefinition extends CellDefinition {
+public class ListCellDefinition extends AbstractListDefinition {
 
 	protected static final String CFG_SPLITTER = "splitter";
 
-	protected static final String CFG_ALWAYS = "always";
+	/**
+	 * 取得対象列
+	 */
+	protected int row = 0;
+
+	/**
+	 * 取得対象行
+	 */
+	protected int col = 0;
 
 	/**
 	 * 分割文字列
 	 */
 	protected String splitter;
-
-	protected boolean always;
 
 	/**
 	 * コンストラクタ
@@ -38,8 +45,9 @@ public class ListCellDefinition extends CellDefinition {
 	 */
 	public ListCellDefinition(SheetDefinition parent, Map<String, Object> config) {
 		super(parent, config);
-		this.splitter = getString(config, CFG_SPLITTER, "\n");
-		this.always = getBooleanValue(config, CFG_ALWAYS, true);
+		col = getIntValue(config, CFG_COLUMN);
+		row = getIntValue(config, CFG_ROW);
+		splitter = getString(config, CFG_SPLITTER, "\n");
 	}
 
 	public static boolean assess(Map<String, Object> config, ParentDefinitionInterface<?, ?> table) {
@@ -47,17 +55,13 @@ public class ListCellDefinition extends CellDefinition {
 	}
 
 	@Override
-	public Object capture(Table<String> table) {
+	public List<Object> capture(Table<String> table) {
 		String value = table.get(row - 1, col - 1);
 		if (value == null) {
 			return null;
 		}
-		String[] values = StringUtils.split(value, splitter);
-		if (values.length == 1 && !always) {
-			return value;
-		} else {
-			return Arrays.asList(values);
-		}
+		Object[] values = StringUtils.split(value, splitter);
+		return Arrays.asList(values);
 	}
 
 	/**
@@ -67,7 +71,6 @@ public class ListCellDefinition extends CellDefinition {
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("splitter", splitter);
-		map.put("always", always);
 		return map;
 	}
 

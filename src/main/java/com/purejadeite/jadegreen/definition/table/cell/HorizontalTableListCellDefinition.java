@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.table.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
@@ -34,6 +36,26 @@ public class HorizontalTableListCellDefinition extends AbstractTableListCellDefi
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		return map;
+	}
+
+	@Override
+	protected int toBeginRow(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return getIntValue(config, CFG_ROW);
+	}
+
+	@Override
+	protected int toEndRow(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return getIntValue(config, CFG_ROW);
+	}
+
+	@Override
+	protected int toBeginCol(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return parent.getBegin();
+	}
+
+	@Override
+	protected int toEndCol(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return parent.getEnd();
 	}
 
 }

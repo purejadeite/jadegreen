@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.definition.table.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
@@ -25,6 +27,26 @@ public class VerticalTableListCellDefinition extends AbstractTableListCellDefini
 
 	public static boolean assess(ParentDefinitionInterface<?, ?> table, Map<String, Object> config) {
 		return table != null && config.containsKey(CFG_COLUMN) && config.containsKey(CFG_SPLITTER);
+	}
+
+	@Override
+	protected int toBeginRow(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return parent.getBegin();
+	}
+
+	@Override
+	protected int toEndRow(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return parent.getEnd();
+	}
+
+	@Override
+	protected int toBeginCol(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return getIntValue(config, CFG_COLUMN);
+	}
+
+	@Override
+	protected int toEndCol(TableDefinitionInterface<?> parent, Map<String, Object> config) {
+		return getIntValue(config, CFG_COLUMN);
 	}
 
 	/**

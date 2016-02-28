@@ -1,11 +1,19 @@
 [
-	{
-		"values": {
-			"fileExistFlag": "ファイル有無フラグ",
-			"fileName": "ファイル名",
-			"fileNameJp": "ファイル名日本語",
-			"filePath": "ファイルパス",
-			"lines": "行情報"
-		}
-	}
+    {
+        "values": {
+            "fileExistFlag": "ファイル有無フラグ",
+            "fileName": null,
+            "fileNameJp": "ファイル名日本語",
+            "filePath": "ファイルパス",
+            "lines": "行情報",
+            "number1": 1,
+            "number2": 10.1,
+            "number3": -22.333,
+            "number4": 99999999999999999999,
+            "number5": 0,
+            "boolean1": true,
+            "boolean2": false,
+            "date": "2016/2/29"
+        }
+    }
 ]

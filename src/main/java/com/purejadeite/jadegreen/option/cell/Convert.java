@@ -1,5 +1,7 @@
 package com.purejadeite.jadegreen.option.cell;
 
+import static com.purejadeite.util.collection.RoughlyMapUtils.*;
+
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -15,6 +17,11 @@ import com.purejadeite.jadegreen.definition.DefinitionInterface;
  */
 public class Convert extends AbstractStringCellOption {
 
+	protected static final String CFG_NULL_VALUE = "nullValue";
+
+	protected String nullValue;
+
+
 	/**
 	 * コンストラクタ
 	 * @param cell 値の取得元Cell読み込み定義
@@ -22,6 +29,7 @@ public class Convert extends AbstractStringCellOption {
 	 */
 	public Convert(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
+		nullValue = getString(config, CFG_NULL_VALUE, null);
 	}
 
 	/**
@@ -29,7 +37,9 @@ public class Convert extends AbstractStringCellOption {
 	 */
 	@Override
 	public Object applyToString(String value, ContentInterface<?, ?> content) {
-		if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
+		if ((nullValue == null && value == null) || (nullValue != null && nullValue.equals(value))) {
+			return null;
+		} else  if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
 			return Boolean.valueOf(value);
 		} else if (NumberUtils.isNumber(value)) {
 			return new BigDecimal(value);

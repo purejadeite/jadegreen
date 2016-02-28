@@ -13,18 +13,14 @@ import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
  * 行方向の繰り返しを持つテーブル配下のCellをList形式で読み込む定義
  * @author mitsuhiroseino
  */
-public class AbstractTableListCellDefinition extends VerticalTableCellDefinition {
+abstract public class AbstractTableListCellDefinition extends AbstractTableCellDefinition<TableDefinitionInterface<?>> {
 
 	protected static final String CFG_SPLITTER = "splitter";
-
-	protected static final String CFG_ALWAYS = "always";
 
 	/**
 	 * 分割文字列
 	 */
 	protected String splitter;
-
-	protected boolean always;
 
 	/**
 	 * コンストラクタ
@@ -37,7 +33,6 @@ public class AbstractTableListCellDefinition extends VerticalTableCellDefinition
 	public AbstractTableListCellDefinition(TableDefinitionInterface<?> parent, Map<String, Object> config) {
 		super(parent, config);
 		this.splitter = getString(config, CFG_SPLITTER, "\n");
-		this.always = getBooleanValue(config, CFG_ALWAYS, true);
 	}
 
 	/**
@@ -50,11 +45,7 @@ public class AbstractTableListCellDefinition extends VerticalTableCellDefinition
 			return null;
 		}
 		String[] valueArray = StringUtils.split(value, splitter);
-		if (valueArray.length == 1 && !always) {
-			return value;
-		} else {
-			return Arrays.asList(valueArray);
-		}
+		return Arrays.asList(valueArray);
 	}
 
 	/**
@@ -91,7 +82,6 @@ public class AbstractTableListCellDefinition extends VerticalTableCellDefinition
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		map.put("splitter", splitter);
-		map.put("always", always);
 		return map;
 	}
 

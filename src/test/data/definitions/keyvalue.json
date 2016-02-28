@@ -9,7 +9,7 @@
 		        {"id": "values", "row": 2, "options": [{"type": "keyvalue", "keyId": "key", "valueId": "value"}],
 		            "columns": [
 		                {"id": "key", "column": 2},
-		                {"id": "value", "column": 3}
+		                {"id": "value", "column": 3, "option": {"type": "convert", "nullValue": "null"}}
 		            ]
 		        }
 		    ]

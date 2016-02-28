@@ -1,24 +1,22 @@
 package com.purejadeite.jadegreen.content;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.cell.CellDefinitionInterface;
 import com.purejadeite.util.collection.Table;
 
 /**
- * Listでセルの値を保持する抽象クラス
+ * Objectでセルの値を保持する抽象クラス
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractListValueContent<D extends CellDefinitionInterface<?, List<Object>>>
+abstract public class AbstractObjectValueContent<D extends CellDefinitionInterface<?, Object>>
 		extends AbstractContent<ParentContentInterface<?, ?, ?>, D>implements CellContentInterface<ParentContentInterface<?, ?, ?>, D> {
 
 	/**
 	 * セルの値
 	 */
-	protected List<Object> values;
+	protected Object value;
 
 	/**
 	 * コンストラクタ
@@ -28,9 +26,8 @@ abstract public class AbstractListValueContent<D extends CellDefinitionInterface
 	 * @param definition
 	 *            定義
 	 */
-	public AbstractListValueContent(ParentContentInterface<?, ?, ?> parent, D definition) {
+	public AbstractObjectValueContent(ParentContentInterface<?, ?, ?> parent, D definition) {
 		super(parent, definition);
-		values = new ArrayList<>();
 	}
 
 	/**
@@ -38,7 +35,7 @@ abstract public class AbstractListValueContent<D extends CellDefinitionInterface
 	 */
 	@Override
 	public Object getRawValuesImpl() {
-		return values;
+		return value;
 	}
 
 	/**
@@ -46,7 +43,7 @@ abstract public class AbstractListValueContent<D extends CellDefinitionInterface
 	 */
 	@Override
 	public Object getValuesImpl() {
-		return definition.applyOptions(values, this);
+		return definition.applyOptions(value, this);
 	}
 
 	/**
@@ -55,13 +52,13 @@ abstract public class AbstractListValueContent<D extends CellDefinitionInterface
 	@Override
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("values", values);
+		map.put("value", value);
 		return map;
 	}
 
 	@Override
 	public int capture(Table<String> table) {
-		values.addAll(getDefinition().capture(table));
+		value = getDefinition().capture(table);
 		return 1;
 	}
 
