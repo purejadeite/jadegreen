@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.purejadeite.jadegreen.DefinitionException;
+import com.purejadeite.jadegreen.definition.cell.AnchorCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.ListCellDefinition;
@@ -19,6 +20,7 @@ import com.purejadeite.jadegreen.definition.table.CategoryDefinitionInterface;
 import com.purejadeite.jadegreen.definition.table.HorizontalTableDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 import com.purejadeite.jadegreen.definition.table.VerticalTableDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.AnchorTableCellDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.HorizontalTableCellDefinitionImpl;
 import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
@@ -124,9 +126,12 @@ public class DefinitionBuilder {
 			ParentDefinitionInterface<?, ?> parent) {
 		DefinitionInterface<?> definition = null;
 
-		if (JoinedCellDefinition.assess(config, parent)) {
-			// 単独のJOINフィールドの場合
-			definition = new JoinedCellDefinition(sheet, config);
+		if (AnchorCellDefinition.assess(config, parent)) {
+			// アンカーの場合
+			definition = new AnchorCellDefinition(sheet, config);
+		} else if (JoinedCellDefinition.assess(config, parent)) {
+				// 単独のJOINフィールドの場合
+				definition = new JoinedCellDefinition(sheet, config);
 		} else if (LinkedDefinition.assess(config, parent)) {
 			// 単独の値フィールドの場合
 			definition = new LinkedDefinition(sheet, config);
@@ -226,11 +231,15 @@ public class DefinitionBuilder {
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
+	@SuppressWarnings("unchecked")
 	private static DefinitionInterface<?> createTableCell(Map<String, Object> config, SheetDefinition sheet,
 			ParentDefinitionInterface<?, ?> table) {
 		DefinitionInterface<?> definition = null;
 
-		if (JoinedTableCellDefinition.assess(config, table)) {
+		if (AnchorTableCellDefinition.assess(config, table)) {
+			// アンカーの場合
+			definition = new AnchorTableCellDefinition((TableDefinitionInterface<?>) table, config);
+		} else if (JoinedTableCellDefinition.assess(config, table)) {
 			// 親のあるJOINフィールドの場合
 			definition = new JoinedTableCellDefinition(sheet, (TableDefinitionInterface<?>) table, config);
 		} else if (TableValueDefinition.assess(config, table)) {

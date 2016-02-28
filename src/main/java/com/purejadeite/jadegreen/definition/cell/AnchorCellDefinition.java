@@ -1,18 +1,16 @@
-package com.purejadeite.jadegreen.definition.table.cell;
+package com.purejadeite.jadegreen.definition.cell;
 
-import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
-import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 import com.purejadeite.util.collection.Table;
 
 /**
- * オプションなどが値の作成先にする仮想Cellの定義です
+ * Optionの作った値の設定先になるCell
  *
  * @author mitsuhiroseino
  */
-public class AnchorTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractNoAdressTableCellDefinition<P, List<Object>> {
+public class AnchorCellDefinition extends AbstractNoAdressCellDefinition<ParentDefinitionInterface<?,?>, Object> {
 
 	/**
 	 * コンストラクタ
@@ -22,22 +20,12 @@ public class AnchorTableCellDefinition<P extends TableDefinitionInterface<?>> ex
 	 * @param config
 	 *            コンフィグ
 	 */
-	public AnchorTableCellDefinition(P parent, Map<String, Object> config) {
+	public AnchorCellDefinition(ParentDefinitionInterface<?,?> parent, Map<String, Object> config) {
 		super(parent, config);
 	}
 
 	public static boolean assess(Map<String, Object> config, ParentDefinitionInterface<?, ?> table) {
 		return (config.containsKey(CFG_ID) && config.size() == 1) || (config.containsKey(CFG_ID) && config.containsKey(CFG_NAME) && config.size() == 2);
-	}
-
-	@Override
-	public List<Object> capture(Table<String> table) {
-		return null;
-	}
-
-	@Override
-	public List<Object> capture(Table<String> table, int size) {
-		return null;
 	}
 
 	/**
@@ -47,6 +35,11 @@ public class AnchorTableCellDefinition<P extends TableDefinitionInterface<?>> ex
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
 		return map;
+	}
+
+	@Override
+	public Object capture(Table<String> table) {
+		return null;
 	}
 
 }

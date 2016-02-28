@@ -8,5 +8,4 @@ import com.purejadeite.jadegreen.option.OptionInterface;
  *
  */
 public interface TableOptionInterface extends OptionInterface {
-
 }

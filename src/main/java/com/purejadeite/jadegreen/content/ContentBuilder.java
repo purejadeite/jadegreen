@@ -103,7 +103,7 @@ public class ContentBuilder {
 			return new TableCellContent(parentContent, (TableValueDefinition<?>) definition);
 		} else if (definition instanceof AnchorTableCellDefinition) {
 			// ターゲットの場合
-			return new StaticTableCellContent(parentContent, (AnchorTableCellDefinition<?, ?>) definition);
+			return new StaticTableCellContent(parentContent, (AnchorTableCellDefinition<?>) definition);
 		} else if (definition instanceof TableCellDefinitionInterface) {
 			// セルの場合
 			return new TableCellContent(parentContent, (TableCellDefinitionInterface<?, ?>) definition);
