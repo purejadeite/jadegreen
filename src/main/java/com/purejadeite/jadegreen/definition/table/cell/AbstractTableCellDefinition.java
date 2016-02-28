@@ -13,8 +13,8 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractCellDefinition<P>
-		implements TableCellDefinitionInterface<P> {
+abstract public class AbstractTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractCellDefinition<P, List<Object>>
+		implements TableCellDefinitionInterface<P, List<Object>> {
 
 	private static final long serialVersionUID = -7367543678923800631L;
 
@@ -118,7 +118,7 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinitionInter
 	}
 
 	@Override
-	public Object capture(Table<String> table) {
+	public List<Object> capture(Table<String> table) {
 		List<Object> values = new ArrayList<>();
 		int beginX = beginCol - 1;
 		int endX = Math.min(endCol - 1, table.getColumnSize() - 1);
@@ -139,9 +139,8 @@ abstract public class AbstractTableCellDefinition<P extends TableDefinitionInter
 	}
 
 	@Override
-	public Object capture(Table<String> table, int size) {
-		@SuppressWarnings("unchecked")
-		List<Object> values = (List<Object>) capture(table);
+	public List<Object> capture(Table<String> table, int size) {
+		List<Object> values = capture(table);
 
 		if (getTable().getBreakId() == null) {
 			// 終了位置が指定されている場合(BreakIdが指定されていない場合)

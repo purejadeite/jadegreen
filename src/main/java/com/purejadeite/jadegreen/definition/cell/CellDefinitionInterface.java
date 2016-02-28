@@ -8,7 +8,7 @@ import com.purejadeite.util.collection.Table;
  * Cell読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface CellDefinitionInterface<P extends ParentDefinitionInterface<?, ?>> extends DefinitionInterface<P> {
+public interface CellDefinitionInterface<P extends ParentDefinitionInterface<?, ?>, V> extends DefinitionInterface<P> {
 
 	public static final int NO_ADDRESS = 0;
 
@@ -22,6 +22,11 @@ public interface CellDefinitionInterface<P extends ParentDefinitionInterface<?, 
 	 */
 	public static final String CFG_ROW = "row";
 
-	public Object capture(Table<String> table);
+	/**
+	 * テーブルから値を取得する
+	 * @param table
+	 * @return
+	 */
+	public V capture(Table<String> table);
 
 }

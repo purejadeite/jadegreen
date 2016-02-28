@@ -5,6 +5,7 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 import java.util.List;
 import java.util.Map;
 
+import com.purejadeite.jadegreen.definition.cell.AbstractCellDefinition;
 import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 import com.purejadeite.util.collection.LazyTable;
 import com.purejadeite.util.collection.Table;
@@ -13,7 +14,8 @@ import com.purejadeite.util.collection.Table;
  * 単一セルの繰り返し読み込み定義です
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableRangeDefinition<P extends TableDefinitionInterface<?>> extends AbstractTableCellDefinition<P> {
+abstract public class AbstractTableRangeDefinition<P extends TableDefinitionInterface<?>> extends AbstractCellDefinition<P, List<List<Object>>>
+	implements TableCellDefinitionInterface<P, List<List<Object>>> {
 
 	/**
 	 * 列数/行数の上限なし
@@ -24,6 +26,31 @@ abstract public class AbstractTableRangeDefinition<P extends TableDefinitionInte
 	 * 繰り返しの取得終了判定値
 	 */
 	public static final String CFG_BREAK_VALUE = "breakValue";
+
+	/**
+	 * 開始列
+	 */
+	protected int beginCol = 0;
+
+	/**
+	 * 終了列
+	 */
+	protected int endCol = 0;
+
+	/**
+	 * 開始行
+	 */
+	protected int beginRow = 0;
+
+	/**
+	 * 終了行
+	 */
+	protected int endRow = 0;
+
+	/**
+	 * 終了キー項目
+	 */
+	protected boolean breakKey = false;
 
 	/**
 	 * 終了行／列
@@ -45,7 +72,39 @@ abstract public class AbstractTableRangeDefinition<P extends TableDefinitionInte
 	 */
 	public AbstractTableRangeDefinition(P parent, Map<String, Object> config) {
 		super(parent, config);
+		beginCol = toBeginCol(parent, config);
+		endCol = toEndCol(parent, config);
+		beginRow = toBeginRow(parent, config);
+		endRow = toEndRow(parent, config);
 		breakValues = getAsList(config, CFG_BREAK_VALUE);
+	}
+
+	abstract protected int toBeginRow(P parent, Map<String, Object> config);
+
+	abstract protected int toEndRow(P parent, Map<String, Object> config);
+
+	abstract protected int toBeginCol(P parent, Map<String, Object> config);
+
+	abstract protected int toEndCol(P parent, Map<String, Object> config);
+
+	@Override
+	public void setBreakKey(boolean breakKey) {
+		this.breakKey = breakKey;
+	}
+
+	@Override
+	public void setBreakValues(List<String> breakValues) {
+		this.breakValues = breakValues;
+	}
+
+	@Override
+	public boolean isBreakKey() {
+		return breakKey;
+	}
+
+	@Override
+	public List<String> getBreakValues() {
+		return breakValues;
 	}
 
 	/**
@@ -58,7 +117,7 @@ abstract public class AbstractTableRangeDefinition<P extends TableDefinitionInte
 	}
 
 	@Override
-	public Object capture(Table<String> table) {
+	public List<List<Object>> capture(Table<String> table) {
 		Table<Object> values = new LazyTable<>();
 		int beginX = beginCol - 1;
 		int endX = Math.min(endCol - 1, table.getColumnSize() - 1);
@@ -92,13 +151,12 @@ abstract public class AbstractTableRangeDefinition<P extends TableDefinitionInte
 	}
 
 	@Override
-	public Object capture(Table<String> table, int size) {
-		@SuppressWarnings("unchecked")
-		List<Object> values = (List<Object>) capture(table);
+	public List<List<Object>> capture(Table<String> table, int size) {
+		List<List<Object>> values = capture(table);
 
 		if (getTable().getBreakId() == null) {
 			// 終了位置が指定されている場合(BreakIdが指定されていない場合)
-			return values.size();
+			return values;
 		}
 
 		// BreakIdが指定されている場合はsizeに合わせる

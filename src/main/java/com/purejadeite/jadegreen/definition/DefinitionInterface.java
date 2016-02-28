@@ -22,6 +22,11 @@ public interface DefinitionInterface<P extends ParentDefinitionInterface<?, ?>> 
 	public static final String CFG_ID = "id";
 
 	/**
+	 * 出力時の項目名
+	 */
+	public static final String CFG_NAME = "name";
+
+	/**
 	 * オプション
 	 */
 	public static final String[] CFG_OPTIONS = {"options", "option"};
@@ -39,6 +44,13 @@ public interface DefinitionInterface<P extends ParentDefinitionInterface<?, ?>> 
 	 * @return
 	 */
 	public String getFullId();
+
+	/**
+	 * 出力時の項目名を取得します
+	 *
+	 * @return
+	 */
+	public String getName();
 
 	/**
 	 * 親定義を取得します

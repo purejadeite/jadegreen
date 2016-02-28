@@ -31,6 +31,11 @@ abstract public class AbstractDefinition<P extends ParentDefinitionInterface<?, 
 	protected String id;
 
 	/**
+	 * 出力時の項目名
+	 */
+	protected String name;
+
+	/**
 	 * 親定義
 	 */
 	protected P parent;
@@ -58,7 +63,9 @@ abstract public class AbstractDefinition<P extends ParentDefinitionInterface<?, 
 		if (id == null) {
 			id = UUID.randomUUID().toString();
 		}
-		// オプションの元になる値は親が取得して、子がOptionsのインスタンスを作る
+		this.name = getString(config, CFG_NAME, id);
+
+		// オプションの元になる値をここで取得して、継承先でOptionsのインスタンスを作る
 		List<Map<String, Object>> opts = getAsList(config, CFG_OPTIONS);
 		buildOptions(this, opts);
 	}
@@ -92,6 +99,14 @@ abstract public class AbstractDefinition<P extends ParentDefinitionInterface<?, 
 			fullId = this.parent.getFullId() + "." + fullId;
 		}
 		return fullId;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getName() {
+		return name;
 	}
 
 	/**

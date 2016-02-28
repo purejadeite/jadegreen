@@ -65,19 +65,24 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	protected static final String[] CFG_KEY_IDS = { "keyId", "keyIds" };
 
 	/**
-	 * コンフィグ：join・相手先シートID
+	 * コンフィグ：シート間の関連
 	 */
-	protected static final String CFG_JOIN_SHEET_ID = "join.sheetId";
+	protected static final String CFG_RELATION = "relation";
 
 	/**
-	 * コンフィグ：join・相手先キーID
+	 * コンフィグ：シート間の関連・相手先シートID
 	 */
-	protected static final String CFG_JOIN_KEY_ID = "join.keyId";
+	protected static final String CFG_RELATION_SHEET_ID = "sheetId";
 
 	/**
-	 * コンフィグ：join・自身のキーID
+	 * コンフィグ：シート間の関連・相手先キーID
 	 */
-	protected static final String CFG_JOIN_MY_KEY_ID = "join.myKeyId";
+	protected static final String CFG_RELATION_KEY_ID = "keyId";
+
+	/**
+	 * コンフィグ：シート間の関連・自身のキーID
+	 */
+	protected static final String CFG_RELATION_MY_KEY_ID = "myKeyId";
 
 	/**
 	 * 集約
@@ -125,19 +130,19 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	protected List<String> keyIds;
 
 	/**
-	 * 結合先のシートのID
+	 * 関連するシートのID
 	 */
-	protected String joinSheetId;
+	protected String relationSheetId;
 
 	/**
-	 * 結合先のキーになる項目のID
+	 * 関連するシートのキーになる項目のID
 	 */
-	protected String joinKeyId;
+	protected String relationKeyId;
 
 	/**
 	 * 自身のシートのキーになる項目のID
 	 */
-	protected String joinMyKeyId;
+	protected String relationMyKeyId;
 
 	/**
 	 * データの統合を行うか
@@ -153,6 +158,9 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	 */
 	protected boolean output = false;
 
+	/**
+	 * 配下の全セル
+	 */
 	protected Map<String, DefinitionInterface<?>> cells = new HashMap<>();
 
 	/**
@@ -166,29 +174,35 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	public SheetDefinition(BookDefinition parent, Map<String, Object> config) {
 		super(parent, config);
 		SimpleValidator.containsKey(config, CONFIG);
+
 		Map<String, Object> cfg = new StringKeyNestedMap(config);
 		this.targetName = getString(cfg, CFG_TARGET_NAME);
-		this.targetCellRow = getIntValue(cfg, CFG_TARGET_CELL_ROW) - 1;
-		this.targetCellColumn = getIntValue(cfg, CFG_TARGET_CELL_COLUMN) - 1;
+		this.targetCellRow = getIntValue(cfg, CFG_TARGET_CELL_ROW);
+		this.targetCellColumn = getIntValue(cfg, CFG_TARGET_CELL_COLUMN);
 		this.targetCellValue = getString(cfg, CFG_TARGET_CELL_VALUE);
-		this.joinSheetId = getString(cfg, CFG_JOIN_SHEET_ID);
-		this.joinKeyId = getString(cfg, CFG_JOIN_KEY_ID);
-		this.joinMyKeyId = getString(cfg, CFG_JOIN_MY_KEY_ID);
+
+		Map<String, Object> relationCfg = getMap(config, CFG_RELATION);
+		if (relationCfg != null) {
+			this.relationSheetId = getString(relationCfg, CFG_RELATION_SHEET_ID);
+			this.relationKeyId = getString(relationCfg, CFG_RELATION_KEY_ID);
+			this.relationMyKeyId = getString(relationCfg, CFG_RELATION_MY_KEY_ID, relationKeyId);
+		}
+
 		this.union = getBooleanValue(cfg, CFG_UNION);
 		this.output = getBooleanValue(cfg, CFG_OUTPUT);
 		this.keyIds = getAsList(cfg, CFG_KEY_IDS);
 	}
 
-	public String getJoinSheetId() {
-		return joinSheetId;
+	public String getRelationSheetId() {
+		return relationSheetId;
 	}
 
-	public String getJoinKeyId() {
-		return joinKeyId;
+	public String getRelationKeyId() {
+		return relationKeyId;
 	}
 
-	public String getJoinMyKeyId() {
-		return joinMyKeyId;
+	public String getRelationMyKeyId() {
+		return relationMyKeyId;
 	}
 
 	/**
@@ -287,8 +301,8 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 				return false;
 			}
 		}
-		if (targetCellRow != -1 && targetCellColumn != -1) {
-			String value = table.get(targetCellRow, targetCellColumn);
+		if (targetCellRow != 0 && targetCellColumn != 0) {
+			String value = table.get(targetCellRow - 1, targetCellColumn - 1);
 			if (!StringUtils.equals(targetCellValue, value)) {
 				return false;
 			}

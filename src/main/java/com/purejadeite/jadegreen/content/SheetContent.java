@@ -44,7 +44,7 @@ public class SheetContent extends AbstractParentContent<BookContent, ContentInte
 	public Object getRawValuesImpl() {
 		Map<String, Object> values = new HashMap<>();
 		for (ContentInterface<?, ?> content : children) {
-			values.put(content.getId(), content.getRawValues());
+			values.put(content.getName(), content.getRawValues());
 		}
 		return values;
 	}
@@ -61,7 +61,7 @@ public class SheetContent extends AbstractParentContent<BookContent, ContentInte
 		for (ContentInterface<?, ?> content : children) {
 			Object vals = content.getValues();
 			if (vals != SpecificValue.NO_OUTPUT) {
-				values.put(content.getId(), vals);
+				values.put(content.getName(), vals);
 			}
 		}
 		return definition.applyOptions(values, this);

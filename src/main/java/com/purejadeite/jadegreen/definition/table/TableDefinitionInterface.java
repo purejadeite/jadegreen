@@ -10,7 +10,7 @@ import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterf
  *
  * @author mitsuhiroseino
  */
-public interface TableDefinitionInterface<C extends TableCellDefinitionInterface<?>> extends ParentDefinitionInterface<ParentDefinitionInterface<?, ?>, C> {
+public interface TableDefinitionInterface<C extends TableCellDefinitionInterface<?, ?>> extends ParentDefinitionInterface<ParentDefinitionInterface<?, ?>, C> {
 
 	/**
 	 * 列数/行数の上限なし

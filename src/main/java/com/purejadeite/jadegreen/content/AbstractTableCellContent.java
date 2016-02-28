@@ -12,7 +12,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableCellContent<D extends TableCellDefinitionInterface<?>>
+abstract public class AbstractTableCellContent<D extends TableCellDefinitionInterface<?, ?>>
 		extends AbstractContent<TableContentInterface, D>implements TableCellContentInterface<D> {
 
 	private static final long serialVersionUID = 1420210546938530625L;

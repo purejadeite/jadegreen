@@ -28,7 +28,7 @@ public class CategoryContent extends AbstractParentContent<ParentContentInterfac
 	public Object getRawValuesImpl() {
 		Map<String, Object> values = new LinkedHashMap<>();
 		for (ContentInterface<?, ?> cell : children) {
-			values.put(cell.getId(), cell.getRawValues());
+			values.put(cell.getName(), cell.getRawValues());
 		}
 		return values;
 	}
@@ -40,7 +40,7 @@ public class CategoryContent extends AbstractParentContent<ParentContentInterfac
 	public Object getValuesImpl() {
 		Map<String, Object> values = new LinkedHashMap<>();
 		for (ContentInterface<?, ?> cell : children) {
-			values.put(cell.getId(), cell.getValues());
+			values.put(cell.getName(), cell.getValues());
 		}
 		return definition.applyOptions(values, this);
 	}

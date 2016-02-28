@@ -12,7 +12,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractListValueContent<D extends CellDefinitionInterface<?>>
+abstract public class AbstractListValueContent<D extends CellDefinitionInterface<?, ?>>
 		extends AbstractContent<ParentContentInterface<?, ?, ?>, D>implements CellContentInterface<ParentContentInterface<?, ?, ?>, D> {
 
 	/**

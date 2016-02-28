@@ -29,6 +29,12 @@ public interface ContentInterface<P extends ContentInterface<?, ?>, D extends De
 	public String getFullId();
 
 	/**
+	 * 項目名を取得します
+	 * @return 項目名
+	 */
+	public String getName();
+
+	/**
 	 * 定義を取得します
 	 * @return 定義
 	 */

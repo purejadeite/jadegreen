@@ -94,6 +94,14 @@ abstract public class AbstractContent<P extends ContentInterface<?, ?>, D extend
 	 * {@inheritDoc}
 	 */
 	@Override
+	public String getName() {
+		return definition.getName();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public D getDefinition() {
 		return definition;
 	}

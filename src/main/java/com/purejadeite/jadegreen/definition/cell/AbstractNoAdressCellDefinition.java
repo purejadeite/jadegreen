@@ -11,7 +11,7 @@ import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinitionInterface<?, ?>> extends AbstractCellDefinition<P> {
+abstract public class AbstractNoAdressCellDefinition<P extends ParentDefinitionInterface<?, ?>, V> extends AbstractCellDefinition<P, V> {
 
 	private static final long serialVersionUID = 5276446229482797364L;
 

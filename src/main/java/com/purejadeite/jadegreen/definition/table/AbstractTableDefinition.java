@@ -16,7 +16,7 @@ import com.purejadeite.jadegreen.option.table.TableOptionManager;
  * テーブル形式の範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractTableDefinition<C extends TableCellDefinitionInterface<?>> extends AbstractParentDefinition<ParentDefinitionInterface<?,?>, C> implements TableDefinitionInterface<C> {
+abstract public class AbstractTableDefinition<C extends TableCellDefinitionInterface<?, ?>> extends AbstractParentDefinition<ParentDefinitionInterface<?,?>, C> implements TableDefinitionInterface<C> {
 
 	private static final long serialVersionUID = -6138799003034104152L;
 

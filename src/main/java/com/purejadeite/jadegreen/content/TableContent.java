@@ -87,7 +87,7 @@ public class TableContent extends
 					record = values.get(i);
 				}
 				if (!SpecificValue.UNDEFINED.equals(val)) {
-					record.put(cell.getId(), val);
+					record.put(cell.getName(), val);
 				}
 			}
 		}

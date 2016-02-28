@@ -17,8 +17,8 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class JoinedCellDefinition extends AbstractNoAdressCellDefinition<ParentDefinitionInterface<?,?>>
-		implements JoinedCellDefinitionInterface<ParentDefinitionInterface<?,?>> {
+public class JoinedCellDefinition extends AbstractNoAdressCellDefinition<ParentDefinitionInterface<?,?>, Object>
+		implements JoinedCellDefinitionInterface<ParentDefinitionInterface<?,?>, Object> {
 
 	private static final long serialVersionUID = -6688614988181481927L;
 
@@ -62,11 +62,11 @@ public class JoinedCellDefinition extends AbstractNoAdressCellDefinition<ParentD
 
 		SheetDefinition sheet = parent.getSheet();
 		// 相手シートのID
-		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
+		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getRelationSheetId());
 		// 相手シートのキー項目のID
-		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getJoinKeyId());
+		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getRelationKeyId());
 		// 自身のシートのキー項目のID
-		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getJoinMyKeyId(), keyId);
+		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getRelationMyKeyId(), keyId);
 		// 相手シートから取得する項目のID
 		valueId = ObjectUtils.firstNonNull(joinConfig.get(CFG_VALUE_ID), id);
 	}

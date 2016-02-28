@@ -10,7 +10,7 @@ import com.purejadeite.util.collection.Table;
  * 一覧形式子要素のセル読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface TableCellDefinitionInterface<P extends TableDefinitionInterface<?>> extends CellDefinitionInterface<P> {
+public interface TableCellDefinitionInterface<P extends TableDefinitionInterface<?>, V> extends CellDefinitionInterface<P, V> {
 
 	public void setBreakKey(boolean breakKey);
 
@@ -20,7 +20,7 @@ public interface TableCellDefinitionInterface<P extends TableDefinitionInterface
 
 	public List<String> getBreakValues();
 
-	public Object capture(Table<String> table, int size);
+	public V capture(Table<String> table, int size);
 
 
 }

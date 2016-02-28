@@ -98,24 +98,18 @@
             }
         ],
         "imports": [
-            [
-                "java.io.Serializable2",
-                "java.util.List2",
-                "java.util.ArrayList2",
-                "com.purejadeite.generated.LineBean2"
-            ],
-            [
-                "java.io.Serializable1",
-                "java.util.List1",
-                "java.util.ArrayList1",
-                "com.purejadeite.generated.LineBean1"
-            ],
-            [
-                "java.io.Serializable3",
-                "java.util.List3",
-                "java.util.ArrayList3",
-                "com.purejadeite.generated.LineBean3"
-            ]
+            "java.io.Serializable2",
+            "java.util.List2",
+            "java.util.ArrayList2",
+            "com.purejadeite.generated.LineBean2",
+            "java.io.Serializable1",
+            "java.util.List1",
+            "java.util.ArrayList1",
+            "com.purejadeite.generated.LineBean1",
+            "java.io.Serializable3",
+            "java.util.List3",
+            "java.util.ArrayList3",
+            "com.purejadeite.generated.LineBean3"
         ],
         "lang": "ja",
         "logicalClassName": [

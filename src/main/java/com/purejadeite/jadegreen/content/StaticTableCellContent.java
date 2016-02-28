@@ -9,14 +9,14 @@ import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterf
  * Tableの構成要素となるCellコンテンツ
  * @author mitsuhiroseino
  */
-public class StaticTableCellContent extends AbstractTableCellContent<TableCellDefinitionInterface<?>> {
+public class StaticTableCellContent extends AbstractTableCellContent<TableCellDefinitionInterface<?, ?>> {
 
 	/**
 	 * コンストラクタ
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public StaticTableCellContent(TableContentInterface parent, TableCellDefinitionInterface<?> definition) {
+	public StaticTableCellContent(TableContentInterface parent, TableCellDefinitionInterface<?, ?> definition) {
 		super(parent, definition);
 	}
 

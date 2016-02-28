@@ -10,7 +10,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class AnchorTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractNoAdressTableCellDefinition<P> {
+public class AnchorTableCellDefinition<P extends TableDefinitionInterface<?>, V> extends AbstractNoAdressTableCellDefinition<P, V> {
 
 	/**
 	 * コンストラクタ
@@ -38,12 +38,12 @@ public class AnchorTableCellDefinition<P extends TableDefinitionInterface<?>> ex
 	}
 
 	@Override
-	public Object capture(Table<String> table) {
+	public V capture(Table<String> table) {
 		return null;
 	}
 
 	@Override
-	public Object capture(Table<String> table, int size) {
+	public V capture(Table<String> table, int size) {
 		return null;
 	}
 

@@ -16,7 +16,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class TableValueDefinition<P extends TableDefinitionInterface<?>> extends AbstractNoAdressTableCellDefinition<P> {
+public class TableValueDefinition<P extends TableDefinitionInterface<?>> extends AbstractNoAdressTableCellDefinition<P, List<Object>> {
 
 	private static final long serialVersionUID = 960962162579025353L;
 
@@ -60,12 +60,12 @@ public class TableValueDefinition<P extends TableDefinitionInterface<?>> extends
 	}
 
 	@Override
-	public Object capture(Table<String> table) {
+	public List<Object> capture(Table<String> table) {
 		return null;
 	}
 
 	@Override
-	public Object capture(Table<String> table, int size) {
+	public List<Object> capture(Table<String> table, int size) {
 		List<Object> values = new ArrayList<>();
 		while(values.size() < size) {
 			values.add(value);

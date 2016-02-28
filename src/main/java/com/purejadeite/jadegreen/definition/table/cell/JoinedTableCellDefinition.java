@@ -2,6 +2,7 @@ package com.purejadeite.jadegreen.definition.table.cell;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -19,7 +20,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-public class JoinedTableCellDefinition extends AbstractNoAdressTableCellDefinition<TableDefinitionInterface<?>> implements JoinedCellDefinitionInterface<TableDefinitionInterface<?>> {
+public class JoinedTableCellDefinition extends AbstractNoAdressTableCellDefinition<TableDefinitionInterface<?>, List<Object>> implements JoinedCellDefinitionInterface<TableDefinitionInterface<?>, List<Object>> {
 
 	private static final long serialVersionUID = 2442986614257910095L;
 
@@ -77,11 +78,11 @@ public class JoinedTableCellDefinition extends AbstractNoAdressTableCellDefiniti
 		Map<String, String> joinConfig = getMap(config, CFG_JOIN);
 		SimpleValidator.containsKey(joinConfig, CONFIG);
 		// 相手シートのID
-		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getJoinSheetId());
+		sheetId = ObjectUtils.firstNonNull(joinConfig.get(CFG_SHEET_ID), sheet.getRelationSheetId());
 		// 相手シートのキー項目のID
-		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getJoinKeyId());
+		keyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_KEY_ID), sheet.getRelationKeyId());
 		// 自身のシートのキー項目のID
-		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getJoinMyKeyId(), keyId);
+		myKeyId = ObjectUtils.firstNonNull(joinConfig.get(CFG_MY_KEY_ID), sheet.getRelationMyKeyId(), keyId);
 		// 相手シートのテーブルのキー項目のID
 		tableKeyId = joinConfig.get(CFG_TABLE_KEY_ID);
 		// 自身のシートのテーブルのキー項目のID
@@ -157,12 +158,12 @@ public class JoinedTableCellDefinition extends AbstractNoAdressTableCellDefiniti
 	}
 
 	@Override
-	public Object capture(Table<String> table) {
+	public List<Object> capture(Table<String> table) {
 		return null;
 	}
 
 	@Override
-	public Object capture(Table<String> table, int size) {
+	public List<Object> capture(Table<String> table, int size) {
 		return null;
 	}
 

@@ -7,7 +7,7 @@ import com.purejadeite.jadegreen.definition.ParentDefinitionInterface;
  * 単一セルの結合定義です
  * @author mitsuhiroseino
  */
-public interface JoinedCellDefinitionInterface<P extends ParentDefinitionInterface<?, ?>> extends CellDefinitionInterface<P> {
+public interface JoinedCellDefinitionInterface<P extends ParentDefinitionInterface<?, ?>, V> extends CellDefinitionInterface<P, V> {
 
 	/**
 	 * セルの結合

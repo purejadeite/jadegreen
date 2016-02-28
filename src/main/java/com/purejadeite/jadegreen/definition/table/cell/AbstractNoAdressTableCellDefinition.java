@@ -10,7 +10,7 @@ import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
  * Tableの構成要素となるCell読み込み定義
  * @author mitsuhiroseino
  */
-abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinitionInterface<?>> extends AbstractNoAdressCellDefinition<P> implements TableCellDefinitionInterface<P> {
+abstract public class AbstractNoAdressTableCellDefinition<P extends TableDefinitionInterface<?>, V> extends AbstractNoAdressCellDefinition<P, V> implements TableCellDefinitionInterface<P, V> {
 
 	private static final long serialVersionUID = -3632667088280645598L;
 

@@ -116,42 +116,45 @@ public class DefinitionBuilder {
 	 *            Cellひとつ分の定義
 	 * @param sheet
 	 *            シート読み込み定義
-	 * @param table
+	 * @param parent
 	 *            複数Cell定義
 	 * @return Cellまたは複数Cell読み込み定義
 	 */
 	private static DefinitionInterface<?> createCell(Map<String, Object> config, SheetDefinition sheet,
-			ParentDefinitionInterface<?, ?> table) {
+			ParentDefinitionInterface<?, ?> parent) {
 		DefinitionInterface<?> definition = null;
 
-		if (JoinedCellDefinition.assess(config, table)) {
+		if (JoinedCellDefinition.assess(config, parent)) {
 			// 単独のJOINフィールドの場合
 			definition = new JoinedCellDefinition(sheet, config);
-		} else if (ValueDefinition.assess(config, table)) {
+		} else if (LinkedDefinition.assess(config, parent)) {
+			// 単独の値フィールドの場合
+			definition = new LinkedDefinition(sheet, config);
+		} else if (ValueDefinition.assess(config, parent)) {
 			// 単独の値フィールドの場合
 			definition = new ValueDefinition(sheet, config);
-		} else if (ListCellDefinition.assess(config, table)) {
+		} else if (ListCellDefinition.assess(config, parent)) {
 			// セルの値を分割する場合
 			definition = new ListCellDefinition(sheet, config);
-		} else if (CategoryDefinition.assess(config, table)) {
+		} else if (CategoryDefinition.assess(config, parent)) {
 			// 配下に単独のセルを持っているの場合
 			CategoryDefinitionInterface<?> cate = new CategoryDefinition(sheet, config);
 			List<Map<String, Object>> columns = getList(config, CategoryDefinition.CFG_CELLS);
 			cate.addChildren(createCells(columns, sheet, (ParentDefinitionInterface<?, ?>) cate));
 			definition = cate;
-		} else if (VerticalTableDefinition.assess(config, table)) {
+		} else if (VerticalTableDefinition.assess(config, parent)) {
 			// 行方向の繰り返しの場合
 			TableDefinitionInterface<?> tbl = new VerticalTableDefinition(sheet, config);
 			List<Map<String, Object>> columns = getList(config, VerticalTableDefinition.CFG_COLUMNS);
 			tbl.addChildren(createTableCells(columns, sheet, tbl));
 			definition = tbl;
-		} else if (HorizontalTableDefinition.assess(config, table)) {
+		} else if (HorizontalTableDefinition.assess(config, parent)) {
 			// 列方向の繰り返しの場合
 			TableDefinitionInterface<?> tbl = new HorizontalTableDefinition(sheet, config);
 			List<Map<String, Object>> rows = getList(config, HorizontalTableDefinition.CFG_ROWS);
 			tbl.addChildren(createTableCells(rows, sheet, tbl));
 			definition = tbl;
-		} else if (CellDefinition.assess(config, table)) {
+		} else if (CellDefinition.assess(config, parent)) {
 			// 単独のフィールドの場合
 			definition = new CellDefinition(sheet, config);
 		}
@@ -197,13 +200,13 @@ public class DefinitionBuilder {
 	 *            table定義
 	 * @return セルの定義リスト
 	 */
-	private static List<TableCellDefinitionInterface<?>> createTableCells(List<Map<String, Object>> cells, SheetDefinition sheet,
+	private static List<TableCellDefinitionInterface<?, ?>> createTableCells(List<Map<String, Object>> cells, SheetDefinition sheet,
 			ParentDefinitionInterface<?, ?> table) {
-		List<TableCellDefinitionInterface<?>> definitions = new ArrayList<>();
+		List<TableCellDefinitionInterface<?, ?>> definitions = new ArrayList<>();
 		for (Map<String, Object> cell : cells) {
 			DefinitionInterface<?> child = createTableCell(cell, sheet, table);
 			if (child instanceof TableCellDefinitionInterface) {
-				definitions.add((TableCellDefinitionInterface<?>) child);
+				definitions.add((TableCellDefinitionInterface<?, ?>) child);
 			} else {
 				throw new DefinitionException("table=" + table.getFullId() + "&illegal child=" + child.getFullId()
 						+ ":tableの子要素にはcellを定義してください");

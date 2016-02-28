@@ -17,7 +17,7 @@ public class UnionCellContent extends CellContent {
 	 * @param parent 親コンテンツ
 	 * @param definition 定義
 	 */
-	public UnionCellContent(ParentContentInterface<?, ?, ?> parent, CellDefinitionInterface<?> definition) {
+	public UnionCellContent(ParentContentInterface<?, ?, ?> parent, CellDefinitionInterface<?, ?> definition) {
 		super(parent, definition);
 	}
 

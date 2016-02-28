@@ -68,6 +68,11 @@ public class SxssfMapperTest {
 		test("chain");
 	}
 
+	@Test
+	public void link() throws Exception {
+		test("link");
+	}
+
 	@Test(expected = ContentException.class)
 	public void ununiquecelljoin() throws Exception {
 		test("ununiquecelljoin");

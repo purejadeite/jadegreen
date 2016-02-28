@@ -15,8 +15,8 @@ import com.purejadeite.jadegreen.option.cell.CellOptionManager;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractCellDefinition<P extends ParentDefinitionInterface<?, ?>> extends AbstractDefinition<P>
-		implements CellDefinitionInterface<P> {
+abstract public class AbstractCellDefinition<P extends ParentDefinitionInterface<?, ?>, V> extends AbstractDefinition<P>
+		implements CellDefinitionInterface<P, V> {
 
 	private static final long serialVersionUID = -1364121835461648806L;
 

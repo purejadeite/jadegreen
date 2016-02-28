@@ -7,7 +7,7 @@ import com.purejadeite.util.collection.Table;
  * 一覧形式子要素のセル読み込み定義のインターフェイス
  * @author mitsuhiroseino
  */
-public interface TableCellContentInterface<D extends TableCellDefinitionInterface<?>> extends CellContentInterface<TableContentInterface, D> {
+public interface TableCellContentInterface<D extends TableCellDefinitionInterface<?, ?>> extends CellContentInterface<TableContentInterface, D> {
 
 	/**
 	 * 取得した件数を得します

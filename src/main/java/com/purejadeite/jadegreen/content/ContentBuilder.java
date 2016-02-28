@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.purejadeite.jadegreen.definition.BookDefinition;
 import com.purejadeite.jadegreen.definition.DefinitionInterface;
+import com.purejadeite.jadegreen.definition.LinkedDefinition;
 import com.purejadeite.jadegreen.definition.SheetDefinition;
 import com.purejadeite.jadegreen.definition.UnionSheetDefinition;
-import com.purejadeite.jadegreen.definition.cell.CellDefinitionInterface;
 import com.purejadeite.jadegreen.definition.cell.CellDefinition;
+import com.purejadeite.jadegreen.definition.cell.CellDefinitionInterface;
 import com.purejadeite.jadegreen.definition.cell.JoinedCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.ListCellDefinition;
 import com.purejadeite.jadegreen.definition.cell.ValueDefinition;
@@ -56,21 +57,24 @@ public class ContentBuilder {
 		if (definition instanceof JoinedCellDefinition) {
 			// 単独セルの結合の場合
 			return  new JoinedCellContent(parentContent, (JoinedCellDefinition) definition);
+		} else if (definition instanceof LinkedDefinition) {
+			// リンクの場合
+			return new LinkedContent(parentContent, (LinkedDefinition) definition);
 		} else if (definition instanceof ListCellDefinition) {
 			// セルの値を分割する場合
 			return new ListCellContent(parentContent, (ListCellDefinition) definition);
+		} else if (definition instanceof ValueDefinition) {
+			// 単独固定値の場合
+			return new CellContent(parentContent, (CellDefinitionInterface<?, ?>) definition);
 		} else if (definition instanceof CellDefinition) {
 			// 単独セルの場合
 			if (parentContent.getDefinition().getSheet() instanceof UnionSheetDefinition) {
 				// 集約する場合
-				return new UnionCellContent(parentContent, (CellDefinitionInterface<?>) definition);
+				return new UnionCellContent(parentContent, (CellDefinitionInterface<?, ?>) definition);
 			} else {
 				// 集約しない場合
-				return new CellContent(parentContent, (CellDefinitionInterface<?>) definition);
+				return new CellContent(parentContent, (CellDefinitionInterface<?, ?>) definition);
 			}
-		} else if (definition instanceof ValueDefinition) {
-			// 単独固定値の場合
-			return new CellContent(parentContent, (CellDefinitionInterface<?>) definition);
 		} else if (definition instanceof CategoryDefinitionInterface) {
 			// 範囲の場合
 			CategoryContentInterface categoryContent = new CategoryContent(parentContent, (CategoryDefinitionInterface<?>) definition);
@@ -99,10 +103,10 @@ public class ContentBuilder {
 			return new TableCellContent(parentContent, (TableValueDefinition<?>) definition);
 		} else if (definition instanceof AnchorTableCellDefinition) {
 			// ターゲットの場合
-			return new StaticTableCellContent(parentContent, (AnchorTableCellDefinition<?>) definition);
+			return new StaticTableCellContent(parentContent, (AnchorTableCellDefinition<?, ?>) definition);
 		} else if (definition instanceof TableCellDefinitionInterface) {
 			// セルの場合
-			return new TableCellContent(parentContent, (TableCellDefinitionInterface<?>) definition);
+			return new TableCellContent(parentContent, (TableCellDefinitionInterface<?, ?>) definition);
 		}
 		return null;
 	}

@@ -10,7 +10,7 @@ import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterf
  * 列方向の繰り返し範囲の情報を保持するクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-public class HorizontalTableDefinition extends AbstractTableDefinition<TableCellDefinitionInterface<?>> {
+public class HorizontalTableDefinition extends AbstractTableDefinition<TableCellDefinitionInterface<?, ?>> {
 
 	private static final long serialVersionUID = -1028109893285661849L;
 

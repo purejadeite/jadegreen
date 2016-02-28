@@ -13,7 +13,7 @@ import com.purejadeite.jadegreen.option.table.TableOptionManager;
  * テーブル形式のアドレスの無いクラスの抽象クラスです
  * @author mitsuhiroseino
  */
-abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefinitionInterface<?>> extends AbstractParentDefinition<ParentDefinitionInterface<?, ?>, C> implements TableDefinitionInterface<C> {
+abstract public class AbstractNoAddressTableDefinition<C extends TableCellDefinitionInterface<?, ?>> extends AbstractParentDefinition<ParentDefinitionInterface<?, ?>, C> implements TableDefinitionInterface<C> {
 
 	/**
 	 * コンストラクタ

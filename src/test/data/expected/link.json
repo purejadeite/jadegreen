@@ -1,0 +1,121 @@
+[
+    {
+        "className": "Sample",
+		"logicalClassName": "シート間の結合",
+		"package": "com.purejadeite.generated",
+        "imports": [
+		    "java.io.Serializable",
+		    "java.util.List",
+		    "java.util.ArrayList",
+		    "com.purejadeite.generated.LineBean"
+		],
+        "fields": [
+            {
+                "fieldName": "fileExistFlag",
+                "initial": "Boolean.TRUE",
+                "logicalFieldName": "ファイル有無フラグ",
+                "method": "FileExistFlag",
+                "static": "FILE_EXIST_FLAG",
+                "type": "Boolean"
+            },
+            {
+                "fieldName": "fileName",
+                "initial": "null",
+                "logicalFieldName": "ファイル名",
+                "method": "FileName",
+                "static": "FILE_NAME",
+                "type": "String"
+            },
+            {
+                "fieldName": "fileNameJp",
+                "initial": "null",
+                "logicalFieldName": "ファイル名日本語",
+                "method": "FileNameJp",
+                "static": "FILE_NAME_JP",
+                "type": "String"
+            },
+            {
+                "fieldName": "filePath",
+                "initial": null,
+                "logicalFieldName": "ファイルパス",
+                "method": "FilePath",
+                "static": "FILE_PATH",
+                "type": "String"
+            },
+            {
+                "fieldName": "lines",
+                "initial": "new ArrayList<>()",
+                "logicalFieldName": "行情報",
+                "method": "Lines",
+                "static": "LINES",
+                "type": "List<LineBean>"
+            }
+        ],
+		"logicalClassNameValid": "シート間の結合(結合先)",
+        "validators": [
+            {
+                "arg0": null,
+                "arg1": null,
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "filePath",
+                "logicalFieldName": "ファイルパス",
+                "validationType": "NotNull"
+            },
+            {
+                "arg0": "2",
+                "arg1": "10",
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "filePath",
+                "logicalFieldName": "ファイルパス",
+                "validationType": "length"
+            },
+            {
+                "arg0": null,
+                "arg1": null,
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "fileName",
+                "logicalFieldName": "ファイル名",
+                "validationType": "NotNull"
+            },
+            {
+                "arg0": null,
+                "arg1": null,
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "fileExistFlag",
+                "logicalFieldName": "ファイル有無フラグ",
+                "validationType": "NotNull"
+            },
+            {
+                "arg0": null,
+                "arg1": null,
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "lines",
+                "logicalFieldName": "行情報",
+                "validationType": "NotNull"
+            },
+            {
+                "arg0": "100",
+                "arg1": null,
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "lines",
+                "logicalFieldName": "行情報",
+                "validationType": "maxlength"
+            },
+            {
+                "arg0": null,
+                "arg1": null,
+                "arg2": null,
+                "arg3": null,
+                "fieldName": "lines",
+                "logicalFieldName": "行情報",
+                "validationType": "kana"
+            }
+        ]
+    }
+]

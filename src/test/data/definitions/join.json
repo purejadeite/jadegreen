@@ -8,7 +8,7 @@
 			"target": {
 			    "name": "bean"
 			},
-		    "join": {
+		    "relation": {
 		    	"sheetId": "sub",
 		    	"keyId": "className"
 		    },

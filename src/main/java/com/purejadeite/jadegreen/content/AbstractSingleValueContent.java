@@ -10,7 +10,7 @@ import com.purejadeite.util.collection.Table;
  *
  * @author mitsuhiroseino
  */
-abstract public class AbstractSingleValueContent<D extends CellDefinitionInterface<?>>
+abstract public class AbstractSingleValueContent<D extends CellDefinitionInterface<?, ?>>
 		extends AbstractContent<ParentContentInterface<?, ?, ?>, D>implements CellContentInterface<ParentContentInterface<?, ?, ?>, D> {
 
 	private static final long serialVersionUID = 8565694667933995117L;
