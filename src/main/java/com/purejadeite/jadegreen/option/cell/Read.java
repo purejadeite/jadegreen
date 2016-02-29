@@ -35,7 +35,7 @@ public class Read extends AbstractCellOption {
 	/**
 	 * デフォルトの読み込みファイル
 	 */
-	protected String file;
+	protected String defaultFilePath;
 
 	/**
 	 * 読み込みファイルマップ
@@ -53,7 +53,7 @@ public class Read extends AbstractCellOption {
 	public Read(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
-		this.file = getString(config, CFG_DEFAULT);
+		this.defaultFilePath = getString(config, CFG_DEFAULT);
 		this.map = getMap(config, CFG_MAP);
 	}
 
@@ -67,7 +67,7 @@ public class Read extends AbstractCellOption {
 			filePath = map.get(value);
 		}
 		if (filePath == null) {
-			filePath = file;
+			filePath = defaultFilePath;
 		}
 		if (filePath != null) {
 			try {
@@ -81,7 +81,7 @@ public class Read extends AbstractCellOption {
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> map = super.toMap();
-		map.put("file", this.file);
+		map.put("file", this.defaultFilePath);
 		map.put("map", this.map);
 		return map;
 	}

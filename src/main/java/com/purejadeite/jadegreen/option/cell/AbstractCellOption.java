@@ -34,7 +34,7 @@ abstract public class AbstractCellOption extends AbstractOption implements CellO
 		if (value == SpecificValue.UNDEFINED) {
 			return value;
 		} else if (value instanceof Iterable) {
-			if (this instanceof ListCellOption) {
+			if (this instanceof ListCellOptionInterface) {
 				// List形式の値を処理するオプションの場合は、そのまま渡す
 				return applyImpl(value, content);
 			} else {

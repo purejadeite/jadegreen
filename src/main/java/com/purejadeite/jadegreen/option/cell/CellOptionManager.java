@@ -14,7 +14,22 @@ public class CellOptionManager {
 
 	static {
 		manager = new OptionManager<>();
+		manager.register(AddValue.class);
+		manager.register(Append.class);
+		manager.register(ByteLength.class);
+		manager.register(Convert.class);
+		manager.register(First.class);
 		manager.register(If.class);
+		manager.register(Last.class);
+		manager.register(Length.class);
+		manager.register(Lower.class);
+		manager.register(LowerCamel.class);
+		manager.register(LowerHyphen.class);
+		manager.register(LowerUnderscore.class);
+		manager.register(Mapping.class);
+		manager.register(Read.class);
+		manager.register(Remove.class);
+		manager.register(Replace.class);
 		manager.register(Switch.class);
 		manager.register(ToBigDecimal.class);
 		manager.register(ToBoolean.class);
@@ -23,26 +38,14 @@ public class CellOptionManager {
 		manager.register(ToFloat.class);
 		manager.register(ToInteger.class);
 		manager.register(ToLong.class);
+		manager.register(ToNull.class);
 		manager.register(ToShort.class);
 		manager.register(ToString.class);
 		manager.register(ToStringDate.class);
-		manager.register(ToNull.class);
-		manager.register(Lower.class);
+		manager.register(Unique.class);
 		manager.register(Upper.class);
-		manager.register(LowerCamel.class);
-		manager.register(LowerHyphen.class);
-		manager.register(LowerUnderscore.class);
 		manager.register(UpperCamel.class);
 		manager.register(UpperUnderscore.class);
-		manager.register(Mapping.class);
-		manager.register(Replace.class);
-		manager.register(Length.class);
-		manager.register(ByteLength.class);
-		manager.register(Remove.class);
-		manager.register(AddValue.class);
-		manager.register(Convert.class);
-		manager.register(First.class);
-		manager.register(Last.class);
 	}
 
 	public static void register(Class<? extends CellOptionInterface> clazz) {

@@ -22,10 +22,12 @@ import com.purejadeite.jadegreen.definition.table.TableDefinitionInterface;
 import com.purejadeite.jadegreen.definition.table.VerticalTableDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.AnchorTableCellDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.HorizontalTableCellDefinitionImpl;
+import com.purejadeite.jadegreen.definition.table.cell.HorizontalTableListCellDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.JoinedTableCellDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.TableCellDefinitionInterface;
 import com.purejadeite.jadegreen.definition.table.cell.TableValueDefinition;
 import com.purejadeite.jadegreen.definition.table.cell.VerticalTableCellDefinition;
+import com.purejadeite.jadegreen.definition.table.cell.VerticalTableListCellDefinition;
 
 /**
  * 定義情報を生成するクラスです
@@ -245,6 +247,12 @@ public class DefinitionBuilder {
 		} else if (TableValueDefinition.assess(config, table)) {
 			// 親のある値フィールドの場合
 			definition = new TableValueDefinition<TableDefinitionInterface<?>>((TableDefinitionInterface<?>) table, config);
+		} else if (VerticalTableListCellDefinition.assess(config, table)) {
+			// 親が行方向の繰り返しの場合
+			definition = new VerticalTableListCellDefinition((TableDefinitionInterface<?>) table, config);
+		} else if (HorizontalTableListCellDefinition.assess(config, table)) {
+			// 親が列方向の繰り返しの場合
+			definition = new HorizontalTableListCellDefinition((TableDefinitionInterface<?>) table, config);
 		} else if (VerticalTableCellDefinition.assess(config, table)) {
 			// 親が行方向の繰り返しの場合
 			definition = new VerticalTableCellDefinition((TableDefinitionInterface<?>) table, config);

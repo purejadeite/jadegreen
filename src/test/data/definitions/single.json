@@ -17,7 +17,7 @@
 		        {"id": "fields", "row": 8, "breakId": "fieldName", "options": [{"type": "sort", "keyId": "fieldName"}],
 		            "columns": [
 		                {"id": "fieldLang", "value": "en"},
-		                {"id": "logicalFieldName", "column": 2},
+		                {"id": "logicalFieldName", "column": 2, "splitter": "\n"},
 		                {"id": "fieldName", "column": 3},
 		                {"id": "type", "column": 4},
 		                {"id": "initial", "column": 5}

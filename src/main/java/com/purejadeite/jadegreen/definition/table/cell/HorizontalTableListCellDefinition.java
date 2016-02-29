@@ -25,7 +25,7 @@ public class HorizontalTableListCellDefinition extends AbstractTableListCellDefi
 		super(parent, config);
 	}
 
-	public static boolean assess(ParentDefinitionInterface<?, ?> table, Map<String, Object> config) {
+	public static boolean assess(Map<String, Object> config, ParentDefinitionInterface<?, ?> table) {
 		return table != null && config.containsKey(CFG_ROW) && config.containsKey(CFG_SPLITTER);
 	}
 

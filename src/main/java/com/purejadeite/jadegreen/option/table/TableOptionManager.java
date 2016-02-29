@@ -20,15 +20,15 @@ public class TableOptionManager {
 	static {
 		// マネージャーの初期化処理
 		manager = new OptionManager<>();
-		manager.register(If.class);
-		manager.register(Group.class);
-		manager.register(Sort.class);
-		manager.register(Unique.class);
-		manager.register(Exclude.class);
-		manager.register(ReplaceId.class);
-		manager.register(KeyValue.class);
 		manager.register(Chain.class);
 		manager.register(Follow.class);
+		manager.register(Group.class);
+		manager.register(If.class);
+		manager.register(KeyValue.class);
+		manager.register(Remove.class);
+		manager.register(ReplaceId.class);
+		manager.register(Sort.class);
+		manager.register(Unique.class);
 	}
 
 	public static void register(Class<? extends TableOptionInterface> clazz) {

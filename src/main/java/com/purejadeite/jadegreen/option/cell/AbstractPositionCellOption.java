@@ -23,7 +23,7 @@ abstract public class AbstractPositionCellOption extends AbstractStringCellOptio
 	/**
 	 * 必須項目名称
 	 */
-	private static final String[] CONFIG = { CFG_SPLITTER };
+	private static final String[] CONFIG = {};
 
 	/**
 	 * 区切り文字

@@ -5,5 +5,5 @@ package com.purejadeite.jadegreen.option.cell;
  * @author mitsuhiroseino
  *
  */
-public interface ListCellOption extends CellOptionInterface {
+public interface ListCellOptionInterface extends CellOptionInterface {
 }

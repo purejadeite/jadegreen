@@ -19,7 +19,17 @@ public class Convert extends AbstractStringCellOption {
 
 	protected static final String CFG_NULL_VALUE = "nullValue";
 
+	protected static final String CFG_EMPTY_VALUE = "emptyValue";
+
+	/**
+	 * nullとして扱う文字列
+	 */
 	protected String nullValue;
+
+	/**
+	 * 空文字として扱う文字列
+	 */
+	protected String emptyValue;
 
 
 	/**
@@ -29,7 +39,8 @@ public class Convert extends AbstractStringCellOption {
 	 */
 	public Convert(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
-		nullValue = getString(config, CFG_NULL_VALUE, null);
+		nullValue = getString(config, CFG_NULL_VALUE, "null");
+		emptyValue = getString(config, CFG_EMPTY_VALUE, null);
 	}
 
 	/**
@@ -39,6 +50,8 @@ public class Convert extends AbstractStringCellOption {
 	public Object applyToString(String value, ContentInterface<?, ?> content) {
 		if ((nullValue == null && value == null) || (nullValue != null && nullValue.equals(value))) {
 			return null;
+		} else if ((emptyValue == null && value == null) || (emptyValue != null && emptyValue.equals(value))) {
+				return "";
 		} else  if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
 			return Boolean.valueOf(value);
 		} else if (NumberUtils.isNumber(value)) {

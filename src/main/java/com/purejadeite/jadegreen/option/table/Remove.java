@@ -17,7 +17,7 @@ import com.purejadeite.util.SimpleValidator;
  * @author mitsuhiroseino
  *
  */
-public class Exclude extends AbstractTableOption {
+public class Remove extends AbstractTableOption {
 
 	private static final long serialVersionUID = -7665794968023216952L;
 
@@ -53,7 +53,7 @@ public class Exclude extends AbstractTableOption {
 	 * @param config
 	 *            コンバーターのコンフィグ
 	 */
-	public Exclude(DefinitionInterface<?> definition, Map<String, Object> config) {
+	public Remove(DefinitionInterface<?> definition, Map<String, Object> config) {
 		super(definition);
 		SimpleValidator.containsKey(config, CONFIG);
 

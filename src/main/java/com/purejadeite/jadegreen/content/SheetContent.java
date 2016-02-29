@@ -52,6 +52,7 @@ public class SheetContent extends AbstractParentContent<BookContent, ContentInte
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getValuesImpl() {
 		if (!this.getDefinition().isOutput()) {
@@ -64,7 +65,13 @@ public class SheetContent extends AbstractParentContent<BookContent, ContentInte
 				values.put(content.getName(), vals);
 			}
 		}
-		return definition.applyOptions(values, this);
+		Object valuesObj = definition.applyOptions(values, this);
+		String rootId = definition.getRootId();
+		if (valuesObj instanceof Map && rootId != null) {
+			return ((Map<String, Object>) valuesObj).get(rootId);
+		} else {
+			return valuesObj;
+		}
 	}
 
 	public String getSheetName() {

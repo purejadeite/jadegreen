@@ -90,6 +90,11 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	protected static final String CFG_UNION = "union";
 
 	/**
+	 * ルート
+	 */
+	protected static final String CFG_ROOT_ID = "rootId";
+
+	/**
 	 * 出力
 	 */
 	protected static final String CFG_OUTPUT = "output";
@@ -150,6 +155,11 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 	protected boolean union;
 
 	/**
+	 * ルートになる項目のID
+	 */
+	protected String rootId;
+
+	/**
 	 * <pre>
 	 * データの出力を行うか
 	 * true: 行う
@@ -191,6 +201,7 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 		this.union = getBooleanValue(cfg, CFG_UNION);
 		this.output = getBooleanValue(cfg, CFG_OUTPUT);
 		this.keyIds = getAsList(cfg, CFG_KEY_IDS);
+		this.rootId = getString(cfg, CFG_ROOT_ID);
 	}
 
 	public String getRelationSheetId() {
@@ -203,6 +214,10 @@ public class SheetDefinition extends AbstractParentDefinition<BookDefinition, De
 
 	public String getRelationMyKeyId() {
 		return relationMyKeyId;
+	}
+
+	public String getRootId() {
+		return rootId;
 	}
 
 	/**

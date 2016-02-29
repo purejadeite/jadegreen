@@ -2,15 +2,11 @@ package com.purejadeite.jadegreen.option.cell;
 
 import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.purejadeite.jadegreen.content.ContentInterface;
-import com.purejadeite.jadegreen.content.SpecificValue;
 import com.purejadeite.jadegreen.definition.DefinitionInterface;
-import com.purejadeite.jadegreen.option.AbstractOption;
 
 /**
  * 値を追加するクラス
@@ -18,7 +14,7 @@ import com.purejadeite.jadegreen.option.AbstractOption;
  * @author mitsuhiroseino
  *
  */
-public class AddValue extends AbstractOption implements ListCellOption, Serializable {
+public class AddValue extends AbstractListCellOption {
 
 	protected static final String CFG_UNIQUE = "unique";
 
@@ -28,6 +24,10 @@ public class AddValue extends AbstractOption implements ListCellOption, Serializ
 	 * 一意
 	 */
 	protected boolean unique;
+
+	/**
+	 * 追加する値
+	 */
 	protected String value;
 
 	/**
@@ -44,18 +44,7 @@ public class AddValue extends AbstractOption implements ListCellOption, Serializ
 		this.value = getString(config, CFG_VALUE);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Object apply(Object value, ContentInterface<?, ?> content) {
-		if (value == SpecificValue.UNDEFINED) {
-			return value;
-		}
-		List<Object> values = null;
-		if (value instanceof List) {
-			values = (List<Object>) value;
-		} else {
-			values = new ArrayList<>();
-			values.add(value);
-		}
+	public Object applyImpl(List<Object> values, ContentInterface<?, ?> content) {
 		if (!unique || !values.contains(this.value)) {
 			values.add(this.value);
 		}
