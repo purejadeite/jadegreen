@@ -4,8 +4,8 @@ import static com.purejadeite.util.collection.RoughlyMapUtils.*;
 
 import java.math.BigDecimal;
 import java.util.Map;
-
-import org.apache.commons.lang3.math.NumberUtils;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.purejadeite.jadegreen.content.ContentInterface;
 import com.purejadeite.jadegreen.definition.DefinitionInterface;
@@ -16,6 +16,8 @@ import com.purejadeite.jadegreen.definition.DefinitionInterface;
  *
  */
 public class Convert extends AbstractStringCellOption {
+
+	private static final Pattern RE = Pattern.compile("^((0)|((-|)(0\\.[0-9]*[1-9])|((-|)[1-9][0-9]*(\\.[0-9]*[1-9])?)))$");
 
 	protected static final String CFG_NULL_VALUE = "nullValue";
 
@@ -54,11 +56,15 @@ public class Convert extends AbstractStringCellOption {
 				return "";
 		} else  if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
 			return Boolean.valueOf(value);
-		} else if (NumberUtils.isNumber(value)) {
+		} else if (isNumber(value)) {
 			return new BigDecimal(value);
 		} else {
 			return value;
 		}
-	}
 
+	}
+	private boolean isNumber(String value) {
+		Matcher matcher = RE.matcher(value);
+		return matcher.find();
+	}
 }

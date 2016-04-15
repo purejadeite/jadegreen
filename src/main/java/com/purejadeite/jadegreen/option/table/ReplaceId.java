@@ -76,7 +76,7 @@ public class ReplaceId extends AbstractTableOption {
 						if (replacedId == null) {
 							// nullの場合は削除
 							modefied.remove(replacedId);
-						} else {
+						} else if (modefied.containsKey(orgId)) {
 							// idがある場合はidを差し替え
 							modefied.put(replacedId, modefied.remove(orgId));
 						}
